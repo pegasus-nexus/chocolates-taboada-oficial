@@ -1,0 +1,209 @@
+---
+---
+<section class="products" id="productos">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Línea Premium</span>
+      <h2>Elige tu detalle favorito</h2>
+      <p>El verdadero cacao seleccionado a mano, transformado en piezas de colección para los paladares más exigentes.</p>
+    </div>
+
+    <div class="products-grid">
+      <article class="product-card">
+        <div class="product-img">
+          <div class="product-box">Caja Rosada<br/>Corazones</div>
+        </div>
+        <h3>Caja Rosada Corazones</h3>
+        <p>Una selección fina de bombones de chocolate para expresar tus sentimientos.</p>
+        <a class="card-action" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20la%20Caja%20Rosada%20Corazones" target="_blank" rel="noopener">Quiero este chocolate →</a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-img gold">
+          <div class="product-box">Caja Surtida<br/>Rellenos</div>
+        </div>
+        <h3>Caja de Rellenos Surtidos</h3>
+        <p>Una selección especial para sorprender con sabor, presentación y emoción.</p>
+        <a class="card-action" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20la%20Caja%20Surtida%20de%20Rellenos" target="_blank" rel="noopener">Quiero este chocolate →</a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-img choco">
+          <div class="product-box">Detalle<br/>Premium</div>
+        </div>
+        <h3>Estuche de Chocolates Premium</h3>
+        <p>Un detalle sofisticado para regalar en cualquier momento u ocasión especial.</p>
+        <a class="card-action" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20el%20Estuche%20de%20Chocolates%20Premium" target="_blank" rel="noopener">Quiero este chocolate →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 92px 20px;
+  }
+
+  .products {
+    background:
+      radial-gradient(circle at 80% 20%, rgba(217, 123, 168, 0.22), transparent 26%),
+      linear-gradient(180deg, #F9E7EF 0%, #FFF8FA 100%);
+  }
+
+  .container {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+  }
+
+  .section-head {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 48px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    font-size: 0.76rem;
+    color: var(--rose-wine);
+    justify-content: center;
+    width: 100%;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 1px;
+    background: var(--rose-wine);
+  }
+
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    line-height: 0.96;
+    font-size: clamp(2.35rem, 5vw, 4.7rem);
+    color: var(--berry-dark);
+    letter-spacing: -0.045em;
+  }
+
+  .section-head p {
+    margin: 18px auto 0;
+    font-size: 1.06rem;
+    line-height: 1.75;
+    color: rgba(42, 22, 18, 0.74);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .product-card {
+    border: 1px solid rgba(122, 30, 77, 0.12);
+    background: rgba(255, 248, 250, 0.72);
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 20px 55px rgba(122, 30, 77, 0.10);
+    backdrop-filter: blur(14px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 70px rgba(122, 30, 77, 0.16);
+  }
+
+  .product-img {
+    height: 250px;
+    border-radius: 24px;
+    margin-bottom: 22px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.7), transparent 28%),
+      linear-gradient(145deg, #F6D5E5, #C75C91 58%, #7A1E4D);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 18px 42px rgba(122, 30, 77, 0.18);
+  }
+
+  .product-img.gold {
+    background:
+      radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.72), transparent 26%),
+      linear-gradient(145deg, #FFF2C5, #D4AF37 54%, #7A4F10);
+  }
+
+  .product-img.choco {
+    background:
+      radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.28), transparent 26%),
+      linear-gradient(145deg, #7A1E4D, #4B0F2F 48%, #2A1612);
+  }
+
+  .product-box {
+    width: 170px;
+    height: 128px;
+    border-radius: 24px;
+    background: rgba(255, 248, 250, 0.32);
+    border: 1px solid rgba(255,255,255,0.42);
+    box-shadow: 0 26px 50px rgba(42, 22, 18, 0.26);
+    display: grid;
+    place-items: center;
+    font-family: 'Playfair Display', serif;
+    color: #FFF8FA;
+    font-weight: 800;
+    text-align: center;
+    padding: 18px;
+    line-height: 1.02;
+  }
+
+  .product-card h3 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    color: var(--berry-dark);
+    font-size: 1.42rem;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .product-card p {
+    color: rgba(42, 22, 18, 0.72);
+    line-height: 1.68;
+    margin: 12px 0 0;
+    font-size: 0.98rem;
+  }
+
+  .card-action {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--rose-wine);
+    font-weight: 800;
+    transition: gap 0.2s ease;
+  }
+
+  .card-action:hover {
+    gap: 12px;
+  }
+
+  @media (max-width: 980px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .products-grid {
+      gap: 18px;
+    }
+    .product-img {
+      height: 220px;
+    }
+  }
+</style>

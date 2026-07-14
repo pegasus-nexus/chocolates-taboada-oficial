@@ -1,0 +1,90 @@
+---
+---
+<section class="cta-strip" id="comprar">
+  <div class="cta-box">
+    <h2>Resuelve el regalo con elegancia</h2>
+    <p>Disfruta del verdadero sabor del chocolate boliviano de calidad premium.</p>
+    <a class="btn btn-gold" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Chocolates%20Taboada" target="_blank" rel="noopener">Realizar Pedido →</a>
+  </div>
+</section>
+
+<style>
+  .cta-strip {
+    padding: 82px 20px;
+    background: linear-gradient(180deg, #FFF8FA 0%, #F6D5E5 100%);
+    text-align: center;
+  }
+
+  .cta-box {
+    max-width: 940px;
+    margin: 0 auto;
+    border-radius: 42px;
+    padding: clamp(32px, 6vw, 70px);
+    background:
+      radial-gradient(circle at 18% 16%, rgba(212, 175, 55, 0.20), transparent 25%),
+      linear-gradient(135deg, #FFF8FA, #F4CADC);
+    box-shadow: 0 30px 90px rgba(122, 30, 77, 0.14);
+    border: 1px solid rgba(122, 30, 77, 0.10);
+  }
+
+  .cta-box h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--berry-dark);
+    font-size: clamp(2.35rem, 5vw, 4.5rem);
+    letter-spacing: -0.045em;
+    line-height: 0.96;
+    margin: 0;
+  }
+
+  .cta-box p {
+    max-width: 620px;
+    margin: 18px auto 28px;
+    color: rgba(42, 22, 18, 0.72);
+    line-height: 1.72;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    text-decoration: none;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), #F6D983 48%, var(--champagne));
+    color: #3A1A08;
+    box-shadow: 0 18px 42px rgba(212, 175, 55, 0.34), inset 0 1px 0 rgba(255,255,255,0.55);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-gold::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.55) 45%, transparent 70%);
+    transform: translateX(-130%);
+    animation: shimmer 4.6s ease-in-out infinite;
+  }
+
+  .btn:hover { transform: translateY(-3px); filter: brightness(1.04); }
+  .btn-gold:hover { box-shadow: 0 24px 58px rgba(212, 175, 55, 0.44); }
+
+  @media (max-width: 640px) {
+    .cta-box {
+      padding: 32px 20px;
+      border-radius: 26px;
+    }
+    .cta-box .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,329 @@
+---
+---
+<header class="hero">
+  <div class="floating-particles" aria-hidden="true">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
+
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Producto 100% Nacional</span>
+      <h1>El verdadero chocolate boliviano</h1>
+      <p>Conoce el verdadero Chocolate Boliviano, hecho en Bolivia desde la primera hasta la última etapa. Tradición y calidad premium en cada detalle.</p>
+      <div class="cta-row">
+        <a class="btn btn-gold" href="#productos">Descúbrelo aquí →</a>
+        <a class="btn border border-warm-white/35 bg-warm-white/12 hover:bg-warm-white/20 text-warm-white" href="/beneficios">Canjear Beneficios</a>
+        <span class="trust-note">Auténtico sabor y tradición boliviana desde 1903.</span>
+      </div>
+    </div>
+
+    <div class="product-stage" aria-label="Producto protagonista">
+      <div class="product-glow" aria-hidden="true"></div>
+      <div class="hero-card-product">
+        <div class="mock-product">
+          <div>
+            <div class="product-name">Taboada<br/>Premium</div>
+            <div class="product-sub">El verdadero chocolate boliviano hecho tradición.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">Desliza para sentir el regalo</div>
+</header>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    align-items: center;
+    padding: 32px 20px 72px;
+    background:
+      radial-gradient(circle at 55% 42%, rgba(217, 123, 168, 0.55), transparent 30%),
+      radial-gradient(circle at 80% 15%, rgba(212, 175, 55, 0.28), transparent 24%),
+      linear-gradient(135deg, var(--berry-dark) 0%, var(--rose-wine) 58%, #A93F70 100%);
+    color: var(--warm-white);
+    isolation: isolate;
+  }
+
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .hero::before {
+    width: 420px;
+    height: 420px;
+    right: -130px;
+    top: -80px;
+    background: radial-gradient(circle, rgba(246, 213, 229, 0.38), transparent 68%);
+    filter: blur(8px);
+    animation: breathe 8s ease-in-out infinite;
+  }
+
+  .hero::after {
+    width: 520px;
+    height: 220px;
+    right: -170px;
+    top: 74px;
+    background: linear-gradient(135deg, rgba(42, 22, 18, 0.78), rgba(122, 30, 77, 0.20));
+    filter: blur(22px);
+    transform: rotate(-24deg);
+    opacity: 0.85;
+  }
+
+  .floating-particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0.9;
+  }
+
+  .particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.78);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+    animation: float 11s ease-in-out infinite;
+  }
+
+  .particle:nth-child(1) { top: 18%; left: 8%; animation-delay: 0s; }
+  .particle:nth-child(2) { top: 28%; left: 82%; animation-delay: 1s; width: 4px; height: 4px; }
+  .particle:nth-child(3) { top: 62%; left: 72%; animation-delay: 2s; }
+  .particle:nth-child(4) { top: 78%; left: 18%; animation-delay: 3s; width: 4px; height: 4px; }
+  .particle:nth-child(5) { top: 46%; left: 44%; animation-delay: 4s; width: 5px; height: 5px; }
+
+  .container {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: 56px;
+    align-items: center;
+    padding-top: 72px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    color: var(--champagne);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    font-size: 0.76rem;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 1px;
+    background: var(--champagne);
+    box-shadow: 0 0 18px var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    line-height: 0.96;
+    font-size: clamp(3.45rem, 9vw, 7.7rem);
+    letter-spacing: -0.055em;
+    max-width: 780px;
+    text-shadow: 0 18px 48px rgba(42, 22, 18, 0.42);
+  }
+
+  .hero-copy p {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    line-height: 1.72;
+    max-width: 560px;
+    color: rgba(255, 248, 250, 0.88);
+    margin: 28px 0 34px;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), #F6D983 48%, var(--champagne));
+    color: #3A1A08;
+    box-shadow: 0 18px 42px rgba(212, 175, 55, 0.34), inset 0 1px 0 rgba(255,255,255,0.55);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-gold::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.55) 45%, transparent 70%);
+    transform: translateX(-130%);
+    animation: shimmer 4.6s ease-in-out infinite;
+  }
+
+  .btn:hover { transform: translateY(-3px); filter: brightness(1.04); }
+  .btn-gold:hover { box-shadow: 0 24px 58px rgba(212, 175, 55, 0.44); }
+
+  .trust-note {
+    font-size: 0.92rem;
+    color: rgba(255, 248, 250, 0.78);
+  }
+
+  .product-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 560px;
+  }
+
+  .product-glow {
+    position: absolute;
+    width: 410px;
+    height: 410px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(246, 213, 229, 0.5), rgba(212, 175, 55, 0.12), transparent 68%);
+    filter: blur(8px);
+    animation: breathe 7s ease-in-out infinite;
+  }
+
+  .hero-card-product {
+    width: min(390px, 88vw);
+    aspect-ratio: 1 / 1.13;
+    border-radius: 46px;
+    position: relative;
+    padding: 24px;
+    background:
+      linear-gradient(145deg, rgba(255, 248, 250, 0.28), rgba(255, 248, 250, 0.08)),
+      radial-gradient(circle at 40% 20%, rgba(212, 175, 55, 0.22), transparent 50%);
+    border: 1px solid rgba(255, 248, 250, 0.35);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+    animation: productFloat 6s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  .mock-product {
+    height: 100%;
+    border-radius: 34px;
+    background:
+      radial-gradient(circle at 30% 24%, rgba(255,255,255,0.65), transparent 18%),
+      linear-gradient(145deg, #F9C1D9, #B54178 54%, #68173F);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 22px 60px rgba(42, 22, 18, 0.35);
+    display: grid;
+    place-items: center;
+    padding: 28px;
+    text-align: center;
+    color: #FFF8FA;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mock-product::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: -90px;
+    right: -60px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.75), transparent 58%);
+    filter: blur(8px);
+  }
+
+  .mock-product .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.05rem;
+    font-weight: 800;
+    line-height: 1;
+    z-index: 1;
+  }
+
+  .mock-product .product-sub {
+    z-index: 1;
+    margin-top: 16px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.55;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    color: rgba(255, 248, 250, 0.72);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 980px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding-top: 92px;
+    }
+    .hero {
+      min-height: auto;
+      padding-bottom: 56px;
+    }
+    .product-stage {
+      min-height: 430px;
+    }
+    .hero-card-product {
+      width: min(330px, 86vw);
+    }
+    .scroll-cue {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .hero-copy p {
+      margin: 22px 0 26px;
+    }
+    .cta-row .btn {
+      width: 100%;
+    }
+    .trust-note {
+      text-align: center;
+      width: 100%;
+    }
+  }
+</style>

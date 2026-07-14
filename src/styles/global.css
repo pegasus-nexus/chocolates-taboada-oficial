@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --color-berry-dark: #4B0F2F;
+  --color-rose-wine: #7A1E4D;
+  --color-satin-pink: #D97BA8;
+  --color-soft-pink: #F6D5E5;
+  --color-gold: #D4AF37;
+  --color-champagne: #D6B36A;
+  --color-warm-white: #FFF8FA;
+  --color-chocolate: #2A1612;
+  --color-glass: rgba(255, 248, 250, 0.16);
+  --shadow-premium: 0 24px 70px rgba(42, 22, 18, 0.24);
+
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+
+  --animate-breathe: breathe 8s ease-in-out infinite;
+  --animate-breathe-fast: breathe 7s ease-in-out infinite;
+  --animate-float: float 11s ease-in-out infinite;
+  --animate-shimmer: shimmer 4.6s ease-in-out infinite;
+  --animate-product-float: productFloat 6s ease-in-out infinite;
+  --animate-productFloat: productFloat 6s ease-in-out infinite;
+}
+
+@layer base {
+  :root {
+    --berry-dark: #4B0F2F;
+    --rose-wine: #7A1E4D;
+    --satin-pink: #D97BA8;
+    --soft-pink: #F6D5E5;
+    --gold: #D4AF37;
+    --champagne: #D6B36A;
+    --warm-white: #FFF8FA;
+    --chocolate: #2A1612;
+    --glass: rgba(255, 248, 250, 0.16);
+    --shadow: 0 24px 70px rgba(42, 22, 18, 0.24);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--warm-white);
+    color: var(--chocolate);
+    overflow-x: hidden;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.45; }
+  50% { transform: translateY(-28px) translateX(12px); opacity: 1; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.96); opacity: 0.75; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%, 55% { transform: translateX(-130%); }
+  80%, 100% { transform: translateX(130%); }
+}
+
+@keyframes productFloat {
+  0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+  50% { transform: translateY(-18px) rotate(1.2deg); }
+}
+
+@keyframes chocolateFall {
+  0% {
+    transform: translateY(-50px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--particle-opacity, 0.75);
+  }
+  90% {
+    opacity: var(--particle-opacity, 0.75);
+  }
+  100% {
+    transform: translateY(105vh) translateX(70px) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+.chocolate-fall {
+  position: absolute;
+  top: -50px;
+  animation: chocolateFall 12s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
