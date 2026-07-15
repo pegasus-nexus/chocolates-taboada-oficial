@@ -200,40 +200,74 @@ const products = [
 >
   <nav
     class="fixed top-0 left-0 w-full z-[999] transition-all duration-500
-         bg-white/8 backdrop-blur-[14px] border-b border-white/10
-         hover:bg-[#2b0f17]/70"
+         bg-white/5 backdrop-blur-[14px] border-b border-white/10
+         hover:bg-white/10"
   >
-    <div class="w-[min(1350px,100%)] mx-auto px-5 lg:px-10">
-      <!-- NAV -->
+    <!-- Contenedor flex principal -->
+    <div class="flex items-stretch justify-between h-[85px] md:h-[100px] w-full relative overflow-visible">
+      
+      <!-- LADO IZQUIERDO (Logo + Links) -->
+      <div class="flex items-center pl-5 lg:pl-10 relative z-10">
+        <a href="/">
+          <img
+            src="/img/taboada-logo.png"
+            alt="Taboada"
+            class="object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.18)]
+                 h-[55px] md:h-[75px]
+                 transition-all duration-500"
+          />
+        </a>
 
-      <div
-        class="flex items-center justify-between
-             h-[95px] md:h-[110px]
-             transition-all duration-500"
-      >
-        <!-- LOGO -->
-
-        <div class="flex items-center gap-4">
-          <a href="/">
-            <img
-              src="/img/taboada-logo.png"
-              alt="Taboada"
-              class="object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.18)]
-                   h-[65px] md:h-[90px]
-                   transition-all duration-500"
-            />
+        <!-- Enlaces de Navegación (tipo el mockup) -->
+        <div class="hidden md:flex items-center gap-6 lg:gap-8 ml-10">
+          <a
+            href="#inicio"
+            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
+          >
+            Inicio
           </a>
+          <a
+            href="#cajas-especiales"
+            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
+          >
+            Colecciones
+          </a>
+          <a
+            href="/beneficios"
+            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
+          >
+            Beneficios
+          </a>
+          <a
+            href="/adulto-mayor"
+            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
+          >
+            Adulto Mayor
+          </a>
+        </div>
+      </div>
 
+      <!-- LADO DERECHO (Fondo café inclinado y Selector de Ciudad) -->
+      <div class="flex items-center pr-5 lg:pr-10 pl-16 md:pl-24 relative overflow-visible">
+        
+        <!-- Fondo Café Sesgado (Detrás de los elementos pero dentro de este contenedor) -->
+        <div 
+          class="absolute inset-0 bg-gradient-to-r from-[#3D1C16]/95 to-[#210D0A]/95 z-0 transition-all duration-500"
+          style="clip-path: polygon(3.5rem 0, 100% 0, 100% 100%, 0 100%); margin-left: -3.5rem;"
+        ></div>
+
+        <!-- Elementos del Lado Derecho (Ciudad) -->
+        <div class="relative z-10 flex items-center overflow-visible">
+          
           <!-- SELECTOR DE UBICACIÓN -->
-          <div class="relative inline-block text-left z-[1000]">
+          <div class="relative inline-block text-left z-[1000] overflow-visible">
             <button
               id="city-selector-btn"
               type="button"
-              class="flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-xs font-semibold rounded-full border border-white/20 bg-white/10 text-white hover:bg-white/20 transition-all duration-300 cursor-pointer"
+              class="flex items-center gap-1.5 px-4 py-2 md:px-5 md:py-2.5 text-xs md:text-sm font-bold rounded-full bg-white text-[#3D1C16] hover:bg-[#FAF0E6] transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.25)] hover:scale-[1.03]"
             >
-              <svg class="w-3.5 h-3.5 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+              <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
               </svg>
               <span id="active-city-name">Detectando...</span>
               <span class="text-[8px] opacity-70">▼</span>
@@ -242,52 +276,17 @@ const products = [
             <!-- MENU DESPLEGABLE -->
             <div
               id="city-dropdown"
-              class="hidden absolute left-0 mt-2 w-40 rounded-2xl bg-[#2b0f17]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
+              class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2b0f17]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
             >
-              <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-2.5 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-medium">📍 Cochabamba</button>
-              <button data-city="la-paz" class="city-opt-btn w-full px-4 py-2.5 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-medium">📍 La Paz</button>
+              <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
+              <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
             </div>
           </div>
+
         </div>
 
-        <!-- BOTONES -->
-
-        <div class="flex items-center gap-3">
-          <a
-            href="#elegancia"
-            class="group hidden sm:inline-flex items-center gap-3
-                 px-5 py-3 sm:px-7 sm:py-4 text-sm sm:text-[0.95rem]
-                 rounded-full
-                 bg-[linear-gradient(145deg,#F4D6C8,#EAC0B4)]
-                 text-[#5B2A22]
-                 font-bold
-                 shadow-[0_15px_35px_rgba(255,220,200,0.35)]
-                 hover:scale-[1.03]
-                 transition-all duration-500
-                 relative overflow-hidden"
-          >
-            <span class="relative z-10">Ver regalos destacados</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
-          </a>
-
-          <a
-            href="/beneficios"
-            class="group inline-flex items-center gap-3
-                 px-5 py-3 sm:px-7 sm:py-4 text-sm sm:text-[0.95rem]
-                 rounded-full
-                 bg-[linear-gradient(145deg,#f6d98d,#dcb041)]
-                 text-[#2e1119]
-                 font-bold
-                 shadow-[0_15px_35px_rgba(220,176,65,0.35)]
-                 hover:scale-[1.03]
-                 transition-all duration-500
-                 relative overflow-hidden"
-          >
-            <span class="relative z-10">Mis Beneficios</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
-          </a>
-        </div>
       </div>
+
     </div>
   </nav>
 
@@ -356,21 +355,21 @@ const products = [
     <!-- CONTENIDO -->
 
     <div
-      class="relative z-[5] w-[min(1320px,100%)] mx-auto min-h-screen px-6 lg:px-10 pt-[120px] pb-20 grid lg:grid-cols-2 items-center gap-8"
+      class="relative z-[5] w-full max-w-[1440px] mx-auto min-h-screen px-6 lg:pl-16 lg:pr-10 pt-[120px] pb-20 grid lg:grid-cols-2 items-center gap-8"
     >
       <!-- TEXTO -->
 
-      <div class="max-w-[600px]">
+      <div class="max-w-[500px]">
         <!-- MINI TEXTO -->
 
-        <div class="flex items-center gap-4 mb-8">
+        <div class="flex items-center gap-4 mb-6">
           <div
             class="w-10 h-[1px] bg-gradient-to-r from-[#f6d98d] to-transparent"
           >
           </div>
 
           <span
-            class="uppercase tracking-[0.38em] text-[#f6d98d] text-[0.78rem] font-semibold"
+            class="uppercase tracking-[0.38em] text-[#f6d98d] text-[0.72rem] font-semibold"
           >
             TRADICIÓN DESDE 1948
           </span>
@@ -379,7 +378,7 @@ const products = [
         <!-- TITULO -->
 
         <h1
-          class="font-playfair text-[clamp(4rem,8vw,7.5rem)] leading-[0.88] tracking-[-0.06em] text-[#fff7f8] drop-shadow-[0_12px_35px_rgba(0,0,0,0.45)]"
+          class="font-playfair text-[clamp(3.2rem,6.5vw,5.5rem)] leading-[0.92] tracking-[-0.06em] text-[#fff7f8] drop-shadow-[0_12px_35px_rgba(0,0,0,0.45)]"
         >
           Tradición<br />
 
@@ -389,7 +388,7 @@ const products = [
         <!-- TEXTO -->
 
         <p
-          class="mt-8 text-[clamp(1.05rem,2vw,1.35rem)] leading-[1.9] text-[#f3dfe5]/80 max-w-[560px] font-light"
+          class="mt-6 text-[clamp(0.95rem,1.5vw,1.1rem)] leading-[1.8] text-[#f3dfe5]/75 max-w-[460px] font-light"
         >
           Disfruta del auténtico chocolate boliviano con más de siete décadas de historia.
           Elaborado con la más fina selección de cacao de nuestra tierra, manteniendo 
@@ -398,112 +397,195 @@ const products = [
 
         <!-- BOTONES -->
 
-        <div class="mt-12 flex flex-wrap items-center gap-4">
+        <div class="mt-10 flex flex-wrap items-center gap-3.5">
           <a
             href="#cajas-especiales"
-            class="group inline-flex items-center gap-3 px-9 py-5 rounded-full bg-[linear-gradient(145deg,#f6d98d,#dcb041)] text-[#2e1119] font-semibold text-[1rem] shadow-[0_18px_40px_rgba(220,176,65,0.28)] hover:scale-[1.04] transition-all duration-500 relative overflow-hidden"
+            class="group inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-[linear-gradient(145deg,#f6d98d,#dcb041)] text-[#2e1119] font-bold text-xs md:text-sm shadow-[0_10px_25px_rgba(220,176,65,0.2)] hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
           >
-            <span class="relative z-10 tracking-wide font-semibold">✦ Descúbrelo aquí</span>
+            <span class="relative z-10 tracking-wide">✦ Descúbrelo aquí</span>
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
           </a>
 
           <a
             href="/beneficios"
-            class="group inline-flex items-center gap-3 px-9 py-5 rounded-full border border-warm-white/35 bg-warm-white/12 text-warm-white font-semibold text-[1rem] hover:scale-[1.04] hover:bg-warm-white/20 transition-all duration-500 relative overflow-hidden"
+            class="group inline-flex items-center gap-2.5 px-7 py-4 rounded-full border border-warm-white/35 bg-warm-white/12 text-warm-white font-bold text-xs md:text-sm hover:scale-[1.03] hover:bg-warm-white/20 transition-all duration-500 relative overflow-hidden"
           >
-            <span class="relative z-10 tracking-wide font-semibold">Canjear Beneficios</span>
+            <span class="relative z-10 tracking-wide">Canjear Beneficios</span>
           </a>
         </div>
       </div>
     </div>
   </header>
 
-  <section
-    class="relative py-16 md:py-24 border-y border-[#f0e6d8] bg-[#FAF5F0] overflow-hidden"
-  >
-    <!-- Brillo dorado sutil de fondo y estrella flotante -->
-    <div class="absolute -right-20 top-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-radial from-amber-200/10 to-transparent blur-3xl pointer-events-none"></div>
+  <section class="relative py-20 md:py-24 bg-[#FAF5F0] overflow-hidden border-y border-[#f0e6d8]">
+    <!-- Sutil brillo decorativo de fondo -->
+    <div class="absolute -right-20 top-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-radial from-amber-200/10 to-transparent blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- CABECERA: Título a la izquierda, Introducción y Botón a la derecha -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-center">
         
-        <!-- COLUMNA IZQUIERDA: HISTORIA Y TEXTO -->
-        <div class="lg:col-span-4 flex flex-col items-start text-left">
-          
-          <!-- Logo pequeño de cabecera -->
-          <div class="flex items-center gap-2 mb-6">
-            <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold">Chocolates Taboada</span>
+        <!-- Lado Izquierdo: Categoría y Título principal -->
+        <div class="lg:col-span-7 text-left">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-[2px] bg-[#8f6c49]"></span>
+            <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Nuestra Propuesta</span>
           </div>
-
-          <!-- Título principal -->
-
-          <!-- Breve historia de Taboada -->
-          <p class="text-gray-600 text-sm md:text-[0.92rem] leading-relaxed mb-8 font-sans">
-            Fundada en 1948 en la histórica ciudad de Sucre, Chocolates Taboada es pionera y referente de la dulzura en Bolivia. Con más de 75 años de trayectoria, seleccionamos los mejores granos de cacao boliviano y conservamos celosamente nuestras recetas artesanales de generación en generación.
-          </p>
-
-          <!-- Botones tipo píldora -->
-          <div class="flex items-center gap-3">
-            <a
-              href="https://wa.me/59179786916"
-              target="_blank"
-              rel="noopener"
-              class="px-6 py-3 rounded-full bg-[#2A1612] text-white text-xs font-semibold hover:bg-[#42221b] transition-all duration-300 shadow-md cursor-pointer"
-            >
-              Conocenos mas
-            </a>
-          </div>
-
+          <h2 class="font-serif text-3xl md:text-5xl text-[#2A1612] font-extrabold leading-tight tracking-tight">
+            Calidad y elegancia <br />
+            en cada detalle.
+          </h2>
         </div>
 
-        <!-- COLUMNA DERECHA: TARJETAS VISÍTANOS HOY -->
-        <div class="lg:col-span-8 flex flex-col items-center lg:items-start w-full relative">
+        <!-- Lado Derecho: Introducción de la fábrica y Botón -->
+        <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center lg:items-start xl:items-center gap-6 justify-between text-left">
+          <p class="text-gray-600 text-sm leading-relaxed font-sans max-w-sm">
+            Desde nuestra histórica fábrica en la ciudad de Sucre, Chocolates Taboada elabora productos artesanales de calidad insuperable.
+          </p>
+          <a
+            href="/beneficios"
+            class="shrink-0 group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#2A1612] text-white hover:bg-[#8f6c49] active:scale-95 text-xs md:text-sm font-bold shadow-md transition-all duration-300"
+          >
+            Canjear Beneficios
+            <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- GRILLA DE BENEFICIOS / CARACTERÍSTICAS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        
+        <!-- Tarjeta 1: Calidad Inigualable -->
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+          <!-- Imagen de fondo texturada -->
+          <img 
+            src="/img/razon2.png" 
+            alt="Calidad Inigualable" 
+            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+          />
+          <!-- Overlay degradado oscuro gradual -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
           
-          <!-- Título "Visítanos HOY" -->
-          <div class="w-full text-center lg:text-left mb-6">
-            <h2 class="font-serif text-3xl md:text-4xl text-[#2A1612] font-bold leading-tight mb-6">
-            Calidad y elegancia 
-            <span class="italic text-[#d4af37]"> en cada detalle.</span>
-          </h2>
-          </div>
-
-          <!-- Fila de 4 tarjetas horizontales -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+          <!-- Contenido en la base -->
+          <div class="relative z-10 flex flex-col items-start text-left text-white">
+            <!-- Icono blanco -->
+            <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7" />
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+              </svg>
+            </div>
             
-            <!-- Tarjeta 1 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class=" flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-md">
-                <img src="/img/razon2.png" alt="Bombones Finos" class="object-contain max-h-[85%] max-w-[85%] group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <h4 class="font-serif text-[#2A1612] font-bold text-sm mt-3 mb-0.5">Bombones Finos</h4>
-              <p class="text-[10px] text-[#8f6c49] font-sans">Selección de autor</p>
+            <h3 class="font-serif font-bold text-lg md:text-xl text-white mb-2 leading-tight">Calidad Inigualable</h3>
+            
+            <!-- Descripción que se despliega elegantemente en hover -->
+            <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out">
+              <p class="overflow-hidden text-[11px] text-white/80 leading-relaxed font-sans transition-all duration-500">
+                Cada pieza es el resultado de una selección minuciosa de los mejores granos de cacao. Garantizamos una textura excepcionalmente sedosa y un perfil de sabor profundo, diseñado para cautivar a los paladares más exigentes.
+              </p>
             </div>
+          </div>
+        </div>
 
-            <!-- Tarjeta 2 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-md">
-                <img src="/img/tableta1.png" alt="Tabletas de Origen" class="object-contain max-h-[85%] max-w-[85%] group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <h4 class="font-serif text-[#2A1612] font-bold text-sm mt-3 mb-0.5">Tabletas de Origen</h4>
-              <p class="text-[10px] text-[#8f6c49] font-sans">Cacao 70% Fino</p>
+        <!-- Tarjeta 2: Maestría y Tradición -->
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+          <!-- Imagen de fondo texturada -->
+          <img 
+            src="/img/especial1.png" 
+            alt="Maestría y Tradición" 
+            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+          />
+          <!-- Overlay degradado oscuro gradual -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          
+          <!-- Contenido en la base -->
+          <div class="relative z-10 flex flex-col items-start text-left text-white">
+            <!-- Icono blanco -->
+            <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
             </div>
-
-            <!-- Tarjeta 3 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-md">
-                <img src="/img/razon1.png" alt="Cajas de Regalo" class="object-contain max-h-[85%] max-w-[85%] group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <h4 class="font-serif text-[#2A1612] font-bold text-sm mt-3 mb-0.5">Cajas de Regalo</h4>
-              <p class="text-[10px] text-[#8f6c49] font-sans">Ediciones especiales</p>
+            
+            <h3 class="font-serif font-bold text-lg md:text-xl text-white mb-2 leading-tight">Maestría y Tradición</h3>
+            
+            <!-- Descripción que se despliega elegantemente en hover -->
+            <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out">
+              <p class="overflow-hidden text-[11px] text-white/80 leading-relaxed font-sans transition-all duration-500">
+                Respaldados por una profunda herencia chocolatera, fusionamos el arte de las recetas clásicas con altos estándares de elaboración. Es la verdadera esencia de la alta repostería llevada a su máxima expresión.
+              </p>
             </div>
+          </div>
+        </div>
 
-            <!-- Tarjeta 4 -->
-            <div class="flex flex-col items-center text-center group">
-              <div class="flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-md">
-                <img src="/img/especial1.png" alt="Chocolate de Taza" class="object-contain max-h-[85%] max-w-[85%] group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <h4 class="font-serif text-[#2A1612] font-bold text-sm mt-3 mb-0.5">Chocolate de Taza</h4>
-              <p class="text-[10px] text-[#8f6c49] font-sans">Tradición familiar</p>
+        <!-- Tarjeta 3: Ingredientes de Origen Noble -->
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+          <!-- Imagen de fondo texturada -->
+          <img 
+            src="/img/tableta1.png" 
+            alt="Ingredientes de Origen Noble" 
+            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+          />
+          <!-- Overlay degradado oscuro gradual -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          
+          <!-- Contenido en la base -->
+          <div class="relative z-10 flex flex-col items-start text-left text-white">
+            <!-- Icono blanco -->
+            <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.58 1 9.3a7 7 0 0 1-9 8.7z" />
+                <path d="M9 22v-4" />
+              </svg>
+            </div>
+            
+            <h3 class="font-serif font-bold text-lg md:text-xl text-white mb-2 leading-tight">Origen Noble</h3>
+            
+            <!-- Descripción que se despliega elegantemente en hover -->
+            <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out">
+              <p class="overflow-hidden text-[11px] text-white/80 leading-relaxed font-sans transition-all duration-500">
+                Privilegiamos la pureza de nuestros componentes. Al utilizar ingredientes auténticos y naturales, logramos realzar las notas aromáticas del cacao, ofreciendo una experiencia genuina y superior en cada bocado.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 4: Sofisticación en Cada Detalle -->
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+          <!-- Imagen de fondo texturada -->
+          <img 
+            src="/img/razon1.png" 
+            alt="Sofisticación en Cada Detalle" 
+            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+          />
+          <!-- Overlay degradado oscuro gradual -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          
+          <!-- Contenido en la base -->
+          <div class="relative z-10 flex flex-col items-start text-left text-white">
+            <!-- Icono blanco -->
+            <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h12l4 6-10 13L2 9z" />
+                <path d="M11 3 8 9l4 13 4-13-3-6" />
+                <path d="M2 9h20" />
+              </svg>
+            </div>
+            
+            <h3 class="font-serif font-bold text-lg md:text-xl text-white mb-2 leading-tight">Sofisticación</h3>
+            
+            <!-- Descripción que se despliega elegantemente en hover -->
+            <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out">
+              <p class="overflow-hidden text-[11px] text-white/80 leading-relaxed font-sans transition-all duration-500">
+                Más que un chocolate, ofrecemos una experiencia sensorial completa. Nuestras líneas de presentación reflejan una elegancia indiscutible, convirtiendo cada producto en una obra de arte digna de ser compartida y admirada.
+              </p>
             </div>
           </div>
         </div>
@@ -511,43 +593,30 @@ const products = [
     </div>
   </section>
 
-  <!-- ── SECCIÓN EL CLUB TABOADA ── -->
-  <section class="relative bg-[#20110D] py-20 md:py-28 overflow-hidden">
+  <section class="relative py-20 md:py-28 overflow-hidden border-b border-[#3E251E]/30 bg-[#1A0A0C]">
+    <!-- Fondo de Cacao con Espejado y Capa Café Semi-Transparente -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <img 
+        src="/img/club-bg.png" 
+        alt="Fondo Cacao" 
+        class="w-full h-full object-cover scale-x-[-1] opacity-25 pointer-events-none"
+      />
+      <!-- Capa de transparencia café premium -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#20110D]/95 via-[#20110D]/92 to-[#1A0A0C]/96"></div>
+    </div>
+
     <!-- Brillo dorado sutil de fondo -->
     <div class="absolute -left-1/4 top-1/4 w-[600px] h-[600px] rounded-full bg-[#d4af37]/5 blur-[120px] pointer-events-none"></div>
     <div class="absolute -right-1/4 bottom-1/4 w-[600px] h-[600px] rounded-full bg-[#d4af37]/5 blur-[120px] pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        <!-- Lado Izquierdo: Intro del Club -->
-        <div class="lg:col-span-5 flex flex-col items-start text-left">
-          <h2 class="font-serif text-5xl md:text-6xl text-[#FFF8FA] leading-none mb-6">
-            El Club <br />
-            <span class="text-[#f6d98d] italic font-semibold">Taboada</span>
-          </h2>
-          
-          <p class="text-[#D6B98C]/90 text-base md:text-lg leading-relaxed mb-10 max-w-md font-sans">
-            Únete a nuestro programa de lealtad y disfruta de privilegios pensados exclusivamente para los verdaderos amantes del chocolate.
-          </p>
-          
-          <a
-            href="/beneficios"
-            class="group inline-flex items-center justify-center px-10 py-5 rounded-full 
-                   bg-[linear-gradient(145deg,#f6d98d,#dcb041)] text-[#2e1119] 
-                   font-bold text-base shadow-[0_10px_30px_rgba(220,176,65,0.35)] 
-                   hover:scale-[1.03] transition-all duration-300 relative overflow-hidden"
-          >
-            <span class="relative z-10 tracking-wide font-bold">Canjear beneficios</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
-          </a>
-        </div>
-        
-        <!-- Lado Derecho: Grid de Beneficios -->
-        <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+        <!-- LADO IZQUIERDO (cols 1-7): Grilla de 4 Beneficios (2x2) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
           
           <!-- Tarjeta 1: Descuentos -->
-          <div class="bg-[#2B1713] border border-[#3E251E] rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/30 flex flex-col justify-start">
+          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
             <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
               <!-- Icono: Tag de Descuento -->
               <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -555,14 +624,14 @@ const products = [
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h.008v.008H6V7.5z"></path>
               </svg>
             </div>
-            <h3 class="font-serif text-white text-xl font-bold mb-3">Descuentos Exclusivos</h3>
-            <p class="text-[#D6B98C]/80 text-sm leading-relaxed font-sans">
+            <h3 class="font-serif text-white text-lg font-bold mb-2">Descuentos Exclusivos</h3>
+            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
               Accede a precios especiales en todas nuestras colecciones y promociones anticipadas.
             </p>
           </div>
           
           <!-- Tarjeta 2: Catas -->
-          <div class="bg-[#2B1713] border border-[#3E251E] rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/30 flex flex-col justify-start">
+          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
             <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
               <!-- Icono: Taza/Cup -->
               <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -570,46 +639,73 @@ const products = [
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 3v2M10 3v2M14 3v2"></path>
               </svg>
             </div>
-            <h3 class="font-serif text-white text-xl font-bold mb-3">Catas de Chocolate</h3>
-            <p class="text-[#D6B98C]/80 text-sm leading-relaxed font-sans">
+            <h3 class="font-serif text-white text-lg font-bold mb-2">Catas de Chocolate</h3>
+            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
               Invitaciones a eventos de degustación para descubrir los matices de nuestros cacaos.
             </p>
           </div>
           
           <!-- Tarjeta 3: Envíos -->
-          <div class="bg-[#2B1713] border border-[#3E251E] rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/30 flex flex-col justify-start">
+          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
             <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
               <!-- Icono: Camión de envíos -->
               <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125a1.125 1.125 0 001.125-1.125V9.75M8.25 18.75a1.5 1.5 0 01-3 0M21 9.75V9A1.5 1.5 0 0019.5 7.5h-3.375a1.5 1.5 0 00-1.5 1.5v6a1.5 1.5 0 001.5 1.5H21M14.25 18.75A1.5 1.5 0 0015 17.25V9.75"></path>
               </svg>
             </div>
-            <h3 class="font-serif text-white text-xl font-bold mb-3">Envíos Prioritarios</h3>
-            <p class="text-[#D6B98C]/80 text-sm leading-relaxed font-sans">
+            <h3 class="font-serif text-white text-lg font-bold mb-2">Envíos Prioritarios</h3>
+            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
               Disfruta de envíos rápidos y seguros para que tus regalos lleguen siempre a tiempo.
             </p>
           </div>
           
           <!-- Tarjeta 4: Regalo -->
-          <div class="bg-[#2B1713] border border-[#3E251E] rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/30 flex flex-col justify-start">
+          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
             <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
               <!-- Icono: Regalo -->
               <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5H3M21 7.5V18a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18V7.5m18 0V5.25A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25V7.5m18 0h-3.75m-10.5 0h3.75m0 0V21m0-13.5h7.5"></path>
               </svg>
             </div>
-            <h3 class="font-serif text-white text-xl font-bold mb-3">Regalo de Cumpleaños</h3>
-            <p class="text-[#D6B98C]/80 text-sm leading-relaxed font-sans">
+            <h3 class="font-serif text-white text-lg font-bold mb-2">Regalo de Cumpleaños</h3>
+            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
               Celebra tu día especial con un detalle dulce cortesía de la familia Taboada.
             </p>
           </div>
           
         </div>
+
+        <!-- LADO DERECHO (cols 8-12): Título y Texto de introducción del Club -->
+        <div class="lg:col-span-5 flex flex-col items-start text-left lg:pl-10">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-6 h-[2px] bg-[#d4af37]"></span>
+            <span class="text-xs uppercase tracking-widest text-[#f6d98d] font-bold font-sans">Programa de Lealtad</span>
+          </div>
+          
+          <h2 class="font-serif text-4xl md:text-5xl text-[#FFF8FA] leading-tight mb-6 font-bold">
+            El Club <br />
+            <span class="text-[#f6d98d] italic font-semibold">Taboada</span>
+          </h2>
+          
+          <p class="text-[#D6B98C]/90 text-sm md:text-base leading-relaxed mb-8 max-w-sm font-sans">
+            Únete a nuestro programa de lealtad y disfruta de privilegios pensados exclusivamente para los verdaderos amantes del chocolate.
+          </p>
+          
+          <a
+            href="/beneficios"
+            class="group inline-flex items-center justify-center px-8 py-4 rounded-full 
+                   bg-[linear-gradient(145deg,#f6d98d,#dcb041)] text-[#2e1119] 
+                   font-bold text-xs md:text-sm shadow-[0_10px_25px_rgba(220,176,65,0.25)] 
+                   hover:scale-[1.03] transition-all duration-300 relative overflow-hidden"
+          >
+            <span class="relative z-10 tracking-wide font-bold font-sans">Canjear beneficios</span>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
+          </a>
+        </div>
         
       </div>
     </div>
   </section>
-
 
   <section
     id="cajas-especiales"
@@ -714,7 +810,7 @@ const products = [
         </div>
 
         <!-- BOTÓN VER MÁS / VER MENOS -->
-        <div id="see-more-container" class="flex justify-center mt-12 hidden">
+        <div id="see-more-container" class="flex justify-end mt-12 hidden">
           <button
             id="see-more-btn"
             type="button"

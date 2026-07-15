@@ -1,88 +1,94 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
 ---
-<AppLayout title="Programa Legado · Adulto Mayor | Chocolates Taboada">
+<AppLayout title="Programa Legado · Adulto Mayor | Club Taboada">
 
 <style is:global>
   :root {
-    --oro-viejo: #C4A77D;
-    --beige-seda: #FDF5E6;
-    --cafe-profundo: #1A0D0A;
+    --oro-viejo: #FAF5F0;
+    --beige-seda: #FAF5F0;
+    --cafe-profundo: #4A2C22; /* Café chocolate menos oscuro (milk chocolate) */
+    --cafe-claro: #8f6c49;
     --font-serif: "Playfair Display", serif;
   }
 
-  body { background-color: var(--beige-seda); margin: 0; }
+  body { 
+    background: url('/img/adulto-mayor-bg.jpg') center/cover no-repeat fixed;
+    margin: 0; 
+    color: #ffffff;
+  }
 
   /* ── BARRA SUPERIOR BOUTIQUE ── */
   .am-topbar {
-    background: var(--cafe-profundo);
+    background: rgba(74, 44, 34, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     padding: 15px 5%;
     position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 1px solid rgba(196, 167, 125, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   .back-link {
-    color: var(--oro-viejo); text-decoration: none; font-size: 12px;
-    font-weight: 700; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px;
+    color: #FAF5F0; text-decoration: none; font-size: 11px;
+    font-weight: 700; letter-spacing: 0.12em; display: flex; align-items: center; gap: 8px;
+    transition: opacity 0.3s;
   }
-  .topbar-logo { height: 35px; filter: brightness(0) invert(1); }
+  .back-link:hover { opacity: 0.8; }
+  .logo-main { height: clamp(40px, 6vw, 55px); } 
 
   /* ── HERO LEGADO ── */
   .am-hero {
-    background-color: var(--cafe-profundo);
     padding: 100px 24px 60px;
     position: relative; text-align: center; overflow: hidden;
-  }
-  .am-hero::after {
-    content: ''; position: absolute; inset: 0;
-    background-image: url('/images/port2.jpg');
-    background-size: cover; background-position: center; opacity: 0.1;
   }
   .am-hero-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
 
   .hero-tag {
-    color: var(--oro-viejo); font-size: 10px; font-weight: 800;
+    color: #f6d98d; font-size: 10px; font-weight: 800;
     letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; display: block;
   }
   .hero-title {
     font-family: var(--font-serif); font-size: clamp(2rem, 6vw, 3.5rem);
-    color: var(--beige-seda); line-height: 1.1; margin-bottom: 20px;
+    color: #ffffff; line-height: 1.1; margin-bottom: 20px;
+    font-weight: bold;
   }
-  .hero-title span { color: var(--oro-viejo); font-style: italic; }
+  .hero-title span { color: #f6d98d; font-style: italic; }
 
-  /* ── FORMULARIO LIMPIO (PASO 1) ── */
-  .form-container { max-width: 600px; margin: -40px auto 100px; padding: 0 24px; position: relative; z-index: 10; }
+  /* ── FORMULARIO LIMPIO ── */
+  .form-container { max-width: 600px; margin: -20px auto 100px; padding: 0 24px; position: relative; z-index: 10; }
   
   .card-blanca {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    background: #ffffff;
+    padding: 45px 35px;
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 50px rgba(42, 22, 18, 0.3);
+    color: var(--cafe-profundo);
   }
 
-  .field-group { margin-bottom: 20px; text-align: left; }
+  .field-group { margin-bottom: 22px; text-align: left; }
   .field-group label { 
-    display: block; font-size: 10px; font-weight: 800; color: var(--cafe-profundo); 
+    display: block; font-size: 9.5px; font-weight: 800; color: var(--cafe-profundo); 
     text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
   }
   .field-group input {
-    width: 100%; padding: 15px; border: 1px solid #D7CCC8; border-radius: 12px;
-    background: #fafafa; font-family: inherit; font-size: 15px; color: var(--cafe-profundo);
-    transition: 0.3s; box-sizing: border-box;
+    width: 100%; padding: 15px; border: 1px solid #e8dccb; border-radius: 14px;
+    background: #FAF8F3; font-family: inherit; font-size: 14px; color: var(--cafe-profundo);
+    transition: all 0.3s ease; box-sizing: border-box;
   }
-  .field-group input:focus { outline: none; border-color: var(--oro-viejo); box-shadow: 0 0 0 4px rgba(196, 167, 125, 0.1); background: white; }
+  .field-group input:focus { outline: none; border-color: var(--cafe-claro); box-shadow: 0 0 0 4px rgba(143, 108, 73, 0.15); background: white; }
 
   .btn-submit {
-    width: 100%; padding: 20px; background: var(--cafe-profundo); color: var(--oro-viejo);
-    border: 1px solid var(--oro-viejo); border-radius: 15px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.2em; cursor: pointer; transition: 0.3s;
+    width: 100%; padding: 18px; background: var(--cafe-profundo); color: #ffffff;
+    border: none; border-radius: 9999px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s;
     margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(74, 44, 34, 0.2);
   }
-  .btn-submit:hover { background: var(--oro-viejo); color: var(--cafe-profundo); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(196, 167, 125, 0.2); }
+  .btn-submit:hover { background: var(--cafe-claro); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(143, 108, 73, 0.3); }
 
-  /* ── SECCIÓN CREDENCIAL DE ÉXITO (PASO 2) ── */
+  /* ── SECCIÓN CREDENCIAL DE ÉXITO ── */
   .success-container {
-    max-width: 500px; margin: -40px auto 100px; padding: 0 24px; position: relative; z-index: 10;
+    max-width: 500px; margin: -20px auto 100px; padding: 0 24px; position: relative; z-index: 10;
     display: none; /* Oculto al inicio */
     text-align: center;
     animation: fadeInSlideUp 0.6s ease-out forwards;
@@ -93,16 +99,16 @@ import AppLayout from '../layouts/AppLayout.astro';
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .success-msg { color: var(--cafe-profundo); font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 5px; }
-  .success-sub { color: #5D4037; font-size: 13px; margin-bottom: 30px; }
+  .success-msg { color: #ffffff; font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 6px; font-weight: bold; }
+  .success-sub { color: #f6d98d; font-size: 13px; margin-bottom: 30px; }
 
   /* ── ESTILOS DEL PLÁSTICO DE LA TARJETA ── */
   .luxury-credential {
     width: 100%; max-width: 480px; aspect-ratio: 1.6 / 1; margin: 0 auto;
-    background: radial-gradient(circle at center, #2c1611 0%, #1A0D0A 70%), var(--cafe-profundo);
-    border: 1px solid rgba(196, 167, 125, 0.3);
-    border-radius: 18px; padding: 30px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    background: radial-gradient(circle at center, #6b4c3e 0%, #3e2219 80%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px; padding: 30px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
     position: relative; overflow: hidden;
     text-align: left;
     display: flex; flex-direction: column; justify-content: space-between;
@@ -111,76 +117,87 @@ import AppLayout from '../layouts/AppLayout.astro';
 
   .luxury-credential::before {
     content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: linear-gradient(135deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 60%);
+    background: linear-gradient(135deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 60%);
     z-index: 1; pointer-events: none;
   }
 
   .luxury-credential::after {
-    content: 'T'; position: absolute; right: -20px; bottom: -20px;
-    font-family: var(--font-serif); font-size: 180px; color: rgba(196, 167, 125, 0.04); z-index: 0;
+    content: 'T'; position: absolute; right: -25px; bottom: -25px;
+    font-family: var(--font-serif); font-size: 160px; color: rgba(255, 255, 255, 0.02); z-index: 0;
   }
 
   .card-chip {
-    width: 45px; height: 35px;
-    background: linear-gradient(135deg, #d3c7b2 0%, #b8a688 100%);
-    border-radius: 6px; position: relative; margin-bottom: 15px; z-index: 2;
+    width: 42px; height: 32px;
+    background: linear-gradient(135deg, #e8d5b5 0%, #bca580 100%);
+    border-radius: 6px; position: relative; margin-bottom: 12px; z-index: 2;
   }
   .card-chip::after {
     content: ''; position: absolute; inset: 5px;
-    border: 1px solid rgba(26, 13, 10, 0.2); border-radius: 3px;
-    background-image: linear-gradient(0deg, transparent 45%, rgba(26, 13, 10, 0.2) 50%, transparent 55%), linear-gradient(90deg, transparent 45%, rgba(26, 13, 10, 0.2) 50%, transparent 55%);
+    border: 1px solid rgba(26, 13, 10, 0.15); border-radius: 3px;
+    background-image: linear-gradient(0deg, transparent 45%, rgba(26, 13, 10, 0.15) 50%, transparent 55%), linear-gradient(90deg, transparent 45%, rgba(26, 13, 10, 0.15) 50%, transparent 55%);
   }
 
   .embossed-text {
     font-family: 'OCR-A Extended', monospace, serif;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--oro-viejo);
+    color: #FAF5F0;
     text-shadow: 1px 1px 0px rgba(255,255,255,0.1), -1px -1px 0px rgba(0,0,0,0.3);
   }
 
   .cred-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
-  .cred-label { color: rgba(196, 167, 125, 0.8); font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; }
+  .cred-label { color: #f6d98d; font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
   
   .cred-name { 
-    font-family: var(--font-serif); font-size: 24px; margin: 2px 0 0; line-height: 1.1;
-    color: var(--beige-seda);
+    font-family: var(--font-serif); font-size: 22px; margin: 2px 0 0; line-height: 1.1;
+    color: #ffffff;
+    font-weight: bold;
     text-shadow: 1px 1px 0px rgba(255,255,255,0.1), -1px -1px 0px rgba(0,0,0,0.3);
   }
   
   .cred-pct { text-align: right; }
-  .cred-number { font-family: var(--font-serif); font-size: 3rem; color: var(--oro-viejo); line-height: 1; margin-bottom: 5px; }
+  .cred-number { font-family: var(--font-serif); font-size: 2.5rem; color: #f6d98d; line-height: 1; margin-bottom: 3px; font-weight: bold; }
 
   .card-footer {
     display: flex; justify-content: space-between; align-items: flex-end;
-    border-top: 1px solid rgba(196, 167, 125, 0.15); padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px;
     position: relative; z-index: 2;
   }
   
-  #final-id { font-size: 14px; opacity: 0.9; }
+  #final-id { font-size: 13px; opacity: 0.95; }
 
   .btn-volver-success {
-    display: inline-block; padding: 15px 30px; background: transparent; color: var(--cafe-profundo);
-    border: 2px solid var(--cafe-profundo); border-radius: 50px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: 0.3s;
+    display: inline-block; padding: 15px 35px; background: #ffffff; color: var(--cafe-profundo);
+    border: none; border-radius: 9999px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s;
     margin-top: 40px; text-decoration: none; font-size: 11px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
   }
-  .btn-volver-success:hover { background: var(--cafe-profundo); color: var(--beige-seda); }
+  .btn-volver-success:hover { background: var(--cafe-claro); color: #ffffff; transform: translateY(-2px); }
 
+  footer {
+    background: rgba(74, 44, 34, 0.85);
+    padding: 40px;
+    text-align: center;
+    color: #FAF5F0;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
 </style>
 
 <div class="am-page">
+  <!-- BARRA SUPERIOR -->
   <header class="am-topbar">
-    <a href="/beneficios" class="back-link">
+    <a href="/" class="back-link">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-      VOLVER
+      INICIO
     </a>
     <a href="/">
       <img 
-        src="/images/taboada-logo.png" 
+        src="/img/taboada-logo.png" 
         alt="Taboada" 
         class="logo-main" 
-        style="height: clamp(60px, 8vw, 100px); width: auto; filter: brightness(0) invert(1);" 
       />  
     </a>
   </header>
@@ -189,11 +206,11 @@ import AppLayout from '../layouts/AppLayout.astro';
     <div class="am-hero-inner">
       <span class="hero-tag">Programa Legado</span>
       <h1 class="hero-title">Credencial de Honor para <span>Adultos Mayores</span></h1>
-      <p style="color: var(--beige-seda); opacity: 0.7; font-size: 16px; line-height: 1.6;">
+      <p style="color: #ffffff; opacity: 0.9; font-size: 16px; line-height: 1.6; max-width: 650px; margin: 0 auto; font-family: sans-serif;">
           Otorgamos un descuento vitalicio del 5% en nuestra sucursal de La Recoleta. 
           <br/>
           Regístralo ahora y recógelo en nuestra sucursal de 
-          <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: var(--oro-viejo); text-decoration: underline; font-weight: 600;">
+          <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: #f6d98d; text-decoration: underline; font-weight: 600;">
               La Recoleta
           </a>.
       </p>
@@ -232,8 +249,8 @@ import AppLayout from '../layouts/AppLayout.astro';
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           </button>
           
-          <p style="margin-top: 15px; font-size: 11px; color: #5D4037; font-style: italic;">
-            * Presentate con el codigo generado para validar tu beneficio.
+          <p style="margin-top: 15px; font-size: 11px; color: var(--cafe-profundo); opacity: 0.7; font-style: italic; font-family: sans-serif;">
+            * Preséntate con el código generado para validar tu beneficio.
           </p>
         </div>
       </form>
@@ -247,7 +264,7 @@ import AppLayout from '../layouts/AppLayout.astro';
     <div class="luxury-credential">
       
       <div class="cred-header">
-        <img src="/images/taboada-logo.png" style="height: 25px; filter: brightness(0) invert(1);" alt="Taboada" />
+        <img src="/img/taboada-logo.png" style="height: 25px;" alt="Taboada" />
         <span class="cred-label">Miembro Legado</span>
       </div>
       
@@ -262,16 +279,16 @@ import AppLayout from '../layouts/AppLayout.astro';
           <div id="final-id" class="embossed-text">#TAB-000000</div>
         </div>
         <div class="cred-pct" style="display: flex; align-items: center; gap: 8px;">
-           <div class="cred-number" style="font-size: 2.2rem; margin:0;">5%</div>
+           <div class="cred-number">5%</div>
            <span class="cred-label" style="margin:0;">DESC. <br> VITALICIO</span>
         </div>
       </div>
     </div>
 
-    <a href="/beneficios" class="btn-volver-success">← Volver a Mis Beneficios</a>
+    <a href="/" class="btn-volver-success">← Volver al Inicio</a>
   </div>
 
-  <footer style="background: var(--cafe-profundo); padding: 40px; text-align: center; color: var(--oro-viejo); font-size: 10px; letter-spacing: 0.2em;">
+  <footer>
     © 2026 CHOCOLATES TABOADA · TRADICIÓN DE FAMILIA
   </footer>
 </div>
