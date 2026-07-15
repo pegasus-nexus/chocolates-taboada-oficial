@@ -867,14 +867,7 @@ const products = [
           activeCityName.textContent = city === 'cochabamba' ? 'Cochabamba' : 'La Paz';
         }
 
-        // Actualizar la portada del Hero
-        if (heroBgCover) {
-          if (city === 'cochabamba') {
-            heroBgCover.style.backgroundImage = "url('/img/taboadaportada.png')";
-          } else if (city === 'la-paz') {
-            heroBgCover.style.backgroundImage = "url('/img/portada-lapaz.jpg')";
-          }
-        }
+        // La portada del Hero se mantiene estática con la imagen por defecto original
 
         // Actualizar el degradado de fondo de Colecciones
         if (bgOverlay) {
@@ -1001,11 +994,44 @@ const products = [
         });
       });
 
-      // ── INICIALIZACIÓN Y DETECCIÓN POR IP ──
+      // ── INICIALIZACIÓN Y DETECCIÓN DE UBICACIÓN ──
       const savedCity = localStorage.getItem('selected_city');
       if (savedCity && (savedCity === 'cochabamba' || savedCity === 'la-paz')) {
         updateCity(savedCity);
       } else {
+        // Intentar primero con la geolocalización nativa del navegador (GPS/WiFi)
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              
+              // Coordenadas de referencia en Bolivia
+              const latCocha = -17.3895;
+              const lonCocha = -66.1568;
+              const latLaPaz = -16.5000;
+              const lonLaPaz = -68.1100;
+              
+              // Distancia euclidiana aproximada para determinar el más cercano
+              const distCocha = Math.pow(lat - latCocha, 2) + Math.pow(lon - lonCocha, 2);
+              const distLaPaz = Math.pow(lat - latLaPaz, 2) + Math.pow(lon - lonLaPaz, 2);
+              
+              const detected = distCocha < distLaPaz ? 'cochabamba' : 'la-paz';
+              console.log("Geolocalización nativa (GPS/WiFi) exitosa. Coordenadas:", lat, lon, "-> Asignado a:", detected);
+              updateCity(detected);
+            },
+            (error) => {
+              console.warn("Geolocalización nativa rechazada o falló. Usando IP como fallback. Código:", error.code);
+              fallbackIPDetection();
+            },
+            { timeout: 5000 }
+          );
+        } else {
+          fallbackIPDetection();
+        }
+      }
+
+      function fallbackIPDetection() {
         // Ejecutar detección por IP de freeipapi.com
         fetch('https://freeipapi.com/api/json')
           .then((res) => {
@@ -1015,7 +1041,7 @@ const products = [
           .then((data) => {
             const cityName = (data.cityName || '').toLowerCase();
             const detected = cityName.includes('paz') ? 'la-paz' : 'cochabamba';
-            console.log("--- Chocolates Taboada (Diagnóstico) ---");
+            console.log("--- Chocolates Taboada (Diagnóstico Fallback IP) ---");
             console.log("Ciudad de IP detectada:", data.cityName || "No provista");
             console.log("Región/País de IP:", data.regionName, "/", data.countryName);
             console.log("Ciudad asignada en la Web:", detected === 'la-paz' ? "La Paz" : "Cochabamba");
