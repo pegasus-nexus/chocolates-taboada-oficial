@@ -220,6 +220,46 @@ const defaultTestimonials = [
     // Actualizar en cambio de tamaño de ventana
     window.addEventListener('resize', updateSlider);
 
+    // ── GESTOS TOUCH (DESLIZAR CON EL DEDO EN CELULARES) ──
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    track?.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }, { passive: true });
+
+    track?.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    track?.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = startX - currentX;
+      
+      // Umbral mínimo de 50px para deslizar
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          // Deslizar izquierda -> Siguiente
+          if (currentIndex < cards.length - 1) {
+            goToIndex(currentIndex + 1);
+          } else {
+            goToIndex(0);
+          }
+        } else {
+          // Deslizar derecha -> Anterior
+          if (currentIndex > 0) {
+            goToIndex(currentIndex - 1);
+          } else {
+            goToIndex(cards.length - 1);
+          }
+        }
+      }
+    });
+
     // ── FORMULARIO DE COMENTARIOS ──
     const form = document.getElementById('comment-form');
     if (form) {
