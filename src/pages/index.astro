@@ -199,95 +199,208 @@ const products = [
   description="Descubre Chocolates Taboada, la primera industria chocolatera de Bolivia desde 1948. Tradición, elegancia y un sabor inolvidable."
 >
   <nav
+    id="main-navbar"
     class="fixed top-0 left-0 w-full z-[999] transition-all duration-500
-         bg-white/5 backdrop-blur-[14px] border-b border-white/10
-         hover:bg-white/10"
+         bg-transparent border-b border-transparent hover:bg-white/10"
   >
-    <!-- Contenedor flex principal -->
-    <div class="flex items-stretch justify-between h-[85px] md:h-[100px] w-full relative overflow-visible">
+    <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[85px] md:h-[95px] px-6 lg:px-12 relative">
       
-      <!-- LADO IZQUIERDO (Logo + Links) -->
-      <div class="flex items-center pl-5 lg:pl-10 relative z-10">
+      <!-- LOGO IZQUIERDO -->
+      <div class="flex items-center">
         <a href="/">
           <img
             src="/img/taboada-logo.png"
             alt="Taboada"
-            class="object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.18)]
-                 h-[55px] md:h-[75px]
-                 transition-all duration-500"
+            class="h-[50px] md:h-[65px] object-contain transition-transform duration-300 hover:scale-105"
           />
         </a>
+      </div>
 
-        <!-- Enlaces de Navegación (tipo el mockup) -->
-        <div class="hidden md:flex items-center gap-6 lg:gap-8 ml-10">
-          <a
-            href="#inicio"
-            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
-          >
-            Inicio
-          </a>
-          <a
-            href="#cajas-especiales"
-            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
-          >
+      <!-- ENLACES CENTRALES (Desktop) -->
+      <div class="hidden md:flex items-center gap-8 lg:gap-10">
+        <!-- INICIO -->
+        <a
+          href="#inicio"
+          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+        >
+          Inicio
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+        </a>
+        <a
+          href="/nosotros"
+          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+        >
+          Nosotros
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+        </a>
+
+        <!-- COLECCIONES (Dropdown) -->
+        <div class="relative group py-2">
+          <button class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
             Colecciones
-          </a>
-          <a
-            href="/beneficios"
-            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
-          >
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+          
+          <!-- CONTENIDO DROPDOWN -->
+          <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+            <div class="p-3 grid grid-cols-1 gap-1">
+              <a href="/?cat=bombones" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Bombones Finos</div>
+                  <div class="text-xs text-white/60 mt-0.5">Elegancia y variedad de sabores premium</div>
+                </div>
+              </a>
+              <a href="/?cat=grageas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Cajas y Grageas</div>
+                  <div class="text-xs text-white/60 mt-0.5">Detalles perfectos y crujientes de sabor</div>
+                </div>
+              </a>
+              <a href="/?cat=tabletas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Tabletas y Barras</div>
+                  <div class="text-xs text-white/60 mt-0.5">Chocolate de origen seleccionado</div>
+                </div>
+              </a>
+              <a href="/?cat=reposteria" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Chocolate de Taza</div>
+                  <div class="text-xs text-white/60 mt-0.5">La receta familiar tradicional boliviana</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENEFICIOS (Dropdown) -->
+        <div class="relative group py-2">
+          <button class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
             Beneficios
-          </a>
-          <a
-            href="/adulto-mayor"
-            class="text-white/80 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-all duration-300"
-          >
-            Adulto Mayor
-          </a>
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+
+          <!-- CONTENIDO DROPDOWN -->
+          <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+            <div class="p-3 grid grid-cols-1 gap-1">
+              <a href="/beneficios" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">✨</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Club Taboada</span>
+                    <span class="px-1.5 py-0.5 text-[9px] bg-[#dcb041]/20 text-[#dcb041] font-extrabold rounded">Socio</span>
+                  </div>
+                  <div class="text-xs text-white/60 mt-0.5">Beneficios exclusivos y catas de chocolate</div>
+                </div>
+              </a>
+              <a href="/adulto-mayor" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">💖</span>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Membresía Legado</div>
+                  <div class="text-xs text-white/60 mt-0.5">Atención preferencial y 10% de descuento</div>
+                </div>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- LADO DERECHO (Fondo café inclinado y Selector de Ciudad) -->
-      <div class="flex items-center pr-5 lg:pr-10 pl-16 md:pl-24 relative overflow-visible">
+      <!-- DERECHA (Selector Ciudad + CTA Pedir Ahora + Hamburger) -->
+      <div class="flex items-center gap-3 md:gap-4 relative overflow-visible">
         
-        <!-- Fondo Café Sesgado (Detrás de los elementos pero dentro de este contenedor) -->
-        <div 
-          class="absolute inset-0 bg-gradient-to-r from-[#3D1C16]/95 to-[#210D0A]/95 z-0 transition-all duration-500"
-          style="clip-path: polygon(3.5rem 0, 100% 0, 100% 100%, 0 100%); margin-left: -3.5rem;"
-        ></div>
-
-        <!-- Elementos del Lado Derecho (Ciudad) -->
-        <div class="relative z-10 flex items-center overflow-visible">
+        <!-- SELECTOR DE CIUDAD -->
+        <div class="relative inline-block text-left z-[1000] overflow-visible">
+          <button
+            id="city-selector-btn"
+            type="button"
+            class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03]"
+          >
+            <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+            </svg>
+            <span id="active-city-name">Detectando...</span>
+            <span class="text-[8px] opacity-75">▼</span>
+          </button>
           
-          <!-- SELECTOR DE UBICACIÓN -->
-          <div class="relative inline-block text-left z-[1000] overflow-visible">
-            <button
-              id="city-selector-btn"
-              type="button"
-              class="flex items-center gap-1.5 px-4 py-2 md:px-5 md:py-2.5 text-xs md:text-sm font-bold rounded-full bg-white text-[#3D1C16] hover:bg-[#FAF0E6] transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.25)] hover:scale-[1.03]"
-            >
-              <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-              </svg>
-              <span id="active-city-name">Detectando...</span>
-              <span class="text-[8px] opacity-70">▼</span>
-            </button>
-            
-            <!-- MENU DESPLEGABLE -->
-            <div
-              id="city-dropdown"
-              class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2b0f17]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
-            >
-              <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
-              <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
-            </div>
+          <!-- MENU DESPLEGABLE CIUDAD -->
+          <div
+            id="city-dropdown"
+            class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
+          >
+            <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
+            <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
           </div>
-
         </div>
+
+        <!-- CTA PEDIR AHORA -->
+        <a
+          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido" 
+          target="_blank"
+          class="hidden sm:inline-flex items-center justify-center bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-xs md:text-sm px-6 py-2.5 rounded-full shadow-[0_4px_18px_rgba(220,176,65,0.35)] hover:shadow-[0_6px_22px_rgba(220,176,65,0.5)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98]"
+        >
+          Pedir Ahora
+        </a>
+
+        <!-- BOTÓN MENÚ MÓVIL (Hamburger) -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/25 transition-all duration-300 cursor-pointer"
+          aria-label="Abrir menú"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16"></path>
+          </svg>
+        </button>
 
       </div>
 
     </div>
+
+    <!-- MENÚ MÓVIL (Drawer deslizante) -->
+    <div
+      id="mobile-drawer"
+      class="fixed inset-y-0 right-0 z-[1000] w-[290px] bg-[#2A1612]/98 backdrop-blur-lg border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col justify-between"
+    >
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-white/10">
+          <img src="/img/taboada-logo.png" alt="Taboada" class="h-10 object-contain" />
+          <button
+            id="mobile-close-btn"
+            class="text-white/70 hover:text-white transition-colors cursor-pointer"
+            aria-label="Cerrar menú"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-6 mt-8">
+          <a href="#inicio" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Inicio</a>
+          <a href="/nosotros" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Nosotros</a>
+          <a href="#cajas-especiales" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Colecciones</a>
+          <a href="/beneficios" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Beneficios</a>
+          <a href="/adulto-mayor" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Adulto Mayor</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 border-t border-white/10 pt-6">
+        <a
+          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido" 
+          target="_blank"
+          class="w-full py-3 bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] text-center font-extrabold rounded-full shadow-lg transition-all"
+        >
+          Pedir Ahora
+        </a>
+      </div>
+    </div>
+
+    <!-- FONDO OSCURO DEL MENÚ MÓVIL -->
+    <div
+      id="drawer-overlay"
+      class="fixed inset-0 z-[998] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
   </nav>
 
   <header
@@ -423,52 +536,43 @@ const products = [
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       
-      <!-- CABECERA: Título a la izquierda, Introducción y Botón a la derecha -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-center">
-        
-        <!-- Lado Izquierdo: Categoría y Título principal -->
-        <div class="lg:col-span-7 text-left">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-[2px] bg-[#8f6c49]"></span>
-            <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Nuestra Propuesta</span>
-          </div>
-          <h2 class="font-serif text-3xl md:text-5xl text-[#2A1612] font-extrabold leading-tight tracking-tight">
-            Calidad y elegancia <br />
-            en cada detalle.
-          </h2>
-        </div>
+      <!-- CABECERA SUAVE: Centrada y con fondo aclarado -->
+<div class="w-full max-w-4xl mx-auto mb-12 p-8 rounded-2xl text-center">
+  
+  <!-- Categoría Centrada -->
+  <div class="flex items-center justify-center gap-2 mb-4">
+    <span class="w-6 h-[2px] bg-[#8f6c49]"></span>
+    <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Nuestra Propuesta</span>
+    <span class="w-6 h-[2px] bg-[#8f6c49]"></span>
+  </div>
+  
+  <!-- Título Principal Centrado -->
+  <h2 class="font-serif text-3xl md:text-5xl text-[#2A1612] font-extrabold leading-tight tracking-tight mb-4">
+    Calidad y elegancia en cada detalle.
+  </h2>
+  
+  <!-- Mini Texto Agregado (Ajustado para Celular) -->
+  <p class="text-sm md:text-base text-[#5D4037]/80 max-w-lg mx-auto leading-relaxed">
+    Descubre combinaciones únicas de sabor, texturas delicadas y la tradición que nos caracteriza en cada pieza.
+  </p>
 
-        <!-- Lado Derecho: Introducción de la fábrica y Botón -->
-        <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center lg:items-start xl:items-center gap-6 justify-between text-left">
-          <p class="text-gray-600 text-sm leading-relaxed font-sans max-w-sm">
-            Desde nuestra histórica fábrica en la ciudad de Sucre, Chocolates Taboada elabora productos artesanales de calidad insuperable.
-          </p>
-          <a
-            href="/beneficios"
-            class="shrink-0 group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#2A1612] text-white hover:bg-[#8f6c49] active:scale-95 text-xs md:text-sm font-bold shadow-md transition-all duration-300"
-          >
-            Canjear Beneficios
-            <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-
-      </div>
+</div>
 
       <!-- GRILLA DE BENEFICIOS / CARACTERÍSTICAS -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         
         <!-- Tarjeta 1: Calidad Inigualable -->
-        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-black/10">
           <!-- Imagen de fondo texturada -->
           <img 
             src="/img/razon2.png" 
             alt="Calidad Inigualable" 
-            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+            class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
           />
           <!-- Overlay degradado oscuro gradual -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A0A0C]/90 via-[#1A0A0C]/35 to-transparent z-0 transition-opacity duration-500"></div>
+          <!-- Overlay café en hover -->
+          <div class="absolute inset-0 bg-[#2A1612] opacity-0 group-hover:opacity-85 z-0 transition-opacity duration-500"></div>
           
           <!-- Contenido en la base -->
           <div class="relative z-10 flex flex-col items-start text-left text-white">
@@ -492,15 +596,17 @@ const products = [
         </div>
 
         <!-- Tarjeta 2: Maestría y Tradición -->
-        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-black/10">
           <!-- Imagen de fondo texturada -->
           <img 
             src="/img/especial1.png" 
             alt="Maestría y Tradición" 
-            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+            class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
           />
           <!-- Overlay degradado oscuro gradual -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A0A0C]/90 via-[#1A0A0C]/35 to-transparent z-0 transition-opacity duration-500"></div>
+          <!-- Overlay café en hover -->
+          <div class="absolute inset-0 bg-[#2A1612] opacity-0 group-hover:opacity-85 z-0 transition-opacity duration-500"></div>
           
           <!-- Contenido en la base -->
           <div class="relative z-10 flex flex-col items-start text-left text-white">
@@ -526,15 +632,17 @@ const products = [
         </div>
 
         <!-- Tarjeta 3: Ingredientes de Origen Noble -->
-        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-black/10">
           <!-- Imagen de fondo texturada -->
           <img 
             src="/img/tableta1.png" 
             alt="Ingredientes de Origen Noble" 
-            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+            class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
           />
           <!-- Overlay degradado oscuro gradual -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A0A0C]/90 via-[#1A0A0C]/35 to-transparent z-0 transition-opacity duration-500"></div>
+          <!-- Overlay café en hover -->
+          <div class="absolute inset-0 bg-[#2A1612] opacity-0 group-hover:opacity-85 z-0 transition-opacity duration-500"></div>
           
           <!-- Contenido en la base -->
           <div class="relative z-10 flex flex-col items-start text-left text-white">
@@ -558,15 +666,17 @@ const products = [
         </div>
 
         <!-- Tarjeta 4: Sofisticación en Cada Detalle -->
-        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-gradient-to-t from-[#150608] via-[#2A1612]/90 to-[#1e0d0f]/80">
+        <div class="relative overflow-hidden rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-6 bg-black/10">
           <!-- Imagen de fondo texturada -->
           <img 
             src="/img/razon1.png" 
             alt="Sofisticación en Cada Detalle" 
-            class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+            class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
           />
           <!-- Overlay degradado oscuro gradual -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#150608] via-[#150608]/40 to-transparent z-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A0A0C]/90 via-[#1A0A0C]/35 to-transparent z-0 transition-opacity duration-500"></div>
+          <!-- Overlay café en hover -->
+          <div class="absolute inset-0 bg-[#2A1612] opacity-0 group-hover:opacity-85 z-0 transition-opacity duration-500"></div>
           
           <!-- Contenido en la base -->
           <div class="relative z-10 flex flex-col items-start text-left text-white">
@@ -593,120 +703,338 @@ const products = [
     </div>
   </section>
 
-  <section class="relative py-20 md:py-28 overflow-hidden border-b border-[#3E251E]/30 bg-[#1A0A0C]">
-    <!-- Fondo de Cacao con Espejado y Capa Café Semi-Transparente -->
-    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <img 
-        src="/img/club-bg.png" 
-        alt="Fondo Cacao" 
-        class="w-full h-full object-cover scale-x-[-1] opacity-25 pointer-events-none"
-      />
-      <!-- Capa de transparencia café premium -->
-      <div class="absolute inset-0 bg-gradient-to-r from-[#20110D]/95 via-[#20110D]/92 to-[#1A0A0C]/96"></div>
-    </div>
-
-    <!-- Brillo dorado sutil de fondo -->
+  <!-- SECCIÓN COMUNIDAD TABOADA (ESTILO MOCKUP CON COLLAGE, TARJETAS APILADAS Y AVATAR DE CARLOS) -->
+  <section class="relative py-20 md:py-28 overflow-hidden bg-[#1E0F0C] border-b border-[#3E251E]/30 text-white select-none">
+    
+    <!-- Brillo dorado de fondo -->
     <div class="absolute -left-1/4 top-1/4 w-[600px] h-[600px] rounded-full bg-[#d4af37]/5 blur-[120px] pointer-events-none"></div>
     <div class="absolute -right-1/4 bottom-1/4 w-[600px] h-[600px] rounded-full bg-[#d4af37]/5 blur-[120px] pointer-events-none"></div>
 
+    <!-- Detalles de Cacao Grandes (SVG en lugar de Emojis) -->
+    <div class="absolute -left-16 top-16 w-48 h-48 opacity-10 pointer-events-none animate-float-slow text-[#dcb041]">
+      <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
+        <path d="M50 15 C35 30, 25 55, 50 85 C75 55, 65 30, 50 15 Z" />
+      </svg>
+    </div>
+    <div class="absolute -right-20 bottom-24 w-64 h-64 opacity-10 pointer-events-none animate-float-delayed text-[#dcb041]">
+      <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
+        <path d="M50 15 C35 30, 25 55, 50 85 C75 55, 65 30, 50 15 Z" />
+      </svg>
+    </div>
+
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         
-        <!-- LADO IZQUIERDO (cols 1-7): Grilla de 4 Beneficios (2x2) -->
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-          
-          <!-- Tarjeta 1: Descuentos -->
-          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
-            <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
-              <!-- Icono: Tag de Descuento -->
-              <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.5 1.5 0 002.122 0l4.318-4.318a1.5 1.5 0 000-2.122L11.16 3.659A2.25 2.25 0 009.568 3z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h.008v.008H6V7.5z"></path>
-              </svg>
+        <!-- LADO IZQUIERDO (cols 1-6): Collage de Fotos Estilo Mockup -->
+        <div class="lg:col-span-6 flex justify-center relative">
+          <div class="relative w-full max-w-[420px] h-[480px]">
+            
+            <!-- 1. Imagen Central Grande Atras (Conferencia de prensa / degustación) - MÁS GRANDE -->
+            <div class="absolute top-10 left-10 w-[82%] h-[72%] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 z-10">
+              <img 
+                src="/img/comunidad_degustacion.jpg" 
+                alt="Degustación de Chocolate" 
+                class="w-full h-full object-cover"
+              />
             </div>
-            <h3 class="font-serif text-white text-lg font-bold mb-2">Descuentos Exclusivos</h3>
-            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
-              Accede a precios especiales en todas nuestras colecciones y promociones anticipadas.
-            </p>
-          </div>
-          
-          <!-- Tarjeta 2: Catas -->
-          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
-            <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
-              <!-- Icono: Taza/Cup -->
-              <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h1a4 4 0 110 8h-1M2 8h15v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 3v2M10 3v2M14 3v2"></path>
-              </svg>
+
+            <!-- 2. Imagen Pequeña Superior Izquierda (Sucursal exterior de Navidad) -->
+            <div class="absolute top-0 left-0 w-[42%] h-[30%] rounded-2xl overflow-hidden shadow-lg border-2 border-white/10 z-20">
+              <img 
+                src="/img/sucursal_navidad.png" 
+                alt="Sucursal Chocolatería Taboada" 
+                class="w-full h-full object-cover"
+              />
             </div>
-            <h3 class="font-serif text-white text-lg font-bold mb-2">Catas de Chocolate</h3>
-            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
-              Invitaciones a eventos de degustación para descubrir los matices de nuestros cacaos.
-            </p>
-          </div>
-          
-          <!-- Tarjeta 3: Envíos -->
-          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
-            <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
-              <!-- Icono: Camión de envíos -->
-              <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125a1.125 1.125 0 001.125-1.125V9.75M8.25 18.75a1.5 1.5 0 01-3 0M21 9.75V9A1.5 1.5 0 0019.5 7.5h-3.375a1.5 1.5 0 00-1.5 1.5v6a1.5 1.5 0 001.5 1.5H21M14.25 18.75A1.5 1.5 0 0015 17.25V9.75"></path>
-              </svg>
+
+            <!-- 3. Imagen Pequeña Inferior Derecha (Interior de la chocolatería sucursal) -->
+            <div class="absolute bottom-6 right-0 w-[45%] h-[32%] rounded-2xl overflow-hidden shadow-lg border-2 border-white/10 z-20">
+              <img 
+                src="/img/sucursal_interior.png" 
+                alt="Interior Chocolatería Taboada" 
+                class="w-full h-full object-cover"
+              />
             </div>
-            <h3 class="font-serif text-white text-lg font-bold mb-2">Envíos Prioritarios</h3>
-            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
-              Disfruta de envíos rápidos y seguros para que tus regalos lleguen siempre a tiempo.
-            </p>
-          </div>
-          
-          <!-- Tarjeta 4: Regalo -->
-          <div class="bg-[#2B1713]/60 backdrop-blur-sm border border-[#3E251E]/55 rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/35 hover:bg-[#2B1713]/75 flex flex-col justify-start shadow-md">
-            <div class="w-12 h-12 rounded-xl bg-[#d4af37]/10 flex items-center justify-center mb-6">
-              <!-- Icono: Regalo -->
-              <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5H3M21 7.5V18a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18V7.5m18 0V5.25A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25V7.5m18 0h-3.75m-10.5 0h3.75m0 0V21m0-13.5h7.5"></path>
-              </svg>
+
+            <!-- 4. Insignia Inferior Izquierda LARGA Y DORADA (Miembros de la Comunidad) -->
+            <div class="absolute bottom-0 -left-6 w-[88%] bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] px-6 py-4.5 rounded-3xl shadow-2xl z-30 flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+              <div class="w-10 h-10 rounded-full bg-[#2A1612]/15 text-[#2A1612] flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
+                </svg>
+              </div>
+              <div class="text-left leading-tight">
+                <span class="block text-2xl font-black tracking-tight">1,500+ Miembros</span>
+                <span class="text-[9px] uppercase tracking-wider font-extrabold text-[#2A1612]/80">Personas ya en la comunidad</span>
+              </div>
             </div>
-            <h3 class="font-serif text-white text-lg font-bold mb-2">Regalo de Cumpleaños</h3>
-            <p class="text-[#D6B98C]/80 text-[11px] lg:text-xs leading-relaxed font-sans">
-              Celebra tu día especial con un detalle dulce cortesía de la familia Taboada.
-            </p>
+
           </div>
-          
         </div>
 
-        <!-- LADO DERECHO (cols 8-12): Título y Texto de introducción del Club -->
-        <div class="lg:col-span-5 flex flex-col items-start text-left lg:pl-10">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-[2px] bg-[#d4af37]"></span>
-            <span class="text-xs uppercase tracking-widest text-[#f6d98d] font-bold font-sans">Programa de Lealtad</span>
-          </div>
+        <!-- LADO DERECHO (cols 7-12): Título y Tarjetas de Beneficios del Mockup -->
+        <div class="lg:col-span-6 flex flex-col items-start text-left lg:pl-6">
+          <span class="text-xs uppercase tracking-widest text-[#dcb041] font-extrabold font-sans mb-3 block">
+            Programa de Lealtad
+          </span>
           
-          <h2 class="font-serif text-4xl md:text-5xl text-[#FFF8FA] leading-tight mb-6 font-bold">
-            El Club <br />
-            <span class="text-[#f6d98d] italic font-semibold">Taboada</span>
+          <h2 class="font-serif text-4xl md:text-5xl text-white leading-tight mb-5 font-bold tracking-tight">
+            Comunidad Taboada
           </h2>
           
-          <p class="text-[#D6B98C]/90 text-sm md:text-base leading-relaxed mb-8 max-w-sm font-sans">
-            Únete a nuestro programa de lealtad y disfruta de privilegios pensados exclusivamente para los verdaderos amantes del chocolate.
+          <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-lg font-sans">
+            Sé parte de una dinastía de sabor que trasciende generaciones. Registrándote en nuestra <strong>Comunidad Oficial</strong> hoy, desbloqueas privilegios y accedes a beneficios de nuestra chocolatería tradicional.
           </p>
           
-          <a
-            href="/beneficios"
-            class="group inline-flex items-center justify-center px-8 py-4 rounded-full 
-                   bg-[linear-gradient(145deg,#f6d98d,#dcb041)] text-[#2e1119] 
-                   font-bold text-xs md:text-sm shadow-[0_10px_25px_rgba(220,176,65,0.25)] 
-                   hover:scale-[1.03] transition-all duration-300 relative overflow-hidden"
-          >
-            <span class="relative z-10 tracking-wide font-bold font-sans">Canjear beneficios</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
-          </a>
+          <!-- Stack de Tarjetas del Mockup (2 bloques horizontales SIN FONDO NI BORDE) -->
+          <div class="space-y-6 w-full max-w-lg">
+            
+            <!-- Tarjeta 1: Catas VIP -->
+            <div class="py-4 flex items-start gap-4 transition-all duration-300">
+              <div class="w-12 h-12 rounded-full bg-[#dcb041]/15 text-[#dcb041] flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-base font-bold text-white mb-1">Catas & Experiencias VIP</h4>
+                <p class="text-xs text-gray-400 leading-relaxed font-sans">
+                  Invitaciones exclusivas a talleres de maridaje, degustaciones guiadas de chocolate caliente tradicional y preventas de nuevas colecciones de bombones.
+                </p>
+              </div>
+            </div>
+
+            <!-- Tarjeta 2: Descuentos -->
+            <div class="py-4 flex items-start gap-4 transition-all duration-300">
+              <div class="w-12 h-12 rounded-full bg-[#dcb041]/15 text-[#dcb041] flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.5 1.5 0 002.122 0l4.318-4.318a1.5 1.5 0 000-2.122L11.16 3.659A2.25 2.25 0 009.568 3z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h.008v.008H6V7.5z"></path>
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-base font-bold text-white mb-1">Descuentos de la Comunidad</h4>
+                <p class="text-xs text-gray-400 leading-relaxed font-sans">
+                  Obtén un 10% de descuento automático en compras oficiales y un obsequio especial de la familia en el mes de tu cumpleaños.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pie de Sección: Botón de Acción alineado a la izquierda (Sin Avatar de Carlos) -->
+          <div class="w-full max-w-lg mt-8 pt-6 border-t border-white/10 text-left">
+            <a
+              href="/beneficios"
+              class="inline-flex items-center justify-center px-10 py-4 rounded-full 
+                     bg-[#dcb041] hover:bg-[#FAF5F0] border border-[#dcb041] text-[#2A1612] 
+                     font-extrabold text-xs md:text-sm shadow-md hover:shadow-lg transition-all duration-300 text-center"
+            >
+              Unirse a la Comunidad
+            </a>
+          </div>
+
         </div>
         
       </div>
     </div>
   </section>
+<section
+    id="elegancia"
+    class="relative bg-gradient-to-br from-[#FAF5F0] via-[#F3ECE3] to-[#FAF5F0] py-16 md:py-24 border-t border-[#e8dccb]/50 overflow-hidden"
+  >
+    <div class="max-w-6xl mx-auto px-5 relative z-10">
+      <!-- TITULO -->
+      <div class="text-center mb-12">
+        <h2
+          class="text-4xl md:text-5xl font-elegante text-[#2A1612] mb-2 tracking-tight font-bold"
+        >
+          Elegancia para sorprender
+        </h2>
 
+        <p
+          class="font-cursiva text-[#8f6c49] text-2xl md:text-3xl tracking-wide"
+        >
+          No le regales cualquier cosa... regálale un momento.
+        </p>
+      </div>
+
+      <!-- CARDS -->
+      <div class="flex flex-col gap-6 max-w-5xl mx-auto">
+        <!-- CARD 1 -->
+        <div
+          class="bg-[#fbf8f3]/95 rounded-[2rem] border border-[#e8dccb] shadow-md hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-900/5 transition-all duration-500 flex flex-col md:flex-row overflow-hidden group"
+        >
+          <!-- IMAGEN -->
+          <div
+            class="md:w-[42%] p-6 md:p-7 flex items-center justify-center relative overflow-hidden"
+          >
+            <div
+              class="absolute w-52 h-52 bg-[#f6d98d]/10 rounded-full blur-3xl opacity-70"
+            >
+            </div>
+
+            <img
+              src="/img/especial1.png"
+              alt="Estuche Selección Premium"
+              class="object-contain w-full h-full max-h-56 relative z-10 drop-shadow-[0_10px_18px_rgba(0,0,0,0.15)] group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+
+          <!-- TEXTO -->
+          <div class="md:w-[58%] p-6 md:p-8 flex flex-col justify-center">
+            <h3
+              class="text-4xl md:text-5xl font-elegante font-bold text-[#2A1612] mb-3"
+            >
+              Bs. 72
+            </h3>
+
+            <h4
+              class="text-xl md:text-2xl font-bold text-[#8f6c49] mb-2 font-elegante"
+            >
+              Estuche Selección Premium
+
+              <span class="font-normal text-[#5D4037]/80 text-base font-sans">
+                250g
+              </span>
+            </h4>
+
+            <p class="text-[#5D4037]/80 italic text-sm mb-3">
+              "Un deleite para compartir"
+            </p>
+
+            <p class="text-[#5D4037]/90 text-sm leading-relaxed mb-6 font-sans">
+              Más que chocolate... una tradición de sabor único y elegancia.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4 border-t border-[#e8dccb]/70">
+              <span
+                class="bg-[#FAF5F0] border border-[#e8dccb] text-[#8f6c49] text-[11px] font-bold px-4 py-2 rounded-full font-sans"
+              >
+                Detalle Premium
+              </span>
+
+              <div class="flex items-center gap-2">
+                <!-- Añadir al carrito (icono bag) -->
+                <button
+                  type="button"
+                  class="add-to-cart-btn w-9 h-9 bg-[#FAF5F0] hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#2A1612]/20 text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm cursor-pointer"
+                  title="Añadir al carrito"
+                  data-name="Estuche Selección Premium"
+                  data-size="250g"
+                  data-img="/img/especial1.png"
+                  data-price-cochabamba="BS. 72"
+                  data-price-lapaz="BS. 72"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                  </svg>
+                </button>
+
+                <!-- Comprar directamente -->
+                <button
+                  type="button"
+                  class="direct-buy-btn bg-[#f6d98d] hover:bg-[#f0cb69] text-[#3a1823] text-xs font-black px-5 py-2.5 rounded-full transition-all duration-300 shadow-md text-center cursor-pointer"
+                  data-name="Estuche Selección Premium"
+                  data-size="250g"
+                  data-price-cochabamba="BS. 72"
+                  data-price-lapaz="BS. 72"
+                >
+                  Comprar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div
+          class="bg-[#fbf8f3]/95 rounded-[2rem] border border-[#e8dccb] shadow-md hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-900/5 transition-all duration-500 flex flex-col md:flex-row-reverse overflow-hidden group"
+        >
+          <!-- IMAGEN -->
+          <div
+            class="md:w-[42%] p-6 md:p-7 md:pr-24 flex items-center justify-center relative overflow-hidden"
+          >
+            <div
+              class="absolute w-52 h-52 bg-[#f6d98d]/10 rounded-full blur-3xl opacity-70"
+            >
+            </div>
+
+            <img
+              src="/img/prom2.png"
+              alt="Caja Cartón Corazón"
+              class="object-contain w-full h-full max-h-56 relative z-10 drop-shadow-[0_10px_18px_rgba(0,0,0,0.15)] group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+
+          <!-- TEXTO -->
+          <div class="md:w-[58%] p-6 md:p-8 md:px-24 flex flex-col justify-center">
+            <h3
+              class="text-4xl md:text-5xl font-elegante font-bold text-[#2A1612] mb-3"
+            >
+              Bs. 21.5
+            </h3>
+
+            <h4
+              class="text-xl md:text-2xl font-bold text-[#8f6c49] mb-2 font-elegante"
+            >
+              Caja Cartera
+
+              <span class="font-normal text-[#5D4037]/80 text-base font-sans">
+                100g
+              </span>
+            </h4>
+
+            <p class="text-[#5D4037]/80 italic text-sm mb-3">
+              "Tradición en formato unique"
+            </p>
+
+            <p class="text-[#5D4037]/90 text-sm leading-relaxed mb-6 font-sans">
+              Un detalle delicado, elegante y perfecto para cualquier ocasión especial.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 mt-auto pt-4 border-t border-[#e8dccb]/70">
+              <span
+                class="bg-[#FAF5F0] border border-[#e8dccb] text-[#8f6c49] text-[11px] font-bold px-4 py-2 rounded-full font-sans"
+              >
+                Exclusivo
+              </span>
+
+              <div class="flex items-center gap-2">
+                <!-- Añadir al carrito (icono bag) -->
+                <button
+                  type="button"
+                  class="add-to-cart-btn w-9 h-9 bg-[#FAF5F0] hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#2A1612]/20 text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm cursor-pointer"
+                  title="Añadir al carrito"
+                  data-name="Caja Cartera "
+                  data-size=" 100g"
+                  data-img="/img/prom2.png"
+                  data-price-cochabamba="BS. 21.5"
+                  data-price-lapaz="BS. 21.5"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                  </svg>
+                </button>
+
+                <!-- Comprar directamente -->
+                <button
+                  type="button"
+                  class="direct-buy-btn bg-[#f6d98d] hover:bg-[#f0cb69] text-[#3a1823] text-xs font-black px-5 py-2.5 rounded-full transition-all duration-300 shadow-md text-center cursor-pointer"
+                  data-name="Caja Cartera "
+                  data-size="100g"
+                  data-price-cochabamba="BS. 21.5"
+                  data-price-lapaz="BS. 21.5"
+                >
+                  Comprar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section
     id="cajas-especiales"
     class="relative bg-gradient-to-br from-[#FAF5F0] via-[#F3ECE3] to-[#FAF5F0] py-16 md:py-24 border-t border-[#e8dccb]/50 overflow-hidden"
@@ -764,6 +1092,27 @@ const products = [
               data-price-cochabamba={product.price.cochabamba}
               data-price-lapaz={product.price["la-paz"]}
             >
+              <!-- Botón Añadir al Carrito (Flotante arriba a la derecha de la tarjeta con Tooltip) -->
+              <div class="absolute top-5 right-5 z-20 group/tooltip">
+                <button
+                  type="button"
+                  class="add-to-cart-btn w-10 h-10 bg-white/90 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#2A1612]/10 text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                  data-name={product.name}
+                  data-size={product.size}
+                  data-img={product.img}
+                  data-price-cochabamba={product.price.cochabamba}
+                  data-price-lapaz={product.price["la-paz"]}
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                  </svg>
+                </button>
+                <!-- Tooltip personalizado -->
+                <span class="absolute right-0 -bottom-9 bg-[#2A1612] text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-300 z-30 border border-white/10">
+                  Añadir al carrito
+                </span>
+              </div>
+
               <!-- IMAGEN -->
               <div class="w-full h-56 mb-6 flex items-center justify-center relative z-10">
                 <img
@@ -791,14 +1140,17 @@ const products = [
                   <p class="product-price-label text-xl font-serif font-bold text-[#2A1612]">{product.price.cochabamba}</p>
                 </div>
 
-                <a
-                  href={product.link}
-                  target="_blank"
-                  rel="noopener"
-                  class="bg-[#f6d98d] hover:bg-[#f0cb69] text-[#3a1823] text-xs font-bold px-5 py-2.5 rounded-full transition-all duration-300 shadow-md text-center"
+                <!-- Comprar directamente -->
+                <button
+                  type="button"
+                  class="direct-buy-btn bg-[#f6d98d] hover:bg-[#f0cb69] text-[#3a1823] text-xs font-black px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm text-center cursor-pointer"
+                  data-name={product.name}
+                  data-size={product.size}
+                  data-price-cochabamba={product.price.cochabamba}
+                  data-price-lapaz={product.price["la-paz"]}
                 >
                   Comprar
-                </a>
+                </button>
               </div>
             </div>
           ))}
@@ -855,6 +1207,35 @@ const products = [
 
       document.addEventListener('click', () => {
         cityDropdown?.classList.add('hidden');
+      });
+
+      // ── MENÚ MÓVIL (DRAWER) ──
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileCloseBtn = document.getElementById('mobile-close-btn');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const drawerOverlay = document.getElementById('drawer-overlay');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      function openDrawer() {
+        mobileDrawer?.classList.remove('translate-x-full');
+        drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+      }
+
+      function closeDrawer() {
+        mobileDrawer?.classList.add('translate-x-full');
+        drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
+      }
+
+      mobileMenuBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDrawer();
+      });
+
+      mobileCloseBtn?.addEventListener('click', closeDrawer);
+      drawerOverlay?.addEventListener('click', closeDrawer);
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', closeDrawer);
       });
 
       // ── ACTUALIZAR CIUDAD SELECCIONADA ──
@@ -1024,9 +1405,364 @@ const products = [
           })
           .catch((err) => {
             console.error('No se pudo determinar la ubicación IP, usando Cochabamba por defecto:', err);
-            updateCity('cochabamba'); // Fallback por defecto
           });
       }
+
+      // ── DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) ──
+      function checkUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('cat');
+        if (catParam) {
+          const targetBtn = document.querySelector(`.cat-btn[data-target="${catParam}"]`) as HTMLButtonElement;
+          if (targetBtn) {
+            setTimeout(() => {
+              targetBtn.click();
+              const targetSection = document.getElementById('cajas-especiales');
+              if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 300);
+          }
+        }
+      }
+
+      checkUrlParams();
+
+      // Interceptar clicks en enlaces del menu dropdown cuando estamos en el home
+      const dropdownLinks = document.querySelectorAll('a[href*="?cat="]');
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const hrefAttr = link.getAttribute('href') || '';
+          const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
+          if (isHomePage) {
+            const url = new URL(hrefAttr, window.location.href);
+            const cat = url.searchParams.get('cat');
+            if (cat) {
+              const targetBtn = document.querySelector(`.cat-btn[data-target="${cat}"]`) as HTMLButtonElement;
+              if (targetBtn) {
+                e.preventDefault();
+                targetBtn.click();
+                const targetSection = document.getElementById('cajas-especiales');
+                if (targetSection) {
+                  targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                // Limpiar la query de la URL sin recargar
+                window.history.pushState({}, '', window.location.pathname);
+              }
+            }
+          }
+        });
+      });
+
+      // ── LOGICA COMPLETA DEL CARRITO DE COMPRAS ──
+      let cart = JSON.parse(localStorage.getItem('taboada_cart') || '[]');
+      
+      // Selectores Modal de Cantidad
+      const qtyModal = document.getElementById('quantity-modal');
+      const qtyModalOverlay = document.getElementById('quantity-modal-overlay');
+      const qtyModalClose = document.getElementById('quantity-modal-close');
+      const modalProdName = document.getElementById('modal-product-name');
+      const modalProdSize = document.getElementById('modal-product-size');
+      const modalProdImg = document.getElementById('modal-product-img') as HTMLImageElement;
+      const modalQtyVal = document.getElementById('modal-qty-val');
+      const modalQtyMinus = document.getElementById('modal-qty-minus');
+      const modalQtyPlus = document.getElementById('modal-qty-plus');
+      const modalTotalPrice = document.getElementById('modal-total-price');
+      const modalAddBtn = document.getElementById('modal-add-btn');
+
+      // Selectores Drawer Carrito
+      const cartDrawer = document.getElementById('cart-drawer');
+      const cartOverlay = document.getElementById('cart-overlay');
+      const cartDrawerClose = document.getElementById('cart-drawer-close');
+      const floatingCartBtn = document.getElementById('floating-cart-btn');
+      const cartCountBadge = document.getElementById('cart-count-badge');
+      const cartItemsList = document.getElementById('cart-items-list');
+      const cartEmptyMsg = document.getElementById('cart-empty-msg');
+      const cartTotalPrice = document.getElementById('cart-total-price');
+      const cartCheckoutBtn = document.getElementById('cart-checkout-btn');
+
+      // Variables de control del Modal
+      let modalActiveProduct = {
+        name: '',
+        size: '',
+        img: '',
+        price: 0,
+        quantity: 1
+      };
+
+      // Limpiar texto de precio "BS. 77" -> 77
+      function parsePrice(priceStr: string): number {
+        // Eliminar primero la palabra "BS." o "Bs." para evitar que el punto de la abreviación se tome como decimal (.81)
+        const cleanStr = priceStr.replace(/BS\./i, '').replace(/Bs\./i, '').replace(/BS/i, '').replace(/Bs/i, '');
+        return parseFloat(cleanStr.replace(/[^\d.]/g, '')) || 0;
+      }
+
+      // Guardar y Actualizar
+      function saveCart() {
+        localStorage.setItem('taboada_cart', JSON.stringify(cart));
+        updateCartUI();
+      }
+
+      function updateCartUI() {
+        const totalItems = cart.reduce((acc: number, item: any) => acc + item.quantity, 0);
+        if (cartCountBadge) {
+          cartCountBadge.textContent = totalItems.toString();
+        }
+
+        // Renderizar items del drawer
+        if (cartItemsList) {
+          const itemsElements = cartItemsList.querySelectorAll('.cart-item-row');
+          itemsElements.forEach(el => el.remove());
+
+          if (cart.length === 0) {
+            cartEmptyMsg?.classList.remove('hidden');
+            if (cartTotalPrice) cartTotalPrice.textContent = "BS. 0";
+          } else {
+            cartEmptyMsg?.classList.add('hidden');
+            let grandTotal = 0;
+
+            cart.forEach((item: any, index: number) => {
+              const itemTotal = item.price * item.quantity;
+              grandTotal += itemTotal;
+
+              const itemRow = document.createElement('div');
+              itemRow.className = 'cart-item-row flex items-center justify-between gap-3 p-3 bg-white/5 rounded-2xl border border-white/5';
+              itemRow.innerHTML = `
+                <div class="flex items-center gap-3 flex-grow">
+                  <img src="${item.img}" alt="${item.name}" class="w-12 h-12 object-contain bg-white/5 rounded-lg p-1" />
+                  <div class="text-left">
+                    <span class="block text-xs font-bold text-white line-clamp-1">${item.name}</span>
+                    <span class="block text-[9px] text-[#f6d98d] font-bold">${item.size}</span>
+                    <span class="block text-[10px] text-white/60 mt-0.5">BS. ${item.price} c/u</span>
+                  </div>
+                </div>
+                <div class="flex flex-col items-end justify-between gap-1 flex-shrink-0">
+                  <button class="cart-remove-item text-white/40 hover:text-red-400 text-xs font-bold p-1 cursor-pointer transition-colors" data-index="${index}">✕</button>
+                  <div class="flex items-center gap-2 mt-1">
+                    <button class="cart-qty-dec w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold cursor-pointer" data-index="${index}">-</button>
+                    <span class="text-xs font-black text-white w-4 text-center">${item.quantity}</span>
+                    <button class="cart-qty-inc w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold cursor-pointer" data-index="${index}">+</button>
+                  </div>
+                </div>
+              `;
+              cartItemsList.appendChild(itemRow);
+            });
+
+            if (cartTotalPrice) {
+              cartTotalPrice.textContent = `BS. ${grandTotal.toFixed(1)}`;
+            }
+          }
+        }
+
+        bindCartDrawerEvents();
+      }
+
+      function bindCartDrawerEvents() {
+        const removeButtons = document.querySelectorAll('.cart-remove-item');
+        removeButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt((e.currentTarget as HTMLButtonElement).getAttribute('data-index') || '0', 10);
+            cart.splice(idx, 1);
+            saveCart();
+          });
+        });
+
+        const decButtons = document.querySelectorAll('.cart-qty-dec');
+        decButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt((e.currentTarget as HTMLButtonElement).getAttribute('data-index') || '0', 10);
+            if (cart[idx].quantity > 1) {
+              cart[idx].quantity -= 1;
+            } else {
+              cart.splice(idx, 1);
+            }
+            saveCart();
+          });
+        });
+
+        const incButtons = document.querySelectorAll('.cart-qty-inc');
+        incButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt((e.currentTarget as HTMLButtonElement).getAttribute('data-index') || '0', 10);
+            cart[idx].quantity += 1;
+            saveCart();
+          });
+        });
+      }
+
+      function openCartDrawer() {
+        cartDrawer?.classList.remove('translate-x-full');
+        cartOverlay?.classList.remove('hidden');
+      }
+
+      function closeCartDrawer() {
+        cartDrawer?.classList.add('translate-x-full');
+        cartOverlay?.classList.add('hidden');
+      }
+
+      function openQtyModal(name: string, size: string, img: string, price: number) {
+        modalActiveProduct = { name, size, img, price, quantity: 1 };
+        
+        if (modalProdName) modalProdName.textContent = name;
+        if (modalProdSize) modalProdSize.textContent = size;
+        if (modalProdImg) modalProdImg.src = img;
+        if (modalQtyVal) modalQtyVal.textContent = "1";
+        
+        qtyModalOverlay?.classList.remove('hidden');
+        qtyModal?.classList.remove('hidden');
+        
+        setTimeout(() => {
+          qtyModal?.classList.remove('scale-95', 'opacity-0');
+          qtyModal?.classList.add('scale-100', 'opacity-100');
+        }, 10);
+      }
+
+      function closeQtyModal() {
+        qtyModal?.classList.remove('scale-100', 'opacity-100');
+        qtyModal?.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+          qtyModal?.classList.add('hidden');
+          qtyModalOverlay?.classList.add('hidden');
+        }, 300);
+      }
+
+
+      // Enlaces de eventos principales
+      const buyButtons = document.querySelectorAll('.add-to-cart-btn');
+      buyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const name = target.getAttribute('data-name') || '';
+          const size = target.getAttribute('data-size') || '';
+          const img = target.getAttribute('data-img') || '';
+          
+          const priceKey = currentCity === 'cochabamba' ? 'data-price-cochabamba' : 'data-price-lapaz';
+          const priceStr = target.getAttribute(priceKey) || target.getAttribute('data-price-cochabamba') || '0';
+          const price = parsePrice(priceStr);
+
+          openQtyModal(name, size, img, price);
+        });
+      });
+
+      // Compra directa de un solo producto
+      const directBuyButtons = document.querySelectorAll('.direct-buy-btn');
+      directBuyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const name = target.getAttribute('data-name') || '';
+          const size = target.getAttribute('data-size') || '';
+          
+          const priceKey = currentCity === 'cochabamba' ? 'data-price-cochabamba' : 'data-price-lapaz';
+          const priceStr = target.getAttribute(priceKey) || target.getAttribute('data-price-cochabamba') || '';
+          const priceVal = parsePrice(priceStr);
+          
+          const cityLabel = currentCity === 'cochabamba' ? 'Cochabamba' : 'La Paz';
+          
+          let message = `¡Hola! Quisiera comprar el siguiente producto de Chocolates Taboada:\n\n`;
+          message += `Ciudad de entrega: ${cityLabel}\n`;
+          message += `------------------------------------------\n`;
+          message += `• 1 x ${name} (${size})\n`;
+          message += `  Precio unitario: BS. ${priceVal.toFixed(1)}\n`;
+          message += `  Subtotal: BS. ${priceVal.toFixed(1)}\n`;
+          message += `------------------------------------------\n`;
+          message += `Total a pagar: BS. ${priceVal.toFixed(1)}\n\n`;
+          message += `¡Muchas gracias!`;
+          
+          const waNumber = "59179786916";
+          const encodedMsg = encodeURIComponent(message);
+          const waLink = `https://wa.me/${waNumber}?text=${encodedMsg}`;
+          
+          window.open(waLink, '_blank');
+        });
+      });
+
+      modalQtyMinus?.addEventListener('click', () => {
+        if (modalActiveProduct.quantity > 1) {
+          modalActiveProduct.quantity -= 1;
+          if (modalQtyVal) modalQtyVal.textContent = modalActiveProduct.quantity.toString();
+        }
+      });
+
+      modalQtyPlus?.addEventListener('click', () => {
+        modalActiveProduct.quantity += 1;
+        if (modalQtyVal) modalQtyVal.textContent = modalActiveProduct.quantity.toString();
+      });
+
+      modalAddBtn?.addEventListener('click', () => {
+        const existingIdx = cart.findIndex((item: any) => item.name === modalActiveProduct.name && item.size === modalActiveProduct.size);
+        if (existingIdx > -1) {
+          cart[existingIdx].quantity += modalActiveProduct.quantity;
+        } else {
+          cart.push({
+            name: modalActiveProduct.name,
+            size: modalActiveProduct.size,
+            img: modalActiveProduct.img,
+            price: modalActiveProduct.price,
+            quantity: modalActiveProduct.quantity
+          });
+        }
+        
+        saveCart();
+        closeQtyModal();
+        
+        setTimeout(() => {
+          openCartDrawer();
+        }, 400);
+      });
+
+      qtyModalClose?.addEventListener('click', closeQtyModal);
+      qtyModalOverlay?.addEventListener('click', closeQtyModal);
+
+      floatingCartBtn?.addEventListener('click', openCartDrawer);
+      cartDrawerClose?.addEventListener('click', closeCartDrawer);
+      cartOverlay?.addEventListener('click', closeCartDrawer);
+
+      cartCheckoutBtn?.addEventListener('click', () => {
+        if (cart.length === 0) return;
+
+        const cityLabel = currentCity === 'cochabamba' ? 'Cochabamba' : 'La Paz';
+        let message = `¡Hola! Quisiera realizar el siguiente pedido de Chocolates Taboada:\n\n`;
+        message += `Ciudad de entrega: ${cityLabel}\n`;
+        message += `------------------------------------------\n`;
+        
+        let total = 0;
+        cart.forEach((item: any) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          message += `• ${item.quantity} x ${item.name} (${item.size})\n`;
+          message += `  Precio unitario: BS. ${item.price.toFixed(1)}\n`;
+          message += `  Subtotal: BS. ${itemTotal.toFixed(1)}\n\n`;
+        });
+
+        message += `------------------------------------------\n`;
+        message += `Total a pagar: BS. ${total.toFixed(1)}\n\n`;
+        message += `¡Muchas gracias!`;
+        
+        const waNumber = "59179786916";
+        const encodedMsg = encodeURIComponent(message);
+        const waLink = `https://wa.me/${waNumber}?text=${encodedMsg}`;
+        
+        cart = [];
+        saveCart();
+        closeCartDrawer();
+
+        window.open(waLink, '_blank');
+      });
+
+      updateCartUI();
+
+      // ── CAMBIO DE COLOR DEL NAVBAR AL HACER SCROLL ──
+      const navbar = document.getElementById('main-navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar?.classList.add('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
+          navbar?.classList.remove('bg-transparent', 'border-transparent', 'hover:bg-white/10');
+        } else {
+          navbar?.classList.remove('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
+          navbar?.classList.add('bg-transparent', 'border-transparent', 'hover:bg-white/10');
+        }
+      });
     });
   </script>
 
@@ -1042,178 +1778,142 @@ const products = [
     }
   </style>
 
-  <section
-    id="elegancia"
-    class="py-14 md:py-20 border-y border-[#5e2d3b] bg-cover bg-center bg-no-repeat relative overflow-hidden"
-    style="background-image: url('/img/fondo2.png');"
+  
+
+  <!-- ======================================================== -->
+  <!-- COMPONENTES DEL CARRITO DE COMPRA E INTERACTIVOS -->
+  <!-- ======================================================== -->
+
+  <!-- BOTÓN FLOTANTE DEL CARRITO -->
+  <button
+    id="floating-cart-btn"
+    class="fixed bottom-6 right-6 z-[990] w-14 h-14 rounded-full bg-[#dcb041] hover:bg-[#FAF5F0] border border-[#dcb041] text-[#2A1612] flex items-center justify-center shadow-[0_4px_25px_rgba(220,176,65,0.45)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
   >
-    <!-- overlay -->
-
-    <div
-      class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(28,10,16,0.78),rgba(44,18,28,0.70),rgba(20,8,12,0.82))]"
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+    </svg>
+    <span
+      id="cart-count-badge"
+      class="absolute -top-1 -right-1 bg-[#e53e3e] text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border border-white"
     >
-    </div>
+      0
+    </span>
+  </button>
 
-    <div class="max-w-6xl mx-auto px-5 relative z-10">
-      <!-- TITULO -->
+  <!-- OVERLAY Y MODAL DE SELECCIÓN DE CANTIDAD (POP-UP) -->
+  <div
+    id="quantity-modal-overlay"
+    class="fixed inset-0 bg-black/70 z-[1100] hidden backdrop-blur-[2px] transition-all duration-300"
+  ></div>
+  <div
+    id="quantity-modal"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#FAF5F0] border border-[#e8dccb] rounded-[2.5rem] shadow-2xl p-8 z-[1101] hidden flex flex-col items-center justify-between transition-all duration-300 scale-95 opacity-0"
+  >
+    <!-- Botón de Cerrar Modal -->
+    <button
+      id="quantity-modal-close"
+      class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center bg-gray-200/50 hover:bg-gray-200 text-gray-700 transition-colors duration-200 cursor-pointer font-bold"
+    >
+      ✕
+    </button>
 
-      <div class="text-center mb-12">
-        <h2
-          class="text-4xl md:text-5xl font-elegante text-[#fff7f8] mb-2 tracking-tight"
-        >
-          Elegancia para sorprender
-        </h2>
-
-        <p
-          class="font-cursiva text-[#f6d98d] text-2xl md:text-3xl tracking-wide"
-        >
-          No le regales cualquier cosa... regálale un momento.
-        </p>
+    <div class="w-full text-center">
+      <h3 id="modal-product-name" class="text-xl font-bold font-serif text-[#2A1612] leading-tight"></h3>
+      <span id="modal-product-size" class="block text-xs text-[#8f6c49] font-sans mt-0.5 font-bold"></span>
+      
+      <div class="w-full flex justify-center my-6">
+        <img 
+          id="modal-product-img" 
+          src="" 
+          alt="Producto" 
+          class="w-40 h-40 object-contain drop-shadow-xl"
+        />
       </div>
 
-      <!-- CARDS -->
-
-      <div class="flex flex-col gap-6 max-w-5xl mx-auto">
-        <!-- CARD 1 -->
-
-        <div
-          class="bg-[rgba(45,20,28,0.42)] backdrop-blur-sm rounded-[2rem] border border-[rgba(255,255,255,0.08)] shadow-[0_10px_35px_rgba(0,0,0,0.30)] flex flex-col md:flex-row overflow-hidden group transition-all duration-500"
+      <!-- Selector de cantidad -->
+      <div class="flex items-center justify-center gap-6 mt-4">
+        <button
+          id="modal-qty-minus"
+          class="w-10 h-10 rounded-full border border-[#2A1612]/30 flex items-center justify-center font-bold text-lg text-[#2A1612] bg-white/60 hover:bg-white active:scale-95 transition-all cursor-pointer"
         >
-          <!-- IMAGEN -->
-
-          <div
-            class="md:w-[42%] p-6 md:p-7 flex items-center justify-center relative overflow-hidden"
-          >
-            <div
-              class="absolute w-52 h-52 bg-[#f6d98d]/10 rounded-full blur-3xl opacity-70"
-            >
-            </div>
-
-            <img
-              src="/img/especial1.png"
-              alt="Estuche Selección Premium"
-              class="object-contain w-full h-full max-h-56 relative z-10 drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)] group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-
-          <!-- TEXTO -->
-
-          <div class="md:w-[58%] p-6 md:p-8 flex flex-col justify-center">
-            <h3
-              class="text-4xl md:text-5xl font-elegante font-bold text-[#fff7f8] mb-3"
-            >
-              Bs. 72
-            </h3>
-
-            <h4
-              class="text-xl md:text-2xl font-bold text-[#f6d98d] mb-2 font-elegante"
-            >
-              Estuche Selección Premium
-
-              <span class="font-normal text-[#f8e8ec] text-base font-sans">
-                250g
-              </span>
-            </h4>
-
-            <p class="text-[#fff0f2] italic text-sm mb-3">
-              "Un deleite para compartir"
-            </p>
-
-            <p class="text-[#d6c4ca] text-sm leading-relaxed mb-6">
-              Más que chocolate... una tradición de sabor único y elegancia.
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <span
-                class="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.08)] text-[#fff7f8] text-[11px] px-4 py-2 rounded-full"
-              >
-                Detalle Premium
-              </span>
-
-              <a
-                href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20el%20Estuche%20Seleccion%20Premium%20de%20250g"
-                target="_blank"
-                rel="noopener"
-                class="bg-[#f6d98d] hover:bg-[#f0cb69] text-[#3a1823] text-xs font-bold px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2 shadow-md"
-              >
-                Comprar
-                <span class="text-base leading-none">→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD 2 -->
-
-        <div
-          class="bg-[rgba(45,20,28,0.42)] backdrop-blur-sm rounded-[2rem] border border-[rgba(255,255,255,0.08)] shadow-[0_10px_35px_rgba(0,0,0,0.30)] flex flex-col md:flex-row-reverse overflow-hidden group transition-all duration-500"
+          -
+        </button>
+        <span id="modal-qty-val" class="w-12 text-center text-xl font-black text-[#2A1612]">1</span>
+        <button
+          id="modal-qty-plus"
+          class="w-10 h-10 rounded-full border border-[#2A1612]/30 flex items-center justify-center font-bold text-lg text-[#2A1612] bg-white/60 hover:bg-white active:scale-95 transition-all cursor-pointer"
         >
-          <!-- IMAGEN -->
+          +
+        </button>
+      </div>
 
-          <div
-            class="md:w-[42%] p-6 md:p-7 md:pr-24 flex items-center justify-center relative overflow-hidden"
-          >
-            <div
-              class="absolute w-52 h-52 bg-[#f6d98d]/10 rounded-full blur-3xl opacity-70"
-            >
-            </div>
 
-            <img
-              src="/img/prom2.png"
-              alt="Caja Cartón Corazón"
-              class="object-contain w-full h-full max-h-56 relative z-10 drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)] group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
+      <!-- Botón de agregar -->
+      <button
+        id="modal-add-btn"
+        class="w-full mt-6 py-4 rounded-full bg-[#dcb041] hover:bg-[#2A1612] hover:text-[#dcb041] text-[#2A1612] font-black text-sm shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
+      >
+        Agregar al Carrito
+      </button>
+    </div>
+  </div>
 
-          <!-- TEXTO -->
+  <!-- OVERLAY Y DRAWER DE CARRITO (SIDEBAR) -->
+  <div
+    id="cart-overlay"
+    class="fixed inset-0 bg-black/60 z-[1000] hidden backdrop-blur-[2px] transition-all duration-300"
+  ></div>
+  <div
+    id="cart-drawer"
+    class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-[#2A1612]/98 border-l border-white/10 shadow-2xl z-[1001] translate-x-full transition-transform duration-500 ease-in-out flex flex-col"
+  >
+    <!-- Cabecera del Carrito -->
+    <div class="p-6 border-b border-white/10 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-6 h-6 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        </svg>
+        <h3 class="text-xl font-serif text-[#f6d98d] font-bold">Tu Pedido</h3>
+      </div>
+      <button
+        id="cart-drawer-close"
+        class="w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 text-white transition-colors duration-200 cursor-pointer font-bold"
+      >
+        ✕
+      </button>
+    </div>
 
-          <div class="md:w-[58%] p-6 md:p-8 md:px-24 flex flex-col">
-            <h3
-              class="text-4xl md:text-5xl font-elegante font-bold text-[#fff7f8] mb-3"
-            >
-              Bs. 21.5
-            </h3>
-
-            <h4
-              class="text-xl md:text-2xl font-bold text-[#f6d98d] mb-2 font-elegante"
-            >
-              Caja Cartera
-
-              <span class="font-normal text-[#f8e8ec] text-base font-sans">
-                100g
-              </span>
-            </h4>
-
-            <p class="text-[#fff0f2] italic text-sm mb-3">
-              "Tradición en formato único"
-            </p>
-
-            <p class="text-[#d6c4ca] text-sm leading-relaxed mb-6">
-              Un detalle delicado, elegante y perfecto para cualquier ocasión especial.
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <span
-                class="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.08)] text-[#fff7f8] text-[11px] px-4 py-2 rounded-full"
-              >
-                Exclusivo
-              </span>
-
-              <a
-                href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20la%20Caja%20Cartera%20de%20100g"
-                target="_blank"
-                rel="noopener"
-                class="bg-[#f6d98d] hover:bg-[#f0cb69] text-[#3a1823] text-xs font-bold px-5 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2 shadow-md"
-              >
-                Comprar
-                <span class="text-base leading-none">→</span>
-              </a>
-            </div>
-          </div>
-        </div>
+    <!-- Lista de Productos en el Carrito (Scrollable) -->
+    <div id="cart-items-list" class="flex-grow overflow-y-auto p-6 space-y-4">
+      <!-- Los productos se inyectarán dinámicamente aquí -->
+      <div id="cart-empty-msg" class="h-full flex flex-col items-center justify-center text-center text-white/50">
+        <svg class="w-12 h-12 mb-3 text-white/20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386l.542 7.962A2.25 2.25 0 006.402 13h10.196a2.25 2.25 0 002.21-1.944L18.75 3m-16.5 0h13.5m-16.5 0l.344-1.5H19.5" />
+        </svg>
+        <p class="text-sm font-bold">Tu carrito está vacío</p>
+        <span class="text-xs mt-1">Explora nuestras colecciones y agrega tus chocolates favoritos</span>
       </div>
     </div>
-  </section>
+
+    <!-- Resumen y Checkout del Carrito -->
+    <div class="p-6 border-t border-white/10 bg-[#251210]/60">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-white/60 text-sm font-semibold">Total estimado:</span>
+        <span id="cart-total-price" class="text-2xl font-serif font-black text-[#f6d98d]">BS. 0</span>
+      </div>
+      
+      <button
+        id="cart-checkout-btn"
+        class="group w-full py-4 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-black text-sm shadow-lg hover:shadow-[0_4px_25px_rgba(220,176,65,0.45)] hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+      >
+        <span>Finalizar Pedido por WhatsApp</span>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.115-2.905-6.99-1.876-1.875-4.355-2.905-6.997-2.907-5.443 0-9.867 4.42-9.87 9.867-.001 1.698.443 3.355 1.287 4.8l-.996 3.636 3.737-.98c1.413.773 2.997 1.183 4.545 1.183z" />
+        </svg>
+      </button>
+      <span class="block text-center text-[10px] text-white/40 mt-3 font-sans">El pedido se enviará pre-formateado directo al WhatsApp oficial de nuestra fábrica.</span>
+    </div>
+  </div>
 
   <CallToAction />
   <Testimonials />

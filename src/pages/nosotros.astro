@@ -1,0 +1,816 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Nuestra Historia | Chocolates Taboada"
+  description="Conoce la historia, fundadores y legado de Chocolates Taboada, la primera fábrica de chocolates de Bolivia fundada en 1948 en Sucre."
+>
+  <!-- NAVBAR -->
+  <nav
+    id="main-navbar"
+    class="fixed top-0 left-0 w-full z-[999] transition-all duration-500
+         bg-transparent border-b border-transparent"
+  >
+    <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[85px] md:h-[95px] px-6 lg:px-12 relative">
+      
+      <!-- LOGO IZQUIERDO -->
+      <div class="flex items-center">
+        <a href="/">
+          <img
+            src="/img/taboada-logo.png"
+            alt="Taboada"
+            class="h-[50px] md:h-[65px] object-contain transition-transform duration-300 hover:scale-105"
+          />
+        </a>
+      </div>
+
+      <!-- ENLACES CENTRALES (Desktop) -->
+      <div class="hidden md:flex items-center gap-8 lg:gap-10">
+        <!-- INICIO -->
+        <a
+          href="/#inicio"
+          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+        >
+          Inicio
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+        </a>
+
+        <!-- NOSOTROS -->
+        <a
+          href="/nosotros"
+          class="relative group py-2 text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+        >
+          Nosotros
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-100 transition-all duration-300 ease-out"></span>
+        </a>
+
+        <!-- COLECCIONES (Dropdown) -->
+        <div class="relative group py-2">
+          <button class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
+            Colecciones
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+          
+          <!-- CONTENIDO DROPDOWN -->
+          <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+            <div class="p-3 grid grid-cols-1 gap-1">
+              <a href="/?cat=bombones" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">🍫</span>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Bombones Finos</div>
+                  <div class="text-xs text-white/60 mt-0.5">Elegancia y variedad de sabores premium</div>
+                </div>
+              </a>
+              <a href="/?cat=grageas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">🍬</span>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Cajas y Grageas</div>
+                  <div class="text-xs text-white/60 mt-0.5">Detalles perfectos y crujientes de sabor</div>
+                </div>
+              </a>
+              <a href="/?cat=tabletas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">🍫</span>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Tabletas y Barras</div>
+                  <div class="text-xs text-white/60 mt-0.5">Chocolate de origen seleccionado</div>
+                </div>
+              </a>
+              <a href="/?cat=reposteria" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">☕</span>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Chocolate de Taza</div>
+                  <div class="text-xs text-white/60 mt-0.5">La receta familiar tradicional boliviana</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENEFICIOS (Dropdown) -->
+        <div class="relative group py-2">
+          <button class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
+            Beneficios
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+
+          <!-- CONTENIDO DROPDOWN -->
+          <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+            <div class="p-3 grid grid-cols-1 gap-1">
+              <a href="/beneficios" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">✨</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Club Taboada</span>
+                    <span class="px-1.5 py-0.5 text-[9px] bg-[#dcb041]/20 text-[#dcb041] font-extrabold rounded">Socio</span>
+                  </div>
+                  <div class="text-xs text-white/60 mt-0.5">Beneficios exclusivos y catas de chocolate</div>
+                </div>
+              </a>
+              <a href="/adulto-mayor" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                <span class="text-xl">💖</span>
+                <div>
+                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Membresía Legado</div>
+                  <div class="text-xs text-white/60 mt-0.5">Atención preferencial y 10% de descuento</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADULTO MAYOR -->
+        <a
+          href="/adulto-mayor"
+          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+        >
+          Adulto Mayor
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+        </a>
+      </div>
+
+      <!-- DERECHA (Selector Ciudad + CTA Pedir Ahora + Hamburger) -->
+      <div class="flex items-center gap-3 md:gap-4 relative overflow-visible">
+        
+        <!-- SELECTOR DE CIUDAD -->
+        <div class="relative inline-block text-left z-[1000] overflow-visible">
+          <button
+            id="city-selector-btn"
+            type="button"
+            class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03]"
+          >
+            <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+            </svg>
+            <span id="active-city-name">Detectando...</span>
+            <span class="text-[8px] opacity-75">▼</span>
+          </button>
+          
+          <!-- MENU DESPLEGABLE CIUDAD -->
+          <div
+            id="city-dropdown"
+            class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
+          >
+            <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
+            <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
+          </div>
+        </div>
+
+        <!-- CTA PEDIR AHORA -->
+        <a
+          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido" 
+          target="_blank"
+          class="hidden sm:inline-flex items-center justify-center bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-xs md:text-sm px-6 py-2.5 rounded-full shadow-[0_4px_18px_rgba(220,176,65,0.35)] hover:shadow-[0_6px_22px_rgba(220,176,65,0.5)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98]"
+        >
+          Pedir Ahora
+        </a>
+
+        <!-- BOTÓN MENÚ MÓVIL (Hamburger) -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/25 transition-all duration-300 cursor-pointer"
+          aria-label="Abrir menú"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16"></path>
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- MENÚ MÓVIL (Drawer deslizante) -->
+    <div
+      id="mobile-drawer"
+      class="fixed inset-y-0 right-0 z-[1000] w-[290px] bg-[#2A1612]/98 backdrop-blur-lg border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col justify-between"
+    >
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-white/10">
+          <img src="/img/taboada-logo.png" alt="Taboada" class="h-10 object-contain" />
+          <button
+            id="mobile-close-btn"
+            class="text-white/70 hover:text-white transition-colors cursor-pointer"
+            aria-label="Cerrar menú"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-6 mt-8">
+          <a href="/#inicio" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Inicio</a>
+          <a href="/nosotros" class="mobile-link text-[#dcb041] font-bold text-lg transition-colors">Nosotros</a>
+          <a href="/#cajas-especiales" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Colecciones</a>
+          <a href="/beneficios" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Beneficios</a>
+          <a href="/adulto-mayor" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Adulto Mayor</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 border-t border-white/10 pt-6">
+        <a
+          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido" 
+          target="_blank"
+          class="w-full py-3 bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] text-center font-extrabold rounded-full shadow-lg transition-all"
+        >
+          Pedir Ahora
+        </a>
+      </div>
+    </div>
+
+    <!-- FONDO OSCURO DEL MENÚ MÓVIL -->
+    <div
+      id="drawer-overlay"
+      class="fixed inset-0 z-[998] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+  </nav>
+
+  <!-- HERO SECTION (DEGRADADO DEL CAFÉ AL BLANCO DEL INICIO) -->
+  <header class="relative min-h-[55vh] flex items-center justify-center overflow-hidden bg-[#2A1612] pt-24">
+    <!-- Imagen de fondo real con opacidad -->
+    <div 
+      class="absolute inset-0 bg-cover bg-center opacity-30" 
+      style="background-image: url('/img/fabrica_fachada.png');"
+    ></div>
+    <!-- Degradado fluido de café profundo (#2A1612) a blanco crema (#FFF8FA) -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#2A1612]/40 via-[#2A1612]/85 to-[#FFF8FA]"></div>
+    
+    <div class="relative z-10 text-center max-w-4xl px-6 mt-10">
+      <span class="text-xs uppercase tracking-widest text-[#dcb041] font-extrabold font-sans mb-3 block">
+        Saber Más
+      </span>
+      <h1 class="font-sans text-5xl md:text-7xl text-white font-extrabold tracking-tight leading-none mb-4 font-serif">
+        Nosotros
+      </h1>
+      <div class="w-16 h-[3px] bg-[#dcb041] mx-auto mt-4 rounded-full"></div>
+    </div>
+  </header>
+
+  <!-- TIMELINE HORIZONTAL DE TRADICIÓN (TODO JUNTO Y BONITO, SIN RECUADROS) -->
+  <section class="py-16 md:py-24 bg-[#FFF8FA] text-[#2A1612] overflow-hidden">
+    <div class="max-w-[1240px] mx-auto px-6 relative">
+      
+      <!-- TÍTULO DE SECCIÓN -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Nuestra Evolución</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-[#2A1612] font-extrabold mt-2 leading-tight">
+          Línea de Tiempo Cronológica
+        </h2>
+        <div class="w-12 h-[2px] bg-[#dcb041] mx-auto mt-4"></div>
+      </div>
+
+      <!-- 1. LÍNEA DE TIEMPO INTERACTIVA MÁS LARGA (max-w-5xl) -->
+      <div class="relative w-full max-w-5xl mx-auto mb-20 px-8">
+        <!-- Línea discontinua de fondo más visible -->
+        <div class="absolute top-[20px] left-[32px] right-[32px] h-[2px] border-t-2 border-dashed border-[#e8dccb] z-0"></div>
+        
+        <!-- Nodos numerados -->
+        <div class="relative flex justify-between items-center z-20">
+          
+          <button data-index="0" class="timeline-node-btn group flex flex-col items-center cursor-pointer focus:outline-none">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-sans text-sm font-extrabold shadow-md border-2 border-[#e8dccb] bg-white text-gray-500 transition-all duration-300">
+              1
+            </div>
+            <span class="text-xs font-bold text-gray-400 mt-2 font-sans tracking-wide transition-colors">La Inspiración</span>
+          </button>
+
+          <button data-index="1" class="timeline-node-btn group flex flex-col items-center cursor-pointer focus:outline-none">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-sans text-sm font-extrabold shadow-md border-2 border-[#e8dccb] bg-white text-gray-500 transition-all duration-300">
+              2
+            </div>
+            <span class="text-xs font-bold text-gray-400 mt-2 font-sans tracking-wide transition-colors">1948 Ene</span>
+          </button>
+
+          <button data-index="2" class="timeline-node-btn group flex flex-col items-center cursor-pointer focus:outline-none">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-sans text-sm font-extrabold shadow-md border-2 border-[#e8dccb] bg-white text-gray-500 transition-all duration-300">
+              3
+            </div>
+            <span class="text-xs font-bold text-gray-400 mt-2 font-sans tracking-wide transition-colors">1948 Nov</span>
+          </button>
+
+          <button data-index="3" class="timeline-node-btn group flex flex-col items-center cursor-pointer focus:outline-none">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-sans text-sm font-extrabold shadow-md border-2 border-[#e8dccb] bg-white text-gray-500 transition-all duration-300">
+              4
+            </div>
+            <span class="text-xs font-bold text-gray-400 mt-2 font-sans tracking-wide transition-colors">Crecimiento</span>
+          </button>
+
+          <button data-index="4" class="timeline-node-btn group flex flex-col items-center cursor-pointer focus:outline-none">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-sans text-sm font-extrabold shadow-md border-2 border-[#e8dccb] bg-white text-gray-500 transition-all duration-300">
+              5
+            </div>
+            <span class="text-xs font-bold text-gray-400 mt-2 font-sans tracking-wide transition-colors">Desafíos y Hitos</span>
+          </button>
+          
+        </div>
+      </div>
+
+      <!-- 2. CONTENEDOR UNIFICADO SIN RECUADROS -->
+      <div class="relative max-w-[1080px] mx-auto px-4">
+        
+        <!-- Botones Laterales -->
+        <button 
+          id="prev-slide-btn"
+          class="absolute left-[-20px] lg:left-[-70px] top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border border-[#e8dccb]/70 flex items-center justify-center shadow-lg text-[#2A1612] hover:bg-[#FAF5F0] active:scale-95 transition-all cursor-pointer"
+          aria-label="Diapositiva anterior"
+        >
+          <svg class="w-5 h-5 stroke-current stroke-[2.5]" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+
+        <div class="relative overflow-visible w-full min-h-[690px] sm:min-h-[480px] lg:min-h-[420px]">
+          
+          <!-- SLIDE 1: La Inspiración -->
+          <div class="timeline-slide bg-transparent rounded-none p-0 shadow-none transition-all duration-500 absolute inset-x-0 top-0 opacity-0 pointer-events-none translate-x-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-[360px] h-[360px] rounded-3xl overflow-hidden shadow-xl border border-[#e8dccb]/50">
+                <img 
+                  src="/img/produc1.png" 
+                  alt="El chocolate caliente francés tradicional" 
+                  class="w-full h-full object-cover" 
+                />
+              </div>
+            </div>
+            <div class="lg:col-span-7 text-left flex flex-col justify-center">
+              <span class="text-xs uppercase font-extrabold tracking-widest text-[#8f6c49] block mb-1">01 / El Origen de la Pasión</span>
+              <h3 class="font-serif text-3xl font-extrabold text-[#2A1612] mb-3">La Inspiración</h3>
+              <div class="w-12 h-[2.5px] bg-[#dcb041] mb-6"></div>
+              <div class="text-sm sm:text-base text-gray-600 space-y-4 font-sans leading-relaxed">
+                <p>
+                  La historia de nuestra chocolatería comienza con el abuelo <strong class="text-[#2A1612]">José Napoleón Taboada</strong>, un hombre de negocios y de muchos recursos económicos en la época.
+                </p>
+                <p>
+                  José Napoleón tenía el elegante hábito de tomar todos los días chocolate caliente francés de calidad excepcional. Muchas veces sentaba en sus faldas a su hijo Jorge para que lo acompañase en la degustación, sembrando desde la infancia el amor por el sabor y la mística del chocolate.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: 1948 Ene - Origen -->
+          <div class="timeline-slide bg-transparent rounded-none p-0 shadow-none transition-all duration-500 absolute inset-x-0 top-0 opacity-0 pointer-events-none translate-x-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-[360px] h-[360px] rounded-3xl overflow-hidden shadow-xl border border-[#e8dccb]/50">
+                <img 
+                  src="/img/jorge_taboada.png" 
+                  alt="Fundador Jorge Taboada Moscoso" 
+                  class="w-full h-full object-cover" 
+                />
+              </div>
+            </div>
+            <div class="lg:col-span-7 text-left flex flex-col justify-center">
+              <span class="text-xs uppercase font-extrabold tracking-widest text-[#8f6c49] block mb-1">02 / 2 de Enero de 1948</span>
+              <h3 class="font-serif text-3xl font-extrabold text-[#2A1612] mb-3">Trabajando desde 1948</h3>
+              <div class="w-12 h-[2.5px] bg-[#dcb041] mb-6"></div>
+              <div class="text-sm sm:text-base text-gray-600 space-y-4 font-sans leading-relaxed">
+                <p>
+                  La <strong class="text-[#2A1612]">Fábrica de Chocolates Taboada</strong> fue fundada por el señor <strong class="text-[#8f6c49]">Jorge Taboada Moscoso</strong> como una empresa familiar consagrada a la excelencia.
+                </p>
+                <p>
+                  Al llegar a la adultez, Jorge decidió hacer realidad su sueño de niño e incentivó a sus hermanos José, Gastón y Carlos, así como a su madre, para que se animaran a inaugurar la fábrica. Alquilaron una casa ubicada en la calle Estudiantes, frente a la Universidad San Francisco Xavier de Sucre, e iniciaron la elaboración netamente artesanal de bombones.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: 1948 Nov - Consagración -->
+          <div class="timeline-slide bg-transparent rounded-none p-0 shadow-none transition-all duration-500 absolute inset-x-0 top-0 opacity-0 pointer-events-none translate-x-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-[360px] h-[360px] rounded-3xl overflow-hidden shadow-xl border border-[#e8dccb]/50">
+                <img 
+                  src="/img/fabrica_fachada.png" 
+                  alt="Fábrica de Chocolates Taboada Sucre" 
+                  class="w-full h-full object-cover" 
+                />
+              </div>
+            </div>
+            <div class="lg:col-span-7 text-left flex flex-col justify-center">
+              <span class="text-xs uppercase font-extrabold tracking-widest text-[#8f6c49] block mb-1">03 / 23 de Noviembre de 1948</span>
+              <h3 class="font-serif text-3xl font-extrabold text-[#2A1612] mb-3">Consagración Nacional</h3>
+              <div class="w-12 h-[2.5px] bg-[#dcb041] mb-6"></div>
+              <div class="text-sm sm:text-base text-gray-600 space-y-4 font-sans leading-relaxed">
+                <p>
+                  El éxito que llegaron a tener fue tan grande que el 23 de noviembre de ese mismo año asistieron a una feria internacional en la ciudad de La Paz, obteniendo un condecorado <strong>segundo lugar</strong>.
+                </p>
+                <p>
+                  Este laurel incentivó a la familia Taboada a seguir adelante con su esforzado emprendimiento. De esta forma, convirtieron a la empresa en la pionera en la fabricación de chocolates de calidad en Sucre y toda Bolivia.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 4: Crecimiento -->
+          <div class="timeline-slide bg-transparent rounded-none p-0 shadow-none transition-all duration-500 absolute inset-x-0 top-0 opacity-0 pointer-events-none translate-x-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-[360px] h-[360px] rounded-3xl overflow-hidden shadow-xl border border-[#e8dccb]/50">
+                <img 
+                  src="/img/especial1.png" 
+                  alt="Expansión de Chocolates Taboada" 
+                  class="w-full h-full object-cover" 
+                />
+              </div>
+            </div>
+            <div class="lg:col-span-7 text-left flex flex-col justify-center">
+              <span class="text-xs uppercase font-extrabold tracking-widest text-[#8f6c49] block mb-1">04 / Desarrollo Tradicional</span>
+              <h3 class="font-serif text-3xl font-extrabold text-[#2A1612] mb-3">Crecimiento y Empleo</h3>
+              <div class="w-12 h-[2.5px] bg-[#dcb041] mb-6"></div>
+              <div class="text-sm sm:text-base text-gray-600 space-y-4 font-sans leading-relaxed">
+                <p>
+                  El emprendimiento familiar fue creciendo poco a poco gracias a la excepcional calidad del cacao y su inigualable receta.
+                </p>
+                <p>
+                  A través del desarrollo de nuevos productos y la incorporación de maquinaria de fabricación de procedencia local, la planta aumentó su personal, dando trabajo en sus inicios a unas 20 personas y estableciendo el emblemático sabor de Sucre.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 5: Desafíos y Hitos (Carlos Taboada) -->
+          <div class="timeline-slide bg-transparent rounded-none p-0 shadow-none transition-all duration-500 absolute inset-x-0 top-0 opacity-0 pointer-events-none translate-x-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="w-[360px] h-[360px] rounded-3xl overflow-hidden shadow-xl border border-[#e8dccb]/50">
+                <img 
+                  src="/img/carlos_taboada.png" 
+                  alt="Lic. Carlos E. Taboada Gerente" 
+                  class="w-full h-full object-cover" 
+                />
+              </div>
+            </div>
+            <div class="lg:col-span-7 text-left flex flex-col justify-center">
+              <span class="text-xs uppercase font-extrabold tracking-widest text-[#8f6c49] block mb-1">05 / Administración y Crisis</span>
+              <h3 class="font-serif text-3xl font-extrabold text-[#2A1612] mb-3">Desafíos y Hitos</h3>
+              <div class="w-12 h-[2.5px] bg-[#dcb041] mb-6"></div>
+              <div class="text-sm sm:text-base text-gray-600 space-y-4 font-sans leading-relaxed">
+                <p>
+                  Carlos Taboada se incorporó en 1970, ascendió desde producción y se especializó en Alemania en 1979. Bajo su gestión, la empresa ha superado importantes desafíos recientes.
+                </p>
+                <p>
+                  Durante la epidemia del Covid-19 en 2020, la empresa anticipó un mes las previsiones sanitarias, logrando mantener la distribución por delivery en Sucre. Posteriormente, en la crisis global de cacao de 2023-2024 (donde el costo subió 300%), la empresa resistió con éxito gracias a trabajar con <strong>materia prima 100% boliviana</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botón Siguiente -->
+        <button 
+          id="next-slide-btn"
+          class="absolute right-[-20px] lg:right-[-70px] top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border border-[#e8dccb]/70 flex items-center justify-center shadow-lg text-[#2A1612] hover:bg-[#FAF5F0] active:scale-95 transition-all cursor-pointer"
+          aria-label="Siguiente diapositiva"
+        >
+          <svg class="w-5 h-5 stroke-current stroke-[2.5]" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7"></path>
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- APARTADO: VISIÓN DE FUTURO Y FILOSOFÍA (ESTILO MOCKUP: Stacked Cards a la Derecha, Info a la Izquierda) -->
+  <section class="py-16 md:py-24 bg-[#FAF5F0] border-t border-b border-[#e8dccb]/30">
+    <div class="max-w-[1140px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Columna Izquierda: Información de Cabecera e Inspiración -->
+        <div class="lg:col-span-5 text-left space-y-6">
+          <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-extrabold font-sans">El Mañana</span>
+          <h2 class="font-serif text-3xl md:text-4xl text-[#2A1612] font-extrabold leading-tight">
+            Visión de Futuro y Filosofía
+          </h2>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed font-sans">
+            "Si vengo a Sucre y no llevo chocolates Taboada, mi mujer o mis hijos no me dejan entrar. Y si voy a Sucre y no como chocolates Taboada y chorizo chuquisaqueño, es como si no hubiera visitado Sucre."
+          </p>
+          <p class="text-sm text-gray-500 italic font-medium font-sans">
+            Somos personas que confiamos en el país, confiamos en el gobierno, no nos rendimos.
+          </p>
+          <div class="pt-2">
+            <a
+              href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido"
+              target="_blank"
+              class="inline-flex items-center justify-center bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-sm px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
+            >
+              Pedir Ahora
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Stack de Tarjetas con Bordes Izquierdos de Colores (Diseño Mockup) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Tarjeta 1: Transición Generacional (Borde Coral) -->
+          <div class="bg-white border border-[#e8dccb]/60 rounded-2xl p-6 text-left shadow-sm border-l-4 border-l-[#e06c55] hover:shadow-md transition-all duration-300">
+            <h3 class="font-sans text-lg font-bold text-[#2A1612] mb-2">Transición Generacional</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              La incorporación de nuevas ideas es clave. Su hija (administradora con maestrías) lidera junto a un equipo joven las estrategias de marketing digital y redes sociales. Carlos Taboada asume este cambio con orgullo: <em>"Tengo que dar espacio a la gente nueva, no puedes cortar las alas a tus hijos"</em>.
+            </p>
+          </div>
+
+          <!-- Tarjeta 2: Filosofía de Inversión (Borde Dorado) -->
+          <div class="bg-white border border-[#e8dccb]/60 rounded-2xl p-6 text-left shadow-sm border-l-4 border-l-[#dcb041] hover:shadow-md transition-all duration-300">
+            <h3 class="font-sans text-lg font-bold text-[#2A1612] mb-2">Filosofía: Lo que ganas, inviértelo</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              La constancia es la base del éxito. La norma familiar es nunca tener cuentas en dólares fuera del país. La filosofía transmitida desde su fundador es reinvertir cada centavo ganado en Bolivia, en tecnología, infraestructura y equipos nuevos.
+            </p>
+          </div>
+
+          <!-- Tarjeta 3: Compromiso y Expansión (Borde Café) -->
+          <div class="bg-white border border-[#e8dccb]/60 rounded-2xl p-6 text-left shadow-sm border-l-4 border-l-[#2A1612] hover:shadow-md transition-all duration-300">
+            <h3 class="font-sans text-lg font-bold text-[#2A1612] mb-2">Compromiso y Expansión</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Mantenemos una excelente relación con los trabajadores cumpliendo con la ley. Confiando firmemente en el país, nos expandimos inaugurando segundas agencias de venta directa en <strong>Oruro, Cochabamba y La Paz</strong>.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TARJETAS DE LIDERAZGO CON DETALLES DE JORGE Y CARLOS (ESTILO LIMPIO CON FOTOS REALES) -->
+  <section class="py-16 md:py-24 bg-[#FFF8FA] text-[#2A1612]">
+    <div class="max-w-[1140px] mx-auto px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Nuestra Dirección</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-[#2A1612] font-extrabold mt-2 leading-tight">
+          Líderes de la Tradición
+        </h2>
+        <div class="w-12 h-[2px] bg-[#dcb041] mx-auto mt-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+        
+        <!-- Tarjeta Jorge Taboada (Limpia) -->
+        <div class="bg-transparent border-0 p-0 shadow-none flex flex-col sm:flex-row items-center sm:items-start gap-6">
+          <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[#dcb041] flex-shrink-0 shadow-md">
+            <img 
+              src="/img/jorge_taboada.png" 
+              alt="Jorge Taboada Moscoso" 
+              class="w-full h-full object-cover" 
+            />
+          </div>
+          <div class="text-left">
+            <h3 class="font-sans text-xl font-extrabold text-[#2A1612]">Jorge Taboada Moscoso</h3>
+            <p class="text-xs text-[#8f6c49] font-bold uppercase tracking-wider mb-3">Fundador de la Fábrica de Chocolates Taboada</p>
+            <p class="text-sm text-gray-600 leading-relaxed font-sans font-medium">
+              El gran gestor e impulsor de la fábrica. Inspirado por su infancia y las degustaciones con su abuelo José Napoleón, unió a sus hermanos y madre en 1948 para dar vida a la primera chocolatería tradicional de Sucre y de Bolivia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Carlos E. Taboada (Limpia) -->
+        <div class="bg-transparent border-0 p-0 shadow-none flex flex-col sm:flex-row items-center sm:items-start gap-6">
+          <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[#dcb041] flex-shrink-0 shadow-md">
+            <img 
+              src="/img/carlos_taboada.png" 
+              alt="Lic. Carlos E. Taboada" 
+              class="w-full h-full object-cover" 
+            />
+          </div>
+          <div class="text-left">
+            <h3 class="font-sans text-xl font-extrabold text-[#2A1612]">Lic. Carlos E. Taboada</h3>
+            <p class="text-xs text-[#8f6c49] font-bold uppercase tracking-wider mb-3">Gerente de la Fábrica de Chocolates Taboada</p>
+            <p class="text-sm text-gray-600 leading-relaxed font-sans font-medium">
+              Gerente General y continuador de la gran dinastía chocolatera. Desde su gestión iniciada formalmente en 1988, lidera la automatización moderna y tecnológica de la planta sin alterar jamás el sabor y calidad de la receta original.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS DE CONFIANZA / ATRIBUTOS DE MARCA (ESTILO DEL MOCKUP A PIE DE PÁGINA) -->
+  <section class="py-16 bg-white border-t border-[#e8dccb]/30">
+    <div class="max-w-[1140px] mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 items-center justify-center opacity-40">
+        
+        <!-- Logo 1: Fundado 1948 -->
+        <div class="flex flex-col items-center justify-center text-center">
+          <span class="font-sans text-xl md:text-2xl font-bold tracking-widest text-[#2A1612]">EST. 1948</span>
+          <span class="text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">Nacimiento</span>
+        </div>
+
+        <!-- Logo 2: Sucre -->
+        <div class="flex flex-col items-center justify-center text-center">
+          <span class="font-sans text-xl md:text-2xl font-bold tracking-widest text-[#2A1612]">SUCRE</span>
+          <span class="text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">Origen</span>
+        </div>
+
+        <!-- Logo 3: Tradición -->
+        <div class="flex flex-col items-center justify-center text-center">
+          <span class="font-sans text-xl md:text-2xl font-bold tracking-widest text-[#2A1612]">TRADICIÓN</span>
+          <span class="text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">Receta Original</span>
+        </div>
+
+        <!-- Logo 4: Premium -->
+        <div class="flex flex-col items-center justify-center text-center">
+          <span class="font-sans text-xl md:text-2xl font-bold tracking-widest text-[#2A1612]">PREMIUM</span>
+          <span class="text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">Calidad de Sucre</span>
+        </div>
+
+        <!-- Logo 5: Familia -->
+        <div class="flex flex-col items-center justify-center text-center col-span-2 md:col-span-1">
+          <span class="font-sans text-xl md:text-2xl font-bold tracking-widest text-[#2A1612]">FAMILIA</span>
+          <span class="text-[9px] uppercase tracking-wider font-semibold text-gray-500 mt-1">Desde 1948</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-16 md:py-24 bg-[#2A1612] text-white relative overflow-hidden text-center">
+    <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('/img/fondo2.png');"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <span class="text-xs uppercase tracking-widest text-[#dcb041] font-bold font-sans">Prueba la Tradición</span>
+      <h2 class="font-serif text-3xl md:text-5xl text-white font-extrabold mt-3 mb-6 tracking-tight">
+        ¿Listo para disfrutar el auténtico chocolate boliviano?
+      </h2>
+      <p class="text-white/80 font-sans text-sm md:text-base max-w-xl mx-auto mb-8 leading-relaxed">
+        Haz tu pedido en línea de forma fácil y recíbelo en la puerta de tu hogar en Cochabamba o La Paz.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a
+          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido"
+          target="_blank"
+          class="inline-flex items-center justify-center bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-sm px-8 py-4 rounded-full shadow-[0_4px_18px_rgba(220,176,65,0.35)] hover:shadow-[0_6px_22px_rgba(220,176,65,0.5)] transition-all duration-300 transform hover:scale-[1.03]"
+        >
+          Realizar Pedido
+        </a>
+        <a
+          href="/#cajas-especiales"
+          class="inline-flex items-center justify-center border border-white/20 hover:border-white/50 text-white font-bold text-sm px-8 py-4 rounded-full transition-all duration-300"
+        >
+          Ver Colecciones
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <Footer />
+
+  <!-- SCRIPTS -->
+  <script>
+    // ── SELECTOR DE UBICACIÓN ──
+    const citySelectorBtn = document.getElementById('city-selector-btn');
+    const cityDropdown = document.getElementById('city-dropdown');
+    const activeCityName = document.getElementById('active-city-name');
+    const cityOptButtons = document.querySelectorAll('.city-opt-btn');
+
+    citySelectorBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cityDropdown?.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', () => {
+      cityDropdown?.classList.add('hidden');
+    });
+
+    function updateCity(city: string) {
+      if (activeCityName) {
+        activeCityName.textContent = city === 'cochabamba' ? 'Cochabamba' : 'La Paz';
+      }
+    }
+
+    cityOptButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const city = target.getAttribute('data-city') || 'cochabamba';
+        updateCity(city);
+        localStorage.setItem('selected_city', city);
+      });
+    });
+
+    const savedCity = localStorage.getItem('selected_city');
+    if (savedCity && (savedCity === 'cochabamba' || savedCity === 'la-paz')) {
+      updateCity(savedCity);
+    } else {
+      updateCity('cochabamba');
+    }
+
+    // ── MENÚ MÓVIL (DRAWER) ──
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const drawerOverlay = document.getElementById('drawer-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function openDrawer() {
+      mobileDrawer?.classList.remove('translate-x-full');
+      drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeDrawer() {
+      mobileDrawer?.classList.add('translate-x-full');
+      drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    mobileMenuBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openDrawer();
+    });
+
+    mobileCloseBtn?.addEventListener('click', closeDrawer);
+    drawerOverlay?.addEventListener('click', closeDrawer);
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    // ── CARRUSEL Y LÍNEA DE TIEMPO HORIZONTAL INTERACTIVA ──
+    const nodes = document.querySelectorAll('.timeline-node-btn');
+    const slides = document.querySelectorAll('.timeline-slide');
+    const prevBtn = document.getElementById('prev-slide-btn');
+    const nextBtn = document.getElementById('next-slide-btn');
+    const progressLine = document.getElementById('timeline-progress-line');
+    
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function updateCarousel(index: number) {
+      currentIndex = index;
+
+      // 1. Actualizar el estado visual de los nodos numerados
+      nodes.forEach((node, i) => {
+        const circle = node.querySelector('div');
+        const text = node.querySelector('span');
+        
+        if (i === currentIndex) {
+          circle?.classList.remove('bg-gray-300', 'text-gray-500', 'border-[#e8dccb]');
+          circle?.classList.add('bg-[#2A1612]', 'text-[#dcb041]', 'border-[#2A1612]', 'scale-115');
+          text?.classList.remove('text-gray-400');
+          text?.classList.add('text-[#8f6c49]', 'font-extrabold');
+        } else {
+          circle?.classList.add('bg-gray-300', 'text-gray-500', 'border-[#e8dccb]');
+          circle?.classList.remove('bg-[#2A1612]', 'text-[#dcb041]', 'border-[#2A1612]', 'scale-115');
+          text?.classList.add('text-gray-400');
+          text?.classList.remove('text-[#8f6c49]', 'font-extrabold');
+        }
+      });
+
+      // 3. Mostrar/ocultar las diapositivas del carrusel con transiciones
+      slides.forEach((slide, i) => {
+        const slideEl = slide as HTMLElement;
+        if (i === currentIndex) {
+          slideEl.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-12');
+          slideEl.classList.add('opacity-100', 'relative', 'translate-x-0');
+        } else {
+          slideEl.classList.add('opacity-0', 'pointer-events-none');
+          slideEl.classList.remove('opacity-100', 'relative', 'translate-x-0');
+          
+          if (i > currentIndex) {
+            slideEl.classList.add('translate-x-12');
+          } else {
+            slideEl.classList.remove('translate-x-12');
+          }
+        }
+      });
+    }
+
+    nodes.forEach((node) => {
+      node.addEventListener('click', (e) => {
+        const btn = e.currentTarget as HTMLButtonElement;
+        const index = parseInt(btn.getAttribute('data-index') || '0', 10);
+        updateCarousel(index);
+      });
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      let index = currentIndex - 1;
+      if (index < 0) index = totalSlides - 1;
+      updateCarousel(index);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      let index = currentIndex + 1;
+      if (index >= totalSlides) index = 0;
+      updateCarousel(index);
+    });
+
+    // ── CAMBIO DE COLOR DEL NAVBAR AL HACER SCROLL ──
+    const navbar = document.getElementById('main-navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar?.classList.add('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
+        navbar?.classList.remove('bg-transparent', 'border-transparent');
+      } else {
+        navbar?.classList.remove('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
+        navbar?.classList.add('bg-transparent', 'border-transparent');
+      }
+    });
+
+    // Inicializar carrusel
+    updateCarousel(0);
+  </script>
+</Layout>

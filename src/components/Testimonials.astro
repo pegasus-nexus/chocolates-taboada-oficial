@@ -1,339 +1,301 @@
 ---
+const defaultTestimonials = [
+  {
+    name: "María Fernanda S.",
+    stars: "★★★★★",
+    text: "Excelente calidad, los bombones tienen un sabor único. Totalmente recomendado.",
+    city: "Cochabamba",
+    initials: "MS"
+  },
+  {
+    name: "Alejandro T.",
+    stars: "★★★★★",
+    text: "La presentación parecía de marca internacional. Muy elegante y orgullosamente boliviano.",
+    city: "La Paz",
+    initials: "AT"
+  },
+  {
+    name: "Jimena R.",
+    stars: "★★★★★",
+    text: "Un sabor exquisito y una presentación de exportación. Sucre tiene el mejor chocolate.",
+    city: "Sucre",
+    initials: "JR"
+  },
+  {
+    name: "Carlos D.",
+    stars: "★★★★★",
+    text: "El chocolate con leche tradicional de toda la vida. Su sabor me transporta a mi infancia.",
+    city: "Cochabamba",
+    initials: "CD"
+  },
+  {
+    name: "Natalia V.",
+    stars: "★★★★★",
+    text: "Las grageas de maní y chocolate de leche son adictivas. La presentación de las cajas es perfecta para regalos.",
+    city: "La Paz",
+    initials: "NV"
+  }
+];
 ---
-<section class="testimonials">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Comunidad</span>
-      <h2>Nuestros Clientes Opinan</h2>
-      <p>Comparte tu experiencia con Chocolates Taboada o lee las opiniones de la comunidad.</p>
+<section class="testimonials relative bg-gradient-to-br from-[#FAF5F0] via-[#F3ECE3] to-[#FAF5F0] py-20 md:py-28 border-t border-[#e8dccb]/50 overflow-hidden">
+  <div class="container max-w-7xl mx-auto px-6">
+    
+    <!-- Encabezado de la Sección -->
+    <div class="section-head text-center max-w-2xl mx-auto mb-12">
+      <span class="eyebrow flex items-center justify-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#8f6c49] mb-4">
+        Comunidad
+      </span>
+      <h2 class="text-3xl md:text-5xl font-elegante font-bold text-[#2A1612] leading-tight mb-4">
+        Nuestros Clientes Opinan
+      </h2>
+      <p class="text-sm md:text-base text-[#5D4037]/80 leading-relaxed font-sans">
+        Comparte tu experiencia con Chocolates Taboada o lee las opiniones de la comunidad.
+      </p>
     </div>
 
-    <!-- Lista de Comentarios -->
-    <div id="comments-list" class="testimonials-grid">
-      <article class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>“Excelente calidad, los bombones tienen un sabor único. Totalmente recomendado.”</p>
-        <span class="comment-author">— María Fernanda S.</span>
-      </article>
-      <article class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>“La presentación parecía de marca internacional. Muy elegante y orgullosamente boliviano.”</p>
-        <span class="comment-author">— Alejandro T.</span>
-      </article>
-      <article class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>“Un sabor exquisito y una presentación de exportación. Sucre tiene el mejor chocolate.”</p>
-        <span class="comment-author">— Jimena R.</span>
-      </article>
+    <!-- CONTENEDOR PRINCIPAL DEL SLIDER -->
+    <div id="testimonials-track-container" class="relative overflow-hidden w-full py-8 mt-6">
+      <!-- Riel de Tarjetas -->
+      <div id="testimonials-track" class="flex items-stretch gap-6 transition-transform duration-500 ease-out px-4 w-max">
+        {defaultTestimonials.map((t) => (
+          <article class="testimonial-card flex-shrink-0 w-[300px] sm:w-[360px] bg-white border border-[#e8dccb] rounded-[2.5rem] p-8 shadow-sm flex flex-col justify-between transition-all duration-500 ease-out relative select-none">
+            <div>
+              <!-- Comillas de adorno -->
+              <div class="text-[#dcb041]/20 text-6xl font-serif leading-none -mt-4 mb-2">“</div>
+              <p class="text-[#2A1612] text-sm sm:text-base leading-relaxed italic mb-8 flex-grow font-serif">
+                {t.text}
+              </p>
+            </div>
+            
+            <!-- Pie de la tarjeta -->
+            <div class="border-t border-[#e8dccb]/60 pt-5 mt-auto flex items-center gap-3">
+              <!-- Avatar de Iniciales -->
+              <div class="w-10 h-10 rounded-full bg-[#FAF5F0] border border-[#e8dccb] flex items-center justify-center text-[#8f6c49] font-black text-xs">
+                {t.initials}
+              </div>
+              <div class="text-left">
+                <span class="block text-xs sm:text-sm font-bold text-[#2A1612] font-sans">{t.name}</span>
+                <span class="block text-[10px] text-[#8f6c49] font-bold font-sans mt-0.5 uppercase tracking-wider">{t.city}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
 
-    <!-- Formulario para dejar comentario -->
-    <div class="comment-form-container">
-      <h3>Comparte tu comentario</h3>
-      <form id="comment-form">
-        <div class="form-grid">
-          <div class="input-group">
-            <label for="comment-name">Nombre</label>
-            <input type="text" id="comment-name" placeholder="Ej. Juan Pérez" required />
-          </div>
-          <div class="input-group">
-            <label for="comment-stars">Calificación</label>
-            <select id="comment-stars">
-              <option value="★★★★★">★★★★★ (5 estrellas)</option>
-              <option value="★★★★">★★★★ (4 estrellas)</option>
-              <option value="★★★">★★★ (3 estrellas)</option>
-              <option value="★★">★★ (2 estrellas)</option>
-              <option value="★">★ (1 estrella)</option>
-            </select>
-          </div>
-        </div>
-        <div class="input-group">
-          <label for="comment-text">Tu Comentario</label>
-          <textarea id="comment-text" placeholder="Escribe aquí tu opinión sobre Chocolates Taboada..." rows="3" required></textarea>
-        </div>
-        <button type="submit" class="submit-comment-btn">Enviar Comentario</button>
-      </form>
+    <!-- CONTROLES DE NAVEGACIÓN -->
+    <div class="flex items-center justify-center gap-6 mt-8">
+      <!-- Botón Anterior -->
+      <button
+        id="prev-testimonial-btn"
+        type="button"
+        class="w-10 h-10 rounded-full border border-[#2A1612]/30 flex items-center justify-center text-[#2A1612] hover:bg-[#2A1612] hover:text-white transition-all cursor-pointer bg-white shadow-sm"
+        aria-label="Comentario anterior"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- Puntos Indicadores -->
+      <div id="dots-container" class="flex items-center gap-2">
+        {defaultTestimonials.map((_, idx) => (
+          <button
+            type="button"
+            class="test-dot w-2 h-2 rounded-full bg-[#2A1612]/20 transition-all duration-300 cursor-pointer"
+            data-index={idx}
+            aria-label={`Ir al comentario ${idx + 1}`}
+          />
+        ))}
+      </div>
+
+      <!-- Botón Siguiente -->
+      <button
+        id="next-testimonial-btn"
+        type="button"
+        class="w-10 h-10 rounded-full border border-[#2A1612]/30 flex items-center justify-center text-[#2A1612] hover:bg-[#2A1612] hover:text-white transition-all cursor-pointer bg-white shadow-sm"
+        aria-label="Comentario siguiente"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
   </div>
 </section>
 
-<style>
-  section {
-    padding: 92px 20px;
-  }
-
-  .testimonials {
-    background: #FAF5F0;
-    border-top: 1px solid #e8dccb;
-  }
-
-  .container {
-    width: min(1120px, 100%);
-    margin: 0 auto;
-  }
-
-  .section-head {
-    text-align: center;
-    max-width: 760px;
-    margin: 0 auto 48px;
-  }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 18px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-weight: 700;
-    font-size: 0.76rem;
-    color: #8f6c49;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .eyebrow::before {
-    content: "";
-    width: 34px;
-    height: 1px;
-    background: #8f6c49;
-  }
-
-  .section-head h2 {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    line-height: 1.1;
-    font-size: clamp(2.35rem, 5vw, 3.5rem);
-    color: #2A1612;
-    font-weight: bold;
-    letter-spacing: -0.02em;
-  }
-
-  .section-head p {
-    margin: 18px auto 0;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #5D4037;
-    opacity: 0.85;
-  }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-    margin-bottom: 50px;
-  }
-
-  .testimonial-card {
-    border: 1px solid #e8dccb;
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 28px;
-    box-shadow: 0 10px 30px rgba(42, 22, 18, 0.02);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.3s ease;
-    animation: fadeInUp 0.5s ease forwards;
-  }
-  .testimonial-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .stars {
-    color: #d4af37;
-    letter-spacing: 0.08em;
-    margin-bottom: 12px;
-    font-size: 0.9rem;
-  }
-
-  .testimonial-card p {
-    color: #2A1612;
-    line-height: 1.6;
-    margin: 0 0 16px 0;
-    font-size: 0.95rem;
-    flex-grow: 1;
-  }
-
-  .comment-author {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #8f6c49;
-    display: block;
-  }
-
-  /* Formulario de comentarios */
-  .comment-form-container {
-    max-width: 650px;
-    margin: 0 auto;
-    background: #ffffff;
-    border: 1px solid #e8dccb;
-    border-radius: 2rem;
-    padding: 40px;
-    box-shadow: 0 15px 40px rgba(42, 22, 18, 0.04);
-  }
-
-  .comment-form-container h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: #2A1612;
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-weight: bold;
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-bottom: 20px;
-  }
-
-  .input-group label {
-    font-size: 9px;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #2A1612;
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
-  }
-
-  .input-group input, 
-  .input-group select, 
-  .input-group textarea {
-    padding: 14px;
-    border: 1px solid #e8dccb;
-    border-radius: 12px;
-    background: #FAF8F3;
-    font-family: inherit;
-    font-size: 14px;
-    color: #2A1612;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    width: 100%;
-  }
-
-  .input-group input:focus, 
-  .input-group select:focus, 
-  .input-group textarea:focus {
-    outline: none;
-    border-color: #8f6c49;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(143, 108, 73, 0.1);
-  }
-
-  .submit-comment-btn {
-    width: 100%;
-    padding: 16px;
-    background: #2A1612;
-    color: #ffffff;
-    border: none;
-    border-radius: 9999px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 12px;
-    box-shadow: 0 8px 20px rgba(42, 22, 18, 0.15);
-  }
-
-  .submit-comment-btn:hover {
-    background: #8f6c49;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 25px rgba(143, 108, 73, 0.25);
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(15px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 980px) {
-    .testimonials-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 640px) {
-    section {
-      padding: 68px 16px;
-    }
-    .form-grid {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-    .testimonial-card {
-      padding: 24px;
-      border-radius: 20px;
-    }
-    .comment-form-container {
-      padding: 30px 20px;
-      border-radius: 1.5rem;
-    }
-  }
-</style>
-
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('comment-form');
-    const commentsList = document.getElementById('comments-list');
+    // ── LÓGICA DEL SLIDER TESTIMONIAL CENTRADO ──
+    const track = document.getElementById('testimonials-track');
+    const container = document.getElementById('testimonials-track-container');
+    const prevBtn = document.getElementById('prev-testimonial-btn');
+    const nextBtn = document.getElementById('next-testimonial-btn');
+    const dotsContainer = document.getElementById('dots-container');
 
-    if (form && commentsList) {
+    let currentIndex = 1; // Empezamos en la segunda tarjeta (índice 1) para que esté centrada
+    let cards = Array.from(document.querySelectorAll('.testimonial-card'));
+
+    function updateSlider() {
+      if (!track || !container || cards.length === 0) return;
+
+      const containerWidth = container.offsetWidth;
+      const activeCard = cards[currentIndex];
+      const cardWidth = activeCard.offsetWidth;
+
+      // Calcular la posición para centrar la tarjeta activa
+      const cardOffsetLeft = activeCard.offsetLeft;
+      const targetTranslate = (containerWidth / 2) - cardOffsetLeft - (cardWidth / 2);
+
+      // Aplicar transformación
+      track.style.transform = `translateX(${targetTranslate}px)`;
+
+      // Actualizar estilos activos y opacidad de las tarjetas
+      cards.forEach((card, idx) => {
+        if (idx === currentIndex) {
+          card.classList.remove('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
+          card.classList.add('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
+        } else {
+          card.classList.remove('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
+          card.classList.add('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
+        }
+      });
+
+      // Actualizar puntos dot
+      const dots = Array.from(dotsContainer.querySelectorAll('.test-dot'));
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.remove('bg-[#2A1612]/20', 'w-2');
+          dot.classList.add('bg-[#dcb041]', 'w-4');
+        } else {
+          dot.classList.remove('bg-[#dcb041]', 'w-4');
+          dot.classList.add('bg-[#2A1612]/20', 'w-2');
+        }
+      });
+    }
+
+    // Navegar
+    function goToIndex(idx) {
+      if (idx < 0 || idx >= cards.length) return;
+      currentIndex = idx;
+      updateSlider();
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        goToIndex(currentIndex - 1);
+      } else {
+        goToIndex(cards.length - 1); // Volver al final
+      }
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      if (currentIndex < cards.length - 1) {
+        goToIndex(currentIndex + 1);
+      } else {
+        goToIndex(0); // Volver al inicio
+      }
+    });
+
+    // Clics en los puntos indicadores (dots)
+    function rebuildDots() {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      cards.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `test-dot w-2 h-2 rounded-full bg-[#2A1612]/20 transition-all duration-300 cursor-pointer`;
+        dot.setAttribute('aria-label', `Ir al comentario ${idx + 1}`);
+        dot.addEventListener('click', () => goToIndex(idx));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    // Inicializar clics en dots preexistentes
+    const preDots = dotsContainer?.querySelectorAll('.test-dot');
+    preDots?.forEach((dot, idx) => {
+      dot.addEventListener('click', () => goToIndex(idx));
+    });
+
+    // Actualizar en cambio de tamaño de ventana
+    window.addEventListener('resize', updateSlider);
+
+    // ── FORMULARIO DE COMENTARIOS ──
+    const form = document.getElementById('comment-form');
+    if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const nameInput = document.getElementById('comment-name');
-        const starsInput = document.getElementById('comment-stars');
+        const cityInput = document.getElementById('comment-city');
         const textInput = document.getElementById('comment-text');
 
         const name = nameInput.value.trim();
-        const stars = starsInput.value;
+        const city = cityInput.value.trim();
         const text = textInput.value.trim();
 
-        if (!name || !text) return;
+        if (!name || !city || !text) return;
 
-        // Crear una nueva tarjeta de comentario
+        // Generar Iniciales
+        const namesParts = name.split(' ');
+        let initials = '';
+        if (namesParts.length > 1) {
+          initials = (namesParts[0][0] + namesParts[1][0]).toUpperCase();
+        } else {
+          initials = name.substring(0, 2).toUpperCase();
+        }
+
+        // Crear Tarjeta Nueva
         const card = document.createElement('article');
-        card.className = 'testimonial-card';
-        card.style.animation = 'fadeInUp 0.6s ease forwards';
-        
+        card.className = 'testimonial-card flex-shrink-0 w-[300px] sm:w-[360px] bg-white border border-[#e8dccb] rounded-[2.5rem] p-8 shadow-sm flex flex-col justify-between transition-all duration-500 ease-out relative select-none';
         card.innerHTML = `
-          <div class="stars">${stars}</div>
-          <p>“${text}”</p>
-          <span class="comment-author">— ${name}</span>
+          <div>
+            <div class="text-[#dcb041]/20 text-6xl font-serif leading-none -mt-4 mb-2">“</div>
+            <p class="text-[#2A1612] text-sm sm:text-base leading-relaxed italic mb-8 flex-grow font-serif">
+              ${text}
+            </p>
+          </div>
+          <div class="border-t border-[#e8dccb]/60 pt-5 mt-auto flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#FAF5F0] border border-[#e8dccb] flex items-center justify-center text-[#8f6c49] font-black text-xs">
+              ${initials}
+            </div>
+            <div class="text-left">
+              <span class="block text-xs sm:text-sm font-bold text-[#2A1612] font-sans">${name}</span>
+              <span class="block text-[10px] text-[#8f6c49] font-bold font-sans mt-0.5 uppercase tracking-wider">${city}</span>
+            </div>
+          </div>
         `;
 
-        // Agregar la tarjeta al inicio de la lista
-        commentsList.insertBefore(card, commentsList.firstChild);
+        // Añadirla al riel (al final)
+        track?.appendChild(card);
 
-        // Limpiar el formulario
+        // Actualizar array de tarjetas
+        cards = Array.from(document.querySelectorAll('.testimonial-card'));
+
+        // Reconstruir dots
+        rebuildDots();
+
+        // Ir a la tarjeta recién creada
+        goToIndex(cards.length - 1);
+
+        // Limpiar formulario
         form.reset();
 
-        // Feedback visual suave
-        const submitBtn = form.querySelector('.submit-comment-btn');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = "¡COMENTARIO PUBLICADO!";
-        submitBtn.style.background = "#8f6c49";
-        
-        setTimeout(() => {
-          submitBtn.innerText = originalText;
-          submitBtn.style.background = "";
-        }, 2000);
+        // Feedback visual en botón de enviar
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          const originalText = submitBtn.innerText;
+          submitBtn.innerText = "¡GRACIAS POR TU COMENTARIO!";
+          submitBtn.style.background = "#8f6c49";
+          setTimeout(() => {
+            submitBtn.innerText = originalText;
+            submitBtn.style.background = "";
+          }, 3000);
+        }
       });
     }
+
+    // Inicializar slider al inicio
+    updateSlider();
   });
 </script>
