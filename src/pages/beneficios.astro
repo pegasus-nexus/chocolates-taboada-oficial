@@ -66,6 +66,14 @@ const sucursales = [
     { nombre: 'Boutique Calacoto', dir: 'Zona Calacoto, Calle 15' }
   ]}
 ];
+
+// Fecha actual formateada
+const fechaHoy = new Date().toLocaleDateString('es-ES', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
 ---
 
 <AppLayout title="Club Taboada · Beneficios">
@@ -78,9 +86,9 @@ const sucursales = [
     --font-serif: "Playfair Display", serif; 
   }
 
-  body { background-color: var(--beige-seda); color: var(--cafe-profundo); margin: 0; }
+  body { background-color: var(--cafe-profundo); color: var(--beige-seda); margin: 0; }
 
-  /* ── HEADER FIJO (Igual al principal) ── */
+  /* ── HEADER FIJO (Igual al principal - Intacto) ── */
   .fixed-header {
     position: fixed;
     top: 0; left: 0; width: 100%;
@@ -97,14 +105,64 @@ const sucursales = [
   }
   .logo-main { height: clamp(40px, 6vw, 60px); } 
 
-  /* ── SECCIÓN DE BIENVENIDA ── */
+  /* ── SECCIÓN DE BIENVENIDA (Fondo Café Profundo) ── */
   .welcome-container {
     position: relative;
     min-height: 100vh;
-    padding: 140px 5% 80px;
+    padding: 130px 5% 80px;
     display: flex;
     flex-direction: column;
-    background-color: var(--beige-seda);
+    background-color: var(--cafe-profundo);
+  }
+
+  /* ── BARRA SUPERIOR CON BOTÓN DE REGRESO Y FECHA DIVERSIFICADA ── */
+  .top-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 9999px;
+    background: rgba(250, 245, 240, 0.08);
+    color: var(--beige-seda);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(250, 245, 240, 0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .btn-back:hover {
+    background: var(--oro-viejo);
+    color: #ffffff;
+    border-color: var(--oro-viejo);
+    transform: translateX(-3px);
+  }
+
+  .current-date-badge {
+    font-size: 11px;
+    color: rgba(250, 245, 240, 0.7);
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+    font-family: sans-serif;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .welcome-section {
@@ -116,7 +174,7 @@ const sucursales = [
     z-index: 2;
   }
 
-  /* ── SECCIÓN DE TICKETS OSCUROS LUXURY ── */
+  /* ── SECCIÓN DE TICKETS CLAROS (Fondo Beige / Texto Oscuro) ── */
   .ticket-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -130,44 +188,44 @@ const sucursales = [
 
   .ticket-wrapper {
     position: relative;
-    filter: drop-shadow(0 15px 30px rgba(42, 22, 18, 0.15));
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.35));
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     height: fit-content;
   }
   .ticket-wrapper:hover { transform: translateY(-4px) scale(1.01); }
 
   .ticket {
-    background: linear-gradient(135deg, #2A1612 0%, #1A0A0C 100%);
+    background: linear-gradient(135deg, #FAF5F0 0%, #F3ECE3 100%);
     display: flex;
     flex-direction: row; 
     border-radius: 24px;
     overflow: hidden;
     position: relative;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(42, 22, 18, 0.12);
   }
 
   .ticket-main, .ticket-stub, .ticket-divider { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease; }
   .ticket-main { flex: 1; padding: 28px; display: flex; align-items: center; gap: 20px; }
-  .ticket-img { width: 85px; height: 85px; background: rgba(255,255,255,0.05); border-radius: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.1); }
-  .ticket-img img { max-width: 80%; max-height: 80%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+  .ticket-img { width: 85px; height: 85px; background: rgba(42, 22, 18, 0.05); border-radius: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(42, 22, 18, 0.1); }
+  .ticket-img img { max-width: 80%; max-height: 80%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.15)); }
 
   .ticket-info { text-align: left; }
-  .ticket-tag { font-size: 9px; font-weight: 800; color: #f6d98d; letter-spacing: 0.15em; text-transform: uppercase; }
-  .ticket-title { font-family: var(--font-serif); font-size: 1.5rem; color: #ffffff; margin: 4px 0; font-weight: bold; }
-  .ticket-desc { font-size: 11px; color: #e8dccb; opacity: 0.85; margin-bottom: 8px; line-height: 1.4; font-family: sans-serif; }
-  .ticket-loc { font-size: 8px; font-weight: 700; color: #FAF5F0; opacity: 0.5; letter-spacing: 0.05em; }
+  .ticket-tag { font-size: 9px; font-weight: 800; color: #8f6c49; letter-spacing: 0.15em; text-transform: uppercase; }
+  .ticket-title { font-family: var(--font-serif); font-size: 1.5rem; color: #2A1612; margin: 4px 0; font-weight: bold; }
+  .ticket-desc { font-size: 11px; color: #5D4037; opacity: 0.9; margin-bottom: 8px; line-height: 1.4; font-family: sans-serif; }
+  .ticket-loc { font-size: 8px; font-weight: 700; color: #8f6c49; opacity: 0.75; letter-spacing: 0.05em; }
 
   .ticket-divider { position: relative; display: flex; align-items: center; justify-content: center; width: 2px; }
-  .dash-line { width: 2px; height: 100%; border-left: 2px dashed rgba(255, 255, 255, 0.15); }
-  .hole { position: absolute; width: 28px; height: 28px; background-color: var(--beige-seda); border-radius: 50%; z-index: 5; }
+  .dash-line { width: 2px; height: 100%; border-left: 2px dashed rgba(42, 22, 18, 0.2); }
+  .hole { position: absolute; width: 28px; height: 28px; background-color: var(--cafe-profundo); border-radius: 50%; z-index: 5; }
   .hole-start { top: -14px; left: -13px; }
   .hole-end { bottom: -14px; left: -13px; }
 
-  .ticket-stub { width: 130px; background: rgba(255,255,255,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 15px; text-align: center; border-left: 1px solid rgba(255,255,255,0.05); }
-  .stub-barcode { font-family: monospace; font-size: 18px; font-weight: 500; color: #ffffff; opacity: 0.3; letter-spacing: 1px; margin-bottom: 8px; }
-  .stub-label { font-size: 8px; font-weight: 700; color: #f6d98d; margin-bottom: 12px; letter-spacing: 0.05em; }
+  .ticket-stub { width: 130px; background: rgba(42, 22, 18, 0.03); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 15px; text-align: center; border-left: 1px solid rgba(42, 22, 18, 0.08); }
+  .stub-barcode { font-family: monospace; font-size: 18px; font-weight: 500; color: #2A1612; opacity: 0.45; letter-spacing: 1px; margin-bottom: 8px; }
+  .stub-label { font-size: 8px; font-weight: 700; color: #8f6c49; margin-bottom: 12px; letter-spacing: 0.05em; }
 
-  .btn-redeem { background: #FAF5F0; color: var(--cafe-profundo); border: none; padding: 10px 15px; border-radius: 9999px; font-size: 10px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.08em; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+  .btn-redeem { background: var(--cafe-profundo); color: var(--beige-seda); border: none; padding: 10px 15px; border-radius: 9999px; font-size: 10px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.08em; width: 100%; box-shadow: 0 4px 10px rgba(42, 22, 18, 0.2); }
   .btn-redeem:hover { background: #8f6c49; color: #ffffff; transform: translateY(-1px); }
   .btn-redeem:active { transform: scale(0.97); }
 
@@ -200,7 +258,7 @@ const sucursales = [
   .lux-card p { color: #6b5855; font-size: 0.85rem; line-height: 1.5; margin-bottom: 20px; font-family: sans-serif; }
   .lux-price { color: var(--oro-viejo); font-weight: 800; font-size: 1.3rem; font-family: var(--font-serif); }
 
-  /* ── FOOTER ELEGANT (Mismo al del principal) ── */
+  /* ── FOOTER ELEGANT (Mismo al del principal - Intacto) ── */
   .footer-info { background: #1A0A0C; padding: 80px 24px; color: var(--beige-seda); text-align: center; border-top: 1px solid rgba(196, 167, 125, 0.1); }
   .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto 50px; }
   .footer-city { color: #f6d98d; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 20px; font-size: 0.85rem; }
@@ -215,7 +273,7 @@ const sucursales = [
   /* ── MODAL CAPTACIÓN ── */
   .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: rgba(42, 22, 18, 0.6); 
+    background: rgba(42, 22, 18, 0.75); 
     backdrop-filter: blur(15px); 
     -webkit-backdrop-filter: blur(15px); 
     display: none; justify-content: center; align-items: center; z-index: 1000;
@@ -252,7 +310,7 @@ const sucursales = [
 </style>
 
 <div id="page-root">
-  <!-- HEADER FIJO -->
+  <!-- HEADER FIJO (INTACTO) -->
   <div class="fixed-header">
     <a href="/">
       <img 
@@ -265,23 +323,33 @@ const sucursales = [
 
   <div class="welcome-container">
     
-    <!-- Textures watermarks like the main page -->
+    <!-- Texturas de fondo sutiles -->
     <div class="absolute -right-20 top-1/3 w-96 h-96 bg-gradient-radial from-amber-200/5 to-transparent blur-3xl pointer-events-none"></div>
     <div class="absolute -left-20 top-1/2 w-96 h-96 bg-gradient-radial from-amber-200/5 to-transparent blur-3xl pointer-events-none"></div>
 
+    <!-- BOTÓN DE REGRESO Y FECHA ACTUAL -->
+    <div class="top-nav-bar">
+      <a href="/" onclick="if(history.length > 1){ history.back(); return false; }" class="btn-back">
+        ← Regresar
+      </a>
+      <div class="current-date-badge">
+        📅 {fechaHoy}
+      </div>
+    </div>
+
     <header class="welcome-section">
       <div class="flex items-center gap-2 mb-3">
-        <span class="w-6 h-[2px] bg-[#8f6c49]"></span>
-        <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Comunidad de Lealtad</span>
+        <span class="w-6 h-[2px] bg-[#dcb041]"></span>
+        <span class="text-xs uppercase tracking-widest text-[#dcb041] font-bold font-sans">Comunidad de Lealtad</span>
       </div>
       
-      <h1 class="font-serif text-4xl md:text-6xl text-[#2A1612] font-extrabold leading-tight tracking-tight mb-4">
-        Club <span class="text-[#8f6c49] italic font-semibold">Taboada</span>
+      <h1 class="font-serif text-4xl md:text-6xl text-[var(--beige-seda)] font-extrabold leading-tight tracking-tight mb-4">
+        Comunidad <span class="text-[#dcb041] italic font-semibold">Taboada</span>
       </h1>
       
-      <p style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #5D4037; font-family: sans-serif;">
+      <p style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #e8dccb; font-family: sans-serif;">
         De cortesía elige tu regalo de bienvenida en grande, el cual podrás canjear exclusivamente en nuestra sucursal de 
-        <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: var(--oro-viejo); text-decoration: underline; font-weight: 700;">
+        <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: #f6d98d; text-decoration: underline; font-weight: 700;">
           La Recoleta
         </a>.
       </p>
@@ -324,8 +392,7 @@ const sucursales = [
     </section>
   </div>
 
-  
-
+  <!-- FOOTER ELEGANT (INTACTO) -->
   <footer class="footer-info">
     <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 50px;">Nuestras Boutiques</h2>
     <div class="footer-grid">
