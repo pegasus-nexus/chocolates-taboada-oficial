@@ -31,25 +31,25 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     --font-serif: "Playfair Display", serif; 
   }
 
-  body { background-color: var(--cafe-profundo); color: var(--beige-seda); margin: 0; }
+  body { background-color: var(--beige-seda); color: var(--cafe-profundo); margin: 0; }
 
-  /* ── SECCIÓN DE BIENVENIDA (Fondo Café Profundo) ── */
+  /* ── SECCIÓN DE BIENVENIDA (Fondo Claro Elegante) ── */
   .welcome-container {
     position: relative;
     min-height: 100vh;
     padding: 130px 5% 80px;
     display: flex;
     flex-direction: column;
-    background-color: var(--cafe-profundo);
+    background: linear-gradient(180deg, #FAF5F0 0%, #F3ECE3 100%);
   }
 
-  /* ── BARRA SUPERIOR CON BOTÓN DE REGRESO Y FECHA ── */
+  /* ── BARRA SUPERIOR CON BOTÓN DE REGRESO Y FECHA (Sin Fondos/Bordes) ── */
   .top-nav-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    margin: 0 auto 30px;
+    margin: 0 auto 35px;
     width: 100%;
     position: relative;
     z-index: 10;
@@ -60,7 +60,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     align-items: center;
     gap: 10px;
     background: transparent;
-    color: var(--beige-seda);
+    color: var(--cafe-profundo);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 700;
@@ -71,7 +71,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   }
 
   .btn-back:hover {
-    color: #dcb041;
+    color: var(--oro-viejo);
   }
 
   .current-date-badge {
@@ -79,7 +79,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     align-items: center;
     gap: 10px;
     font-size: 1.15rem;
-    color: #dcb041;
+    color: var(--oro-viejo);
     font-weight: 600;
     font-style: italic;
     font-family: var(--font-serif);
@@ -97,7 +97,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     z-index: 2;
   }
 
- /* ── SECCIÓN DE TICKETS CLAROS (Fondo Beige / Texto Oscuro) ── */
+  /* ── TICKETS VIP LUXURY CHOCOLATE EN FONDO CLARO ── */
   .ticket-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -111,88 +111,58 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
   .ticket-wrapper {
     position: relative;
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.35));
+    filter: drop-shadow(0 18px 35px rgba(42, 22, 18, 0.18));
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     height: fit-content;
   }
   .ticket-wrapper:hover { transform: translateY(-4px) scale(1.01); }
 
   .ticket {
-    background: linear-gradient(135deg, #FAF5F0 0%, #F3ECE3 100%);
+    background: linear-gradient(135deg, #2A1612 0%, #1C0D0E 100%);
     display: flex;
     flex-direction: row; 
     border-radius: 24px;
     overflow: hidden;
     position: relative;
-    border: none; /* Borde exterior eliminado */
+    border: 1px solid rgba(220, 176, 65, 0.25);
   }
 
   .ticket-main, .ticket-stub, .ticket-divider { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease; }
   .ticket-main { flex: 1; padding: 28px; display: flex; align-items: center; gap: 20px; }
-  
-  .ticket-img { 
-    width: 85px; 
-    height: 85px; 
-    background: rgba(42, 22, 18, 0.05); 
-    border-radius: 20px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    flex-shrink: 0; 
-    border: none; /* Borde de la imagen eliminado */ 
-  }
-  .ticket-img img { max-width: 80%; max-height: 80%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.15)); }
+  .ticket-img { width: 85px; height: 85px; background: rgba(255, 255, 255, 0.06); border-radius: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.12); }
+  .ticket-img img { max-width: 80%; max-height: 80%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4)); }
 
   .ticket-info { text-align: left; }
-  .ticket-tag { font-size: 9px; font-weight: 800; color: #8f6c49; letter-spacing: 0.15em; text-transform: uppercase; }
-  .ticket-title { font-family: var(--font-serif); font-size: 1.5rem; color: #2A1612; margin: 4px 0; font-weight: bold; }
-  .ticket-desc { font-size: 11px; color: #5D4037; opacity: 0.9; margin-bottom: 8px; line-height: 1.4; font-family: sans-serif; }
-  .ticket-loc { font-size: 8px; font-weight: 700; color: #8f6c49; opacity: 0.75; letter-spacing: 0.05em; }
+  .ticket-tag { font-size: 9px; font-weight: 800; color: #f6d98d; letter-spacing: 0.15em; text-transform: uppercase; }
+  .ticket-title { font-family: var(--font-serif); font-size: 1.5rem; color: #FFFFFF; margin: 4px 0; font-weight: bold; }
+  .ticket-desc { font-size: 11px; color: #e8dccb; opacity: 0.85; margin-bottom: 8px; line-height: 1.4; font-family: sans-serif; }
+  .ticket-loc { font-size: 8px; font-weight: 700; color: #f6d98d; opacity: 0.65; letter-spacing: 0.05em; }
 
   .ticket-divider { position: relative; display: flex; align-items: center; justify-content: center; width: 2px; }
-  .dash-line { width: 2px; height: 100%; border-left: 2px dashed rgba(42, 22, 18, 0.2); }
-  .hole { position: absolute; width: 28px; height: 28px; background-color: var(--cafe-profundo); border-radius: 50%; z-index: 5; }
+  .dash-line { width: 2px; height: 100%; border-left: 2px dashed rgba(255, 255, 255, 0.18); }
+  .hole { position: absolute; width: 28px; height: 28px; background-color: #FAF5F0; border-radius: 50%; z-index: 5; }
   .hole-start { top: -14px; left: -13px; }
   .hole-end { bottom: -14px; left: -13px; }
 
-  .ticket-stub { 
-    width: 130px; 
-    background: rgba(42, 22, 18, 0.03); 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 20px 15px; 
-    text-align: center; 
-    border-left: none; /* Borde interno eliminado */ 
-  }
-  .stub-barcode { font-family: monospace; font-size: 18px; font-weight: 500; color: #2A1612; opacity: 0.45; letter-spacing: 1px; margin-bottom: 8px; }
-  .stub-label { font-size: 8px; font-weight: 700; color: #8f6c49; margin-bottom: 12px; letter-spacing: 0.05em; }
+  .ticket-stub { width: 130px; background: rgba(255, 255, 255, 0.03); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 15px; text-align: center; border-left: 1px solid rgba(255, 255, 255, 0.06); }
+  .stub-barcode { font-family: monospace; font-size: 18px; font-weight: 500; color: #FFFFFF; opacity: 0.35; letter-spacing: 1px; margin-bottom: 8px; }
+  .stub-label { font-size: 8px; font-weight: 700; color: #f6d98d; margin-bottom: 12px; letter-spacing: 0.05em; }
 
-  .btn-redeem { background: var(--cafe-profundo); color: var(--beige-seda); border: none; padding: 10px 15px; border-radius: 9999px; font-size: 10px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.08em; width: 100%; box-shadow: 0 4px 10px rgba(42, 22, 18, 0.2); }
-  .btn-redeem:hover { background: #8f6c49; color: #ffffff; transform: translateY(-1px); }
+  .btn-redeem { background: linear-gradient(145deg, #f6d98d, #dcb041); color: #2e1119; border: none; padding: 10px 15px; border-radius: 9999px; font-size: 10px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.08em; width: 100%; box-shadow: 0 4px 14px rgba(220, 176, 65, 0.3); }
+  .btn-redeem:hover { background: #FFFFFF; color: #2A1612; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(255,255,255,0.4); }
   .btn-redeem:active { transform: scale(0.97); }
 
   .stamp-redeemed {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(4) rotate(-25deg);
-    font-family: var(--font-serif); font-size: 2.2rem; color: #3a1823; border: 3px solid #3a1823;
+    font-family: var(--font-serif); font-size: 2.2rem; color: #dcb041; border: 3px solid #dcb041;
     padding: 8px 20px; border-radius: 12px; font-weight: 900; opacity: 0; z-index: 100; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    background: #FAF5F0; pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    background: #1C0D0E; pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   }
-
-  /* ── ANIMACIONES DE JUEGO ── */
-  .ticket-container.juego-terminado .ticket-wrapper:not(.is-active) { display: none; }
-  .ticket-container.juego-terminado { display: flex; justify-content: center; align-items: center; }
-  .ticket-wrapper.is-active { transform: scale(1.1); z-index: 50; pointer-events: none; }
-  .ticket-wrapper.is-broken .ticket-main { transform: translateX(-15px) rotate(-2deg); opacity: 0.9; }
-  .ticket-wrapper.is-broken .ticket-stub { transform: translateX(15px) rotate(2deg); opacity: 0.9; }
-  .ticket-wrapper.is-broken .ticket-divider { opacity: 0; }
-  .ticket-wrapper.is-stamped .stamp-redeemed { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-12deg); }
 
   /* ── MODAL CAPTACIÓN ── */
   .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: rgba(42, 22, 18, 0.75); 
+    background: rgba(42, 22, 18, 0.65); 
     backdrop-filter: blur(15px); 
     -webkit-backdrop-filter: blur(15px); 
     display: none; justify-content: center; align-items: center; z-index: 1000;
@@ -230,10 +200,10 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
 <div id="page-root">
   
-  <!-- ── NAVBAR COMPLETO IDÉNTICO AL PRINCIPAL (Fondo Café Profundo) ── -->
+  <!-- ── NAVBAR CLARO Y ELEGANTE ── -->
   <nav
     id="main-navbar"
-    class="fixed top-0 left-0 w-full z-[999] transition-all duration-500 bg-[#2A1612] border-b border-white/10 shadow-lg"
+    class="fixed top-0 left-0 w-full z-[999] transition-all duration-500 bg-[#FAF5F0]/90 backdrop-blur-md border-b border-[#2A1612]/10 shadow-sm"
   >
     <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[85px] md:h-[95px] px-6 lg:px-12 relative">
       
@@ -252,26 +222,26 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       <div class="hidden md:flex items-center gap-8 lg:gap-10">
         <a
           href="/"
-          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+          class="relative group py-2 text-[#2A1612] hover:text-[#8f6c49] font-bold text-sm tracking-wide transition-colors duration-300"
         >
           Inicio
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#8f6c49] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
         </a>
         <a
           href="/nosotros"
-          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+          class="relative group py-2 text-[#2A1612] hover:text-[#8f6c49] font-bold text-sm tracking-wide transition-colors duration-300"
         >
           Nosotros
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#8f6c49] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
         </a>
 
         <!-- COLECCIONES (Dropdown) -->
         <div class="relative group py-2">
-          <button class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
+          <button class="flex items-center gap-1 text-[#2A1612] hover:text-[#8f6c49] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
             Colecciones
-            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#8f6c49] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
           
           <!-- CONTENIDO DROPDOWN -->
           <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
@@ -306,11 +276,11 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
         <!-- BENEFICIOS (Dropdown) -->
         <div class="relative group py-2">
-          <button class="flex items-center gap-1 text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
+          <button class="flex items-center gap-1 text-[#8f6c49] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
             Beneficios
             <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-100 transition-all duration-300 ease-out"></span>
+          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#8f6c49] rounded-full scale-100 transition-all duration-300 ease-out"></span>
 
           <!-- CONTENIDO DROPDOWN -->
           <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
@@ -345,9 +315,9 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
           <button
             id="city-selector-btn"
             type="button"
-            class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03]"
+            class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-[#2A1612]/10 text-[#2A1612] hover:bg-[#2A1612]/15 border border-[#2A1612]/20 transition-all duration-300 cursor-pointer shadow-sm hover:scale-[1.03]"
           >
-            <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
             </svg>
             <span id="active-city-name">Cochabamba</span>
@@ -376,7 +346,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
         <!-- BOTÓN MENÚ MÓVIL (Hamburger) -->
         <button
           id="mobile-menu-btn"
-          class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/25 transition-all duration-300 cursor-pointer"
+          class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-[#2A1612]/10 border border-[#2A1612]/20 text-[#2A1612] hover:bg-[#2A1612]/20 transition-all duration-300 cursor-pointer"
           aria-label="Abrir menú"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -437,19 +407,19 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   <div class="welcome-container">
     
     <!-- Texturas de fondo sutiles -->
-    <div class="absolute -right-20 top-1/3 w-96 h-96 bg-gradient-radial from-amber-200/5 to-transparent blur-3xl pointer-events-none"></div>
-    <div class="absolute -left-20 top-1/2 w-96 h-96 bg-gradient-radial from-amber-200/5 to-transparent blur-3xl pointer-events-none"></div>
+    <div class="absolute -right-20 top-1/3 w-96 h-96 bg-radial from-amber-500/10 to-transparent blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-20 top-1/2 w-96 h-96 bg-radial from-amber-500/10 to-transparent blur-3xl pointer-events-none"></div>
 
     <!-- BOTÓN DE REGRESO Y FECHA ACTUAL -->
     <div class="top-nav-bar">
       <a href="/" onclick="if(history.length > 1){ history.back(); return false; }" class="btn-back group">
-        <svg class="w-5 h-5 text-[#dcb041] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg class="w-5 h-5 text-[#8f6c49] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
         </svg>
         <span>Regresar</span>
       </a>
       <div class="current-date-badge">
-        <svg class="w-5 h-5 md:w-6 md:h-6 text-[#dcb041] flex-shrink-0 not-italic" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg class="w-5 h-5 md:w-6 md:h-6 text-[#8f6c49] flex-shrink-0 not-italic" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zM14.25 12h.008v.008H14.25v-.008zm0 2.25h.008v.008H14.25V15zm0 2.25h.008v.008H14.25v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"></path>
         </svg>
         <span>{fechaHoyFormatted}</span>
@@ -458,18 +428,18 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
     <header class="welcome-section">
       <div class="flex items-center gap-2 mb-3">
-        <span class="w-6 h-[2px] bg-[#dcb041]"></span>
-        <span class="text-xs uppercase tracking-widest text-[#dcb041] font-bold font-sans">Comunidad de Lealtad</span>
+        <span class="w-6 h-[2px] bg-[#8f6c49]"></span>
+        <span class="text-xs uppercase tracking-widest text-[#8f6c49] font-bold font-sans">Comunidad de Lealtad</span>
       </div>
       
-      <h1 class="font-serif text-4xl md:text-6xl text-[var(--beige-seda)] font-extrabold leading-tight tracking-tight mb-4">
-        Comunidad <span class="text-[#dcb041] italic font-semibold">Taboada</span>
+      <h1 class="font-serif text-4xl md:text-6xl text-[#2A1612] font-extrabold leading-tight tracking-tight mb-4">
+        Comunidad <span class="text-[#8f6c49] italic font-semibold">Taboada</span>
       </h1>
       
-      <p style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #e8dccb; font-family: sans-serif;">
+      <p style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #5D4037; font-family: sans-serif;">
         De cortesía elige tu regalo de bienvenida en grande, el cual podrás canjear exclusivamente en nuestra sucursal de 
-        <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: #f6d98d; text-decoration: underline; font-weight: 700;">
-           La Recoleta
+        <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: #8f6c49; text-decoration: underline; font-weight: 700;">
+          La Recoleta
         </a>.
       </p>
     </header>
