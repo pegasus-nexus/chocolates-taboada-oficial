@@ -1,0 +1,343 @@
+---
+// CartDrawer.astro - Componente Oficial de Carrito de Compras para Chocolates Taboada
+---
+
+<!-- FONDO OSCURO CON BACKDROP BLUR -->
+<div
+  id="cart-drawer-overlay"
+  class="fixed inset-0 z-[9998] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-400"
+></div>
+
+<!-- PANEL DESLIZANTE DEL CARRITO (SLIDE-OVER DRAWER) -->
+<aside
+  id="cart-drawer"
+  class="fixed top-0 right-0 z-[9999] h-full w-[440px] max-w-[92vw] bg-[#FAF5F0] text-[#2A1612] shadow-[-15px_0_45px_rgba(0,0,0,0.4)] transform translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between overflow-hidden border-l border-[#2A1612]/10"
+>
+  
+  <!-- CABECERA DEL CARRITO -->
+  <div class="flex items-center justify-between px-6 py-5 border-b border-[#2A1612]/10 bg-[#F3ECE3]">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-full bg-[#2A1612]/5 flex items-center justify-center text-[#dcb041]">
+        <svg class="w-5 h-5 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold font-serif text-[#2A1612]">Mi Carrito</h2>
+        <span id="cart-drawer-count-subtitle" class="text-xs text-[#5D4037]/70 font-semibold block">4 productos seleccionados</span>
+      </div>
+    </div>
+
+    <button
+      id="cart-drawer-close-btn"
+      type="button"
+      class="w-9 h-9 rounded-full bg-black/5 hover:bg-black/10 text-[#2A1612] flex items-center justify-center transition-all duration-200 cursor-pointer hover:rotate-90"
+      aria-label="Cerrar carrito"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- LISTA CONTENEDORA DE PRODUCTOS (SCROLLABLE) -->
+  <div id="cart-drawer-items-list" class="flex-1 overflow-y-auto p-5 space-y-4">
+    <!-- Los elementos se renderizan dinámicamente mediante JS -->
+  </div>
+
+  <!-- SECCIÓN INFERIOR DE RESUMEN Y CHECKOUT (SIN CUPONES NI DESCUENTOS POR CUPÓN) -->
+  <div class="border-t border-[#2A1612]/10 bg-[#F3ECE3] p-6 space-y-4 shadow-[0_-10px_25px_rgba(0,0,0,0.05)]">
+    
+    <!-- DESGLOSE DE VALORES -->
+    <div class="space-y-2 text-sm font-sans">
+      <div class="flex justify-between items-center text-[#5D4037]">
+        <span class="font-medium">Subtotal</span>
+        <span id="cart-drawer-subtotal" class="font-bold text-[#2A1612]">Bs. 284.00</span>
+      </div>
+      <div class="flex justify-between items-center text-[#5D4037]">
+        <span class="font-medium">Envío</span>
+        <span class="px-2 py-0.5 text-xs bg-[#dcb041]/20 text-[#8f6c49] font-extrabold rounded-full">Gratis</span>
+      </div>
+    </div>
+
+    <!-- TOTAL DESTACADO -->
+    <div class="flex justify-between items-center pt-3 border-t border-[#2A1612]/10">
+      <span class="text-base font-bold font-serif text-[#2A1612]">Total</span>
+      <span id="cart-drawer-total" class="text-2xl font-extrabold font-serif text-[#2A1612]">Bs. 284.00</span>
+    </div>
+
+    <!-- BOTÓN PRINCIPAL DE CHECKOUT -->
+    <button
+      id="cart-drawer-checkout-btn"
+      type="button"
+      class="w-full py-4 px-6 bg-[#2A1612] hover:bg-[#3d201b] text-[#FAF5F0] font-extrabold text-sm rounded-2xl shadow-[0_8px_25px_rgba(42,22,18,0.35)] hover:shadow-[0_12px_30px_rgba(42,22,18,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-between cursor-pointer group"
+    >
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+        </svg>
+        <span id="cart-checkout-btn-text">Finalizar Pedido (4)</span>
+      </div>
+      <svg class="w-5 h-5 text-[#dcb041] group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+      </svg>
+    </button>
+  </div>
+
+</aside>
+
+<script is:inline>
+  // ── LÓGICA INTERACTIVA DEL CARRITO DE COMPRAS ──
+  const initialCartItems = [
+    {
+      id: 'caja-roja-100',
+      name: 'Caja Roja Corazón',
+      size: '100 g · Bombones Leche',
+      price: 77.00,
+      quantity: 1,
+      img: '/img/produc2.png',
+      isFavorite: true
+    },
+    {
+      id: 'caja-roja-180',
+      name: 'Caja roja de Corazón',
+      size: '180 g · Presentación VIP',
+      price: 81.00,
+      quantity: 1,
+      img: '/img/produc1.png',
+      isFavorite: false
+    },
+    {
+      id: 'caja-lila-200',
+      name: 'Caja Lila Felicidades',
+      size: '200 g · Edición Especial',
+      price: 63.00,
+      quantity: 1,
+      img: '/img/produc3.png',
+      isFavorite: true
+    },
+    {
+      id: 'caja-paleta-100',
+      name: 'Caja Paleta Rosas',
+      size: '100 g · Diseño Floral',
+      price: 63.00,
+      quantity: 1,
+      img: '/img/produc4.png',
+      isFavorite: false
+    }
+  ];
+
+  // Obtener carrito desde localStorage o cargar items iniciales de demostración
+  function getCartData() {
+    try {
+      const stored = localStorage.getItem('taboada_cart');
+      if (stored) return JSON.parse(stored);
+    } catch(e) {}
+    localStorage.setItem('taboada_cart', JSON.stringify(initialCartItems));
+    return initialCartItems;
+  }
+
+  function saveCartData(items) {
+    localStorage.setItem('taboada_cart', JSON.stringify(items));
+    updateCartUI();
+  }
+
+  window.openCartDrawer = function() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-drawer-overlay');
+    if (drawer && overlay) {
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100');
+      drawer.classList.remove('translate-x-full');
+      updateCartUI();
+    }
+  };
+
+  window.closeCartDrawer = function() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-drawer-overlay');
+    if (drawer && overlay) {
+      overlay.classList.remove('opacity-100');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      drawer.classList.add('translate-x-full');
+    }
+  };
+
+  window.toggleCartFavorite = function(id) {
+    const cart = getCartData();
+    const item = cart.find(i => i.id === id);
+    if (item) {
+      item.isFavorite = !item.isFavorite;
+      saveCartData(cart);
+    }
+  };
+
+  window.changeCartQuantity = function(id, delta) {
+    const cart = getCartData();
+    const item = cart.find(i => i.id === id);
+    if (item) {
+      item.quantity = Math.max(1, item.quantity + delta);
+      saveCartData(cart);
+    }
+  };
+
+  window.removeCartItem = function(id) {
+    let cart = getCartData();
+    cart = cart.filter(i => i.id !== id);
+    saveCartData(cart);
+  };
+
+  window.addToCart = function(itemObj) {
+    let cart = getCartData();
+    const existing = cart.find(i => i.id === itemObj.id || i.name === itemObj.name);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({
+        id: itemObj.id || 'item-' + Date.now(),
+        name: itemObj.name || 'Chocolate Taboada',
+        size: itemObj.size || 'Presentación Especial',
+        price: typeof itemObj.price === 'number' ? itemObj.price : parseFloat((itemObj.price || '80').replace(/[^0-9.]/g, '')) || 80,
+        quantity: 1,
+        img: itemObj.img || '/img/produc1.png',
+        isFavorite: false
+      });
+    }
+    saveCartData(cart);
+    window.openCartDrawer();
+  };
+
+  function updateCartUI() {
+    const cart = getCartData();
+    const listEl = document.getElementById('cart-drawer-items-list');
+    const countSubtitleEl = document.getElementById('cart-drawer-count-subtitle');
+    const subtotalEl = document.getElementById('cart-drawer-subtotal');
+    const totalEl = document.getElementById('cart-drawer-total');
+    const checkoutBtnText = document.getElementById('cart-checkout-btn-text');
+    const navBadgeEls = document.querySelectorAll('.cart-nav-badge-count');
+
+    // Calcular total de productos e importe
+    const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+    const subtotalAmount = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+    // Actualizar insignias en Navbar
+    navBadgeEls.forEach(badge => {
+      badge.textContent = totalCount;
+      if (totalCount > 0) {
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    });
+
+    if (countSubtitleEl) {
+      countSubtitleEl.textContent = `${totalCount} ${totalCount === 1 ? 'producto seleccionado' : 'productos seleccionados'}`;
+    }
+
+    if (subtotalEl) subtotalEl.textContent = `Bs. ${subtotalAmount.toFixed(2)}`;
+    if (totalEl) totalEl.textContent = `Bs. ${subtotalAmount.toFixed(2)}`;
+    if (checkoutBtnText) checkoutBtnText.textContent = `Finalizar Pedido (${totalCount})`;
+
+    if (!listEl) return;
+
+    if (cart.length === 0) {
+      listEl.innerHTML = `
+        <div class="flex flex-col items-center justify-center py-16 text-center text-[#5D4037]/70">
+          <div class="w-16 h-16 rounded-full bg-black/5 flex items-center justify-center mb-4 text-[#8f6c49]">
+            <svg class="w-8 h-8 opacity-50" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+            </svg>
+          </div>
+          <p class="font-serif text-lg font-bold text-[#2A1612]">Tu carrito está vacío</p>
+          <p class="text-xs mt-1">Explora nuestras colecciones finas de chocolate y añade tus favoritos.</p>
+        </div>
+      `;
+      return;
+    }
+
+    listEl.innerHTML = cart.map(item => `
+      <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#2A1612]/8 shadow-sm hover:shadow-md transition-all duration-300 group">
+        
+        <!-- CONTENEDOR DE IMAGEN CON BOTÓN FAVORITO -->
+        <div class="relative w-20 h-20 rounded-xl bg-[#FAF5F0] flex items-center justify-center flex-shrink-0 p-2 border border-[#2A1612]/5 overflow-hidden">
+          <img src="${item.img}" alt="${item.name}" class="max-w-full max-h-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-300" />
+          <button
+            type="button"
+            onclick="window.toggleCartFavorite('${item.id}')"
+            class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-xs transition-colors hover:bg-white cursor-pointer"
+            title="Favorito"
+          >
+            ${item.isFavorite ? '❤️' : '🤍'}
+          </button>
+        </div>
+
+        <!-- DETALLES DEL PRODUCTO Y PRECIO -->
+        <div class="flex-1 min-w-0">
+          <h3 class="font-serif font-bold text-sm text-[#2A1612] truncate leading-snug">${item.name}</h3>
+          <p class="text-[11px] text-[#5D4037]/75 font-sans mt-0.5 truncate">${item.size}</p>
+          <div class="font-bold text-sm text-[#2A1612] mt-1.5">Bs. ${item.price.toFixed(2)}</div>
+        </div>
+
+        <!-- CONTROLES DE CANTIDAD Y ACCIÓN ELIMINAR -->
+        <div class="flex flex-col items-end gap-2.5">
+          <!-- BOTÓN ELIMINAR (BASURERO) -->
+          <button
+            type="button"
+            onclick="window.removeCartItem('${item.id}')"
+            class="text-[#5D4037]/50 hover:text-red-600 transition-colors p-1 cursor-pointer"
+            title="Eliminar producto"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
+          </button>
+
+          <!-- SELECTOR DE CANTIDAD PILL (- 1 +) -->
+          <div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-[#FAF5F0] border border-[#2A1612]/10 shadow-inner">
+            <button
+              type="button"
+              onclick="window.changeCartQuantity('${item.id}', -1)"
+              class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-[#2A1612] hover:bg-[#2A1612]/10 transition-colors cursor-pointer"
+            >-</button>
+            <span class="text-xs font-extrabold text-[#2A1612] px-1 min-w-[14px] text-center">${item.quantity}</span>
+            <button
+              type="button"
+              onclick="window.changeCartQuantity('${item.id}', 1)"
+              class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-[#2A1612] hover:bg-[#2A1612]/10 transition-colors cursor-pointer"
+            >+</button>
+          </div>
+        </div>
+
+      </div>
+    `).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartUI();
+
+    const overlay = document.getElementById('cart-drawer-overlay');
+    const closeBtn = document.getElementById('cart-drawer-close-btn');
+    const checkoutBtn = document.getElementById('cart-drawer-checkout-btn');
+
+    if (overlay) overlay.addEventListener('click', window.closeCartDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', window.closeCartDrawer);
+
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', () => {
+        const cart = getCartData();
+        if (cart.length === 0) return;
+
+        let msg = "Hola, me gustaría realizar el siguiente pedido de Chocolates Taboada:\n\n";
+        cart.forEach((item, idx) => {
+          msg += `${idx + 1}. *${item.name}* (${item.size}) x${item.quantity} - Bs. ${(item.price * item.quantity).toFixed(2)}\n`;
+        });
+
+        const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+        msg += `\n*Total a Pagar:* Bs. ${total.toFixed(2)}\n\n¡Quedo atento a la confirmación para la entrega!`;
+
+        const waUrl = `https://wa.me/59179786916?text=${encodeURIComponent(msg)}`;
+        window.open(waUrl, '_blank');
+      });
+    }
+  });
+</script>
