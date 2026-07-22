@@ -1398,8 +1398,12 @@ const products = [
             throw new Error('API Response Error');
           })
           .then((data) => {
+            console.log('Ciudad detectada por API:', data.city);
+            
             const cityValue = (data.city || '').toLowerCase();
             const regionValue = (data.region || '').toLowerCase();
+            
+            // Evaluación estricta única y exclusivamente de los campos city y region (ignora timezone)
             const detected = (cityValue.includes('paz') || regionValue.includes('paz')) ? 'la-paz' : 'cochabamba';
             updateCity(detected);
           })
