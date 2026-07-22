@@ -721,7 +721,7 @@ const products = [
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
-        <!-- LADO IZQUIERDO (cols 1-5): Retrato / Foto en Marco Circular con Píldoras de Etiquetas Flotantes -->
+        <!-- LADO IZQUIERDO (cols 1-5): Retrato / Foto en Marco Circular -->
         <div class="lg:col-span-5 flex justify-center relative">
           <div class="relative w-[320px] sm:w-[380px] md:w-[400px] aspect-square flex items-center justify-center">
             
@@ -737,29 +737,10 @@ const products = [
               />
             </div>
 
-            <!-- Píldoras / Tags Flotantes de Beneficios sobre la parte inferior del Círculo -->
-            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[110%] z-20 flex flex-wrap justify-center gap-1.5 sm:gap-2 px-2">
-              <span class="px-3 py-1.5 rounded-full bg-[#2A1612] text-[#FAF5F0] text-[10px] sm:text-xs font-extrabold shadow-lg border border-[#dcb041]/30">
-                ✨ Catas VIP
-              </span>
-              <span class="px-3 py-1.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[10px] sm:text-xs font-extrabold shadow-lg">
-                🎁 Regalo Cumpleaños
-              </span>
-              <span class="px-3 py-1.5 rounded-full bg-white text-[#2A1612] text-[10px] sm:text-xs font-extrabold shadow-md border border-[#e8dccb]">
-                🏷️ 10% Descuento
-              </span>
-              <span class="px-3 py-1.5 rounded-full bg-[#8f6c49] text-white text-[10px] sm:text-xs font-extrabold shadow-lg">
-                🍷 Maridajes
-              </span>
-              <span class="px-3 py-1.5 rounded-full bg-[#2A1612] text-[#dcb041] text-[10px] sm:text-xs font-extrabold shadow-lg border border-[#dcb041]/40">
-                ⭐ Socio VIP
-              </span>
-            </div>
-
           </div>
         </div>
 
-        <!-- LADO DERECHO (cols 6-12): Contenido Inspirado en la Referencia Visual -->
+        <!-- LADO DERECHO (cols 6-12): Contenido e Información de Beneficios -->
         <div class="lg:col-span-7 flex flex-col items-start text-left lg:pl-4">
           
           <!-- Eyebrow -->
@@ -776,22 +757,67 @@ const products = [
           </h2>
           
           <!-- Descripción -->
-          <p class="text-[#5D4037] text-sm md:text-base leading-relaxed mb-8 max-w-xl font-sans">
-            Sé parte de una dinastía de sabor que trasciende generaciones. Registrándote hoy en nuestra <strong class="text-[#2A1612]">Comunidad Oficial</strong>, desbloqueas privilegios únicos, catas privadas y atención preferencial en nuestras boutiques.
+          <p class="text-[#5D4037] text-sm md:text-base leading-relaxed mb-6 max-w-xl font-sans">
+            Sé parte de una dinastía de sabor que trasciende generaciones. Registrándote hoy en nuestra <strong class="text-[#2A1612]">Comunidad Oficial</strong>, desbloqueas privilegios únicos y experiencias pensadas para amantes del auténtico chocolate.
           </p>
+
+          <!-- Lista de Beneficios Exclusivos en Texto -->
+          <div class="space-y-3 w-full max-w-lg mb-8">
+            
+            <!-- Beneficio 1: Catas -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 border border-[#e8dccb]/70 shadow-[0_4px_20px_rgba(42,22,18,0.04)]">
+              <div class="w-9 h-9 rounded-xl bg-[#FAF5F0] text-[#8f6c49] flex items-center justify-center flex-shrink-0 border border-[#e8dccb]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-sm font-bold text-[#2A1612]">Catas de Chocolate</h4>
+                <p class="text-xs text-[#6b5855] leading-relaxed font-sans">Invitaciones exclusivas a experiencias de maridaje y degustaciones guiadas de cacao fino.</p>
+              </div>
+            </div>
+
+            <!-- Beneficio 2: Descuentos -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 border border-[#e8dccb]/70 shadow-[0_4px_20px_rgba(42,22,18,0.04)]">
+              <div class="w-9 h-9 rounded-xl bg-[#FAF5F0] text-[#8f6c49] flex items-center justify-center flex-shrink-0 border border-[#e8dccb]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.5 1.5 0 002.122 0l4.318-4.318a1.5 1.5 0 000-2.122L11.16 3.659A2.25 2.25 0 009.568 3z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h.008v.008H6V7.5z" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-sm font-bold text-[#2A1612]">Descuentos Exclusivos</h4>
+                <p class="text-xs text-[#6b5855] leading-relaxed font-sans">10% de descuento automático en tus compras oficiales en boutiques registradas.</p>
+              </div>
+            </div>
+
+            <!-- Beneficio 3: Promociones -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 border border-[#e8dccb]/70 shadow-[0_4px_20px_rgba(42,22,18,0.04)]">
+              <div class="w-9 h-9 rounded-xl bg-[#FAF5F0] text-[#8f6c49] flex items-center justify-center flex-shrink-0 border border-[#e8dccb]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-sm font-bold text-[#2A1612]">Promociones Especiales</h4>
+                <p class="text-xs text-[#6b5855] leading-relaxed font-sans">Ofertas mensuales anticipadas, obsequio especial en tu cumpleaños y packs exclusivos.</p>
+              </div>
+            </div>
+
+          </div>
           
           <!-- Estadísticas / Métricas Destacadas (3 Columnas) -->
-          <div class="grid grid-cols-3 gap-4 md:gap-8 w-full max-w-lg mb-10 pb-8 border-b border-[#e8dccb]">
+          <div class="grid grid-cols-3 gap-4 md:gap-8 w-full max-w-lg mb-8 pb-6 border-b border-[#e8dccb]">
             <div>
-              <span class="block text-2xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">1,500+</span>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#dcb041] font-serif tracking-tight">1,500+</span>
               <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Miembros Activos</span>
             </div>
             <div>
-              <span class="block text-2xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">10%</span>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#dcb041] font-serif tracking-tight">10%</span>
               <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Descuento Directo</span>
             </div>
             <div>
-              <span class="block text-2xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">1903</span>
+              <span class="block text-2xl sm:text-3xl font-extrabold text-[#dcb041] font-serif tracking-tight">1903</span>
               <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Tradición Sucrense</span>
             </div>
           </div>
