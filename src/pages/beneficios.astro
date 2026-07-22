@@ -11,13 +11,14 @@ const rewards = [
   { id:'cupon4', title:'Gesto 4%', tag:'Cortesía', desc:'Descuento especial por compras.', img:'/img/taboada-logo.png', validity: '1 Semana' },
 ];
 
-// Fecha actual formateada
-const fechaHoy = new Date().toLocaleDateString('es-ES', {
+// Fecha actual formateada elegante
+const rawFecha = new Date().toLocaleDateString('es-ES', {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric'
 });
+const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 ---
 
 <AppLayout title="Comunidad Taboada · Beneficios Exclusivos">
@@ -57,39 +58,34 @@ const fechaHoy = new Date().toLocaleDateString('es-ES', {
   .btn-back {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 18px;
-    border-radius: 9999px;
-    background: rgba(250, 245, 240, 0.08);
+    gap: 10px;
+    background: transparent;
     color: var(--beige-seda);
     text-decoration: none;
-    font-size: 11px;
+    font-size: 0.95rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border: 1px solid rgba(250, 245, 240, 0.15);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+    border: none;
+    padding: 0;
+    transition: color 0.3s ease;
   }
 
   .btn-back:hover {
-    background: var(--oro-viejo);
-    color: #ffffff;
-    border-color: var(--oro-viejo);
-    transform: translateX(-3px);
+    color: #dcb041;
   }
 
   .current-date-badge {
-    font-size: 11px;
-    color: rgba(250, 245, 240, 0.75);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    color: #dcb041;
     font-weight: 600;
-    text-transform: capitalize;
-    letter-spacing: 0.05em;
-    font-family: sans-serif;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 6px 14px;
-    border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-style: italic;
+    font-family: var(--font-serif);
+    background: transparent;
+    border: none;
+    padding: 0;
   }
 
   .welcome-section {
@@ -446,11 +442,17 @@ const fechaHoy = new Date().toLocaleDateString('es-ES', {
 
     <!-- BOTÓN DE REGRESO Y FECHA ACTUAL -->
     <div class="top-nav-bar">
-      <a href="/" onclick="if(history.length > 1){ history.back(); return false; }" class="btn-back">
-        ← Regresar
+      <a href="/" onclick="if(history.length > 1){ history.back(); return false; }" class="btn-back group">
+        <svg class="w-5 h-5 text-[#dcb041] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+        </svg>
+        <span>Regresar</span>
       </a>
       <div class="current-date-badge">
-        📅 {fechaHoy}
+        <svg class="w-5 h-5 md:w-6 md:h-6 text-[#dcb041] flex-shrink-0 not-italic" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zM14.25 12h.008v.008H14.25v-.008zm0 2.25h.008v.008H14.25V15zm0 2.25h.008v.008H14.25v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"></path>
+        </svg>
+        <span>{fechaHoyFormatted}</span>
       </div>
     </div>
 
