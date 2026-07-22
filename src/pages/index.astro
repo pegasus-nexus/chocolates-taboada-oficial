@@ -412,7 +412,9 @@ const products = [
       class="absolute inset-0 bg-no-repeat
            bg-cover bg-[position:80%_center] scale-100
            lg:bg-center lg:scale-105 transition-all duration-700"
-      style="background-image:url('/img/taboadaportada.png')"
+      data-bg-cochabamba="/img/portadataboada.png"
+      data-bg-lapaz="/img/portadalapaz.png"
+      style="background-image:url('/img/portadataboada.png')"
     >
     </div>
 
@@ -1248,12 +1250,14 @@ const products = [
           activeCityName.textContent = city === 'cochabamba' ? 'Cochabamba' : 'La Paz';
         }
 
-        // Actualizar la portada del Hero
+        // Actualizar la portada del Hero leyendo los atributos HTML dinámicamente
         if (heroBgCover) {
+          const bgCbba = heroBgCover.getAttribute('data-bg-cochabamba') || '/img/taboadaportada.png';
+          const bgLpz = heroBgCover.getAttribute('data-bg-lapaz') || '/img/portada-lapaz.jpg';
           if (city === 'cochabamba') {
-            heroBgCover.style.backgroundImage = "url('/img/taboadaportada.png')";
+            heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
           } else if (city === 'la-paz') {
-            heroBgCover.style.backgroundImage = "url('/img/portada-lapaz.jpg')";
+            heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
           }
         }
 
@@ -1387,24 +1391,21 @@ const products = [
       if (savedCity && (savedCity === 'cochabamba' || savedCity === 'la-paz')) {
         updateCity(savedCity);
       } else {
-        // Ejecutar detección por IP silenciosa de freeipapi.com
-        fetch('https://freeipapi.com/api/json')
+        // Petición silenciosa asíncrona a ipapi.co/json/ (HTTPS)
+        fetch('https://ipapi.co/json/')
           .then((res) => {
             if (res.ok) return res.json();
-            throw new Error('API Error');
+            throw new Error('API Response Error');
           })
           .then((data) => {
-            const cityName = (data.cityName || '').toLowerCase();
-            const detected = cityName.includes('paz') ? 'la-paz' : 'cochabamba';
-            console.log("--- Chocolates Taboada (Diagnóstico IP Silenciosa) ---");
-            console.log("Ciudad de IP detectada:", data.cityName || "No provista");
-            console.log("Región/País de IP:", data.regionName, "/", data.countryName);
-            console.log("Ciudad asignada en la Web:", detected === 'la-paz' ? "La Paz" : "Cochabamba");
-            console.log("-----------------------------------------");
+            const cityValue = (data.city || '').toLowerCase();
+            const regionValue = (data.region || '').toLowerCase();
+            const detected = (cityValue.includes('paz') || regionValue.includes('paz')) ? 'la-paz' : 'cochabamba';
             updateCity(detected);
           })
           .catch((err) => {
-            console.error('No se pudo determinar la ubicación IP, usando Cochabamba por defecto:', err);
+            // Manejo silencioso de errores para evitar romper la carga (AdBlockers o fallos de red)
+            updateCity('cochabamba');
           });
       }
 
