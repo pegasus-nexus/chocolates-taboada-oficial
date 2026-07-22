@@ -1,11 +1,375 @@
 ---
+// Navbar.astro - Componente de Navegación Reutilizable Oficial de Chocolates Taboada
+import RegisterModal from './RegisterModal.astro';
 ---
-<nav class="absolute top-0 left-0 right-0 z-20 py-[22px] px-5 text-warm-white" aria-label="Navegación principal">
-  <div class="max-w-[1120px] mx-auto flex items-center justify-between gap-4 w-full">
-    <div class="font-serif font-extrabold tracking-wider text-[1.1rem]">Chocolates Taboada</div>
-    <div class="flex items-center gap-3">
-      <a class="hidden sm:block border border-warm-white/35 bg-warm-white/12 backdrop-blur-md rounded-full py-2.5 px-4 text-[0.86rem] text-warm-white/88 transition hover:bg-warm-white/20 hover:text-white" href="#productos">Ver regalos destacados</a>
-      <a class="border border-gold/45 bg-gold/12 backdrop-blur-md rounded-full py-2.5 px-4 text-[0.86rem] text-gold transition hover:bg-gold/20 hover:text-white" href="/beneficios">Mis Beneficios</a>
+
+<nav
+  id="main-navbar"
+  class="fixed top-0 left-0 w-full z-[999] transition-all duration-500 bg-transparent border-b border-transparent hover:bg-white/10"
+>
+  <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[85px] md:h-[95px] px-6 lg:px-12 relative">
+    
+    <!-- LOGO IZQUIERDO -->
+    <div class="flex items-center">
+      <a href="/">
+        <img
+          src="/img/taboada-logo.png"
+          alt="Taboada"
+          class="h-[50px] md:h-[65px] object-contain transition-transform duration-300 hover:scale-105"
+        />
+      </a>
+    </div>
+
+    <!-- ENLACES CENTRALES (Desktop) -->
+    <div class="hidden md:flex items-center gap-8 lg:gap-10">
+      <!-- INICIO -->
+      <a
+        href="/"
+        class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+      >
+        Inicio
+        <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+      </a>
+      <a
+        href="/nosotros"
+        class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
+      >
+        Nosotros
+        <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+      </a>
+
+      <!-- COLECCIONES (Dropdown) -->
+      <div class="relative group py-2">
+        <button type="button" class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
+          Colecciones
+          <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+        
+        <!-- CONTENIDO DROPDOWN -->
+        <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+          <div class="p-3 grid grid-cols-1 gap-1">
+            <a href="/?cat=bombones" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+              <div>
+                <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Bombones Finos</div>
+                <div class="text-xs text-white/60 mt-0.5">Elegancia y variedad de sabores premium</div>
+              </div>
+            </a>
+            <a href="/?cat=grageas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+              <div>
+                <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Cajas y Grageas</div>
+                <div class="text-xs text-white/60 mt-0.5">Detalles perfectos y crujientes de sabor</div>
+              </div>
+            </a>
+            <a href="/?cat=tabletas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+              <div>
+                <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Tabletas y Barras</div>
+                <div class="text-xs text-white/60 mt-0.5">Chocolate de origen seleccionado</div>
+              </div>
+            </a>
+            <a href="/?cat=reposteria" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+              <div>
+                <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Chocolate de Taza</div>
+                <div class="text-xs text-white/60 mt-0.5">La receta familiar tradicional boliviana</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BENEFICIOS (Dropdown) -->
+      <div class="relative group py-2">
+        <button type="button" class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
+          Beneficios
+          <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
+
+        <!-- CONTENIDO DROPDOWN -->
+        <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+          <div class="p-3 grid grid-cols-1 gap-1">
+            <a href="/beneficios" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+              <span class="text-xl">✨</span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Club Taboada</span>
+                  <span class="px-1.5 py-0.5 text-[9px] bg-[#dcb041]/20 text-[#dcb041] font-extrabold rounded">Socio</span>
+                </div>
+                <div class="text-xs text-white/60 mt-0.5">Beneficios exclusivos y catas de chocolate</div>
+              </div>
+            </a>
+            <a href="/adulto-mayor" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+              <span class="text-xl">💖</span>
+              <div>
+                <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Membresía Legado</div>
+                <div class="text-xs text-white/60 mt-0.5">Atención preferencial y 10% de descuento</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DERECHA (Selector Ciudad + CTA Registrarse / Perfil Limpio Sin Fondo + Hamburger) -->
+    <div class="flex items-center gap-3 md:gap-4 relative overflow-visible">
+      
+      <!-- SELECTOR DE CIUDAD -->
+      <div class="relative inline-block text-left z-[1000] overflow-visible">
+        <button
+          id="city-selector-btn"
+          type="button"
+          class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03]"
+        >
+          <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+          </svg>
+          <span id="active-city-name">Detectando...</span>
+          <span class="text-[8px] opacity-75">▼</span>
+        </button>
+        
+        <!-- MENU DESPLEGABLE CIUDAD -->
+        <div
+          id="city-dropdown"
+          class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
+        >
+          <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
+          <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
+        </div>
+      </div>
+
+      <!-- BOTÓN REGÍSTRATE (Para usuario NO registrado) -->
+      <button
+        id="nav-register-btn"
+        type="button"
+        class="hidden sm:inline-flex items-center justify-center bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-xs md:text-sm px-6 py-2.5 rounded-full shadow-[0_4px_18px_rgba(220,176,65,0.35)] hover:shadow-[0_6px_22px_rgba(220,176,65,0.5)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+      >
+        Regístrate
+      </button>
+
+      <!-- PERFIL LIMPIO DE USUARIO (Para usuario REGISTRADO: Sin fondo ni bordes) -->
+      <a
+        href="/beneficios"
+        id="user-profile-nav"
+        class="hidden items-center gap-2 py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer group"
+      >
+        <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+        <span id="user-nav-name">Sahian</span>
+      </a>
+
+      <!-- BOTÓN MENÚ MÓVIL (Hamburger) -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/25 transition-all duration-300 cursor-pointer"
+        aria-label="Abrir menú"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16"></path>
+        </svg>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- MENÚ MÓVIL (Drawer deslizante) -->
+  <div
+    id="mobile-drawer"
+    class="fixed inset-y-0 right-0 z-[1000] w-[290px] bg-[#2A1612]/98 backdrop-blur-lg border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col justify-between"
+  >
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-white/10">
+        <img src="/img/taboada-logo.png" alt="Taboada" class="h-10 object-contain" />
+        <button
+          id="mobile-close-btn"
+          class="text-white/70 hover:text-white transition-colors cursor-pointer"
+          aria-label="Cerrar menú"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-6 mt-8">
+        <a href="/" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Inicio</a>
+        <a href="/nosotros" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Nosotros</a>
+        <a href="/#cajas-especiales" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Colecciones</a>
+        <a href="/beneficios" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Beneficios</a>
+        <a href="/adulto-mayor" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Adulto Mayor</a>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 border-t border-white/10 pt-6">
+      <!-- BOTÓN REGÍSTRATE MÓVIL -->
+      <button
+        id="mobile-register-btn"
+        type="button"
+        class="w-full py-3 bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] text-center font-extrabold rounded-full shadow-lg transition-all cursor-pointer"
+      >
+        Regístrate
+      </button>
+
+      <!-- PERFIL USUARIO MÓVIL (Sin fondo ni bordes) -->
+      <a
+        href="/beneficios"
+        id="mobile-user-profile-nav"
+        class="hidden w-full py-2.5 text-white/90 hover:text-[#dcb041] items-center justify-center gap-2 font-bold text-base transition-colors"
+      >
+        <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+        <span id="mobile-user-nav-name">Sahian</span>
+      </a>
     </div>
   </div>
+
+  <!-- FONDO OSCURO DEL MENÚ MÓVIL -->
+  <div
+    id="drawer-overlay"
+    class="fixed inset-0 z-[998] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+  ></div>
 </nav>
+
+<!-- Componente Modal de Registro Global -->
+<RegisterModal />
+
+<script>
+  // Script interactivo para el Navbar (Móvil + Selección de Ciudad + Estado de Usuario)
+  document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('main-navbar');
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const drawerOverlay = document.getElementById('drawer-overlay');
+    const cityBtn = document.getElementById('city-selector-btn');
+    const cityDropdown = document.getElementById('city-dropdown');
+    const activeCityName = document.getElementById('active-city-name');
+    const cityOpts = document.querySelectorAll('.city-opt-btn');
+
+    // Elementos dinámicos del estado de usuario
+    const navRegisterBtn = document.getElementById('nav-register-btn');
+    const userProfileNav = document.getElementById('user-profile-nav');
+    const userNavName = document.getElementById('user-nav-name');
+
+    const mobileRegisterBtn = document.getElementById('mobile-register-btn');
+    const mobileUserProfileNav = document.getElementById('mobile-user-profile-nav');
+    const mobileUserNavName = document.getElementById('mobile-user-nav-name');
+
+    // Función para actualizar la interfaz del Navbar según estado de registro
+    const updateNavbarUserState = () => {
+      const isRegistered = localStorage.getItem('taboada_user_registered') === 'true';
+      const userNombre = localStorage.getItem('taboada_user_nombre');
+
+      if (isRegistered && userNombre) {
+        // Usuario Registrado: Ocultar botón de registro
+        if (navRegisterBtn) {
+          navRegisterBtn.classList.add('hidden');
+          navRegisterBtn.classList.remove('sm:inline-flex');
+        }
+        if (mobileRegisterBtn) mobileRegisterBtn.classList.add('hidden');
+
+        // Mostrar elemento limpio de perfil (SVG + Nombre sin fondo ni bordes)
+        if (userProfileNav) {
+          userProfileNav.classList.remove('hidden');
+          userProfileNav.classList.add('flex');
+        }
+        if (userNavName) userNavName.textContent = userNombre;
+
+        if (mobileUserProfileNav) {
+          mobileUserProfileNav.classList.remove('hidden');
+          mobileUserProfileNav.classList.add('flex');
+        }
+        if (mobileUserNavName) mobileUserNavName.textContent = userNombre;
+      } else {
+        // Usuario No Registrado
+        if (navRegisterBtn) {
+          navRegisterBtn.classList.remove('hidden');
+          navRegisterBtn.classList.add('sm:inline-flex');
+        }
+        if (mobileRegisterBtn) mobileRegisterBtn.classList.remove('hidden');
+
+        if (userProfileNav) {
+          userProfileNav.classList.add('hidden');
+          userProfileNav.classList.remove('flex');
+        }
+        if (mobileUserProfileNav) {
+          mobileUserProfileNav.classList.add('hidden');
+          mobileUserProfileNav.classList.remove('flex');
+        }
+      }
+    };
+
+    // Inicializar estado del usuario al cargar el DOM
+    updateNavbarUserState();
+
+    // Escuchar sincronización en tiempo real al registrarse
+    window.addEventListener('taboadaUserRegistered', () => {
+      updateNavbarUserState();
+    });
+
+    // Manejo de scroll para navbar
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        navbar?.classList.add('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
+        navbar?.classList.remove('bg-transparent', 'border-transparent', 'hover:bg-white/10');
+      } else {
+        navbar?.classList.remove('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
+        navbar?.classList.add('bg-transparent', 'border-transparent', 'hover:bg-white/10');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    // Abrir/Cerrar Menú Móvil
+    const openMenu = () => {
+      mobileDrawer?.classList.remove('translate-x-full');
+      drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+    };
+
+    const closeMenu = () => {
+      mobileDrawer?.classList.add('translate-x-full');
+      drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
+    };
+
+    mobileBtn?.addEventListener('click', openMenu);
+    mobileCloseBtn?.addEventListener('click', closeMenu);
+    drawerOverlay?.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Dropdown de Ciudad
+    cityBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cityDropdown?.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!cityDropdown?.contains(e.target as Node) && e.target !== cityBtn) {
+        cityDropdown?.classList.add('hidden');
+      }
+    });
+
+    // Cargar Ciudad Guardada o Default
+    const savedCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
+    if (activeCityName) {
+      activeCityName.textContent = savedCity === 'la-paz' ? 'La Paz' : 'Cochabamba';
+    }
+
+    cityOpts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        const selected = opt.getAttribute('data-city') || 'cochabamba';
+        localStorage.setItem('taboada_selected_city', selected);
+        if (activeCityName) {
+          activeCityName.textContent = selected === 'la-paz' ? 'La Paz' : 'Cochabamba';
+        }
+        cityDropdown?.classList.add('hidden');
+        window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: selected } }));
+      });
+    });
+  });
+</script>

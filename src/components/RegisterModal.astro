@@ -1,0 +1,181 @@
+---
+// RegisterModal.astro - Modal Unificado de Registro de la Comunidad Taboada
+---
+
+<div
+  id="taboada-register-modal"
+  class="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+>
+  <div
+    class="relative w-full max-w-md bg-[#1C0D0E]/95 border border-[#dcb041]/35 rounded-3xl p-6 md:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl transform scale-95 transition-all duration-300"
+    id="taboada-register-card"
+  >
+    <!-- Botón Cerrar X -->
+    <button
+      id="close-reg-modal-btn"
+      type="button"
+      class="absolute top-5 right-5 text-white/50 hover:text-white transition-colors cursor-pointer p-1 rounded-full hover:bg-white/10"
+      aria-label="Cerrar modal"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <!-- ENCABEZADO -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#dcb041]/15 text-[#dcb041] mb-3 shadow-[0_0_15px_rgba(220,176,65,0.2)]">
+        <span class="text-2xl">✨</span>
+      </div>
+      <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-[#f6d98d] tracking-wide mb-2">
+        Verifica tu Identidad
+      </h3>
+      <p class="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs mx-auto">
+        Para asegurar que tus beneficios exclusivos y regalos de la Comunidad Taboada lleguen a tus manos, completa tus datos.
+      </p>
+    </div>
+
+    <!-- FORMULARIO DE REGISTRO (3 CAMPOS STRICTOS) -->
+    <form id="taboada-reg-form" class="space-y-4">
+      <div>
+        <label for="reg-nombre" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
+          Nombre *
+        </label>
+        <input
+          type="text"
+          id="reg-nombre"
+          required
+          placeholder="Ej. Sahian"
+          class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-[#dcb041] focus:ring-1 focus:ring-[#dcb041] text-white text-sm placeholder:text-white/30 outline-none transition-all"
+        />
+      </div>
+
+      <div>
+        <label for="reg-apellido" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
+          Apellido *
+        </label>
+        <input
+          type="text"
+          id="reg-apellido"
+          required
+          placeholder="Ej. Mariné"
+          class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-[#dcb041] focus:ring-1 focus:ring-[#dcb041] text-white text-sm placeholder:text-white/30 outline-none transition-all"
+        />
+      </div>
+
+      <div>
+        <label for="reg-celular" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
+          Número de Celular *
+        </label>
+        <input
+          type="tel"
+          id="reg-celular"
+          required
+          placeholder="Ej. 79786916"
+          class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-[#dcb041] focus:ring-1 focus:ring-[#dcb041] text-white text-sm placeholder:text-white/30 outline-none transition-all"
+        />
+      </div>
+
+      <button
+        type="submit"
+        id="reg-submit-btn"
+        class="w-full py-3.5 mt-2 bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-sm rounded-full shadow-[0_4px_20px_rgba(220,176,65,0.35)] hover:shadow-[0_6px_25px_rgba(220,176,65,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer uppercase tracking-wider"
+      >
+        Confirmar y Canjear
+      </button>
+    </form>
+
+    <div class="text-center mt-4">
+      <button
+        type="button"
+        id="cancel-reg-modal-btn"
+        class="text-xs text-white/40 hover:text-white/70 transition-colors uppercase tracking-widest cursor-pointer"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let activeTicketTarget: string | null = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('taboada-register-modal');
+    const card = document.getElementById('taboada-register-card');
+    const closeBtn = document.getElementById('close-reg-modal-btn');
+    const cancelBtn = document.getElementById('cancel-reg-modal-btn');
+    const form = document.getElementById('taboada-reg-form') as HTMLFormElement;
+    const submitBtn = document.getElementById('reg-submit-btn');
+
+    const openModal = (ticketId: string | null = null) => {
+      activeTicketTarget = ticketId;
+      modal?.classList.remove('opacity-0', 'pointer-events-none');
+      card?.classList.remove('scale-95');
+      card?.classList.add('scale-100');
+    };
+
+    const closeModal = () => {
+      card?.classList.remove('scale-100');
+      card?.classList.add('scale-95');
+      modal?.classList.add('opacity-0', 'pointer-events-none');
+    };
+
+    // Exponer funciones globales
+    (window as any).openRegisterModal = openModal;
+    (window as any).closeRegisterModal = closeModal;
+
+    // Escuchar eventos globales de apertura
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('#nav-register-btn') || target.closest('#mobile-register-btn') || target.closest('[data-open-register-modal]')) {
+        e.preventDefault();
+        openModal(null);
+      }
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    cancelBtn?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Envío del Formulario
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const nombreInput = (document.getElementById('reg-nombre') as HTMLInputElement)?.value.trim();
+      const apellidoInput = (document.getElementById('reg-apellido') as HTMLInputElement)?.value.trim();
+      const celularInput = (document.getElementById('reg-celular') as HTMLInputElement)?.value.trim();
+
+      if (!nombreInput || !apellidoInput || !celularInput) return;
+
+      // 1. Guardar en localStorage
+      localStorage.setItem('taboada_user_registered', 'true');
+      localStorage.setItem('taboada_user_nombre', nombreInput);
+      localStorage.setItem('taboada_user_apellido', apellidoInput);
+      localStorage.setItem('taboada_user_celular', celularInput);
+
+      // 2. Disparar evento de sincronización en vivo para Navbar y Banner de Bienvenida
+      window.dispatchEvent(new CustomEvent('taboadaUserRegistered', {
+        detail: {
+          nombre: nombreInput,
+          apellido: apellidoInput,
+          celular: celularInput,
+          ticketId: activeTicketTarget
+        }
+      }));
+
+      // 3. Guardar el ID de ticket objetivo y cerrar modal
+      const ticketToExecute = activeTicketTarget;
+      activeTicketTarget = null;
+      closeModal();
+      form.reset();
+
+      // 4. Si fue abierto desde un ticket, continuar la animación automáticamente
+      if (ticketToExecute && typeof (window as any).ejecutarCanjeTicket === 'function') {
+        (window as any).ejecutarCanjeTicket(ticketToExecute);
+      }
+    });
+  });
+</script>

@@ -1,5 +1,6 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro';
+import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
 // 1. Datos de los beneficios con VALIDEZ PERSONALIZADA e imágenes corregidas
@@ -114,21 +115,30 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.35));
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     height: fit-content;
+    overflow: visible !important;
   }
   .ticket-wrapper:hover { transform: translateY(-4px) scale(1.01); }
 
   .ticket {
-    background: linear-gradient(135deg, #FAF5F0 0%, #F3ECE3 100%);
+    background: transparent;
     display: flex;
     flex-direction: row; 
     border-radius: 24px;
-    overflow: hidden;
+    overflow: visible !important;
     position: relative;
     border: none;
   }
 
   .ticket-main, .ticket-stub, .ticket-divider { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease; }
-  .ticket-main { flex: 1; padding: 28px; display: flex; align-items: center; gap: 20px; }
+  .ticket-main { 
+    flex: 1; 
+    padding: 28px; 
+    display: flex; 
+    align-items: center; 
+    gap: 20px;
+    background: linear-gradient(135deg, #FAF5F0 0%, #F3ECE3 100%);
+    border-radius: 24px 0 0 24px;
+  }
   
   .ticket-img { 
     width: 85px; 
@@ -143,7 +153,11 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   }
   .ticket-img img { max-width: 80%; max-height: 80%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.15)); }
 
-  .ticket-info { text-align: left; }
+  .ticket-info { 
+    text-align: left; 
+    position: relative;
+    z-index: 10;
+  }
   .ticket-tag { font-size: 9px; font-weight: 800; color: #8f6c49; letter-spacing: 0.15em; text-transform: uppercase; }
   .ticket-title { font-family: var(--font-serif); font-size: 1.5rem; color: #2A1612; margin: 4px 0; font-weight: bold; }
   .ticket-desc { font-size: 11px; color: #5D4037; opacity: 0.9; margin-bottom: 8px; line-height: 1.4; font-family: sans-serif; }
@@ -157,7 +171,9 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
   .ticket-stub { 
     width: 130px; 
-    background: rgba(42, 22, 18, 0.03); 
+    background: #F3ECE3;
+    background: linear-gradient(135deg, #F3ECE3 0%, #EFE5D8 100%);
+    border-radius: 0 24px 24px 0;
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -180,259 +196,250 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     background: #FAF5F0; pointer-events: none; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   }
 
-  /* ── ANIMACIONES DE JUEGO ── */
-  .ticket-container.juego-terminado .ticket-wrapper:not(.is-active) { display: none; }
-  .ticket-container.juego-terminado { display: flex; justify-content: center; align-items: center; }
-  .ticket-wrapper.is-active { transform: scale(1.1); z-index: 50; pointer-events: none; }
-  .ticket-wrapper.is-broken .ticket-main { transform: translateX(-15px) rotate(-2deg); opacity: 0.9; }
-  .ticket-wrapper.is-broken .ticket-stub { transform: translateX(15px) rotate(2deg); opacity: 0.9; }
-  .ticket-wrapper.is-broken .ticket-divider { opacity: 0; }
-  .ticket-wrapper.is-stamped .stamp-redeemed { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-12deg); }
-
-  /* ── MODAL CAPTACIÓN ── */
-  .modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: rgba(42, 22, 18, 0.75); 
-    backdrop-filter: blur(15px); 
-    -webkit-backdrop-filter: blur(15px); 
-    display: none; justify-content: center; align-items: center; z-index: 1000;
-    opacity: 0; transition: opacity 0.4s ease;
+  /* ── STAGE PORTAL CINEMATOGRÁFICO TEMPORAL DE CANJE ── */
+  #redeem-portal-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow: visible !important;
   }
-  .modal-overlay.show { opacity: 1; }
-  .modal-card { background: #1C0D0E; border: 1px solid rgba(196, 167, 125, 0.2); padding: 40px; border-radius: 2rem; width: 90%; max-width: 400px; box-shadow: 0 25px 60px rgba(0,0,0,0.4); text-align: center; transform: translateY(20px); transition: transform 0.3s ease; }
-  .modal-overlay.show .modal-card { transform: translateY(0); }
-  .modal-card h3 { font-family: var(--font-serif); color: #f6d98d; font-size: 1.6rem; margin-bottom: 6px; font-weight: bold; }
-  .modal-card p { color: #e8dccb; font-size: 12px; margin-bottom: 25px; line-height: 1.5; }
-  .glass-field { margin-bottom: 18px; text-align: left; }
-  .glass-field label { color: #f6d98d; font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; display: block; letter-spacing: 0.05em; }
-  .glass-field input { background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; padding: 14px !important; color: #fff !important; border-radius: 12px !important; width: 100%; font-size: 14px; box-sizing: border-box; transition: border-color 0.3s; }
-  .glass-field input:focus { outline: none; border-color: #8f6c49 !important; }
-  .btn-submit-modal { width: 100%; padding: 15px; background: linear-gradient(145deg, #f6d98d, #dcb041); color: #2e1119; font-weight: 800; border: none; border-radius: 9999px; cursor: pointer; text-transform: uppercase; margin-top: 15px; transition: all 0.3s; font-size: 12px; letter-spacing: 0.05em; box-shadow: 0 10px 20px rgba(220,176,65,0.2); }
-  .btn-submit-modal:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(220,176,65,0.3); }
-  .btn-cancel-modal { background: transparent; color: rgba(255,255,255,0.4); border: none; font-size: 10px; text-decoration: underline; cursor: pointer; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.05em; }
+  #redeem-portal-stage.active {
+    display: flex;
+  }
+
+  #redeem-portal-stage .ticket-wrapper {
+    position: relative !important;
+    transform: scale(1.3) !important;
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 !important;
+    filter: drop-shadow(0 35px 80px rgba(0, 0, 0, 0.95)) !important;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    overflow: visible !important;
+  }
 
   @media (max-width: 650px) {
-    .ticket-container { grid-template-columns: 1fr; }
-    .ticket-main { padding: 20px; gap: 12px; }
-    .ticket-img { width: 65px; height: 65px; border-radius: 12px; }
-    .ticket-tag { font-size: 7.5px; }
-    .ticket-title { font-size: 1.25rem; }
-    .ticket-desc { display: none; } 
-    .ticket-stub { width: 105px; padding: 15px 10px; }
-    .stub-barcode { font-size: 14px; }
-    .stub-label { font-size: 7.5px; }
-    .btn-redeem { padding: 8px 4px; font-size: 8.5px; }
-    .hole { width: 22px; height: 22px; }
-    .hole-start { top: -11px; left: -10px; }
-    .hole-end { bottom: -11px; left: -10px; }
+    #redeem-portal-stage .ticket-wrapper {
+      transform: scale(1.05) !important;
+      max-width: 360px !important;
+    }
+  }
+
+  #redeem-portal-stage .ticket-wrapper.is-broken .ticket-main { transform: translateX(-45px) rotate(-4deg) !important; }
+  #redeem-portal-stage .ticket-wrapper.is-broken .ticket-stub { transform: translate(45px, 25px) rotate(12deg) !important; }
+  #redeem-portal-stage .ticket-wrapper.is-broken .ticket-divider { opacity: 0 !important; }
+  #redeem-portal-stage .ticket-wrapper.is-stamped .stamp-redeemed { opacity: 1 !important; transform: translate(-50%, -50%) scale(1.2) rotate(-14deg) !important; }
+
+  /* ── ESTADO DE RECOMPENSA PERMANENTE EN LA PÁGINA (TICKET GIGANTE COMPLETO Y MARCA DE AGUA) ── */
+  .welcome-container {
+    position: relative;
+    min-height: 100vh;
+    padding: 130px 5% 80px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--cafe-profundo);
+    overflow: visible !important;
+  }
+
+  .ticket-container.estado-recompensa-permanente {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 40px auto 40px !important;
+    overflow: visible !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final {
+    position: relative !important;
+    width: 95% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    filter: drop-shadow(0 35px 70px rgba(0, 0, 0, 0.8)) !important;
+    transition: all 0.5s ease;
+    overflow: visible !important;
+  }
+
+  /* ELIMINAR CUALQUIER LÍMITE O RECORTE DE BORDES */
+  .ticket-wrapper.ticket-gigante-final .ticket {
+    overflow: visible !important;
+    min-height: 240px !important;
+    border-radius: 28px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .ticket-main {
+    padding: 38px 45px !important;
+    gap: 30px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .ticket-img {
+    width: 115px !important;
+    height: 115px !important;
+    border-radius: 22px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .ticket-title {
+    font-size: 2.3rem !important;
+    margin: 6px 0 8px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .ticket-desc {
+    font-size: 14.5px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .ticket-tag {
+    font-size: 11px !important;
+    letter-spacing: 0.18em !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .ticket-stub {
+    width: 180px !important;
+    padding: 25px 20px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .stub-barcode {
+    font-size: 24px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final .stub-label {
+    font-size: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* SELLO MARCA DE AGUA SEMITRANSPARENTE (Z-INDEX 0, OPACIDAD 0.09) */
+  .ticket-wrapper.ticket-gigante-final .stamp-redeemed {
+    display: block !important;
+    font-size: 3.6rem !important;
+    border: 5px solid #3a1823 !important;
+    color: #3a1823 !important;
+    padding: 10px 36px !important;
+    border-radius: 16px !important;
+    opacity: 0.09 !important;
+    z-index: 0 !important;
+    transform: translate(-50%, -50%) scale(1) rotate(-14deg) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+  }
+
+  /* BORDE RASGADO DENTADO COMPLEMENTARIO ESTILO ROMPECABEZAS (100% COHERENTE Y ENCAJABLE) */
+  .ticket-wrapper.is-broken .ticket-main {
+    transform: translateX(-45px) rotate(-3.5deg) !important;
+    clip-path: polygon(
+      0 0, 
+      100% 0, 
+      calc(100% - 8px) 5%, 
+      100% 10%, 
+      calc(100% - 8px) 15%, 
+      100% 20%, 
+      calc(100% - 8px) 25%, 
+      100% 30%, 
+      calc(100% - 8px) 35%, 
+      100% 40%, 
+      calc(100% - 8px) 45%, 
+      100% 50%, 
+      calc(100% - 8px) 55%, 
+      100% 60%, 
+      calc(100% - 8px) 65%, 
+      100% 70%, 
+      calc(100% - 8px) 75%, 
+      100% 80%, 
+      calc(100% - 8px) 85%, 
+      100% 90%, 
+      calc(100% - 8px) 95%, 
+      100% 100%, 
+      0 100%
+    ) !important;
+  }
+
+  .ticket-wrapper.is-broken .ticket-stub {
+    transform: translate(45px, 22px) rotate(11deg) !important;
+    clip-path: polygon(
+      0 0, 
+      100% 0, 
+      100% 100%, 
+      0 100%, 
+      0 95%, 
+      8px 90%, 
+      0 85%, 
+      8px 80%, 
+      0 75%, 
+      8px 70%, 
+      0 65%, 
+      8px 60%, 
+      0 55%, 
+      8px 50%, 
+      0 45%, 
+      8px 40%, 
+      0 35%, 
+      8px 30%, 
+      0 25%, 
+      8px 20%, 
+      0 15%, 
+      8px 10%, 
+      0 5%
+    ) !important;
+  }
+
+  .ticket-wrapper.ticket-gigante-final.is-broken .ticket-divider {
+    opacity: 0 !important;
+  }
+
+  @media (max-width: 900px) {
+    .ticket-wrapper.ticket-gigante-final .ticket-main {
+      padding: 28px 24px !important;
+      gap: 20px !important;
+    }
+    .ticket-wrapper.ticket-gigante-final .ticket-img {
+      width: 90px !important;
+      height: 90px !important;
+    }
+    .ticket-wrapper.ticket-gigante-final .ticket-title {
+      font-size: 1.8rem !important;
+    }
+    .ticket-wrapper.ticket-gigante-final .ticket-stub {
+      width: 140px !important;
+      padding: 20px 14px !important;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .ticket-wrapper.ticket-gigante-final .ticket {
+      flex-direction: column !important;
+    }
+    .ticket-wrapper.ticket-gigante-final .ticket-stub {
+      width: 100% !important;
+      border-top: 1px dashed rgba(42,22,18,0.2);
+    }
+    .ticket-wrapper.ticket-gigante-final.is-broken .ticket-main {
+      transform: translateY(-20px) rotate(-2deg) !important;
+    }
+    .ticket-wrapper.ticket-gigante-final.is-broken .ticket-stub {
+      transform: translateY(20px) rotate(4deg) !important;
+    }
   }
 </style>
 
 <div id="page-root">
   
-  <!-- ── NAVBAR COMPLETO IDÉNTICO AL PRINCIPAL (Fondo Café Profundo) ── -->
-  <nav
-    id="main-navbar"
-    class="fixed top-0 left-0 w-full z-[999] transition-all duration-500 bg-[#2A1612] border-b border-white/10 shadow-lg"
-  >
-    <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[85px] md:h-[95px] px-6 lg:px-12 relative">
-      
-      <!-- LOGO IZQUIERDO -->
-      <div class="flex items-center">
-        <a href="/">
-          <img
-            src="/img/taboada-logo.png"
-            alt="Taboada"
-            class="h-[50px] md:h-[65px] object-contain transition-transform duration-300 hover:scale-105"
-          />
-        </a>
-      </div>
+  <!-- STAGE PORTAL TEMPORAL DE CANJE -->
+  <div id="redeem-portal-stage"></div>
 
-      <!-- ENLACES CENTRALES (Desktop) -->
-      <div class="hidden md:flex items-center gap-8 lg:gap-10">
-        <a
-          href="/"
-          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
-        >
-          Inicio
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
-        </a>
-        <a
-          href="/nosotros"
-          class="relative group py-2 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300"
-        >
-          Nosotros
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
-        </a>
-
-        <!-- COLECCIONES (Dropdown) -->
-        <div class="relative group py-2">
-          <button class="flex items-center gap-1 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
-            Colecciones
-            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
-          
-          <!-- CONTENIDO DROPDOWN -->
-          <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
-            <div class="p-3 grid grid-cols-1 gap-1">
-              <a href="/?cat=bombones" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                <div>
-                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Bombones Finos</div>
-                  <div class="text-xs text-white/60 mt-0.5">Elegancia y variedad de sabores premium</div>
-                </div>
-              </a>
-              <a href="/?cat=grageas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                <div>
-                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Cajas y Grageas</div>
-                  <div class="text-xs text-white/60 mt-0.5">Detalles perfectos y crujientes de sabor</div>
-                </div>
-              </a>
-              <a href="/?cat=tabletas" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                <div>
-                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Tabletas y Barras</div>
-                  <div class="text-xs text-white/60 mt-0.5">Chocolate de origen seleccionado</div>
-                </div>
-              </a>
-              <a href="/?cat=reposteria" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                <div>
-                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Chocolate de Taza</div>
-                  <div class="text-xs text-white/60 mt-0.5">La receta familiar tradicional boliviana</div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- BENEFICIOS (Dropdown) -->
-        <div class="relative group py-2">
-          <button class="flex items-center gap-1 text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 cursor-pointer">
-            Beneficios
-            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-100 transition-all duration-300 ease-out"></span>
-
-          <!-- CONTENIDO DROPDOWN -->
-          <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-80 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
-            <div class="p-3 grid grid-cols-1 gap-1">
-              <a href="/beneficios" class="flex items-start gap-3 p-3 rounded-xl bg-white/5 transition-all group/item">
-                <span class="text-xl">✨</span>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm font-bold text-[#dcb041] transition-colors">Comunidad Taboada</span>
-                    <span class="px-1.5 py-0.5 text-[9px] bg-[#dcb041]/20 text-[#dcb041] font-extrabold rounded">Socio</span>
-                  </div>
-                  <div class="text-xs text-white/60 mt-0.5">Beneficios exclusivos y regalos VIP</div>
-                </div>
-              </a>
-              <a href="/adulto-mayor" class="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                <span class="text-xl">💖</span>
-                <div>
-                  <div class="text-sm font-bold text-white group-hover/item:text-[#dcb041] transition-colors">Membresía Legado</div>
-                  <div class="text-xs text-white/60 mt-0.5">Atención preferencial y 10% de descuento</div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- DERECHA (Selector Ciudad + CTA Pedir Ahora + Hamburger) -->
-      <div class="flex items-center gap-3 md:gap-4 relative overflow-visible">
-        
-        <!-- SELECTOR DE CIUDAD -->
-        <div class="relative inline-block text-left z-[1000] overflow-visible">
-          <button
-            id="city-selector-btn"
-            type="button"
-            class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03]"
-          >
-            <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-            </svg>
-            <span id="active-city-name">Cochabamba</span>
-            <span class="text-[8px] opacity-75">▼</span>
-          </button>
-          
-          <!-- MENU DESPLEGABLE CIUDAD -->
-          <div
-            id="city-dropdown"
-            class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
-          >
-            <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
-            <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
-          </div>
-        </div>
-
-        <!-- CTA PEDIR AHORA -->
-        <a
-          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido" 
-          target="_blank"
-          class="hidden sm:inline-flex items-center justify-center bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-extrabold text-xs md:text-sm px-6 py-2.5 rounded-full shadow-[0_4px_18px_rgba(220,176,65,0.35)] hover:shadow-[0_6px_22px_rgba(220,176,65,0.5)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98]"
-        >
-          Pedir Ahora
-        </a>
-
-        <!-- BOTÓN MENÚ MÓVIL (Hamburger) -->
-        <button
-          id="mobile-menu-btn"
-          class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/25 transition-all duration-300 cursor-pointer"
-          aria-label="Abrir menú"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16"></path>
-          </svg>
-        </button>
-
-      </div>
-
-    </div>
-
-    <!-- MENÚ MÓVIL (Drawer deslizante) -->
-    <div
-      id="mobile-drawer"
-      class="fixed inset-y-0 right-0 z-[1000] w-[290px] bg-[#2A1612]/98 backdrop-blur-lg border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 flex flex-col justify-between"
-    >
-      <div>
-        <div class="flex items-center justify-between pb-6 border-b border-white/10">
-          <img src="/img/taboada-logo.png" alt="Taboada" class="h-10 object-contain" />
-          <button
-            id="mobile-close-btn"
-            class="text-white/70 hover:text-white transition-colors cursor-pointer"
-            aria-label="Cerrar menú"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-
-        <div class="flex flex-col gap-6 mt-8">
-          <a href="/" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Inicio</a>
-          <a href="/nosotros" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Nosotros</a>
-          <a href="/?cat=todo" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Colecciones</a>
-          <a href="/beneficios" class="mobile-link text-[#dcb041] font-bold text-lg transition-colors">Beneficios</a>
-          <a href="/adulto-mayor" class="mobile-link text-white/90 hover:text-[#dcb041] font-bold text-lg transition-colors">Adulto Mayor</a>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-4 border-t border-white/10 pt-6">
-        <a
-          href="https://wa.me/59179786916?text=Hola%2C%20quiero%20hacer%20un%20pedido" 
-          target="_blank"
-          class="w-full py-3 bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] text-center font-extrabold rounded-full shadow-lg transition-all"
-        >
-          Pedir Ahora
-        </a>
-      </div>
-    </div>
-
-    <!-- FONDO OSCURO DEL MENÚ MÓVIL -->
-    <div
-      id="drawer-overlay"
-      class="fixed inset-0 z-[998] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
-    ></div>
-  </nav>
+  <!-- ── NAVBAR COMPLETO ── -->
+  <Navbar />
 
   <div class="welcome-container">
     
@@ -462,11 +469,11 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
         <span class="text-xs uppercase tracking-widest text-[#dcb041] font-bold font-sans">Comunidad de Lealtad</span>
       </div>
       
-      <h1 class="font-serif text-4xl md:text-6xl text-[var(--beige-seda)] font-extrabold leading-tight tracking-tight mb-4">
+      <h1 id="community-welcome-title" class="font-serif text-4xl md:text-6xl text-[var(--beige-seda)] font-extrabold leading-tight tracking-tight mb-4">
         Comunidad <span class="text-[#dcb041] italic font-semibold">Taboada</span>
       </h1>
       
-      <p style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #e8dccb; font-family: sans-serif;">
+      <p id="community-welcome-desc" style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #e8dccb; font-family: sans-serif;">
         De cortesía elige tu regalo de bienvenida en grande, el cual podrás canjear exclusivamente en nuestra sucursal de 
         <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" style="color: #f6d98d; text-decoration: underline; font-weight: 700;">
            La Recoleta
@@ -511,139 +518,199 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     </section>
   </div>
 
-  <!-- ── FOOTER PRINCIPAL COMPLETO CON HORARIOS DE ATENCIÓN Y CONTACTO ── -->
+  <!-- ── FOOTER PRINCIPAL ── -->
   <Footer />
 
 </div>
 
-<!-- MODAL CAPTACIÓN -->
-<div id="modal-captacion" class="modal-overlay">
-  <div class="modal-card">
-    <h3>Verifica tu Identidad</h3>
-    <p>Para asegurar que este beneficio exclusivo llegue a tus manos, completa tus datos.</p>
-    
-    <form id="form-canje">
-      <div class="glass-field">
-        <label>Nombre</label>
-        <input type="text" id="user-nombre" required placeholder="Ej. Sahian" />
-      </div>
-      <div class="glass-field">
-        <label>Apellido</label>
-        <input type="text" id="user-apellido" required placeholder="Ej. Mariné" />
-      </div>
-      <div class="glass-field">
-        <label>Correo Electrónico</label>
-        <input type="email" id="user-email" required placeholder="sahian@email.com" />
-      </div>
-      
-      <button type="submit" class="btn-submit-modal">Confirmar y Canjear</button>
-      <button type="button" class="btn-cancel-modal" onclick="cerrarModal()">Cancelar</button>
-    </form>
-  </div>
-</div>
-
 <script is:inline>
-  let ticketSeleccionado = null;
+  // ── EFECTOS DE SONIDO PARA LA EXPERIENCIA DE CANJE ──
+  const sonidoRasgar = new Audio('/sounds/rasgar.mp3');
+  const sonidoSello = new Audio('/sounds/sello.mp3');
 
-  function abrirModal(id) {
+  const rewardsData = [
+    { id:'trufa', title:'Chocolate Amargo', validity: '2 Semanas' },
+    { id:'choco', title:'Trufas de Chocolate', validity: '2 Semanas' },
+    { id:'cupon2', title:'Gesto 2%', validity: 'Un mes' },
+    { id:'choco3', title:'Gesto 3%', validity: '2 Semanas' },
+    { id:'cupon4', title:'Gesto 4%', validity: '1 Semana' }
+  ];
+
+  const calculateDeadlineDate = (validityStr, redemptionDateIso) => {
+    const startDate = redemptionDateIso ? new Date(redemptionDateIso) : new Date();
+    let daysToAdd = 14;
+    if (validityStr.includes('1 Semana')) daysToAdd = 7;
+    else if (validityStr.includes('2 Semanas')) daysToAdd = 14;
+    else if (validityStr.includes('Un mes') || validityStr.includes('1 mes')) daysToAdd = 30;
+
+    const deadline = new Date(startDate.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+    const rawDate = deadline.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    return rawDate.charAt(0).toUpperCase() + rawDate.slice(1);
+  };
+
+  window.abrirModal = function(id) {
+    if (localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado')) {
+      alert("Ya has canjeado tu beneficio de bienvenida.");
+      return;
+    }
+
+    const isRegistered = localStorage.getItem('taboada_user_registered') === 'true';
+    if (isRegistered) {
+      ejecutarCanjeTicket(id);
+    } else {
+      if (typeof window.openRegisterModal === 'function') {
+        window.openRegisterModal(id);
+      }
+    }
+  };
+
+  window.ejecutarCanjeTicket = function(id) {
+    if (localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado')) return;
+
+    const ticketElement = document.getElementById(id);
+    if (!ticketElement) return;
+
+    const wrapper = ticketElement.closest('.ticket-wrapper');
+    const rewardInfo = rewardsData.find(r => r.id === id) || { title: 'Chocolate Amargo', validity: '2 Semanas' };
+
+    // 1. Guardar inmediatamente el canje en localStorage
+    const nowIso = new Date().toISOString();
+    localStorage.setItem('taboada_redeemed_ticket', id);
+    localStorage.setItem('taboada_ticket_reclamado', id);
+    localStorage.setItem('taboada_redeemed_title', rewardInfo.title);
+    localStorage.setItem('taboada_redeemed_validity', rewardInfo.validity);
+    localStorage.setItem('taboada_redeemed_date', nowIso);
+
+    // 2. Mover temporalmente al Stage Portal para la animación cinematográfica
+    const portalStage = document.getElementById('redeem-portal-stage');
+    if (portalStage && wrapper) {
+      portalStage.appendChild(wrapper);
+      portalStage.classList.add('active');
+    }
+
+    const btn = ticketElement.querySelector('.btn-redeem');
+    if (btn) btn.innerText = "VALIDANDO...";
+
+    // 3. Animación de pop + rotura + sello con reproducciones de audio sincronizadas
+    setTimeout(() => { wrapper?.classList.add('is-active'); }, 50);
+
+    setTimeout(() => { 
+      wrapper?.classList.add('is-broken'); 
+      try {
+        sonidoRasgar.currentTime = 0;
+        sonidoRasgar.play().catch(e => console.log('Audio autoplay notice:', e));
+      } catch(e) {}
+    }, 700);
+
+    setTimeout(() => { 
+      wrapper?.classList.add('is-stamped'); 
+      try {
+        sonidoSello.currentTime = 0;
+        sonidoSello.play().catch(e => console.log('Audio autoplay notice:', e));
+      } catch(e) {}
+    }, 1400);
+
+    // 4. Tras la animación, cerrar portal y pasar fluidamente al Estado de Recompensa Permanente
+    setTimeout(() => {
+      if (portalStage) portalStage.classList.remove('active');
+      
+      const ticketContainer = document.querySelector('.ticket-container');
+      if (ticketContainer && wrapper) {
+        ticketContainer.appendChild(wrapper);
+      }
+      
+      checkRedeemedState();
+    }, 2400);
+  };
+
+  const checkRedeemedState = () => {
+    const redeemedTicketId = localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado');
+    const redeemedValidity = localStorage.getItem('taboada_redeemed_validity') || '2 Semanas';
+    const redeemedDateIso = localStorage.getItem('taboada_redeemed_date');
+
+    if (!redeemedTicketId) return;
+
+    const ticketElement = document.getElementById(redeemedTicketId);
+    if (!ticketElement) return;
+
+    const wrapper = ticketElement.closest('.ticket-wrapper');
     const container = document.querySelector('.ticket-container');
-    if(container.classList.contains('juego-terminado')) return; 
+    const descEl = document.getElementById('community-welcome-desc');
 
-    ticketSeleccionado = id;
-    const modal = document.getElementById('modal-captacion');
-    modal.style.display = 'flex';
-    setTimeout(() => { modal.classList.add('show'); }, 10);
-  }
+    // 1. Reemplazar el texto del subtítulo con íconos SVG vectoriales limpios sin cajas ni bordes
+    if (descEl) {
+      descEl.innerHTML = `
+        <div style="margin-top: 18px; text-align: left;" class="space-y-4">
+          <div class="flex items-start gap-3.5">
+            <svg class="w-7 h-7 md:w-8 md:h-8 text-[#dcb041] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zM14.25 12h.008v.008H14.25v-.008zm0 2.25h.008v.008H14.25V15zm0 2.25h.008v.008H14.25v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"></path>
+            </svg>
+            <div>
+              <span class="block text-xs font-bold text-[#dcb041] uppercase tracking-widest mb-0.5">Fecha Límite de Recojo</span>
+              <span class="text-sm md:text-base font-bold text-white font-serif">Válido para recoger hasta: ${calculateDeadlineDate(redeemedValidity, redeemedDateIso)}</span>
+            </div>
+          </div>
 
-  function cerrarModal() {
-    const modal = document.getElementById('modal-captacion');
-    modal.classList.remove('show');
-    setTimeout(() => { modal.style.display = 'none'; }, 400);
-  }
+          <div class="flex items-start gap-3.5">
+            <svg class="w-7 h-7 md:w-8 md:h-8 text-[#dcb041] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
+            </svg>
+            <div>
+              <span class="block text-xs font-bold text-[#dcb041] uppercase tracking-widest mb-0.5">Estado del Beneficio</span>
+              <span class="text-xs md:text-sm text-white/80 leading-relaxed font-sans block">Has completado el canje de este beneficio. No se permiten más canjes adicionales hasta que la empresa vuelva a habilitarlo.</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. Ocultar los demás tickets del grid
+    const allWrappers = document.querySelectorAll('.ticket-wrapper');
+    allWrappers.forEach(w => {
+      if (w !== wrapper) {
+        w.style.display = 'none';
+      }
+    });
+
+    // 3. Transformar contenedor y ticket al Estado Gigante de Recompensa Permanente
+    if (container) container.classList.add('estado-recompensa-permanente');
+    if (wrapper) {
+      wrapper.classList.remove('is-active');
+      wrapper.classList.add('ticket-gigante-final', 'is-broken', 'is-stamped');
+      
+      const btn = ticketElement.querySelector('.btn-redeem');
+      if (btn) {
+        btn.innerText = "CANJEADO";
+        btn.disabled = true;
+        btn.style.opacity = "0.5";
+        btn.style.cursor = "not-allowed";
+      }
+    }
+  };
+
+  const updateWelcomeBanner = () => {
+    const isRegistered = localStorage.getItem('taboada_user_registered') === 'true';
+    const userNombre = localStorage.getItem('taboada_user_nombre');
+    const titleEl = document.getElementById('community-welcome-title');
+
+    if (isRegistered && userNombre && titleEl) {
+      titleEl.innerHTML = `¡Hola, <span class="text-[#dcb041] italic font-semibold">${userNombre}</span>!<br> Bienvenido a la Comunidad Taboada`;
+    }
+  };
 
   document.addEventListener('DOMContentLoaded', () => {
-    // ── INTERACCIONES DE NAVBAR Y CIUDAD ──
-    const citySelectorBtn = document.getElementById('city-selector-btn');
-    const cityDropdown = document.getElementById('city-dropdown');
-    const activeCityName = document.getElementById('active-city-name');
-    const cityOptButtons = document.querySelectorAll('.city-opt-btn');
+    updateWelcomeBanner();
+    checkRedeemedState();
 
-    const savedCity = localStorage.getItem('selected_city');
-    if (savedCity && activeCityName) {
-      activeCityName.textContent = savedCity === 'la-paz' ? 'La Paz' : 'Cochabamba';
-    }
-
-    citySelectorBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      cityDropdown?.classList.toggle('hidden');
+    window.addEventListener('taboadaUserRegistered', () => {
+      updateWelcomeBanner();
+      checkRedeemedState();
     });
-
-    document.addEventListener('click', () => {
-      cityDropdown?.classList.add('hidden');
-    });
-
-    cityOptButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const selected = btn.getAttribute('data-city') || 'cochabamba';
-        localStorage.setItem('selected_city', selected);
-        if (activeCityName) {
-          activeCityName.textContent = selected === 'la-paz' ? 'La Paz' : 'Cochabamba';
-        }
-      });
-    });
-
-    // ── MENÚ MÓVIL (DRAWER) ──
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileCloseBtn = document.getElementById('mobile-close-btn');
-    const mobileDrawer = document.getElementById('mobile-drawer');
-    const drawerOverlay = document.getElementById('drawer-overlay');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    function openDrawer() {
-      mobileDrawer?.classList.remove('translate-x-full');
-      drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
-    }
-
-    function closeDrawer() {
-      mobileDrawer?.classList.add('translate-x-full');
-      drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
-    }
-
-    mobileMenuBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openDrawer();
-    });
-
-    mobileCloseBtn?.addEventListener('click', closeDrawer);
-    drawerOverlay?.addEventListener('click', closeDrawer);
-    mobileLinks.forEach((link) => link.addEventListener('click', closeDrawer));
-
-    // ── FORMULARIO DE CANJE DE TICKETS ──
-    const formCanje = document.getElementById('form-canje');
-    if(formCanje) {
-      formCanje.addEventListener('submit', (e) => {
-        e.preventDefault(); 
-        cerrarModal(); 
-
-        if(!ticketSeleccionado) return; 
-
-        const container = document.querySelector('.ticket-container');
-        container.classList.add('juego-terminado');
-
-        const ticketElement = document.getElementById(ticketSeleccionado);
-        if(!ticketElement) return;
-
-        const wrapper = ticketElement.closest('.ticket-wrapper');
-        const btn = ticketElement.querySelector('.btn-redeem');
-        if(btn) btn.innerText = "VALIDANDO...";
-
-        wrapper.classList.add('is-active');
-
-        setTimeout(() => { wrapper.classList.add('is-broken'); }, 800);
-        setTimeout(() => { wrapper.classList.add('is-stamped'); }, 1400);
-        setTimeout(() => { alert("¡Beneficio validado exitosamente! Muestra esta pantalla en caja."); }, 2200);
-      });
-    }
   });
 </script>
 
