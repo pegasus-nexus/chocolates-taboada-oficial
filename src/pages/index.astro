@@ -1250,15 +1250,25 @@ const products = [
           activeCityName.textContent = city === 'cochabamba' ? 'Cochabamba' : 'La Paz';
         }
 
-        // Actualizar la portada del Hero leyendo los atributos HTML dinámicamente
+        // Inyectar clase al document.body (Para manejo CSS global si es necesario)
+        document.body.classList.remove('city-cochabamba', 'city-lapaz', 'city-la-paz');
+        document.body.classList.add(`city-${city}`);
+
+        // Actualizar la portada del Hero con una transición (Fade Out / Fade In)
         if (heroBgCover) {
-          const bgCbba = heroBgCover.getAttribute('data-bg-cochabamba') || '/img/taboadaportada.png';
-          const bgLpz = heroBgCover.getAttribute('data-bg-lapaz') || '/img/portada-lapaz.jpg';
-          if (city === 'cochabamba') {
-            heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
-          } else if (city === 'la-paz') {
-            heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
-          }
+          const bgCbba = heroBgCover.getAttribute('data-bg-cochabamba') || '/img/portadataboada.png';
+          const bgLpz = heroBgCover.getAttribute('data-bg-lapaz') || '/img/portadalapaz.png';
+          
+          heroBgCover.style.opacity = '0'; // Disparar fade-out
+          
+          setTimeout(() => {
+            if (city === 'cochabamba') {
+              heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
+            } else if (city === 'la-paz') {
+              heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
+            }
+            heroBgCover.style.opacity = '1'; // Disparar fade-in tras aplicar nueva imagen
+          }, 400); // 400ms para sincronizarse con la transición CSS
         }
 
         // Actualizar el degradado de fondo de Colecciones
@@ -1270,7 +1280,8 @@ const products = [
             'from-[#FAF7F5]', 'via-[#E2DFD8]', 'to-[#FAF7F5]'
           );
           
-          // Añadir clases nuevas basadas en la ciudad
+          // Añadir clases nuevas basadas en la ciudad y aplicar transición
+          bgOverlay.style.transition = 'all 0.6s ease-in-out';
           if (city === 'cochabamba') {
             bgOverlay.classList.add('from-[#FAF6F2]', 'via-[#EADCD0]', 'to-[#FAF6F2]');
           } else if (city === 'la-paz') {
