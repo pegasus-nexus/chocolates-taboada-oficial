@@ -705,7 +705,7 @@ const products = [
     </div>
   </section>
 
-  <!-- SECCIÓN COMUNIDAD TABOADA (ESTILO MODERNO INSPIRADO EN DISEÑO CON FONDO1.PNG Y COLORES INSTITUCIONALES) -->
+  <!-- SECCIÓN COMUNIDAD TABOADA (ESTILO MODERNO INSPIRADO EN NUEVA REFERENCIA CON FOTOS SUPERPUESTAS Y 4 MÉTRICAS INFERIORES) -->
   <section class="relative py-20 md:py-28 overflow-hidden bg-[#FAF5F0] border-b border-[#e8dccb]/50 text-[#2A1612]">
     
     <!-- Imagen de fondo fondo1.png elegante -->
@@ -719,29 +719,43 @@ const products = [
     <div class="absolute -right-1/4 bottom-1/4 w-[600px] h-[600px] rounded-full bg-[#8f6c49]/5 blur-[120px] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
+      
+      <!-- GRID SUPERIOR (2 COLUMNAS): FOTOS SUPERPUESTAS Y LISTA VERTICAL DE BENEFICIOS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
-        <!-- LADO IZQUIERDO (cols 1-5): Retrato / Foto en Marco Circular -->
-        <div class="lg:col-span-5 flex justify-center relative">
-          <div class="relative w-[320px] sm:w-[380px] md:w-[400px] aspect-square flex items-center justify-center">
+        <!-- LADO IZQUIERDO (cols 1-6): Composición de 2 Fotos Superpuestas + Insignia Circular Flotante -->
+        <div class="lg:col-span-6 flex justify-center relative">
+          <div class="relative w-full max-w-[460px] h-[400px] sm:h-[460px]">
             
-            <!-- Círculo Dorado de Fondo -->
-            <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-[#dcb041] to-[#f6d98d] shadow-xl transform rotate-3"></div>
-
-            <!-- Contenedor Circular con Imagen -->
-            <div class="relative w-[90%] h-[90%] rounded-full overflow-hidden border-4 border-white shadow-2xl z-10 bg-[#2A1612]">
+            <!-- 1. Foto Principal Grande (Atras / Derecha) -->
+            <div class="absolute top-0 right-0 w-[72%] h-[85%] rounded-[2.5rem] overflow-hidden shadow-xl border-4 border-white z-10 bg-[#2A1612]">
               <img 
                 src="/img/comunidad_degustacion.jpg" 
-                alt="Comunidad Taboada" 
+                alt="Comunidad Taboada Degustación" 
                 class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
               />
+            </div>
+
+            <!-- 2. Foto Secundaria Superpuesta (Adelante / Izquierda Abajo) -->
+            <div class="absolute bottom-0 left-0 w-[62%] h-[68%] rounded-[2.2rem] overflow-hidden shadow-2xl border-4 border-white z-20 bg-[#2A1612]">
+              <img 
+                src="/img/sucursal_interior.png" 
+                alt="Interior Chocolatería Taboada" 
+                class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+
+            <!-- 3. Insignia Circular Flotante en la Intersección (Estilo Púrpura/Dorado del Mockup) -->
+            <div class="absolute bottom-[22%] left-[45%] -translate-x-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#2A1612] to-[#42221b] text-[#dcb041] flex flex-col items-center justify-center border-4 border-white shadow-2xl z-30 transform hover:scale-110 transition-transform duration-300">
+              <span class="text-lg sm:text-xl font-extrabold font-serif text-[#dcb041] leading-none">1,500+</span>
+              <span class="text-[9px] font-bold text-[#FAF5F0] uppercase tracking-wider mt-1 text-center px-1">Miembros VIP</span>
             </div>
 
           </div>
         </div>
 
-        <!-- LADO DERECHO (cols 6-12): Contenido e Información de Beneficios -->
-        <div class="lg:col-span-7 flex flex-col items-start text-left lg:pl-4">
+        <!-- LADO DERECHO (cols 7-12): Encabezado y Beneficios Verticales con Iconos Circulares -->
+        <div class="lg:col-span-6 flex flex-col items-start text-left lg:pl-4">
           
           <!-- Eyebrow -->
           <div class="flex items-center gap-2 mb-3">
@@ -760,41 +774,56 @@ const products = [
           <p class="text-[#5D4037] text-sm md:text-base leading-relaxed mb-6 max-w-xl font-sans">
             Sé parte de una dinastía de sabor que trasciende generaciones. Registrándote hoy en nuestra <strong class="text-[#2A1612]">Comunidad Oficial</strong>, desbloqueas privilegios únicos y experiencias pensadas para amantes del auténtico chocolate.
           </p>
-
-          <!-- 1. Métricas Relevantes (1,500+ Miembros Activos & 1903 Tradición Sucrense) -->
-          <div class="grid grid-cols-2 gap-6 md:gap-12 w-full max-w-md mb-8 pb-6 border-b border-[#e8dccb]">
-            <div>
-              <span class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">1,500+</span>
-              <span class="text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Miembros Activos</span>
-            </div>
-            <div>
-              <span class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">1903</span>
-              <span class="text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Tradición Sucrense</span>
-            </div>
-          </div>
-
-          <!-- 2. Beneficios en Formato Horizontal con Puntitos ✦ (Estilo Mayúsculas Negrita) -->
-          <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs sm:text-sm font-extrabold tracking-wider uppercase text-[#2A1612] font-sans mb-8">
-            <span class="inline-flex items-center gap-2">
-              <span class="text-[#8f6c49] text-base">✦</span> CATAS DE CHOCOLATE
-            </span>
-            <span class="inline-flex items-center gap-2">
-              <span class="text-[#8f6c49] text-base">✦</span> DESCUENTOS EXCLUSIVOS
-            </span>
-            <span class="inline-flex items-center gap-2">
-              <span class="text-[#8f6c49] text-base">✦</span> PROMOCIONES ESPECIALES
-            </span>
-          </div>
-
-          <!-- Botón de Acción Estilo Píldora Dual + Firma Cursiva -->
-          <div class="flex flex-wrap items-center gap-6 w-full max-w-lg">
+          <div class="space-y-5 w-full max-w-xl mb-8">
             
-            <!-- Botón Píldora Dual estilo "Download CV ->" de la referencia -->
+            <!-- Beneficio 1: Catas de Chocolate (Icono Taza de Chocolate Caliente) -->
+            <div class="flex items-start gap-4">
+              <div class="text-[#8f6c49] flex items-center justify-center flex-shrink-0 pt-0.5">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-base font-bold text-[#2A1612]">Catas de Chocolate</h4>
+                <p class="text-xs text-[#5D4037] leading-relaxed font-sans mt-0.5">Invitaciones exclusivas a experiencias de maridaje y degustaciones guiadas de cacao fino.</p>
+              </div>
+            </div>
+
+            <!-- Beneficio 2: Descuentos Exclusivos (Icono Etiqueta de Descuento %) -->
+            <div class="flex items-start gap-4">
+              <div class="text-[#8f6c49] flex items-center justify-center flex-shrink-0 pt-0.5">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-base font-bold text-[#2A1612]">Descuentos Exclusivos</h4>
+                <p class="text-xs text-[#5D4037] leading-relaxed font-sans mt-0.5">Descuentos automáticos en tus compras oficiales en todas nuestras sucursales.</p>
+              </div>
+            </div>
+
+            <!-- Beneficio 3: Promociones Especiales (Icono Regalo Especial) -->
+            <div class="flex items-start gap-4">
+              <div class="text-[#8f6c49] flex items-center justify-center flex-shrink-0 pt-0.5">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V3.75A2.25 2.25 0 009.75 1.5H7.5A2.25 2.25 0 005.25 3.75v.75m6.75 3.5V3.75A2.25 2.25 0 0114.25 1.5h2.25A2.25 2.25 0 0118.75 3.75v.75M3 8.25h18v3H3v-3zM4.5 11.25v8.25a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5v-8.25" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <h4 class="font-sans text-base font-bold text-[#2A1612]">Promociones Especiales</h4>
+                <p class="text-xs text-[#5D4037] leading-relaxed font-sans mt-0.5">Acceso a ofertas del mes, regalos de cumpleaños y colecciones privadas.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Botón de Acción Píldora Dorado de Lujo + Firma Cursiva -->
+          <div class="flex flex-wrap items-center gap-6 w-full max-w-lg">
             <a
               href="/beneficios"
-              class="group inline-flex items-center gap-3 p-1.5 pr-6 rounded-full bg-[#2A1612] hover:bg-[#8f6c49] text-[#FAF5F0] transition-all duration-300 shadow-xl hover:shadow-2xl"
+              class="group inline-flex items-center gap-3 p-1.5 pr-6 rounded-full bg-gradient-to-r from-[#dcb041] via-[#e5bd52] to-[#dcb041] hover:from-[#8f6c49] hover:to-[#2A1612] text-[#2A1612] hover:text-[#FAF5F0] transition-all duration-500 shadow-xl hover:shadow-2xl"
             >
-              <div class="w-10 h-10 rounded-full bg-[#dcb041] text-[#2A1612] flex items-center justify-center font-bold transition-transform duration-300 group-hover:scale-110">
+              <div class="w-10 h-10 rounded-full bg-[#2A1612] text-[#dcb041] group-hover:bg-white group-hover:text-[#2A1612] flex items-center justify-center font-bold transition-all duration-300 group-hover:scale-110">
                 <svg class="w-5 h-5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
                 </svg>
@@ -808,12 +837,32 @@ const products = [
             <div class="font-cursiva text-2xl md:text-3xl text-[#8f6c49] font-normal tracking-wide">
               Familia Taboada
             </div>
-
           </div>
 
         </div>
         
       </div>
+
+      <!-- BARRA INFERIOR DE 4 MÉTRICAS (IGUAL A LA REFERENCIA VISUAL) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-12 mt-14 border-t border-[#e8dccb]/70 w-full text-center">
+        <div>
+          <span class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">120+</span>
+          <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Años de Historia</span>
+        </div>
+        <div>
+          <span class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">1,500+</span>
+          <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Miembros Activos</span>
+        </div>
+        <div>
+          <span class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">3</span>
+          <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Sucursales Oficiales</span>
+        </div>
+        <div>
+          <span class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight">100%</span>
+          <span class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1">Cacao Sucrense</span>
+        </div>
+      </div>
+
     </div>
   </section>
 <section
