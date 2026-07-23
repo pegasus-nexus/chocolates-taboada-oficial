@@ -1,44 +1,107 @@
 ---
 ---
-<section class="catalog-section" id="productos">
-  <div class="container catalog-container">
-    
-    <!-- Sidebar Categorías -->
-    <aside class="sidebar-categorias">
-      <div class="sidebar-header">
-        <div class="header-left">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A08C76" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="cat-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-          <h3>CATEGORÍAS</h3>
-        </div>
-        <button class="btn-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-      </div>
-      <div class="sidebar-content" id="categories-list">
-        <!-- Generado dinámicamente -->
-        <div class="cat-loader">Cargando categorías...</div>
-      </div>
-    </aside>
+<section
+  id="cajas-especiales"
+  class="relative bg-gradient-to-br from-[#FAF5F0] via-[#F3ECE3] to-[#FAF5F0] py-16 md:py-24 border-t border-[#e8dccb]/50 overflow-hidden"
+>
+  <div
+    id="cajas-especiales-bg"
+    class="absolute inset-0 bg-gradient-to-br from-[#FAF5F0] via-[#F3ECE3] to-[#FAF5F0] transition-all duration-500"
+  >
+  </div>
 
-    <!-- Main Grid -->
-    <main class="catalog-main">
-      <div class="products-grid" id="products-grid">
-        <!-- Generado dinámicamente -->
-        <div class="prod-loader">Cargando productos exquisitos...</div>
+  <div
+    class="absolute top-0 right-0 w-96 h-96 bg-gradient-radial from-amber-100/20 to-transparent blur-[100px] opacity-60"
+  >
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    
+    <!-- ENCABEZADO DE SECCIÓN -->
+    <div class="mb-10 md:mb-12 flex justify-start">
+      <h2
+        class="text-3xl md:text-5xl font-elegante font-bold text-[#2A1612] relative inline-block tracking-tight"
+      >
+        Colecciones
+
+        <!-- línea elegante -->
+        <span
+          class="absolute left-0 -bottom-3 w-28 h-[4px] bg-[#dcb041] rounded-full shadow-[0_0_10px_rgba(220,176,65,0.35)]"
+        ></span>
+      </h2>
+    </div>
+
+    <!-- DISPOSICIÓN PRINCIPAL DE 2 COLUMNAS -->
+    <div id="cat-main-container" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start transition-all duration-300">
+      
+      <!-- BARRA LATERAL ULTRA COMPACTA DE CATEGORÍAS -->
+      <aside
+        id="cat-sidebar"
+        class="lg:col-span-2 bg-white/80 border border-[#e8dccb] backdrop-blur-md rounded-3xl p-3 md:p-3.5 shadow-sm sticky top-28 z-20 transition-all duration-300 w-full"
+      >
+        <!-- CABECERA -->
+        <div class="flex items-center justify-between px-1 py-1 mb-2.5 border-b border-[#e8dccb]/70 pb-2">
+          <div id="cat-sidebar-header-title" class="flex items-center gap-1.5 overflow-hidden transition-all duration-300">
+            <svg class="w-4 h-4 text-[#8f6c49] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            </svg>
+            <span class="text-[11px] font-extrabold text-[#2A1612] uppercase tracking-wider font-sans truncate">Categorías</span>
+          </div>
+
+          <!-- BOTÓN COLAPSAR -->
+          <button
+            id="toggle-cat-sidebar-btn"
+            type="button"
+            class="w-7 h-7 rounded-full bg-[#2A1612]/5 hover:bg-[#2A1612] hover:text-[#dcb041] text-[#2A1612] flex items-center justify-center transition-all duration-300 cursor-pointer flex-shrink-0"
+            title="Guardar / Expandir categorías"
+          >
+            <svg id="cat-sidebar-arrow-icon" class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- LISTA DE CATEGORÍAS -->
+        <div id="dynamic-categories-list" class="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 scrollbar-none">
+          <div class="p-2 text-xs italic text-gray-500">Cargando...</div>
+        </div>
+      </aside>
+
+      <!-- COLUMNA DERECHA: GRID DE PRODUCTOS -->
+      <div id="product-grid-column" class="lg:col-span-10 transition-all duration-300">
+        <div id="dynamic-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 min-h-[450px]">
+          <div class="p-2 text-xs italic text-gray-500">Cargando productos exquisitos...</div>
+        </div>
+        
+        <div id="no-products-msg" class="hidden col-span-full py-20 text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/50 mb-6 shadow-inner">
+                <svg class="w-10 h-10 text-[#dcb041]/50" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-[#2A1612] font-serif mb-2">No se encontraron productos</h3>
+            <p class="text-[#5D4037]/70 font-sans">Ajusta los filtros o intenta otra búsqueda.</p>
+        </div>
       </div>
-    </main>
+
+    </div>
   </div>
 </section>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const categoriesList = document.getElementById('categories-list');
-    const productsGrid = document.getElementById('products-grid');
+    const categoriesList = document.getElementById('dynamic-categories-list');
+    const productsGrid = document.getElementById('dynamic-products-grid');
+    const noProductsMsg = document.getElementById('no-products-msg');
     
     let allProducts = [];
     let currentCategory = 'ALL';
-    let currentCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
+    let currentCity = localStorage.getItem('selected_city') || 'cochabamba';
     
-    const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1"; 
+    // Obtenemos la URL de la API
+    const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1";
 
+    // Detectar cambios de ciudad
     window.addEventListener('cityChanged', (e) => {
       const detail = (e as CustomEvent).detail;
       if (detail && detail.city) {
@@ -55,88 +118,81 @@
         const data = await response.json();
         
         if (data.status === 'success') {
+          // Filtrar categorías que no tienen productos si es necesario (opcional)
           renderCategories(data.categorias);
           allProducts = data.productos;
           renderProducts();
+          setupSidebarToggle();
         }
       } catch (error) {
         console.error('Error cargando catálogo:', error);
         if (productsGrid) {
-          productsGrid.innerHTML = '<div class="error-msg">Ocurrió un error al cargar el catálogo. Por favor, intenta de nuevo más tarde.</div>';
+          productsGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-10">Ocurrió un error al cargar el catálogo.</div>';
         }
       }
     }
 
-    // Helper para obtener el SVG según el nombre de la categoría
     function getCategoryIcon(name) {
-      const n = name.toLowerCase();
-      if (n.includes('todo')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`;
-      }
-      if (n.includes('blister')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`;
-      }
-      if (n.includes('bombones')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
-      }
-      if (n.includes('caja')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>`;
-      }
-      if (n.includes('gragea')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`;
-      }
-      if (n.includes('paleta')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="m12 14v7"></path></svg>`;
-      }
-      if (n.includes('postal')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`;
-      }
-      if (n.includes('reposter')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-      }
-      if (n.includes('sin az')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`;
-      }
-      if (n.includes('tableta')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 2v20"/><path d="M15 2v20"/><path d="M4 12h16"/></svg>`;
-      }
-      if (n.includes('turron')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 19c0 1.66-4 3-9 3s-9-1.34-9-3V5c0 1.66 4 3 9 3s9-1.34 9-3v14z"></path></svg>`;
-      }
-      if (n.includes('variado')) {
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
-      }
-      // Default
-      return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`;
+      // Retorna un SVG string en base al nombre
+      return `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>`;
+    }
+
+    function getCategoryFallbackIcon() {
+        return `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>`;
     }
 
     function renderCategories(categorias) {
       if (!categoriesList) return;
       
-      categoriesList.innerHTML = `
-        <div class="cat-item ${currentCategory === 'ALL' ? 'active' : ''}" data-id="ALL">
-          ${getCategoryIcon('todo')}
-          Todo
+      let html = `
+        <div class="relative group/cat-tooltip flex-shrink-0 lg:flex-shrink w-full">
+          <button
+            type="button"
+            class="cat-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer text-left group bg-[#2A1612] text-[#dcb041] shadow-sm border border-[#2A1612]"
+            data-target="ALL"
+          >
+            ${getCategoryFallbackIcon()}
+            <span class="cat-btn-label flex-1 truncate text-[11px] font-sans tracking-tight">Todas</span>
+          </button>
+          <span class="cat-floating-tooltip absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1 bg-[#2A1612] text-white text-[11px] font-bold rounded-lg shadow-xl opacity-0 pointer-events-none transition-opacity duration-200 z-50 whitespace-nowrap border border-white/10 hidden group-hover/cat-tooltip:opacity-100">
+            Todas
+          </span>
         </div>
       `;
 
       categorias.forEach(cat => {
-        const div = document.createElement('div');
-        div.className = `cat-item ${currentCategory === cat.id ? 'active' : ''}`;
-        div.dataset.id = cat.id;
-        div.innerHTML = `
-          ${getCategoryIcon(cat.name)}
-          ${cat.name}
+        html += `
+          <div class="relative group/cat-tooltip flex-shrink-0 lg:flex-shrink w-full">
+            <button
+              type="button"
+              class="cat-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer text-left group text-[#5D4037] hover:bg-[#FAF0E6] hover:text-[#2A1612]"
+              data-target="${cat.id}"
+            >
+              ${getCategoryIcon(cat.name)}
+              <span class="cat-btn-label flex-1 truncate text-[11px] font-sans tracking-tight">${cat.name}</span>
+            </button>
+            <span class="cat-floating-tooltip absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1 bg-[#2A1612] text-white text-[11px] font-bold rounded-lg shadow-xl opacity-0 pointer-events-none transition-opacity duration-200 z-50 whitespace-nowrap border border-white/10 hidden group-hover/cat-tooltip:opacity-100">
+              ${cat.name}
+            </span>
+          </div>
         `;
-        categoriesList.appendChild(div);
       });
+      categoriesList.innerHTML = html;
 
-      const items = categoriesList.querySelectorAll('.cat-item');
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          items.forEach(i => i.classList.remove('active'));
-          item.classList.add('active');
-          currentCategory = (item as HTMLElement).dataset.id || 'ALL';
+      // Eventos de click en categorías
+      const catBtns = categoriesList.querySelectorAll('.cat-btn');
+      catBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remover activo de todos
+          catBtns.forEach(b => {
+            b.classList.remove('bg-[#2A1612]', 'text-[#dcb041]', 'shadow-sm', 'border-[#2A1612]', 'border');
+            b.classList.add('text-[#5D4037]', 'hover:bg-[#FAF0E6]', 'hover:text-[#2A1612]');
+          });
+          // Añadir activo al clickeado
+          btn.classList.add('bg-[#2A1612]', 'text-[#dcb041]', 'shadow-sm', 'border', 'border-[#2A1612]');
+          btn.classList.remove('text-[#5D4037]', 'hover:bg-[#FAF0E6]', 'hover:text-[#2A1612]');
+          
+          currentCategory = (btn as HTMLElement).dataset.target || 'ALL';
           renderProducts();
         });
       });
@@ -144,8 +200,7 @@
 
     function renderProducts() {
       if (!productsGrid) return;
-      productsGrid.innerHTML = '';
-
+      
       const filtered = allProducts.filter(p => {
         const matchCategory = currentCategory === 'ALL' || p.categoria_id === currentCategory;
         const hasPriceForCity = p.precios && p.precios[currentCity] !== undefined;
@@ -153,310 +208,122 @@
       });
 
       if (filtered.length === 0) {
-        productsGrid.innerHTML = '<div class="empty-msg">No hay productos disponibles.</div>';
+        productsGrid.innerHTML = '';
+        if(noProductsMsg) noProductsMsg.classList.remove('hidden');
         return;
       }
-
+      
+      if(noProductsMsg) noProductsMsg.classList.add('hidden');
+      
+      let html = '';
       filtered.forEach(p => {
         const price = p.precios[currentCity];
         const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
+        const imgUrl = p.imagen || '/img/produc1.png'; // Fallback
+        const weight = p.codigo_corto || '100g';
+        const desc = p.descripcion || 'El verdadero sabor del cacao seleccionado.';
         
-        const imgHtml = p.imagen 
-          ? `<img src="${p.imagen}" alt="${p.nombre}" loading="lazy" />`
-          : ``;
+        html += `
+          <div class="product-card group relative bg-[#fbf8f3]/95 rounded-[2rem] p-6 border border-[#e8dccb] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(251,207,232,0.4)]">
+            <!-- Botón Añadir -->
+            <div class="absolute top-5 right-5 z-20 group/tooltip">
+              <button
+                type="button"
+                class="add-to-cart-btn w-10 h-10 bg-white/90 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#2A1612]/10 text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+              </button>
+              <span class="absolute right-0 -bottom-9 bg-[#2A1612] text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-300 z-30 border border-white/10">
+                Añadir al carrito
+              </span>
+            </div>
 
-        const article = document.createElement('article');
-        article.className = 'product-card';
-        article.innerHTML = `
-          <button class="btn-bag" aria-label="Añadir"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
-          
-          <div class="product-img-wrapper">
-            ${imgHtml}
-          </div>
-          
-          <div class="product-info">
-            <h3>${p.nombre}</h3>
-            <span class="product-weight">${p.codigo_corto || '100 g'}</span>
-            <p class="product-desc">${p.descripcion || 'El verdadero sabor del cacao seleccionado.'}</p>
-            
-            <hr class="card-divider" />
-            
-            <div class="product-footer">
-              <div class="price-box">
-                <span class="price-label">PRECIO</span>
-                <span class="price-val">BS. ${price}</span>
+            <!-- IMAGEN -->
+            <div class="w-full h-56 mb-6 flex items-center justify-center relative z-10">
+              <img src="${imgUrl}" alt="${p.nombre}" class="max-w-full max-h-full object-contain filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-500" />
+            </div>
+
+            <!-- INFO -->
+            <div class="flex flex-col flex-1 relative z-10">
+              <h3 class="text-[22px] font-bold text-[#2A1612] font-serif leading-tight mb-1 group-hover:text-[#8f6c49] transition-colors duration-300">${p.nombre}</h3>
+              <p class="text-[13px] font-bold text-[#8f6c49] mb-2 uppercase tracking-wide">${weight}</p>
+              
+              <p class="text-[13px] text-[#5D4037]/80 line-clamp-2 leading-relaxed mb-6 font-sans">
+                ${desc}
+              </p>
+              
+              <hr class="border-[#e8dccb] mb-4" />
+              
+              <div class="flex items-end justify-between mt-auto">
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-extrabold text-[#a08b7a] uppercase tracking-wider mb-1">Precio</span>
+                  <span class="text-2xl font-black text-[#2A1612] font-serif leading-none tracking-tight">BS. ${price}</span>
+                </div>
+                <a 
+                  href="https://wa.me/59179786916?text=${wappText}" 
+                  target="_blank" 
+                  rel="noopener"
+                  class="buy-btn bg-[#f0dba3] hover:bg-[#dcb041] text-[#2A1612] font-bold text-xs px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap inline-flex items-center justify-center"
+                >
+                  Comprar
+                </a>
               </div>
-              <a href="https://wa.me/59179786916?text=${wappText}" class="btn-buy" target="_blank" rel="noopener">Comprar</a>
             </div>
           </div>
         `;
-        productsGrid.appendChild(article);
+      });
+      productsGrid.innerHTML = html;
+    }
+
+    // Toggle de la barra lateral (lógica extraída de index.astro)
+    function setupSidebarToggle() {
+      const catSidebar = document.getElementById('cat-sidebar');
+      const toggleSidebarBtn = document.getElementById('toggle-cat-sidebar-btn');
+      const arrowIcon = document.getElementById('cat-sidebar-arrow-icon');
+      const headerTitle = document.getElementById('cat-sidebar-header-title');
+      const productGridColumn = document.getElementById('product-grid-column');
+
+      toggleSidebarBtn?.addEventListener('click', () => {
+        const isCollapsed = catSidebar?.classList.contains('is-collapsed-sidebar');
+
+        if (isCollapsed) {
+          // EXPANDIR
+          catSidebar?.classList.remove('is-collapsed-sidebar', 'lg:col-span-1', 'lg:w-[70px]');
+          catSidebar?.classList.add('lg:col-span-2', 'w-full');
+          
+          productGridColumn?.classList.remove('lg:col-span-11');
+          productGridColumn?.classList.add('lg:col-span-10');
+
+          if (arrowIcon) arrowIcon.style.transform = 'rotate(0deg)';
+          if (headerTitle) headerTitle.style.display = '';
+
+          document.querySelectorAll('.cat-btn-label').forEach(el => (el as HTMLElement).style.display = '');
+          document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.classList.remove('justify-center');
+            btn.classList.add('gap-2.5');
+          });
+        } else {
+          // COLAPSAR
+          catSidebar?.classList.add('is-collapsed-sidebar', 'lg:col-span-1', 'lg:w-[70px]');
+          catSidebar?.classList.remove('lg:col-span-2', 'w-full');
+          
+          productGridColumn?.classList.remove('lg:col-span-10');
+          productGridColumn?.classList.add('lg:col-span-11');
+
+          if (arrowIcon) arrowIcon.style.transform = 'rotate(180deg)';
+          if (headerTitle) headerTitle.style.display = 'none';
+
+          document.querySelectorAll('.cat-btn-label').forEach(el => (el as HTMLElement).style.display = 'none');
+          document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.classList.add('justify-center');
+            btn.classList.remove('gap-2.5');
+          });
+        }
       });
     }
 
     loadCatalog();
   });
 </script>
-
-<style>
-  .catalog-section {
-    padding: 60px 20px 100px;
-    background: #F3EBE6; /* Color crema suave del fondo general */
-    min-height: 100vh;
-  }
-
-  .catalog-container {
-    max-width: 1240px;
-    margin: 0 auto;
-    display: flex;
-    gap: 32px;
-    align-items: flex-start;
-  }
-
-  /* SIDEBAR */
-  .sidebar-categorias {
-    width: 260px;
-    flex-shrink: 0;
-    background: #FFFFFF;
-    border-radius: 30px;
-    padding: 24px 20px;
-    position: sticky;
-    top: 100px;
-  }
-
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    padding: 0 4px;
-  }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .sidebar-header h3 {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #23120E;
-  }
-
-  .btn-collapse {
-    background: #F5F0EB;
-    border: none;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #23120E;
-    cursor: pointer;
-  }
-
-  .sidebar-content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .cat-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 20px;
-    border-radius: 24px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #4A3A32;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid #EAE0D8;
-    background: #FFF;
-  }
-
-  .cat-item svg {
-    color: #4A3A32;
-  }
-
-  .cat-item:hover {
-    border-color: #D4C5B9;
-    background: #FDF9F5;
-  }
-
-  .cat-item.active {
-    background: #23120E;
-    color: #F4D58C;
-    border-color: #23120E;
-  }
-
-  .cat-item.active svg {
-    color: #F4D58C;
-  }
-
-  /* MAIN AREA */
-  .catalog-main {
-    flex-grow: 1;
-    min-width: 0;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 28px;
-  }
-
-  /* PRODUCT CARDS */
-  .product-card {
-    background: #FDF9F5;
-    border-radius: 40px;
-    padding: 30px 24px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .btn-bag {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    width: 44px;
-    height: 44px;
-    background: #FFF;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    cursor: pointer;
-    color: #23120E;
-    z-index: 2;
-    transition: transform 0.2s;
-  }
-  
-  .btn-bag:hover {
-    transform: scale(1.05);
-  }
-
-  .product-img-wrapper {
-    width: 100%;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-
-  .product-img-wrapper img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15));
-  }
-
-  .product-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-
-  .product-info h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #23120E;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.01em;
-  }
-
-  .product-weight {
-    display: block;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #4A3A32;
-    margin-bottom: 8px;
-  }
-
-  .product-desc {
-    color: #A3968F;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin: 0;
-  }
-
-  .card-divider {
-    border: none;
-    border-top: 1px solid #EAE0D8;
-    margin: 24px 0;
-  }
-
-  .product-footer {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-top: auto;
-  }
-
-  .price-box {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .price-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: #A3968F;
-    text-transform: uppercase;
-  }
-
-  .price-val {
-    font-size: 1.6rem;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: #23120E;
-    line-height: 1;
-  }
-
-  .btn-buy {
-    background: #F4D58C;
-    color: #23120E;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 12px 28px;
-    border-radius: 24px;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-
-  .btn-buy:hover {
-    background: #E5C370;
-  }
-
-  .cat-loader, .prod-loader, .error-msg, .empty-msg {
-    padding: 20px;
-    color: #8C7882;
-    font-style: italic;
-  }
-
-  @media (max-width: 900px) {
-    .catalog-container {
-      flex-direction: column;
-    }
-    
-    .sidebar-categorias {
-      width: 100%;
-      position: static;
-    }
-    
-    .products-grid {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
-  }
-</style>
