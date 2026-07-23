@@ -6,26 +6,20 @@
     <!-- Sidebar Categorías -->
     <aside class="sidebar-categorias">
       <div class="sidebar-header">
-        <svg xmlns="http://www.w3.org/.svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cat-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-        <h3>CATEGORÍAS</h3>
-        <button class="btn-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="header-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A08C76" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="cat-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <h3>CATEGORÍAS</h3>
+        </div>
+        <button class="btn-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
       </div>
       <div class="sidebar-content" id="categories-list">
         <!-- Generado dinámicamente -->
-        <div class="cat-item active" data-id="ALL">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-          Todo
-        </div>
         <div class="cat-loader">Cargando categorías...</div>
       </div>
     </aside>
 
     <!-- Main Grid -->
     <main class="catalog-main">
-      <div class="catalog-header">
-        <h2>Nuestro Catálogo</h2>
-      </div>
-
       <div class="products-grid" id="products-grid">
         <!-- Generado dinámicamente -->
         <div class="prod-loader">Cargando productos exquisitos...</div>
@@ -43,10 +37,8 @@
     let currentCategory = 'ALL';
     let currentCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
     
-    // El puerto local del backend o la URL de producción
     const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1"; 
 
-    // Escuchar cambios de ciudad desde el Navbar
     window.addEventListener('cityChanged', (e) => {
       const detail = (e as CustomEvent).detail;
       if (detail && detail.city) {
@@ -75,13 +67,55 @@
       }
     }
 
+    // Helper para obtener el SVG según el nombre de la categoría
+    function getCategoryIcon(name) {
+      const n = name.toLowerCase();
+      if (n.includes('todo')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`;
+      }
+      if (n.includes('blister')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`;
+      }
+      if (n.includes('bombones')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+      }
+      if (n.includes('caja')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>`;
+      }
+      if (n.includes('gragea')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`;
+      }
+      if (n.includes('paleta')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="m12 14v7"></path></svg>`;
+      }
+      if (n.includes('postal')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`;
+      }
+      if (n.includes('reposter')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+      }
+      if (n.includes('sin az')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`;
+      }
+      if (n.includes('tableta')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 2v20"/><path d="M15 2v20"/><path d="M4 12h16"/></svg>`;
+      }
+      if (n.includes('turron')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 19c0 1.66-4 3-9 3s-9-1.34-9-3V5c0 1.66 4 3 9 3s9-1.34 9-3v14z"></path></svg>`;
+      }
+      if (n.includes('variado')) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+      }
+      // Default
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`;
+    }
+
     function renderCategories(categorias) {
       if (!categoriesList) return;
       
-      // Mantener "Todo"
       categoriesList.innerHTML = `
         <div class="cat-item ${currentCategory === 'ALL' ? 'active' : ''}" data-id="ALL">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          ${getCategoryIcon('todo')}
           Todo
         </div>
       `;
@@ -91,13 +125,12 @@
         div.className = `cat-item ${currentCategory === cat.id ? 'active' : ''}`;
         div.dataset.id = cat.id;
         div.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          ${getCategoryIcon(cat.name)}
           ${cat.name}
         `;
         categoriesList.appendChild(div);
       });
 
-      // Añadir eventos click a categorías
       const items = categoriesList.querySelectorAll('.cat-item');
       items.forEach(item => {
         item.addEventListener('click', () => {
@@ -114,15 +147,13 @@
       productsGrid.innerHTML = '';
 
       const filtered = allProducts.filter(p => {
-        // Filtrar por categoría
         const matchCategory = currentCategory === 'ALL' || p.categoria_id === currentCategory;
-        // Solo mostrar si tiene precio para la ciudad actual
         const hasPriceForCity = p.precios && p.precios[currentCity] !== undefined;
         return matchCategory && hasPriceForCity;
       });
 
       if (filtered.length === 0) {
-        productsGrid.innerHTML = '<div class="empty-msg">No hay productos disponibles en esta categoría para tu ciudad.</div>';
+        productsGrid.innerHTML = '<div class="empty-msg">No hay productos disponibles.</div>';
         return;
       }
 
@@ -130,7 +161,6 @@
         const price = p.precios[currentCity];
         const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
         
-        // Renderizar imagen solo si existe
         const imgHtml = p.imagen 
           ? `<img src="${p.imagen}" alt="${p.nombre}" loading="lazy" />`
           : ``;
@@ -138,15 +168,19 @@
         const article = document.createElement('article');
         article.className = 'product-card';
         article.innerHTML = `
-          <div class="product-top">
-            <button class="btn-bag" aria-label="Añadir"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
-            <div class="product-img-wrapper">
-              ${imgHtml}
-            </div>
+          <button class="btn-bag" aria-label="Añadir"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+          
+          <div class="product-img-wrapper">
+            ${imgHtml}
           </div>
+          
           <div class="product-info">
             <h3>${p.nombre}</h3>
-            <span class="product-sku">${p.codigo_corto || ''}</span>
+            <span class="product-weight">${p.codigo_corto || '100 g'}</span>
+            <p class="product-desc">${p.descripcion || 'El verdadero sabor del cacao seleccionado.'}</p>
+            
+            <hr class="card-divider" />
+            
             <div class="product-footer">
               <div class="price-box">
                 <span class="price-label">PRECIO</span>
@@ -167,12 +201,12 @@
 <style>
   .catalog-section {
     padding: 60px 20px 100px;
-    background: #F9E7EF;
-    min-height: 80vh;
+    background: #F3EBE6; /* Color crema suave del fondo general */
+    min-height: 100vh;
   }
 
   .catalog-container {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
     display: flex;
     gap: 32px;
@@ -183,10 +217,9 @@
   .sidebar-categorias {
     width: 260px;
     flex-shrink: 0;
-    background: #FFFCFD;
-    border-radius: 24px;
-    padding: 24px 16px;
-    box-shadow: 0 10px 30px rgba(122, 30, 77, 0.05);
+    background: #FFFFFF;
+    border-radius: 30px;
+    padding: 24px 20px;
     position: sticky;
     top: 100px;
   }
@@ -194,71 +227,76 @@
   .sidebar-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 8px 20px;
-    border-bottom: 1px solid rgba(122, 30, 77, 0.1);
-    margin-bottom: 16px;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 0 4px;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .sidebar-header h3 {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--berry-dark);
-    flex-grow: 1;
-  }
-
-  .cat-icon {
-    color: #C75C91;
+    letter-spacing: 0.05em;
+    color: #23120E;
   }
 
   .btn-collapse {
-    background: #F5EEF2;
+    background: #F5F0EB;
     border: none;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--berry-dark);
+    color: #23120E;
     cursor: pointer;
   }
 
   .sidebar-content {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px;
   }
 
   .cat-item {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    font-weight: 500;
-    color: #4A3A42;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #4A3A32;
     cursor: pointer;
     transition: all 0.2s;
+    border: 1px solid #EAE0D8;
+    background: #FFF;
   }
 
   .cat-item svg {
-    color: #8C7882;
+    color: #4A3A32;
   }
 
   .cat-item:hover {
-    background: rgba(199, 92, 145, 0.08);
+    border-color: #D4C5B9;
+    background: #FDF9F5;
   }
 
   .cat-item.active {
-    background: #2A1612;
-    color: #FFF;
+    background: #23120E;
+    color: #F4D58C;
+    border-color: #23120E;
   }
 
   .cat-item.active svg {
-    color: #D4AF37;
+    color: #F4D58C;
   }
 
   /* MAIN AREA */
@@ -267,144 +305,138 @@
     min-width: 0;
   }
 
-  .catalog-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--berry-dark);
-    margin: 0 0 32px 0;
-  }
-
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
   }
 
   /* PRODUCT CARDS */
   .product-card {
-    background: #FFF;
-    border-radius: 28px;
-    padding: 20px;
-    box-shadow: 0 12px 40px rgba(122, 30, 77, 0.06);
+    background: #FDF9F5;
+    border-radius: 40px;
+    padding: 30px 24px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(122, 30, 77, 0.12);
-  }
-
-  .product-top {
-    background: #FDF9FB;
-    border-radius: 18px;
-    height: 200px;
-    position: relative;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
   }
 
   .btn-bag {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 38px;
-    height: 38px;
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
     background: #FFF;
     border-radius: 50%;
     display: grid;
     place-items: center;
     border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
     cursor: pointer;
-    color: var(--berry-dark);
+    color: #23120E;
     z-index: 2;
     transition: transform 0.2s;
   }
   
   .btn-bag:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   .product-img-wrapper {
     width: 100%;
-    height: 100%;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    margin-bottom: 24px;
   }
 
   .product-img-wrapper img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    mix-blend-mode: multiply; /* Helps blend white backgrounds of images */
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15));
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   .product-info h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    color: var(--berry-dark);
-    margin: 0 0 6px 0;
-    line-height: 1.2;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #23120E;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
   }
 
-  .product-sku {
+  .product-weight {
     display: block;
-    font-size: 0.85rem;
-    color: #8C7882;
-    margin-bottom: 16px;
-    min-height: 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #4A3A32;
+    margin-bottom: 8px;
+  }
+
+  .product-desc {
+    color: #A3968F;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .card-divider {
+    border: none;
+    border-top: 1px solid #EAE0D8;
+    margin: 24px 0;
   }
 
   .product-footer {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding-top: 16px;
-    border-top: 1px solid rgba(122, 30, 77, 0.08);
     margin-top: auto;
   }
 
   .price-box {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   .price-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: #A08C96;
+    color: #A3968F;
     text-transform: uppercase;
   }
 
   .price-val {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    color: var(--berry-dark);
+    color: #23120E;
+    line-height: 1;
   }
 
   .btn-buy {
-    background: #EED792;
-    color: #2A1612;
+    background: #F4D58C;
+    color: #23120E;
     font-weight: 700;
-    font-size: 0.9rem;
-    padding: 10px 20px;
-    border-radius: 20px;
+    font-size: 0.95rem;
+    padding: 12px 28px;
+    border-radius: 24px;
     text-decoration: none;
     transition: background 0.2s;
   }
 
   .btn-buy:hover {
-    background: #DCC06E;
+    background: #E5C370;
   }
 
   .cat-loader, .prod-loader, .error-msg, .empty-msg {
@@ -424,7 +456,7 @@
     }
     
     .products-grid {
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
   }
 </style>
