@@ -647,9 +647,7 @@ import MobileCTA from "../components/MobileCTA.astro";
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Selectores de Categorías
-      const catButtons = [];
-      const cards = [];
-      const noProductsMsg = null;
+      // El manejo de productos y el catálogo se encarga el componente Products.astro
 
       // Selectores de Ubicación
       const bgOverlay = document.getElementById('cajas-especiales-bg');
@@ -696,10 +694,9 @@ import MobileCTA from "../components/MobileCTA.astro";
       // ── ACTUALIZAR CIUDAD SELECCIONADA ──
       function updateCity(city: string) {
         currentCity = city;
-        localStorage.setItem('selected_city', city);
-        window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city } }));
+        localStorage.setItem('taboada_selected_city', city); // Changed to match Navbar
 
-        // Actualizar etiqueta del botón
+        // Actualizar etiqueta del botón (if activeCityName exists)
         if (activeCityName) {
           activeCityName.textContent = city === 'cochabamba' ? 'Cochabamba' : 'La Paz';
         }
@@ -747,87 +744,12 @@ import MobileCTA from "../components/MobileCTA.astro";
         // filterProducts();
       }
 
-      // ── FILTRAR PRODUCTOS Y PRECIOS ──
-      function filterProducts() {
-        let matchingCards: Element[] = [];
-
-        // 1. Clasificar tarjetas que coinciden con los filtros activos
-        cards.forEach((card) => {
-          const categoriesAttr = card.getAttribute('data-categories') || '';
-          const categoriesList = categoriesAttr.split(' ');
-          const availableAttr = card.getAttribute('data-available') || '';
-          const availableList = availableAttr.split(' ');
-
-          const matchesCategory = currentCategory === 'todo' || categoriesList.includes(currentCategory);
-          const matchesCity = availableList.includes(currentCity);
-
-          // Actualizar el precio dinámicamente antes de mostrar/ocultar
-          const priceLabel = card.querySelector('.product-price-label');
-          if (priceLabel) {
-            const priceKey = currentCity === 'cochabamba' ? 'data-price-cochabamba' : 'data-price-lapaz';
-            priceLabel.textContent = card.getAttribute(priceKey) || '';
-          }
-
-          if (matchesCategory && matchesCity) {
-            matchingCards.push(card);
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-
-        // 2. Gestionar la visualización del botón "Ver más"
-        const limit = 4;
-        if (matchingCards.length > limit) {
-          seeMoreContainer?.classList.remove('hidden');
-          if (seeMoreBtn) {
-            seeMoreBtn.textContent = isExpanded ? 'Ver menos' : 'Ver más';
-          }
-
-          matchingCards.forEach((card, index) => {
-            if (isExpanded || index < limit) {
-              card.classList.remove('hidden');
-              // Pequeña animación de entrada
-              (card as HTMLElement).style.opacity = '0';
-              setTimeout(() => {
-                (card as HTMLElement).style.opacity = '1';
-                (card as HTMLElement).style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-              }, 30);
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-        } else {
-          // Ocultar botón si hay 4 o menos productos y mostrarlos todos
-          seeMoreContainer?.classList.add('hidden');
-          matchingCards.forEach((card) => {
-            card.classList.remove('hidden');
-            (card as HTMLElement).style.opacity = '0';
-            setTimeout(() => {
-              (card as HTMLElement).style.opacity = '1';
-              (card as HTMLElement).style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            }, 30);
-          });
-        }
-
-        // Mostrar u ocultar mensaje vacío
-        if (matchingCards.length === 0) {
-          noProductsMsg?.classList.remove('hidden');
-        } else {
-          noProductsMsg?.classList.add('hidden');
-        }
-      }
-
-      // Clic en Ver Más / Ver Menos
-      seeMoreBtn?.addEventListener('click', () => {
-        isExpanded = !isExpanded;
-        // filterProducts();
-      });
+      // ── MANTENER SINCRONIZADA LA IMAGEN HERO SEGÚN LA CIUDAD ──
 
       // Escuchar cambios de ciudad desde Navbar
       window.addEventListener('cityChanged', (e) => {
         const detail = (e as CustomEvent).detail;
         if (detail && detail.city) {
-          isExpanded = false;
           updateCity(detail.city);
         }
       });
