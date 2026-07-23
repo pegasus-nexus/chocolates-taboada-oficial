@@ -1,209 +1,430 @@
 ---
 ---
-<section class="products" id="productos">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Línea Premium</span>
-      <h2>Elige tu detalle favorito</h2>
-      <p>El verdadero cacao seleccionado a mano, transformado en piezas de colección para los paladares más exigentes.</p>
-    </div>
-
-    <div class="products-grid">
-      <article class="product-card">
-        <div class="product-img">
-          <div class="product-box">Caja Rosada<br/>Corazones</div>
+<section class="catalog-section" id="productos">
+  <div class="container catalog-container">
+    
+    <!-- Sidebar Categorías -->
+    <aside class="sidebar-categorias">
+      <div class="sidebar-header">
+        <svg xmlns="http://www.w3.org/.svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cat-icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <h3>CATEGORÍAS</h3>
+        <button class="btn-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      </div>
+      <div class="sidebar-content" id="categories-list">
+        <!-- Generado dinámicamente -->
+        <div class="cat-item active" data-id="ALL">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Todo
         </div>
-        <h3>Caja Rosada Corazones</h3>
-        <p>Una selección fina de bombones de chocolate para expresar tus sentimientos.</p>
-        <a class="card-action" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20la%20Caja%20Rosada%20Corazones" target="_blank" rel="noopener">Quiero este chocolate →</a>
-      </article>
+        <div class="cat-loader">Cargando categorías...</div>
+      </div>
+    </aside>
 
-      <article class="product-card">
-        <div class="product-img gold">
-          <div class="product-box">Caja Surtida<br/>Rellenos</div>
-        </div>
-        <h3>Caja de Rellenos Surtidos</h3>
-        <p>Una selección especial para sorprender con sabor, presentación y emoción.</p>
-        <a class="card-action" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20la%20Caja%20Surtida%20de%20Rellenos" target="_blank" rel="noopener">Quiero este chocolate →</a>
-      </article>
+    <!-- Main Grid -->
+    <main class="catalog-main">
+      <div class="catalog-header">
+        <h2>Nuestro Catálogo</h2>
+      </div>
 
-      <article class="product-card">
-        <div class="product-img choco">
-          <div class="product-box">Detalle<br/>Premium</div>
-        </div>
-        <h3>Estuche de Chocolates Premium</h3>
-        <p>Un detalle sofisticado para regalar en cualquier momento u ocasión especial.</p>
-        <a class="card-action" href="https://wa.me/59179786916?text=Hola%2C%20quiero%20comprar%20el%20Estuche%20de%20Chocolates%20Premium" target="_blank" rel="noopener">Quiero este chocolate →</a>
-      </article>
-    </div>
+      <div class="products-grid" id="products-grid">
+        <!-- Generado dinámicamente -->
+        <div class="prod-loader">Cargando productos exquisitos...</div>
+      </div>
+    </main>
   </div>
 </section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoriesList = document.getElementById('categories-list');
+    const productsGrid = document.getElementById('products-grid');
+    
+    let allProducts = [];
+    let currentCategory = 'ALL';
+    let currentCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
+    
+    // El puerto local del backend o la URL de producción
+    const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1"; 
+
+    // Escuchar cambios de ciudad desde el Navbar
+    window.addEventListener('cityChanged', (e) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail && detail.city) {
+        currentCity = detail.city;
+        renderProducts();
+      }
+    });
+
+    async function loadCatalog() {
+      try {
+        const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
+        if (!response.ok) throw new Error('Error fetching catalog');
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          renderCategories(data.categorias);
+          allProducts = data.productos;
+          renderProducts();
+        }
+      } catch (error) {
+        console.error('Error cargando catálogo:', error);
+        if (productsGrid) {
+          productsGrid.innerHTML = '<div class="error-msg">Ocurrió un error al cargar el catálogo. Por favor, intenta de nuevo más tarde.</div>';
+        }
+      }
+    }
+
+    function renderCategories(categorias) {
+      if (!categoriesList) return;
+      
+      // Mantener "Todo"
+      categoriesList.innerHTML = `
+        <div class="cat-item ${currentCategory === 'ALL' ? 'active' : ''}" data-id="ALL">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Todo
+        </div>
+      `;
+
+      categorias.forEach(cat => {
+        const div = document.createElement('div');
+        div.className = `cat-item ${currentCategory === cat.id ? 'active' : ''}`;
+        div.dataset.id = cat.id;
+        div.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          ${cat.name}
+        `;
+        categoriesList.appendChild(div);
+      });
+
+      // Añadir eventos click a categorías
+      const items = categoriesList.querySelectorAll('.cat-item');
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          items.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          currentCategory = (item as HTMLElement).dataset.id || 'ALL';
+          renderProducts();
+        });
+      });
+    }
+
+    function renderProducts() {
+      if (!productsGrid) return;
+      productsGrid.innerHTML = '';
+
+      const filtered = allProducts.filter(p => {
+        // Filtrar por categoría
+        const matchCategory = currentCategory === 'ALL' || p.categoria_id === currentCategory;
+        // Solo mostrar si tiene precio para la ciudad actual
+        const hasPriceForCity = p.precios && p.precios[currentCity] !== undefined;
+        return matchCategory && hasPriceForCity;
+      });
+
+      if (filtered.length === 0) {
+        productsGrid.innerHTML = '<div class="empty-msg">No hay productos disponibles en esta categoría para tu ciudad.</div>';
+        return;
+      }
+
+      filtered.forEach(p => {
+        const price = p.precios[currentCity];
+        const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
+        
+        // Renderizar imagen solo si existe
+        const imgHtml = p.imagen 
+          ? `<img src="${p.imagen}" alt="${p.nombre}" loading="lazy" />`
+          : ``;
+
+        const article = document.createElement('article');
+        article.className = 'product-card';
+        article.innerHTML = `
+          <div class="product-top">
+            <button class="btn-bag" aria-label="Añadir"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+            <div class="product-img-wrapper">
+              ${imgHtml}
+            </div>
+          </div>
+          <div class="product-info">
+            <h3>${p.nombre}</h3>
+            <span class="product-sku">${p.codigo_corto || ''}</span>
+            <div class="product-footer">
+              <div class="price-box">
+                <span class="price-label">PRECIO</span>
+                <span class="price-val">BS. ${price}</span>
+              </div>
+              <a href="https://wa.me/59179786916?text=${wappText}" class="btn-buy" target="_blank" rel="noopener">Comprar</a>
+            </div>
+          </div>
+        `;
+        productsGrid.appendChild(article);
+      });
+    }
+
+    loadCatalog();
+  });
+</script>
+
 <style>
-  section {
-    padding: 92px 20px;
+  .catalog-section {
+    padding: 60px 20px 100px;
+    background: #F9E7EF;
+    min-height: 80vh;
   }
 
-  .products {
-    background:
-      radial-gradient(circle at 80% 20%, rgba(217, 123, 168, 0.22), transparent 26%),
-      linear-gradient(180deg, #F9E7EF 0%, #FFF8FA 100%);
-  }
-
-  .container {
-    width: min(1120px, 100%);
+  .catalog-container {
+    max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
   }
 
-  .section-head {
-    text-align: center;
-    max-width: 760px;
-    margin: 0 auto 48px;
+  /* SIDEBAR */
+  .sidebar-categorias {
+    width: 260px;
+    flex-shrink: 0;
+    background: #FFFCFD;
+    border-radius: 24px;
+    padding: 24px 16px;
+    box-shadow: 0 10px 30px rgba(122, 30, 77, 0.05);
+    position: sticky;
+    top: 100px;
   }
 
-  .eyebrow {
-    display: inline-flex;
+  .sidebar-header {
+    display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 18px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-weight: 700;
-    font-size: 0.76rem;
-    color: var(--rose-wine);
-    justify-content: center;
-    width: 100%;
+    gap: 12px;
+    padding: 0 8px 20px;
+    border-bottom: 1px solid rgba(122, 30, 77, 0.1);
+    margin-bottom: 16px;
   }
 
-  .eyebrow::before {
-    content: "";
-    width: 34px;
-    height: 1px;
-    background: var(--rose-wine);
-  }
-
-  .section-head h2 {
-    font-family: 'Playfair Display', serif;
+  .sidebar-header h3 {
     margin: 0;
-    line-height: 0.96;
-    font-size: clamp(2.35rem, 5vw, 4.7rem);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     color: var(--berry-dark);
-    letter-spacing: -0.045em;
+    flex-grow: 1;
   }
 
-  .section-head p {
-    margin: 18px auto 0;
-    font-size: 1.06rem;
-    line-height: 1.75;
-    color: rgba(42, 22, 18, 0.74);
+  .cat-icon {
+    color: #C75C91;
+  }
+
+  .btn-collapse {
+    background: #F5EEF2;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--berry-dark);
+    cursor: pointer;
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cat-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #4A3A42;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cat-item svg {
+    color: #8C7882;
+  }
+
+  .cat-item:hover {
+    background: rgba(199, 92, 145, 0.08);
+  }
+
+  .cat-item.active {
+    background: #2A1612;
+    color: #FFF;
+  }
+
+  .cat-item.active svg {
+    color: #D4AF37;
+  }
+
+  /* MAIN AREA */
+  .catalog-main {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .catalog-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--berry-dark);
+    margin: 0 0 32px 0;
   }
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
   }
 
+  /* PRODUCT CARDS */
   .product-card {
-    border: 1px solid rgba(122, 30, 77, 0.12);
-    background: rgba(255, 248, 250, 0.72);
-    border-radius: 30px;
+    background: #FFF;
+    border-radius: 28px;
     padding: 20px;
-    box-shadow: 0 20px 55px rgba(122, 30, 77, 0.10);
-    backdrop-filter: blur(14px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 12px 40px rgba(122, 30, 77, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
 
   .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 28px 70px rgba(122, 30, 77, 0.16);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(122, 30, 77, 0.12);
   }
 
-  .product-img {
-    height: 250px;
-    border-radius: 24px;
-    margin-bottom: 22px;
-    display: grid;
-    place-items: center;
+  .product-top {
+    background: #FDF9FB;
+    border-radius: 18px;
+    height: 200px;
     position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    background:
-      radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.7), transparent 28%),
-      linear-gradient(145deg, #F6D5E5, #C75C91 58%, #7A1E4D);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 18px 42px rgba(122, 30, 77, 0.18);
   }
 
-  .product-img.gold {
-    background:
-      radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.72), transparent 26%),
-      linear-gradient(145deg, #FFF2C5, #D4AF37 54%, #7A4F10);
-  }
-
-  .product-img.choco {
-    background:
-      radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.28), transparent 26%),
-      linear-gradient(145deg, #7A1E4D, #4B0F2F 48%, #2A1612);
-  }
-
-  .product-box {
-    width: 170px;
-    height: 128px;
-    border-radius: 24px;
-    background: rgba(255, 248, 250, 0.32);
-    border: 1px solid rgba(255,255,255,0.42);
-    box-shadow: 0 26px 50px rgba(42, 22, 18, 0.26);
+  .btn-bag {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    background: #FFF;
+    border-radius: 50%;
     display: grid;
     place-items: center;
-    font-family: 'Playfair Display', serif;
-    color: #FFF8FA;
-    font-weight: 800;
-    text-align: center;
-    padding: 18px;
-    line-height: 1.02;
-  }
-
-  .product-card h3 {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    cursor: pointer;
     color: var(--berry-dark);
-    font-size: 1.42rem;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    z-index: 2;
+    transition: transform 0.2s;
+  }
+  
+  .btn-bag:hover {
+    transform: scale(1.1);
   }
 
-  .product-card p {
-    color: rgba(42, 22, 18, 0.72);
-    line-height: 1.68;
-    margin: 12px 0 0;
-    font-size: 0.98rem;
-  }
-
-  .card-action {
-    margin-top: 20px;
-    display: inline-flex;
+  .product-img-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    color: var(--rose-wine);
-    font-weight: 800;
-    transition: gap 0.2s ease;
+    justify-content: center;
+    padding: 10px;
   }
 
-  .card-action:hover {
-    gap: 12px;
+  .product-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply; /* Helps blend white backgrounds of images */
   }
 
-  @media (max-width: 980px) {
-    .products-grid {
-      grid-template-columns: 1fr;
+  .product-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--berry-dark);
+    margin: 0 0 6px 0;
+    line-height: 1.2;
+  }
+
+  .product-sku {
+    display: block;
+    font-size: 0.85rem;
+    color: #8C7882;
+    margin-bottom: 16px;
+    min-height: 1rem;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid rgba(122, 30, 77, 0.08);
+    margin-top: auto;
+  }
+
+  .price-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .price-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #A08C96;
+    text-transform: uppercase;
+  }
+
+  .price-val {
+    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--berry-dark);
+  }
+
+  .btn-buy {
+    background: #EED792;
+    color: #2A1612;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-buy:hover {
+    background: #DCC06E;
+  }
+
+  .cat-loader, .prod-loader, .error-msg, .empty-msg {
+    padding: 20px;
+    color: #8C7882;
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .catalog-container {
+      flex-direction: column;
     }
-  }
-
-  @media (max-width: 640px) {
-    .products-grid {
-      gap: 18px;
+    
+    .sidebar-categorias {
+      width: 100%;
+      position: static;
     }
-    .product-img {
-      height: 220px;
+    
+    .products-grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
   }
 </style>
