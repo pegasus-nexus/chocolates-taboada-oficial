@@ -95,7 +95,7 @@
     const noProductsMsg = document.getElementById('no-products-msg');
     
     let allProducts = [];
-    let currentCategory = 'ALL';
+    let currentCategory = 'DESTACADOS';
     let currentCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
     
     // Obtenemos la URL de la API
@@ -149,12 +149,12 @@
           <button
             type="button"
             class="cat-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer text-left group bg-[#2A1612] text-[#dcb041] shadow-sm border border-[#2A1612]"
-            data-target="ALL"
+            data-target="DESTACADOS"
           >
-            <span class="cat-btn-label flex-1 truncate text-[11px] font-sans tracking-tight">Todas</span>
+            <span class="cat-btn-label flex-1 truncate text-[11px] font-sans tracking-tight">Destacados</span>
           </button>
           <span class="cat-floating-tooltip absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1 bg-[#2A1612] text-white text-[11px] font-bold rounded-lg shadow-xl opacity-0 pointer-events-none transition-opacity duration-200 z-50 whitespace-nowrap border border-white/10 hidden group-hover/cat-tooltip:opacity-100">
-            Todas
+            Destacados
           </span>
         </div>
       `;
@@ -190,7 +190,7 @@
           btn.classList.add('bg-[#2A1612]', 'text-[#dcb041]', 'shadow-sm', 'border', 'border-[#2A1612]');
           btn.classList.remove('text-[#5D4037]', 'hover:bg-[#FAF0E6]', 'hover:text-[#2A1612]');
           
-          currentCategory = (btn as HTMLElement).dataset.target || 'ALL';
+          currentCategory = (btn as HTMLElement).dataset.target || 'DESTACADOS';
           renderProducts();
         });
       });
@@ -200,8 +200,14 @@
       if (!productsGrid) return;
       
       const filtered = allProducts.filter(p => {
-        const matchCategory = currentCategory === 'ALL' || p.categoria_id === currentCategory;
-        const hasPriceForCity = p.precios && p.precios[currentCity] !== undefined;
+        let matchCategory = false;
+        if (currentCategory === 'DESTACADOS') {
+          matchCategory = p.is_destacado === true;
+        } else {
+          matchCategory = p.categoria_id === currentCategory;
+        }
+        const cityKey = currentCity === 'la-paz' ? 'la_paz' : currentCity;
+        const hasPriceForCity = p.precios && p.precios[cityKey] !== undefined;
         return matchCategory && hasPriceForCity;
       });
 
@@ -215,10 +221,10 @@
       
       let html = '';
       filtered.forEach(p => {
-        const price = p.precios[currentCity];
+        const cityKey = currentCity === 'la-paz' ? 'la_paz' : currentCity;
+        const price = p.precios[cityKey];
         const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
         const imgUrl = p.imagen || '/img/produc1.png'; // Fallback
-        const weight = p.codigo_corto || '100g';
         const desc = p.descripcion || 'El verdadero sabor del cacao seleccionado.';
         
         html += `
@@ -246,15 +252,12 @@
             <!-- INFO -->
             <div class="flex flex-col flex-1 relative z-10">
               <h3 class="text-[22px] font-bold text-[#2A1612] font-serif leading-tight mb-1 group-hover:text-[#8f6c49] transition-colors duration-300">${p.nombre}</h3>
-              <p class="text-[13px] font-bold text-[#8f6c49] mb-2 uppercase tracking-wide">${weight}</p>
               
-              <p class="text-[13px] text-[#5D4037]/80 line-clamp-2 leading-relaxed mb-6 font-sans">
-                ${desc}
-              </p>
-              
-              <hr class="border-[#e8dccb] mb-4" />
-              
-              <div class="flex items-end justify-between mt-auto">
+              <div class="mt-auto pt-4 flex items-end justify-between border-t border-[#e8dccb]/50">
+                <p class="text-[13px] text-[#5D4037]/80 line-clamp-2 leading-relaxed mb-6 font-sans">
+                  ${desc}
+                </p>
+                
                 <div class="flex flex-col">
                   <span class="text-[10px] font-extrabold text-[#a08b7a] uppercase tracking-wider mb-1">Precio</span>
                   <span class="text-2xl font-black text-[#2A1612] font-serif leading-none tracking-tight">BS. ${price}</span>
