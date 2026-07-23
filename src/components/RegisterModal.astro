@@ -141,7 +141,7 @@
     });
 
     // Envío del Formulario
-    form?.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const nombreInput = (document.getElementById('reg-nombre') as HTMLInputElement)?.value.trim();
@@ -149,32 +149,71 @@
       const celularInput = (document.getElementById('reg-celular') as HTMLInputElement)?.value.trim();
 
       if (!nombreInput || !apellidoInput || !celularInput) return;
+      
+      const originalBtnText = submitBtn?.textContent || 'Confirmar y Canjear';
+      if (submitBtn) {
+        submitBtn.textContent = 'Procesando...';
+        (submitBtn as HTMLButtonElement).disabled = true;
+      }
 
-      // 1. Guardar en localStorage
-      localStorage.setItem('taboada_user_registered', 'true');
-      localStorage.setItem('taboada_user_nombre', nombreInput);
-      localStorage.setItem('taboada_user_apellido', apellidoInput);
-      localStorage.setItem('taboada_user_celular', celularInput);
+      try {
+        // En Astro, las variables de entorno de cliente deben empezar con PUBLIC_
+        // Si no está definida (ej. fallback), usamos localhost
+        const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1"; 
+        const response = await fetch(`${apiUrl}/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nombre: nombreInput,
+            apellido: apellidoInput,
+            telefono: celularInput
+          })
+        });
 
-      // 2. Disparar evento de sincronización en vivo para Navbar y Banner de Bienvenida
-      window.dispatchEvent(new CustomEvent('taboadaUserRegistered', {
-        detail: {
-          nombre: nombreInput,
-          apellido: apellidoInput,
-          celular: celularInput,
-          ticketId: activeTicketTarget
+        if (!response.ok) {
+          throw new Error('Error al conectar con el servidor');
         }
-      }));
 
-      // 3. Guardar el ID de ticket objetivo y cerrar modal
-      const ticketToExecute = activeTicketTarget;
-      activeTicketTarget = null;
-      closeModal();
-      form.reset();
+        const data = await response.json();
+        
+        // 1. Guardar en localStorage
+        localStorage.setItem('taboada_user_registered', 'true');
+        localStorage.setItem('taboada_user_nombre', data.nombre || nombreInput);
+        localStorage.setItem('taboada_user_apellido', apellidoInput);
+        localStorage.setItem('taboada_user_celular', data.telefono || celularInput);
+        localStorage.setItem('taboada_cliente_id', data.cliente_id);
 
-      // 4. Si fue abierto desde un ticket, continuar la animación automáticamente
-      if (ticketToExecute && typeof (window as any).ejecutarCanjeTicket === 'function') {
-        (window as any).ejecutarCanjeTicket(ticketToExecute);
+        // 2. Disparar evento de sincronización en vivo para Navbar y Banner de Bienvenida
+        window.dispatchEvent(new CustomEvent('taboadaUserRegistered', {
+          detail: {
+            nombre: data.nombre || nombreInput,
+            apellido: apellidoInput,
+            celular: data.telefono || celularInput,
+            cliente_id: data.cliente_id,
+            ticketId: activeTicketTarget
+          }
+        }));
+
+        // 3. Guardar el ID de ticket objetivo y cerrar modal
+        const ticketToExecute = activeTicketTarget;
+        activeTicketTarget = null;
+        closeModal();
+        form.reset();
+
+        // 4. Si fue abierto desde un ticket, continuar la animación automáticamente
+        if (ticketToExecute && typeof (window as any).ejecutarCanjeTicket === 'function') {
+          (window as any).ejecutarCanjeTicket(ticketToExecute);
+        }
+      } catch (error) {
+        console.error('Error de registro:', error);
+        alert('Hubo un problema con el registro. Por favor, inténtalo de nuevo.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.textContent = originalBtnText;
+          (submitBtn as HTMLButtonElement).disabled = false;
+        }
       }
     });
   });
