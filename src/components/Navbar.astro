@@ -379,7 +379,7 @@ import CartDrawer from './CartDrawer.astro';
     });
 
     document.addEventListener('click', (e) => {
-      if (!cityDropdown?.contains(e.target as Node) && e.target !== cityBtn) {
+      if (!cityDropdown?.contains(e.target as Node) && !cityBtn?.contains(e.target as Node)) {
         cityDropdown?.classList.add('hidden');
       }
     });

@@ -734,8 +734,10 @@ import Footer from "../components/Footer.astro";
       cityDropdown?.classList.toggle("hidden");
     });
 
-    document.addEventListener("click", () => {
-      cityDropdown?.classList.add("hidden");
+    document.addEventListener("click", (e) => {
+      if (!cityDropdown?.contains(e.target as Node) && !citySelectorBtn?.contains(e.target as Node)) {
+        cityDropdown?.classList.add("hidden");
+      }
     });
 
     function updateCity(city: string) {
