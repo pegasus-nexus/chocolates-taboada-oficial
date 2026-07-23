@@ -652,10 +652,6 @@ import MobileCTA from "../components/MobileCTA.astro";
       const noProductsMsg = null;
 
       // Selectores de Ubicación
-      const citySelectorBtn = document.getElementById('city-selector-btn');
-      const cityDropdown = document.getElementById('city-dropdown');
-      const activeCityName = document.getElementById('active-city-name');
-      const cityOptButtons = document.querySelectorAll('.city-opt-btn');
       const bgOverlay = document.getElementById('cajas-especiales-bg');
       const heroBgCover = document.getElementById('hero-bg-cover');
 
@@ -667,18 +663,6 @@ import MobileCTA from "../components/MobileCTA.astro";
       let currentCategory = 'todo';
       let currentCity = 'cochabamba'; // Valor inicial / fallback
       let isExpanded = false; // Estado del botón Ver Más
-
-      // ── DROPDOWN SELECTOR DE UBICACIÓN ──
-      citySelectorBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        cityDropdown?.classList.toggle('hidden');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!cityDropdown?.contains(e.target as Node) && !citySelectorBtn?.contains(e.target as Node)) {
-          cityDropdown?.classList.add('hidden');
-        }
-      });
 
       // ── MENÚ MÓVIL (DRAWER) ──
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -839,13 +823,13 @@ import MobileCTA from "../components/MobileCTA.astro";
         // filterProducts();
       });
 
-      // Clics en opciones de ciudades
-      cityOptButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const selected = btn.getAttribute('data-city') || 'cochabamba';
-          isExpanded = false; // Resetear expansión
-          updateCity(selected);
-        });
+      // Escuchar cambios de ciudad desde Navbar
+      window.addEventListener('cityChanged', (e) => {
+        const detail = (e as CustomEvent).detail;
+        if (detail && detail.city) {
+          isExpanded = false;
+          updateCity(detail.city);
+        }
       });
 
       // ── LÓGICA DE COLAPSAR/GUARDAR BARRA LATERAL DE CATEGORÍAS ──

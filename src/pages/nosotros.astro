@@ -723,46 +723,6 @@ import Footer from "../components/Footer.astro";
 
   <!-- SCRIPTS -->
   <script>
-    // ── SELECTOR DE UBICACIÓN ──
-    const citySelectorBtn = document.getElementById("city-selector-btn");
-    const cityDropdown = document.getElementById("city-dropdown");
-    const activeCityName = document.getElementById("active-city-name");
-    const cityOptButtons = document.querySelectorAll(".city-opt-btn");
-
-    citySelectorBtn?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      cityDropdown?.classList.toggle("hidden");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!cityDropdown?.contains(e.target as Node) && !citySelectorBtn?.contains(e.target as Node)) {
-        cityDropdown?.classList.add("hidden");
-      }
-    });
-
-    function updateCity(city: string) {
-      if (activeCityName) {
-        activeCityName.textContent =
-          city === "cochabamba" ? "Cochabamba" : "La Paz";
-      }
-    }
-
-    cityOptButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const target = e.currentTarget as HTMLButtonElement;
-        const city = target.getAttribute("data-city") || "cochabamba";
-        updateCity(city);
-        localStorage.setItem("selected_city", city);
-      });
-    });
-
-    const savedCity = localStorage.getItem("selected_city");
-    if (savedCity && (savedCity === "cochabamba" || savedCity === "la-paz")) {
-      updateCity(savedCity);
-    } else {
-      updateCity("cochabamba");
-    }
-
     // ── MENÚ MÓVIL (DRAWER) ──
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileCloseBtn = document.getElementById("mobile-close-btn");

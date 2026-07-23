@@ -115,27 +115,23 @@ import CartDrawer from './CartDrawer.astro';
     <div class="flex items-center gap-3 md:gap-4 relative overflow-visible">
       
       <!-- SELECTOR DE CIUDAD -->
-      <div class="relative inline-block text-left z-[1000] overflow-visible">
+      <!-- SELECTOR DE CIUDAD (TOGGLE) -->
+      <div class="relative inline-block overflow-visible">
         <button
-          id="city-selector-btn"
+          id="city-toggle-btn"
           type="button"
-          class="flex items-center gap-1.5 px-4 py-2 text-xs md:text-sm font-bold rounded-full bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03]"
+          class="group relative flex items-center h-8 md:h-10 w-32 md:w-36 rounded-full bg-white/10 border border-white/20 transition-all duration-300 cursor-pointer shadow-inner overflow-hidden"
+          title="Cambiar Ciudad"
         >
-          <svg class="w-4 h-4 text-[#dcb041]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-          </svg>
-          <span id="active-city-name">Detectando...</span>
-          <span class="text-[8px] opacity-75">▼</span>
+          <!-- Fondo deslizante -->
+          <div id="city-toggle-slider" class="absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] rounded-full bg-[#dcb041] transition-transform duration-300 ease-in-out"></div>
+          
+          <!-- Opciones -->
+          <div class="relative w-full h-full flex items-center justify-between px-2.5 z-10 font-bold text-[9px] md:text-[10px] tracking-wider uppercase">
+            <span id="city-label-cba" class="w-1/2 text-center text-[#2A1612] transition-colors duration-300">CBBA</span>
+            <span id="city-label-lpz" class="w-1/2 text-center text-white transition-colors duration-300">LPZ</span>
+          </div>
         </button>
-        
-        <!-- MENU DESPLEGABLE CIUDAD -->
-        <div
-          id="city-dropdown"
-          class="hidden absolute right-0 mt-2 w-44 rounded-2xl bg-[#2A1612]/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden transition-all duration-300"
-        >
-          <button data-city="cochabamba" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold border-b border-white/5">📍 Cochabamba</button>
-          <button data-city="la-paz" class="city-opt-btn w-full px-4 py-3 text-left text-xs text-white hover:bg-[#dcb041] hover:text-[#2e1119] transition-colors duration-250 cursor-pointer block font-semibold">📍 La Paz</button>
-        </div>
       </div>
 
       <!-- BOTÓN CARRITO DE COMPRAS CON INSIENIA CONTADORA DORADA -->
@@ -273,10 +269,10 @@ import CartDrawer from './CartDrawer.astro';
     const mobileCloseBtn = document.getElementById('mobile-close-btn');
     const mobileDrawer = document.getElementById('mobile-drawer');
     const drawerOverlay = document.getElementById('drawer-overlay');
-    const cityBtn = document.getElementById('city-selector-btn');
-    const cityDropdown = document.getElementById('city-dropdown');
-    const activeCityName = document.getElementById('active-city-name');
-    const cityOpts = document.querySelectorAll('.city-opt-btn');
+    const cityToggleBtn = document.getElementById('city-toggle-btn');
+    const citySlider = document.getElementById('city-toggle-slider');
+    const cityLabelCba = document.getElementById('city-label-cba');
+    const cityLabelLpz = document.getElementById('city-label-lpz');
 
     // Elementos dinámicos del estado de usuario
     const navRegisterBtn = document.getElementById('nav-register-btn');
@@ -372,34 +368,33 @@ import CartDrawer from './CartDrawer.astro';
       link.addEventListener('click', closeMenu);
     });
 
-    // Dropdown de Ciudad
-    cityBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      cityDropdown?.classList.toggle('hidden');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!cityDropdown?.contains(e.target as Node) && !cityBtn?.contains(e.target as Node)) {
-        cityDropdown?.classList.add('hidden');
+    // ── LÓGICA DEL TOGGLE DE CIUDAD ──
+    function updateToggleUI(city: string) {
+      if (!citySlider || !cityLabelCba || !cityLabelLpz) return;
+      if (city === 'la-paz') {
+        citySlider.style.transform = 'translateX(100%)';
+        cityLabelLpz.classList.remove('text-white');
+        cityLabelLpz.classList.add('text-[#2A1612]');
+        cityLabelCba.classList.add('text-white');
+        cityLabelCba.classList.remove('text-[#2A1612]');
+      } else {
+        citySlider.style.transform = 'translateX(0)';
+        cityLabelCba.classList.remove('text-white');
+        cityLabelCba.classList.add('text-[#2A1612]');
+        cityLabelLpz.classList.add('text-white');
+        cityLabelLpz.classList.remove('text-[#2A1612]');
       }
-    });
-
-    // Cargar Ciudad Guardada o Default
-    const savedCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
-    if (activeCityName) {
-      activeCityName.textContent = savedCity === 'la-paz' ? 'La Paz' : 'Cochabamba';
     }
 
-    cityOpts.forEach(opt => {
-      opt.addEventListener('click', () => {
-        const selected = opt.getAttribute('data-city') || 'cochabamba';
-        localStorage.setItem('taboada_selected_city', selected);
-        if (activeCityName) {
-          activeCityName.textContent = selected === 'la-paz' ? 'La Paz' : 'Cochabamba';
-        }
-        cityDropdown?.classList.add('hidden');
-        window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: selected } }));
-      });
+    const savedCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
+    updateToggleUI(savedCity);
+
+    cityToggleBtn?.addEventListener('click', () => {
+      const current = localStorage.getItem('taboada_selected_city') || 'cochabamba';
+      const newCity = current === 'cochabamba' ? 'la-paz' : 'cochabamba';
+      localStorage.setItem('taboada_selected_city', newCity);
+      updateToggleUI(newCity);
+      window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: newCity } }));
     });
   });
 </script>
