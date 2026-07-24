@@ -133,7 +133,7 @@ import CartDrawer from './CartDrawer.astro';
         <span class="absolute bottom-[-2px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#dcb041] rounded-full scale-0 group-hover:scale-100 transition-all duration-300 ease-out"></span>
 
         <!-- CONTENIDO DROPDOWN HORIZONTAL COMUNIDAD -->
-        <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-[560px] md:w-[660px] max-w-[95vw] rounded-3xl bg-[#2A1612]/98 border border-[#dcb041]/30 shadow-[0_25px_60px_rgba(0,0,0,0.65)] backdrop-blur-2xl p-6 md:p-7 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
+        <div class="absolute left-1/2 -translate-x-1/2 mt-3 w-[500px] md:w-[580px] max-w-[95vw] rounded-3xl bg-[#2A1612]/98 border border-[#dcb041]/30 shadow-[0_25px_60px_rgba(0,0,0,0.65)] backdrop-blur-2xl p-6 md:p-7 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[1000] translate-y-2 group-hover:translate-y-0">
           
           <!-- TITULO HEADER -->
           <div class="px-2 pb-3 mb-5 text-xs font-extrabold tracking-widest uppercase text-[#dcb041] border-b border-[#FAF5F0]/15 flex items-center justify-between">
@@ -143,42 +143,32 @@ import CartDrawer from './CartDrawer.astro';
               </div>
               <span class="font-serif tracking-wider text-sm">Comunidad & Membresías</span>
             </div>
-            <span class="text-xs text-[#FAF5F0]/60 font-serif italic">Experiencias y privilegios</span>
+            <span class="text-xs text-[#FAF5F0]/60 font-serif italic">Experiencias exclusivas</span>
           </div>
 
-          <!-- GRID HORIZONTAL DE 4 ÍCONOS CIRCULARES -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 items-start justify-items-center">
+          <!-- GRID HORIZONTAL DE LAS 2 OPCIONES ORIGINALES -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start justify-items-center">
             
             <!-- 1. Comunidad Taboada -->
-            <a href="/beneficios" class="flex flex-col items-center gap-3 p-2.5 rounded-2xl hover:bg-white/5 transition-all duration-300 group/item text-center w-full">
-              <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-[#FAF5F0]/10 border border-[#FAF5F0]/20 flex items-center justify-center text-[#dcb041] group-hover/item:bg-[#dcb041] group-hover/item:text-[#2A1612] group-hover/item:scale-110 group-hover/item:shadow-[0_0_25px_rgba(220,176,65,0.5)] transition-all duration-300 flex-shrink-0">
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" /></svg>
+            <a href="/beneficios" class="flex flex-col items-center gap-3 p-3 rounded-2xl hover:bg-white/5 transition-all duration-300 group/item text-center w-full">
+              <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-[#FAF5F0]/10 border border-[#FAF5F0]/20 flex items-center justify-center text-[#dcb041] group-hover/item:bg-[#dcb041] group-hover/item:text-[#2A1612] group-hover/item:scale-110 group-hover/item:shadow-[0_0_30px_rgba(220,176,65,0.6)] transition-all duration-300 flex-shrink-0">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" /></svg>
               </div>
-              <span class="text-xs md:text-sm font-bold text-[#FAF5F0] group-hover/item:text-[#dcb041] transition-colors leading-tight max-w-[120px]">Comunidad Taboada</span>
+              <div>
+                <span class="text-sm md:text-base font-bold text-[#FAF5F0] group-hover/item:text-[#dcb041] transition-colors leading-tight block">Comunidad Taboada</span>
+                <span class="text-xs text-[#FAF5F0]/70 font-normal leading-relaxed mt-1 block max-w-[210px]">Regístrate gratis y accede a regalos, experiencias y beneficios exclusivos.</span>
+              </div>
             </a>
 
             <!-- 2. Membresía Legado -->
-            <a href="/adulto-mayor" class="flex flex-col items-center gap-3 p-2.5 rounded-2xl hover:bg-white/5 transition-all duration-300 group/item text-center w-full">
-              <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-[#FAF5F0]/10 border border-[#FAF5F0]/20 flex items-center justify-center text-[#dcb041] group-hover/item:bg-[#dcb041] group-hover/item:text-[#2A1612] group-hover/item:scale-110 group-hover/item:shadow-[0_0_25px_rgba(220,176,65,0.5)] transition-all duration-300 flex-shrink-0">
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
+            <a href="/adulto-mayor" class="flex flex-col items-center gap-3 p-3 rounded-2xl hover:bg-white/5 transition-all duration-300 group/item text-center w-full">
+              <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-[#FAF5F0]/10 border border-[#FAF5F0]/20 flex items-center justify-center text-[#dcb041] group-hover/item:bg-[#dcb041] group-hover/item:text-[#2A1612] group-hover/item:scale-110 group-hover/item:shadow-[0_0_30px_rgba(220,176,65,0.6)] transition-all duration-300 flex-shrink-0">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
               </div>
-              <span class="text-xs md:text-sm font-bold text-[#FAF5F0] group-hover/item:text-[#dcb041] transition-colors leading-tight max-w-[120px]">Membresía Legado</span>
-            </a>
-
-            <!-- 3. Eventos & Catas -->
-            <a href="/beneficios" class="flex flex-col items-center gap-3 p-2.5 rounded-2xl hover:bg-white/5 transition-all duration-300 group/item text-center w-full">
-              <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-[#FAF5F0]/10 border border-[#FAF5F0]/20 flex items-center justify-center text-[#dcb041] group-hover/item:bg-[#dcb041] group-hover/item:text-[#2A1612] group-hover/item:scale-110 group-hover/item:shadow-[0_0_25px_rgba(220,176,65,0.5)] transition-all duration-300 flex-shrink-0">
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5a3.75 3.75 0 01-3.75 3.75H8.75A3.75 3.75 0 015 14.5m14 0V19.5a2.25 2.25 0 01-2.25 2.25H7.25A2.25 2.25 0 015 19.5V14.5" /></svg>
+              <div>
+                <span class="text-sm md:text-base font-bold text-[#FAF5F0] group-hover/item:text-[#dcb041] transition-colors leading-tight block">Membresía Legado</span>
+                <span class="text-xs text-[#FAF5F0]/70 font-normal leading-relaxed mt-1 block max-w-[210px]">Más experiencias, más momentos para disfrutar.</span>
               </div>
-              <span class="text-xs md:text-sm font-bold text-[#FAF5F0] group-hover/item:text-[#dcb041] transition-colors leading-tight max-w-[120px]">Eventos & Catas</span>
-            </a>
-
-            <!-- 4. Beneficios Exclusivos -->
-            <a href="/beneficios" class="flex flex-col items-center gap-3 p-2.5 rounded-2xl hover:bg-white/5 transition-all duration-300 group/item text-center w-full">
-              <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-[#dcb041] text-[#2A1612] flex items-center justify-center group-hover/item:scale-110 group-hover/item:shadow-[0_0_30px_rgba(220,176,65,0.7)] transition-all duration-300 flex-shrink-0">
-                <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 003-3V8.25a3 3 0 00-3-3h-9a3 3 0 00-3 3v7.5a3 3 0 003 3m9 0v-1.5a1.5 1.5 0 00-1.5-1.5h-6a1.5 1.5 0 00-1.5 1.5v1.5m6.75-12l-3-3-3 3" /></svg>
-              </div>
-              <span class="text-xs md:text-sm font-extrabold text-[#dcb041] group-hover/item:text-[#FAF5F0] transition-colors leading-tight max-w-[120px]">Beneficios Exclusivos</span>
             </a>
 
           </div>
