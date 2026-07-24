@@ -87,7 +87,7 @@ import MobileCTA from "../components/MobileCTA.astro";
     >
       <!-- TEXTO -->
 
-      <div class="max-w-[900px]">
+      <div class="max-w-[650px]">
         <!-- MINI TEXTO -->
 
         <div class="flex items-center gap-4 mb-6">
@@ -97,18 +97,19 @@ import MobileCTA from "../components/MobileCTA.astro";
           </div>
 
           <span
-            class="uppercase tracking-[0.38em] text-[#dcb041] text-[0.75rem] font-bold select-none"
+            class="uppercase tracking-[0.38em] text-[#dcb041] text-[0.75rem] font-bold"
           >
-            NUESTRA TRADICIÓN DESDE 1948
+            Nuestra Tradición
           </span>
         </div>
 
-        <!-- TITULO EN UNA SOLA FILA -->
+        <!-- TITULO -->
 
         <h1
-          class="font-playfair text-[clamp(1.6rem,3.2vw,3.0rem)] leading-[1.2] tracking-[-0.03em] text-[#fff7f8] drop-shadow-[0_12px_35px_rgba(0,0,0,0.45)] whitespace-normal lg:whitespace-nowrap select-none"
+          class="font-playfair text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.15] tracking-[-0.03em] text-[#fff7f8] drop-shadow-[0_12px_35px_rgba(0,0,0,0.45)]"
         >
-          Hay momentos que <span class="text-[#dcb041] italic font-[600]">merecen un buen chocolate.</span>
+          <span class="whitespace-nowrap block">Hay momentos que</span>
+          <span class="text-[#dcb041] italic font-[600] block mt-1">merecen un buen chocolate.</span>
         </h1>
 
         <!-- TEXTO -->
@@ -802,12 +803,12 @@ import MobileCTA from "../components/MobileCTA.astro";
 
           // Actualizar estilos de los botones de categoría
           catButtons.forEach((b) => {
-            b.classList.remove('bg-[#2A1612]', 'text-[#dcb041]', 'shadow-sm', 'border-[#2A1612]');
-            b.classList.add('text-[#5D4037]', 'hover:bg-[#FAF0E6]', 'hover:text-[#2A1612]');
+            b.classList.remove('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
+            b.classList.add('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
           });
 
-          btn.classList.add('bg-[#2A1612]', 'text-[#dcb041]', 'shadow-sm', 'border', 'border-[#2A1612]');
-          btn.classList.remove('text-[#5D4037]', 'hover:bg-[#FAF0E6]', 'hover:text-[#2A1612]');
+          btn.classList.add('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
+          btn.classList.remove('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
 
           // filterProducts();
         });
