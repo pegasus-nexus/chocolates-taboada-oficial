@@ -24,7 +24,7 @@
       </div>
       <div>
         <h2 class="text-xl font-bold font-serif text-[#2A1612]">Mi Carrito</h2>
-        <span id="cart-drawer-count-subtitle" class="text-xs text-[#5D4037]/70 font-semibold block">4 productos seleccionados</span>
+        <span id="cart-drawer-count-subtitle" class="text-xs text-[#5D4037]/70 font-semibold block">0 productos seleccionados</span>
       </div>
     </div>
 
@@ -52,7 +52,7 @@
     <div class="space-y-2 text-sm font-sans">
       <div class="flex justify-between items-center text-[#5D4037]">
         <span class="font-medium">Subtotal</span>
-        <span id="cart-drawer-subtotal" class="font-bold text-[#2A1612]">Bs. 284.00</span>
+        <span id="cart-drawer-subtotal" class="font-bold text-[#2A1612]">Bs. 0.00</span>
       </div>
       <div class="flex justify-between items-center text-[#5D4037]">
         <span class="font-medium">Envío</span>
@@ -63,7 +63,7 @@
     <!-- TOTAL DESTACADO -->
     <div class="flex justify-between items-center pt-3 border-t border-[#2A1612]/10">
       <span class="text-base font-bold font-serif text-[#2A1612]">Total</span>
-      <span id="cart-drawer-total" class="text-2xl font-extrabold font-serif text-[#2A1612]">Bs. 284.00</span>
+      <span id="cart-drawer-total" class="text-2xl font-extrabold font-serif text-[#2A1612]">Bs. 0.00</span>
     </div>
 
     <!-- BOTÓN PRINCIPAL DE CHECKOUT -->
@@ -76,7 +76,7 @@
         <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
         </svg>
-        <span id="cart-checkout-btn-text">Finalizar Pedido (4)</span>
+        <span id="cart-checkout-btn-text">Finalizar Pedido (0)</span>
       </div>
       <svg class="w-5 h-5 text-[#dcb041] group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -87,45 +87,8 @@
 </aside>
 
 <script is:inline>
-  // ── LÓGICA INTERACTIVA DEL CARRITO DE COMPRAS ──
-  const initialCartItems = [
-    {
-      id: 'caja-roja-100',
-      name: 'Caja Roja Corazón',
-      size: '100 g · Bombones Leche',
-      price: 77.00,
-      quantity: 1,
-      img: '/img/produc2.png',
-      isFavorite: true
-    },
-    {
-      id: 'caja-roja-180',
-      name: 'Caja roja de Corazón',
-      size: '180 g · Presentación VIP',
-      price: 81.00,
-      quantity: 1,
-      img: '/img/produc1.png',
-      isFavorite: false
-    },
-    {
-      id: 'caja-lila-200',
-      name: 'Caja Lila Felicidades',
-      size: '200 g · Edición Especial',
-      price: 63.00,
-      quantity: 1,
-      img: '/img/produc3.png',
-      isFavorite: true
-    },
-    {
-      id: 'caja-paleta-100',
-      name: 'Caja Paleta Rosas',
-      size: '100 g · Diseño Floral',
-      price: 63.00,
-      quantity: 1,
-      img: '/img/produc4.png',
-      isFavorite: false
-    }
-  ];
+  // ── LÓGICA INTERACTIVA DEL CARRITO DE COMPRAS (INICIALIZADO VACÍO EN 0) ──
+  const initialCartItems = [];
 
   // Obtener carrito desde localStorage o cargar items iniciales de demostración
   function getCartData() {
