@@ -69,8 +69,8 @@
 
       <!-- COLUMNA DERECHA: GRID DE PRODUCTOS -->
       <div id="product-grid-column" class="lg:col-span-10 transition-all duration-300">
-        <div id="dynamic-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 min-h-[450px]">
-          <div class="p-2 text-xs italic text-gray-500">Cargando productos exquisitos...</div>
+        <div id="dynamic-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4 md:gap-5 min-h-[450px]">
+          <div class="p-2 text-xs italic text-gray-500 col-span-full">Cargando productos exquisitos...</div>
         </div>
         
         <div id="no-products-msg" class="hidden col-span-full py-20 text-center">
@@ -228,45 +228,41 @@
         const desc = p.descripcion || 'El verdadero sabor del cacao seleccionado.';
         
         html += `
-          <div class="product-card group relative bg-[#fbf8f3]/95 rounded-[2rem] p-6 border border-[#e8dccb] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(251,207,232,0.4)]">
+          <div class="product-card group relative bg-[#fbf8f3]/95 rounded-2xl p-4 border border-[#e8dccb] flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(251,207,232,0.4)]">
             <!-- Botón Añadir -->
-            <div class="absolute top-5 right-5 z-20 group/tooltip">
+            <div class="absolute top-3 right-3 z-20 group/tooltip">
               <button
                 type="button"
-                class="add-to-cart-btn w-10 h-10 bg-white/90 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#2A1612]/10 text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                class="add-to-cart-btn w-8 h-8 bg-white/90 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#2A1612]/10 text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
               </button>
-              <span class="absolute right-0 -bottom-9 bg-[#2A1612] text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-300 z-30 border border-white/10">
+              <span class="absolute right-0 -bottom-8 bg-[#2A1612] text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-300 z-30 border border-white/10">
                 Añadir al carrito
               </span>
             </div>
 
             <!-- IMAGEN -->
-            <div class="w-full h-56 mb-6 flex items-center justify-center relative z-10">
-              <img src="${imgUrl}" alt="${p.nombre}" class="max-w-full max-h-full object-contain filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] group-hover:scale-110 transition-transform duration-500" />
+            <div class="w-full h-36 mb-3 flex items-center justify-center relative z-10">
+              <img src="${imgUrl}" alt="${p.nombre}" class="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_10px_rgba(0,0,0,0.12)] group-hover:scale-110 transition-transform duration-500" />
             </div>
 
             <!-- INFO -->
             <div class="flex flex-col flex-1 relative z-10">
-              <h3 class="text-[22px] font-bold text-[#2A1612] font-serif leading-tight mb-1 group-hover:text-[#8f6c49] transition-colors duration-300">${p.nombre}</h3>
+              <h3 class="text-[15px] font-bold text-[#2A1612] font-serif leading-tight mb-1 group-hover:text-[#8f6c49] transition-colors duration-300">${p.nombre}</h3>
               
-              <div class="mt-auto pt-4 flex items-end justify-between border-t border-[#e8dccb]/50">
-                <p class="text-[13px] text-[#5D4037]/80 line-clamp-2 leading-relaxed mb-6 font-sans">
-                  ${desc}
-                </p>
-                
+              <div class="mt-auto pt-3 flex items-end justify-between border-t border-[#e8dccb]/50 gap-2">
                 <div class="flex flex-col">
-                  <span class="text-[10px] font-extrabold text-[#a08b7a] uppercase tracking-wider mb-1">Precio</span>
-                  <span class="text-2xl font-black text-[#2A1612] font-serif leading-none tracking-tight">BS. ${price}</span>
+                  <span class="text-[9px] font-extrabold text-[#a08b7a] uppercase tracking-wider mb-0.5">Precio</span>
+                  <span class="text-lg font-black text-[#2A1612] font-serif leading-none tracking-tight">BS. ${price}</span>
                 </div>
                 <a 
                   href="https://wa.me/59179786916?text=${wappText}" 
                   target="_blank" 
                   rel="noopener"
-                  class="buy-btn bg-[#f0dba3] hover:bg-[#dcb041] text-[#2A1612] font-bold text-xs px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap inline-flex items-center justify-center"
+                  class="buy-btn bg-[#f0dba3] hover:bg-[#dcb041] text-[#2A1612] font-bold text-[11px] px-3.5 py-2 rounded-full transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap inline-flex items-center justify-center flex-shrink-0"
                 >
                   Comprar
                 </a>
