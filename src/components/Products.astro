@@ -2,111 +2,130 @@
 ---
 
 <style is:global>
-  /* ──────────────────────────────────────────────────
-     CSS overrides for JS-injected category chips
-     (renderCategories() injects .cat-btn elements)
-  ────────────────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════
+     CHIPS DE CATEGORÍAS (inyectados por renderCategories)
+     en el sub-panel oscuro
+  ══════════════════════════════════════════════════ */
   #dynamic-categories-list {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 0.5rem !important;
     overflow-x: auto;
-    padding-bottom: 2px;
   }
   #dynamic-categories-list > div,
   #dynamic-categories-list > button {
     flex-shrink: 0 !important;
     width: auto !important;
   }
-  /* Base chip style (overrides Tailwind w-full, rounded-lg, etc.) */
+  /* Chip base — fondo oscuro */
   #dynamic-categories-list .cat-btn {
     display: inline-flex !important;
     align-items: center !important;
     width: auto !important;
-    padding: 0.4rem 1.1rem !important;
+    padding: 0.35rem 1rem !important;
     border-radius: 9999px !important;
     font-size: 0.8125rem !important;
-    font-weight: 600 !important;
-    border: 1.5px solid #e2d5c3 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: #7a5c45 !important;
+    font-weight: 500 !important;
+    border: 1.5px solid rgba(220, 176, 65, 0.22) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(250, 245, 240, 0.65) !important;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap !important;
     text-align: center !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
-    box-shadow: 0 1px 3px rgba(42, 22, 18, 0.06);
+    box-shadow: none !important;
   }
   #dynamic-categories-list .cat-btn:hover {
-    border-color: #dcb041 !important;
-    color: #2A1612 !important;
-    background: #ffffff !important;
-    box-shadow: 0 2px 8px rgba(220, 176, 65, 0.2);
-  }
-  /* Active state — JS adds class "font-black" to the selected chip */
-  #dynamic-categories-list .cat-btn.font-black {
-    background: #2A1612 !important;
+    background: rgba(220, 176, 65, 0.18) !important;
     color: #dcb041 !important;
-    border-color: #2A1612 !important;
+    border-color: rgba(220, 176, 65, 0.55) !important;
+  }
+  /* Activo — JS añade "font-black" al chip seleccionado */
+  #dynamic-categories-list .cat-btn.font-black {
+    background: #dcb041 !important;
+    color: #2A1612 !important;
+    border-color: #dcb041 !important;
     font-weight: 800 !important;
-    box-shadow: 0 4px 12px rgba(42, 22, 18, 0.25) !important;
+    box-shadow: 0 3px 10px rgba(220, 176, 65, 0.45) !important;
   }
-  /* Hide old tooltip & icon (not needed in chip layout) */
-  #dynamic-categories-list .cat-floating-tooltip {
-    display: none !important;
-  }
-  #dynamic-categories-list .cat-btn svg {
-    display: none !important;
-  }
-  /* Hide scrollbar */
+  /* Ocultar tooltip y SVGs que inyecta el JS original */
+  #dynamic-categories-list .cat-floating-tooltip { display: none !important; }
+  #dynamic-categories-list .cat-btn svg { display: none !important; }
+  /* Sin scrollbar */
   #dynamic-categories-list::-webkit-scrollbar { display: none; }
   #dynamic-categories-list { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Loading spinner animation */
+  /* ══════════════════════════════════════════════════
+     OCASIÓN CHIP — estado activo
+  ══════════════════════════════════════════════════ */
+  .occasion-chip.occasion-active {
+    background: #2A1612 !important;
+    color: #dcb041 !important;
+    box-shadow: 0 2px 12px rgba(42, 22, 18, 0.25) !important;
+  }
+
+  /* ══════════════════════════════════════════════════
+     SUB-ROW ANIMACIÓN (slide-down)
+  ══════════════════════════════════════════════════ */
+  #category-sub-row {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.32s ease 0.05s;
+  }
+  #category-sub-row.sub-row-visible {
+    max-height: 320px;
+    opacity: 1;
+  }
+
+  /* ══════════════════════════════════════════════════
+     SPINNER DE CARGA
+  ══════════════════════════════════════════════════ */
   @keyframes spin-catalog { to { transform: rotate(360deg); } }
   .catalog-spinner { animation: spin-catalog 0.8s linear infinite; }
+
+  /* ══════════════════════════════════════════════════
+     BOTÓN LIMPIAR BUSCADOR — transición suave
+  ══════════════════════════════════════════════════ */
+  #catalog-search-clear {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
 </style>
 
 <!-- ════════════════════════════════════════════════
-     SECCIÓN: CATÁLOGO  (id="cajas-especiales" REQUERIDO)
+     CATÁLOGO — id="cajas-especiales" es requerido por Navbar y index.astro
 ════════════════════════════════════════════════ -->
 <section
   id="cajas-especiales"
   class="relative bg-[#FAF5F0] py-14 md:py-24 border-t border-[#e8dccb]/60 overflow-hidden"
 >
-  <!-- Fondo decorativo (conservado — index.astro lo referencia) -->
+  <!-- Fondos decorativos (id="cajas-especiales-bg" requerido por index.astro) -->
   <div
     id="cajas-especiales-bg"
     class="absolute inset-0 bg-gradient-to-br from-[#FAF5F0] via-[#F3ECE3] to-[#FAF5F0] transition-all duration-500"
   ></div>
-  <!-- Glow superior derecho -->
-  <div
-    class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-radial from-amber-100/25 to-transparent blur-[120px] opacity-50 pointer-events-none"
-  ></div>
-  <!-- Glow inferior izquierdo -->
-  <div
-    class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-radial from-[#f6d98d]/10 to-transparent blur-[100px] opacity-40 pointer-events-none"
-  ></div>
+  <div class="absolute top-0 right-0 w-[520px] h-[520px] bg-gradient-radial from-amber-100/20 to-transparent blur-[120px] opacity-50 pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-radial from-[#f6d98d]/10 to-transparent blur-[100px] opacity-35 pointer-events-none"></div>
 
-  <!-- ── CONTENEDOR PRINCIPAL ── -->
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 1 — HEADER + BUSCADOR
-    ══════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════
+         1. HEADER + BUSCADOR
+    ══════════════════════════════════════ -->
     <div class="text-center mb-10 md:mb-14">
 
-      <!-- Eyebrow label -->
+      <!-- Eyebrow -->
       <div class="flex items-center justify-center gap-3 mb-4">
         <span class="w-10 h-px bg-[#dcb041] rounded-full"></span>
-        <span class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.3em] text-[#8f6c49]">
-          Chocolates Taboada
-        </span>
+        <span class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.3em] text-[#8f6c49]">Chocolates Taboada</span>
         <span class="w-10 h-px bg-[#dcb041] rounded-full"></span>
       </div>
 
-      <!-- Título principal -->
+      <!-- Título -->
       <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#2A1612] font-serif tracking-tight mb-3 leading-[1.05]">
         Catálogo
       </h2>
@@ -114,76 +133,127 @@
         Explora nuestros chocolates y encuentra el producto ideal para cada ocasión.
       </p>
 
-      <!-- Buscador visual (UI preparada — no conectado al backend) -->
+      <!-- ── Buscador funcional ── -->
       <div class="max-w-md sm:max-w-lg mx-auto relative group">
         <label for="catalog-search-input" class="sr-only">Buscar en el catálogo</label>
         <input
           type="text"
           id="catalog-search-input"
-          placeholder="Buscar chocolates, cajas de regalo..."
+          placeholder="Buscar chocolates, cajas, bombones..."
           autocomplete="off"
-          class="w-full pl-12 pr-5 py-3.5 rounded-full border border-[#e8dccb] bg-white/95 backdrop-blur text-[#2A1612] placeholder-[#b8a08a] text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-[#dcb041]/30 focus:border-[#dcb041] transition-all duration-300"
+          class="w-full pl-12 pr-11 py-3.5 rounded-full border border-[#e8dccb] bg-white/95 backdrop-blur-sm text-[#2A1612] placeholder-[#b8a08a] text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-[#dcb041]/35 focus:border-[#dcb041] transition-all duration-300"
         />
+        <!-- Ícono lupa -->
         <svg
-          class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#b8a08a] pointer-events-none group-focus-within:text-[#dcb041] transition-colors"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
+          class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#b8a08a] pointer-events-none group-focus-within:text-[#8f6c49] transition-colors duration-200"
+          fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
         </svg>
+        <!-- Botón limpiar (aparece con JS al escribir) -->
+        <button
+          id="catalog-search-clear"
+          type="button"
+          aria-label="Limpiar búsqueda"
+          style="opacity:0; pointer-events:none;"
+          class="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#e8dccb]/80 hover:bg-[#dcb041] text-[#5D4037] hover:text-[#2A1612] flex items-center justify-center cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 2 — FILTROS POR OCASIÓN (visual)
-         Botones estáticos — sin lógica de backend
-    ══════════════════════════════════════════ -->
-    <div class="mb-7">
-      <p class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#8f6c49] mb-3">
-        Para cada ocasión
-      </p>
-      <div class="flex flex-wrap gap-2">
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">🎁 Regalar</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">❤️ Sorprender</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">☕ Con un café</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">🎉 Celebraciones</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">👨‍👩‍👧 Compartir</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">🏢 Empresas</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-white border border-[#e8dccb] text-[#5D4037] hover:border-[#dcb041] hover:text-[#2A1612] hover:shadow-sm transition-all duration-200 cursor-pointer shadow-sm">👶 Niños</button>
-        <button type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-extrabold bg-[#2A1612] border border-[#2A1612] text-[#dcb041] hover:bg-[#3d200f] hover:shadow transition-all duration-200 cursor-pointer shadow-sm">⭐ Ver todo</button>
+    <!-- ══════════════════════════════════════
+         2+3. NAVEGACIÓN DOS NIVELES
+         Nivel 1: Ocasiones (blanco)
+         Nivel 2: Categorías del backend (oscuro — slide-down)
+    ══════════════════════════════════════ -->
+    <div class="mb-8 rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(42,22,18,0.09)] border border-[#e2d5c3]">
+
+      <!-- ── NIVEL 1: Barra de ocasiones ── -->
+      <div class="bg-white/98 px-3 sm:px-5 py-2.5 flex flex-wrap items-center gap-x-0.5 gap-y-1.5 border-b border-[#e8dccb]/60">
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="regalar">
+          🎁 Regalar
+        </button>
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="sorprender">
+          ❤️ Sorprender
+        </button>
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="cafe">
+          ☕ Con un café
+        </button>
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="celebracion">
+          🎉 Celebraciones
+        </button>
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="compartir">
+          👨‍👩‍👧 Compartir
+        </button>
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="empresas">
+          🏢 Empresas
+        </button>
+
+        <button type="button"
+          class="occasion-chip px-3.5 sm:px-4 py-2 rounded-full text-sm font-semibold text-[#5D4037]/75 hover:text-[#2A1612] hover:bg-[#FAF5F0] transition-all duration-200 cursor-pointer"
+          data-occasion="ninos">
+          👶 Niños
+        </button>
+
+        <!-- Separador visual -->
+        <span class="hidden sm:block w-px h-4 bg-[#e8dccb] mx-1.5" aria-hidden="true"></span>
+
+        <!-- Ver todo — resaltado especial -->
+        <button type="button"
+          class="occasion-chip px-4 py-2 rounded-full text-sm font-bold text-[#8f6c49] border border-[#dcb041]/50 hover:bg-[#2A1612] hover:text-[#dcb041] hover:border-[#2A1612] transition-all duration-200 cursor-pointer ml-auto sm:ml-0"
+          data-occasion="all">
+          ⭐ Ver todo
+        </button>
+
       </div>
+
+      <!-- ── NIVEL 2: Sub-row de categorías (oscuro, slide-down) ──
+           ⚠️ id="dynamic-categories-list" requerido por renderCategories()
+      -->
+      <div id="category-sub-row">
+        <div class="bg-[#2A1612] px-4 sm:px-6 py-4">
+          <p class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#dcb041]/45 mb-3">
+            Tipo de producto
+          </p>
+          <div id="dynamic-categories-list" class="flex flex-wrap gap-2">
+            <div class="text-xs text-[#FAF5F0]/35 italic py-0.5">Cargando categorías...</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 3 — FILTROS POR TIPO (desde API)
-         renderCategories() inyecta los .cat-btn aquí
-         ⚠️ No mover ni renombrar este div
-    ══════════════════════════════════════════ -->
-    <div class="mb-8">
-      <p class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#8f6c49] mb-3">
-        Filtrar por tipo de producto
-      </p>
-      <!-- ⚠️ id="dynamic-categories-list" requerido por renderCategories() -->
-      <div id="dynamic-categories-list" class="flex flex-wrap gap-2">
-        <div class="text-xs italic text-[#a08b7a] py-1 px-1">Cargando categorías...</div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 4 — BARRA SUPERIOR: COUNT + SORT
-         (Sort es UI preparada — sin lógica backend)
-    ══════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════
+         4. BARRA SUPERIOR — CONTADOR + ORDEN
+    ══════════════════════════════════════ -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 py-3.5 border-y border-[#e8dccb]/70">
-      <!-- Contador de productos (actualizado por renderProducts()) -->
       <p class="text-sm text-[#5D4037]/65 font-medium">
         <span id="catalog-count" class="font-black text-[#2A1612] text-base">—</span>
         <span class="ml-1">producto(s) encontrado(s)</span>
       </p>
 
-      <!-- Selector de orden (UI preparada) -->
       <div class="flex items-center gap-2.5">
         <label for="catalog-sort-select" class="text-[10px] font-extrabold uppercase tracking-wider text-[#8f6c49] whitespace-nowrap">
           Ordenar por
@@ -205,10 +275,10 @@
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         SECCIÓN 5 — GRID DE PRODUCTOS
+    <!-- ══════════════════════════════════════
+         5. GRID DE PRODUCTOS
          ⚠️ id="dynamic-products-grid" requerido por renderProducts()
-    ══════════════════════════════════════════ -->
+    ══════════════════════════════════════ -->
     <div
       id="dynamic-products-grid"
       class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 min-h-[450px]"
@@ -220,7 +290,7 @@
       </div>
     </div>
 
-    <!-- Mensaje sin productos (⚠️ id="no-products-msg" requerido) -->
+    <!-- Sin resultados (⚠️ id="no-products-msg" requerido) -->
     <div id="no-products-msg" class="hidden py-24 text-center">
       <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/60 mb-6 shadow-inner">
         <svg class="w-12 h-12 text-[#dcb041]/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
@@ -228,15 +298,13 @@
         </svg>
       </div>
       <h3 class="text-2xl font-bold text-[#2A1612] font-serif mb-2">No se encontraron productos</h3>
-      <p class="text-[#5D4037]/60 font-sans text-sm">Prueba seleccionando otra categoría.</p>
+      <p class="text-[#5D4037]/60 font-sans text-sm">Prueba con otra categoría o busca de nuevo.</p>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         ELEMENTOS OCULTOS — Compatibilidad JS
-         El script de setupSidebarToggle usa optional
-         chaining (?.) así que no rompe si están vacíos.
-         Se conservan para que getElementById() no devuelva null.
-    ══════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════
+         ELEMENTOS OCULTOS — compatibilidad con setupSidebarToggle()
+         Usa optional chaining (?.) — no rompe si están vacíos
+    ══════════════════════════════════════ -->
     <aside id="cat-sidebar" class="hidden" aria-hidden="true">
       <div id="cat-sidebar-header-title"></div>
       <button id="toggle-cat-sidebar-btn" type="button" aria-hidden="true"></button>
@@ -303,7 +371,6 @@
     function renderCategories(categorias) {
       if (!categoriesList) return;
       
-      // Chip "Destacados" — activo por defecto (font-black = selector CSS activo)
       let html = `
         <div class="relative group/cat-tooltip flex-shrink-0 lg:flex-shrink w-full">
           <button
@@ -356,7 +423,7 @@
       });
     }
 
-    // Actualiza el contador visual de productos (nuevo helper, no modifica lógica)
+    // Actualiza el contador visual
     function updateCatalogCount(count) {
       const countEl = document.getElementById('catalog-count');
       if (countEl) countEl.textContent = String(count);
@@ -403,7 +470,7 @@
               <span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[9px] font-black uppercase tracking-wide shadow-sm">★ Destacado</span>
             </div>` : ''}
 
-            <!-- Botón añadir al carrito (clase add-to-cart-btn conservada íntegramente) -->
+            <!-- Botón carrito (clase add-to-cart-btn conservada) -->
             <div class="absolute top-2.5 right-2.5 z-20 group/tooltip">
               <button
                 type="button"
@@ -418,36 +485,24 @@
               </span>
             </div>
 
-            <!-- Imagen del producto -->
+            <!-- Imagen -->
             <div class="w-full bg-[#FAF5F0] h-40 sm:h-44 flex items-center justify-center p-4 sm:p-5 overflow-hidden">
-              <img
-                src="${imgUrl}"
-                alt="${p.nombre}"
-                loading="lazy"
-                class="max-w-full max-h-full object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500"
-              />
+              <img src="${imgUrl}" alt="${p.nombre}" loading="lazy"
+                class="max-w-full max-h-full object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500" />
             </div>
 
-            <!-- Información del producto -->
+            <!-- Info -->
             <div class="flex flex-col flex-1 p-3.5 sm:p-4">
               <h3 class="text-[13px] sm:text-sm font-bold text-[#2A1612] font-serif leading-snug mb-3 line-clamp-2 group-hover:text-[#7a4e2b] transition-colors duration-300">
                 ${p.nombre}
               </h3>
-
               <div class="mt-auto flex items-end justify-between gap-2">
-                <!-- Precio -->
                 <div class="flex flex-col min-w-0">
                   <span class="text-[9px] font-extrabold text-[#a08b7a] uppercase tracking-wider mb-0.5">Precio</span>
                   <span class="text-base sm:text-lg font-black text-[#2A1612] font-serif leading-none">Bs. ${price}</span>
                 </div>
-
-                <!-- Botón Comprar vía WhatsApp (href y clase buy-btn conservados) -->
-                <a
-                  href="https://wa.me/59179786916?text=${wappText}"
-                  target="_blank"
-                  rel="noopener"
-                  class="buy-btn inline-flex items-center gap-1.5 bg-[#2A1612] hover:bg-[#dcb041] text-white hover:text-[#2A1612] font-bold text-[10px] sm:text-[11px] px-3 py-2 rounded-full transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap flex-shrink-0"
-                >
+                <a href="https://wa.me/59179786916?text=${wappText}" target="_blank" rel="noopener"
+                  class="buy-btn inline-flex items-center gap-1.5 bg-[#2A1612] hover:bg-[#dcb041] text-white hover:text-[#2A1612] font-bold text-[10px] sm:text-[11px] px-3 py-2 rounded-full transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap flex-shrink-0">
                   <svg class="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
@@ -459,6 +514,73 @@
         `;
       });
       productsGrid.innerHTML = html;
+    }
+
+    // ── Nueva función: mostrar TODOS los productos (para "Ver todo") ──
+    // No modifica renderProducts() — es una función adicional independiente
+    function renderAllProducts() {
+      if (!productsGrid) return;
+      const cityKey = currentCity === 'la-paz' ? 'la_paz' : currentCity;
+      const allFiltered = allProducts.filter(p => p.precios && p.precios[cityKey] !== undefined);
+      
+      if (allFiltered.length === 0) {
+        productsGrid.innerHTML = '';
+        if(noProductsMsg) noProductsMsg.classList.remove('hidden');
+        updateCatalogCount(0);
+        return;
+      }
+      if(noProductsMsg) noProductsMsg.classList.add('hidden');
+      updateCatalogCount(allFiltered.length);
+      
+      let html = '';
+      allFiltered.forEach(p => {
+        const price = p.precios[cityKey];
+        const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
+        const imgUrl = p.imagen || '/img/produc1.png';
+        
+        html += `
+          <div class="product-card group relative bg-white rounded-2xl border border-[#ecddd0]/80 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(42,22,18,0.13)]">
+            ${p.is_destacado ? `<div class="absolute top-2.5 left-2.5 z-20"><span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[9px] font-black uppercase tracking-wide shadow-sm">★ Destacado</span></div>` : ''}
+            <div class="absolute top-2.5 right-2.5 z-20 group/tooltip">
+              <button type="button" class="add-to-cart-btn w-8 h-8 bg-white/95 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#e8dccb] text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+              </button>
+              <span class="absolute right-0 -bottom-8 bg-[#2A1612] text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-200 z-30">Añadir al carrito</span>
+            </div>
+            <div class="w-full bg-[#FAF5F0] h-40 sm:h-44 flex items-center justify-center p-4 sm:p-5 overflow-hidden">
+              <img src="${imgUrl}" alt="${p.nombre}" loading="lazy" class="max-w-full max-h-full object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="flex flex-col flex-1 p-3.5 sm:p-4">
+              <h3 class="text-[13px] sm:text-sm font-bold text-[#2A1612] font-serif leading-snug mb-3 line-clamp-2 group-hover:text-[#7a4e2b] transition-colors duration-300">${p.nombre}</h3>
+              <div class="mt-auto flex items-end justify-between gap-2">
+                <div class="flex flex-col min-w-0">
+                  <span class="text-[9px] font-extrabold text-[#a08b7a] uppercase tracking-wider mb-0.5">Precio</span>
+                  <span class="text-base sm:text-lg font-black text-[#2A1612] font-serif leading-none">Bs. ${price}</span>
+                </div>
+                <a href="https://wa.me/59179786916?text=${wappText}" target="_blank" rel="noopener"
+                  class="buy-btn inline-flex items-center gap-1.5 bg-[#2A1612] hover:bg-[#dcb041] text-white hover:text-[#2A1612] font-bold text-[10px] sm:text-[11px] px-3 py-2 rounded-full transition-all duration-300 shadow-sm cursor-pointer whitespace-nowrap flex-shrink-0">
+                  <svg class="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  Comprar
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      productsGrid.innerHTML = html;
+    }
+
+    // ── Filtro de búsqueda por texto (DOM only — no backend) ──
+    function applySearchFilter(query) {
+      const q = query.toLowerCase().trim();
+      let visible = 0;
+      document.querySelectorAll('#dynamic-products-grid .product-card').forEach(card => {
+        const name = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+        const matches = q === '' || name.includes(q);
+        (card as HTMLElement).style.display = matches ? '' : 'none';
+        if (matches) visible++;
+      });
+      if (q !== '') updateCatalogCount(visible);
     }
 
     // Toggle de la barra lateral (lógica extraída de index.astro)
@@ -509,6 +631,82 @@
     }
 
     loadCatalog();
-  });
 
+    // ════════════════════════════════════════════════════════════
+    // NUEVAS INTERACCIONES — no modifican ninguna función existente
+    // ════════════════════════════════════════════════════════════
+
+    // ── Ocasión chips: revelar sub-row de categorías ──
+    const occasionBtns = document.querySelectorAll('.occasion-chip');
+    const categorySubRow = document.getElementById('category-sub-row');
+
+    occasionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const occasion = (btn as HTMLElement).dataset.occasion;
+
+        // 1. Marcar activa la ocasión seleccionada (visual)
+        occasionBtns.forEach(b => b.classList.remove('occasion-active'));
+        btn.classList.add('occasion-active');
+
+        // 2. Revelar sub-row con categorías (slide-down)
+        if (categorySubRow) {
+          categorySubRow.classList.add('sub-row-visible');
+        }
+
+        // 3. "Ver todo" → muestra TODOS los productos de la ciudad actual
+        if (occasion === 'all') {
+          // De-seleccionar todos los chips de categoría visualmente
+          categoriesList?.querySelectorAll('.cat-btn').forEach(b => {
+            b.classList.remove('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
+            b.classList.add('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
+          });
+          // Renderizar todos los productos disponibles
+          renderAllProducts();
+        }
+        // Para otras ocasiones: abre el sub-row para que el usuario elija categoría
+      });
+    });
+
+    // ── Buscador funcional ──
+    const searchInput = document.getElementById('catalog-search-input') as HTMLInputElement;
+    const searchClearBtn = document.getElementById('catalog-search-clear');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const val = searchInput.value;
+        // Mostrar / ocultar botón limpiar
+        if (searchClearBtn) {
+          (searchClearBtn as HTMLElement).style.opacity = val.length > 0 ? '1' : '0';
+          (searchClearBtn as HTMLElement).style.pointerEvents = val.length > 0 ? 'auto' : 'none';
+        }
+        applySearchFilter(val);
+      });
+    }
+
+    if (searchClearBtn && searchInput) {
+      searchClearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        (searchClearBtn as HTMLElement).style.opacity = '0';
+        (searchClearBtn as HTMLElement).style.pointerEvents = 'none';
+        // Mostrar todos los productos del filtro activo
+        document.querySelectorAll('#dynamic-products-grid .product-card').forEach(card => {
+          (card as HTMLElement).style.display = '';
+        });
+        const total = document.querySelectorAll('#dynamic-products-grid .product-card').length;
+        updateCatalogCount(total);
+        searchInput.focus();
+      });
+    }
+
+    // ── Re-aplicar búsqueda cuando el grid se re-renderiza ──
+    if (productsGrid && searchInput) {
+      const gridObserver = new MutationObserver(() => {
+        if (searchInput.value.trim()) {
+          setTimeout(() => applySearchFilter(searchInput.value), 0);
+        }
+      });
+      gridObserver.observe(productsGrid, { childList: true });
+    }
+
+  });
 </script>
