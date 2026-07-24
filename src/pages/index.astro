@@ -645,82 +645,79 @@ import MobileCTA from "../components/MobileCTA.astro";
   <Products />
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Selectores de Categorías
-      // El manejo de productos y el catálogo se encarga el componente Products.astro
+    // Selectores de Categorías
+    // El manejo de productos y el catálogo se encarga el componente Products.astro
 
-      // Selectores de Ubicación
-      const bgOverlay = document.getElementById('cajas-especiales-bg');
-      const heroBgCover = document.getElementById('hero-bg-cover');
+    // Selectores de Ubicación
+    const bgOverlay = document.getElementById('cajas-especiales-bg');
+    const heroBgCover = document.getElementById('hero-bg-cover');
 
-      // Selectores de Ver Más
-      const seeMoreContainer = null;
-      const seeMoreBtn = null;
+    // Selectores de Ver Más
+    const seeMoreContainer = null;
+    const seeMoreBtn = null;
 
-      // Estados actuales
-      let currentCategory = 'todo';
-      let currentCity = 'cochabamba'; // Valor inicial / fallback
-      let isExpanded = false; // Estado del botón Ver Más
+    // Estados actuales
+    let currentCategory = 'todo';
+    let currentCity = 'cochabamba'; // Valor inicial / fallback
+    let isExpanded = false; // Estado del botón Ver Más
 
-      // ── MENÚ MÓVIL (DRAWER) ──
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileCloseBtn = document.getElementById('mobile-close-btn');
-      const mobileDrawer = document.getElementById('mobile-drawer');
-      const drawerOverlay = document.getElementById('drawer-overlay');
-      const mobileLinks = document.querySelectorAll('.mobile-link');
+    // ── MENÚ MÓVIL (DRAWER) ──
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const drawerOverlay = document.getElementById('drawer-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-      function openDrawer() {
-        mobileDrawer?.classList.remove('translate-x-full');
-        drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+    function openDrawer() {
+      mobileDrawer?.classList.remove('translate-x-full');
+      drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeDrawer() {
+      mobileDrawer?.classList.add('translate-x-full');
+      drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    mobileMenuBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openDrawer();
+    });
+
+    mobileCloseBtn?.addEventListener('click', closeDrawer);
+    drawerOverlay?.addEventListener('click', closeDrawer);
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    // ── ACTUALIZAR CIUDAD SELECCIONADA ──
+    function updateCity(city: string) {
+      currentCity = city;
+      localStorage.setItem('taboada_selected_city', city); // Changed to match Navbar
+
+
+      // Inyectar clase al document.body (Para manejo CSS global si es necesario)
+      document.body.classList.remove('city-cochabamba', 'city-lapaz', 'city-la-paz');
+      document.body.classList.add(`city-${city}`);
+
+      // Actualizar la portada del Hero con una transición (Fade Out / Fade In)
+      if (heroBgCover) {
+        const bgCbba = heroBgCover.getAttribute('data-bg-cochabamba') || '/img/portadataboada.png';
+        const bgLpz = heroBgCover.getAttribute('data-bg-lapaz') || '/img/portadalapaz.png';
+        
+        // Transición fluida rápida y limpia de opacidad para el cambio de imagen
+        heroBgCover.style.transition = 'opacity 0.3s ease-in-out, transform 0.7s ease-in-out';
+        heroBgCover.style.opacity = '0'; // Disparar fade-out
+        
+        setTimeout(() => {
+          if (city === 'cochabamba') {
+            heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
+          } else if (city === 'la-paz') {
+            heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
+          }
+          heroBgCover.style.opacity = '1'; // Disparar fade-in tras aplicar nueva imagen
+        }, 300); // 300ms de desvanecimiento
       }
-
-      function closeDrawer() {
-        mobileDrawer?.classList.add('translate-x-full');
-        drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
-      }
-
-      mobileMenuBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openDrawer();
-      });
-
-      mobileCloseBtn?.addEventListener('click', closeDrawer);
-      drawerOverlay?.addEventListener('click', closeDrawer);
-
-      mobileLinks.forEach((link) => {
-        link.addEventListener('click', closeDrawer);
-      });
-
-      // ── ACTUALIZAR CIUDAD SELECCIONADA ──
-      function updateCity(city: string) {
-        currentCity = city;
-        localStorage.setItem('taboada_selected_city', city); // Changed to match Navbar
-
-        // Actualizar etiqueta del botón (if activeCityName exists)
-        if (activeCityName) {
-          activeCityName.textContent = city === 'cochabamba' ? 'Cochabamba' : 'La Paz';
-        }
-
-        // Inyectar clase al document.body (Para manejo CSS global si es necesario)
-        document.body.classList.remove('city-cochabamba', 'city-lapaz', 'city-la-paz');
-        document.body.classList.add(`city-${city}`);
-
-        // Actualizar la portada del Hero con una transición (Fade Out / Fade In)
-        if (heroBgCover) {
-          const bgCbba = heroBgCover.getAttribute('data-bg-cochabamba') || '/img/portadataboada.png';
-          const bgLpz = heroBgCover.getAttribute('data-bg-lapaz') || '/img/portadalapaz.png';
-          
-          heroBgCover.style.opacity = '0'; // Disparar fade-out
-          
-          setTimeout(() => {
-            if (city === 'cochabamba') {
-              heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
-            } else if (city === 'la-paz') {
-              heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
-            }
-            heroBgCover.style.opacity = '1'; // Disparar fade-in tras aplicar nueva imagen
-          }, 400); // 400ms para sincronizarse con la transición CSS
-        }
 
         // Actualizar el degradado de fondo de Colecciones
         if (bgOverlay) {
@@ -821,7 +818,7 @@ import MobileCTA from "../components/MobileCTA.astro";
       });
 
       // ── INICIALIZACIÓN Y DETECCIÓN POR IP SILENCIOSA ──
-      const savedCity = localStorage.getItem('selected_city');
+      const savedCity = localStorage.getItem('taboada_selected_city');
       if (savedCity && (savedCity === 'cochabamba' || savedCity === 'la-paz')) {
         updateCity(savedCity);
       } else {
@@ -1211,7 +1208,6 @@ import MobileCTA from "../components/MobileCTA.astro";
           navbar?.classList.add('bg-transparent', 'border-transparent', 'hover:bg-white/10');
         }
       });
-    });
   </script>
 
   <style>
