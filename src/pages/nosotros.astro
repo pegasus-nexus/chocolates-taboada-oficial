@@ -26,18 +26,20 @@ import Footer from "../components/Footer.astro";
     >
     </div>
 
-    <!-- BOTÓN DE REGRESO -->
-    <div class="absolute top-28 left-6 md:left-12 z-20">
-      <a
-        href="/"
-        onclick="if(history.length > 1){ history.back(); return false; }"
-        class="inline-flex items-center gap-2.5 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 group cursor-pointer"
-      >
-        <svg class="w-5 h-5 text-[#dcb041] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
-        </svg>
-        <span>Regresar</span>
-      </a>
+    <!-- BOTÓN DE REGRESO (ALINEADO EXACTAMENTE AL MARGEN DEL LOGO) -->
+    <div class="absolute top-28 left-0 right-0 z-20 pointer-events-none">
+      <div class="max-w-[1280px] mx-auto px-6 lg:px-12 pointer-events-auto">
+        <a
+          href="/"
+          onclick="if(history.length > 1){ history.back(); return false; }"
+          class="inline-flex items-center gap-2.5 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 group cursor-pointer"
+        >
+          <svg class="w-5 h-5 text-[#dcb041] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+          </svg>
+          <span>Regresar</span>
+        </a>
+      </div>
     </div>
 
     <div class="relative z-10 text-center max-w-4xl px-6 mt-10">
