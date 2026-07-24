@@ -705,8 +705,8 @@ import MobileCTA from "../components/MobileCTA.astro";
         const bgCbba = heroBgCover.getAttribute('data-bg-cochabamba') || '/img/portadataboada.png';
         const bgLpz = heroBgCover.getAttribute('data-bg-lapaz') || '/img/portadalapaz.png';
         
-        // Transición fluida rápida y limpia de opacidad para el cambio de imagen
-        heroBgCover.style.transition = 'opacity 0.3s ease-in-out, transform 0.7s ease-in-out';
+        // Transición ultra suave de opacidad (fade-out / fade-in) y transform con curva cubic-bezier premium
+        heroBgCover.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
         heroBgCover.style.opacity = '0'; // Disparar fade-out
         
         setTimeout(() => {
@@ -716,7 +716,7 @@ import MobileCTA from "../components/MobileCTA.astro";
             heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
           }
           heroBgCover.style.opacity = '1'; // Disparar fade-in tras aplicar nueva imagen
-        }, 300); // 300ms de desvanecimiento
+        }, 500); // Sincronizado con los 500ms del desvanecimiento cubic-bezier
       }
 
         // Actualizar el degradado de fondo de Colecciones
