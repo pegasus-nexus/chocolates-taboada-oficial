@@ -1190,38 +1190,6 @@ import MobileCTA from "../components/MobileCTA.astro";
       }
     });
 
-    // Clics en botones de categorías
-    catButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        currentCategory = btn.getAttribute("data-target") || "todo";
-        isExpanded = false; // Resetear expansión
-
-        // Actualizar estilos de los botones de categoría
-        catButtons.forEach((b) => {
-          b.classList.remove(
-            "text-[#2A1612]",
-            "font-black",
-            "border-[#dcb041]",
-          );
-          b.classList.add(
-            "text-[#5D4037]/80",
-            "font-semibold",
-            "border-transparent",
-            "hover:text-[#2A1612]",
-          );
-        });
-
-        btn.classList.add("text-[#2A1612]", "font-black", "border-[#dcb041]");
-        btn.classList.remove(
-          "text-[#5D4037]/80",
-          "font-semibold",
-          "border-transparent",
-          "hover:text-[#2A1612]",
-        );
-
-        // filterProducts();
-      });
-    });
 
     // ── INICIALIZACIÓN Y DETECCIÓN POR IP SILENCIOSA ──
     const savedCity = localStorage.getItem("taboada_selected_city");
