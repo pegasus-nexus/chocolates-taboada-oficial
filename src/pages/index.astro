@@ -728,24 +728,30 @@ import MobileCTA from "../components/MobileCTA.astro";
     </div>
   </section>
   <Products />
-  <!-- SECCIÓN COMUNIDAD TABOADA (ESTILO MODERNO INSPIRADO EN NUEVA REFERENCIA CON FOTOS SUPERPUESTAS Y 4 MÉTRICAS INFERIORES) -->
+  <!-- SECCIÓN COMUNIDAD TABOADA (MODO OSCURO DE LUJO CON FONDO3.PNG Y TEXTOS DORADOS/CREMA) -->
   <section
-    class="relative py-20 md:py-28 overflow-hidden bg-[#FAF5F0] border-b border-[#e8dccb]/50 text-[#2A1612]"
+    class="relative py-20 md:py-28 overflow-hidden bg-[#180a0e] border-b border-white/10 text-[#FAF5F0]"
   >
-    <!-- Imagen de fondo fondo1.png elegante con degradado sutil sin bordes grises -->
+    <!-- Fondo fondo3.png con filigrana dorada de súper lujo -->
     <div
-      class="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none mix-blend-multiply"
-      style="background-image: url('/img/fondo1.png'); mask-image: radial-gradient(ellipse at center, black 65%, transparent 98%); -webkit-mask-image: radial-gradient(ellipse at center, black 65%, transparent 98%);"
+      class="absolute inset-0 bg-cover bg-center pointer-events-none opacity-85"
+      style="background-image: url('/img/fondo3.png');"
+    >
+    </div>
+
+    <!-- Capa sutil de oscurecimiento y destellos -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-[#180a0e]/60 via-[#120609]/40 to-[#180a0e]/70 pointer-events-none"
     >
     </div>
 
     <!-- Brillo dorado sutil de fondo -->
     <div
-      class="absolute -left-1/4 top-1/4 w-[600px] h-[600px] rounded-full bg-[#8f6c49]/5 blur-[120px] pointer-events-none"
+      class="absolute -left-1/4 top-1/4 w-[600px] h-[600px] rounded-full bg-[#dcb041]/10 blur-[140px] pointer-events-none"
     >
     </div>
     <div
-      class="absolute -right-1/4 bottom-1/4 w-[600px] h-[600px] rounded-full bg-[#8f6c49]/5 blur-[120px] pointer-events-none"
+      class="absolute -right-1/4 bottom-1/4 w-[600px] h-[600px] rounded-full bg-[#dcb041]/10 blur-[140px] pointer-events-none"
     >
     </div>
 
@@ -759,7 +765,7 @@ import MobileCTA from "../components/MobileCTA.astro";
           <div class="relative w-full max-w-[460px] h-[400px] sm:h-[460px]">
             <!-- 1. Foto Principal Grande (Atras / Derecha) -->
             <div
-              class="absolute top-0 right-0 w-[72%] h-[85%] rounded-[2.5rem] overflow-hidden shadow-xl border-4 border-white z-10 bg-[#2A1612]"
+              class="absolute top-0 right-0 w-[72%] h-[85%] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-[#dcb041]/30 z-10 bg-[#2A1612]"
             >
               <img
                 src="/img/comunidad_degustacion.jpg"
@@ -770,7 +776,7 @@ import MobileCTA from "../components/MobileCTA.astro";
 
             <!-- 2. Foto Secundaria Superpuesta (Adelante / Izquierda Abajo) -->
             <div
-              class="absolute bottom-0 left-0 w-[62%] h-[68%] rounded-[2.2rem] overflow-hidden shadow-2xl border-4 border-white z-20 bg-[#2A1612]"
+              class="absolute bottom-0 left-0 w-[62%] h-[68%] rounded-[2.2rem] overflow-hidden shadow-2xl border-4 border-[#dcb041]/40 z-20 bg-[#2A1612]"
             >
               <img
                 src="/img/sucursal_interior.png"
@@ -779,9 +785,9 @@ import MobileCTA from "../components/MobileCTA.astro";
               />
             </div>
 
-            <!-- 3. Insignia Circular Flotante en la Intersección (Estilo Púrpura/Dorado del Mockup) -->
+            <!-- 3. Insignia Circular Flotante en la Intersección -->
             <div
-              class="absolute bottom-[22%] left-[45%] -translate-x-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#2A1612] to-[#42221b] text-[#dcb041] flex flex-col items-center justify-center border-4 border-white shadow-2xl z-30 transform hover:scale-110 transition-transform duration-300"
+              class="absolute bottom-[22%] left-[45%] -translate-x-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#2A1612] to-[#42221b] text-[#dcb041] flex flex-col items-center justify-center border-4 border-[#dcb041] shadow-2xl z-30 transform hover:scale-110 transition-transform duration-300"
             >
               <span
                 class="text-lg sm:text-xl font-extrabold font-serif text-[#dcb041] leading-none"
@@ -799,9 +805,9 @@ import MobileCTA from "../components/MobileCTA.astro";
         <div class="lg:col-span-6 flex flex-col items-start text-left lg:pl-4">
           <!-- Eyebrow -->
           <div class="flex items-center gap-2 mb-3">
-            <span class="w-8 h-[2px] bg-[#8f6c49]"></span>
+            <span class="w-8 h-[2px] bg-[#dcb041]"></span>
             <span
-              class="text-xs md:text-sm uppercase tracking-widest text-[#8f6c49] font-extrabold font-sans"
+              class="text-xs md:text-sm uppercase tracking-widest text-[#dcb041] font-extrabold font-sans"
             >
               Programa de Lealtad
             </span>
@@ -809,28 +815,28 @@ import MobileCTA from "../components/MobileCTA.astro";
 
           <!-- Título Principal -->
           <h2
-            class="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#2A1612] leading-[1.15] mb-5 font-bold tracking-tight"
+            class="font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.15] mb-5 font-bold tracking-tight"
           >
-            ¿Por qué unirte a <span class="text-[#8f6c49] italic font-normal"
+            ¿Por qué unirte a <span class="text-[#dcb041] italic font-normal"
               >Comunidad Taboada?</span
             >
           </h2>
 
           <!-- Descripción -->
           <p
-            class="text-[#5D4037] text-sm md:text-base leading-relaxed mb-6 max-w-xl font-sans"
+            class="text-[#FAF5F0]/85 text-sm md:text-base leading-relaxed mb-6 max-w-xl font-sans"
           >
             Sé parte de una dinastía de sabor que trasciende generaciones.
-            Registrándote hoy en nuestra <strong class="text-[#2A1612]"
+            Registrándote hoy en nuestra <strong class="text-white"
               >Comunidad Oficial</strong
             >, desbloqueas privilegios únicos y experiencias pensadas para
             amantes del auténtico chocolate.
           </p>
           <div class="space-y-5 w-full max-w-xl mb-8">
-            <!-- Beneficio 1: Catas de Chocolate (Icono Taza de Chocolate Caliente) -->
+            <!-- Beneficio 1: Catas de Chocolate -->
             <div class="flex items-start gap-4">
               <div
-                class="text-[#8f6c49] flex items-center justify-center flex-shrink-0 pt-0.5"
+                class="text-[#dcb041] flex items-center justify-center flex-shrink-0 pt-0.5"
               >
                 <svg
                   class="w-8 h-8"
@@ -848,11 +854,11 @@ import MobileCTA from "../components/MobileCTA.astro";
                 </svg>
               </div>
               <div class="text-left">
-                <h4 class="font-sans text-base font-bold text-[#2A1612]">
+                <h4 class="font-sans text-base font-bold text-white">
                   Catas de Chocolate
                 </h4>
                 <p
-                  class="text-xs text-[#5D4037] leading-relaxed font-sans mt-0.5"
+                  class="text-xs text-[#FAF5F0]/75 leading-relaxed font-sans mt-0.5"
                 >
                   Invitaciones exclusivas a experiencias de maridaje y
                   degustaciones guiadas de cacao fino.
@@ -860,10 +866,10 @@ import MobileCTA from "../components/MobileCTA.astro";
               </div>
             </div>
 
-            <!-- Beneficio 2: Descuentos Exclusivos (Icono Etiqueta de Descuento %) -->
+            <!-- Beneficio 2: Descuentos Exclusivos -->
             <div class="flex items-start gap-4">
               <div
-                class="text-[#8f6c49] flex items-center justify-center flex-shrink-0 pt-0.5"
+                class="text-[#dcb041] flex items-center justify-center flex-shrink-0 pt-0.5"
               >
                 <svg
                   class="w-8 h-8"
@@ -881,11 +887,11 @@ import MobileCTA from "../components/MobileCTA.astro";
                 </svg>
               </div>
               <div class="text-left">
-                <h4 class="font-sans text-base font-bold text-[#2A1612]">
+                <h4 class="font-sans text-base font-bold text-white">
                   Descuentos Exclusivos
                 </h4>
                 <p
-                  class="text-xs text-[#5D4037] leading-relaxed font-sans mt-0.5"
+                  class="text-xs text-[#FAF5F0]/75 leading-relaxed font-sans mt-0.5"
                 >
                   Descuentos automáticos en tus compras oficiales en todas
                   nuestras sucursales.
@@ -893,10 +899,10 @@ import MobileCTA from "../components/MobileCTA.astro";
               </div>
             </div>
 
-            <!-- Beneficio 3: Promociones Especiales (Icono Regalo Especial) -->
+            <!-- Beneficio 3: Promociones Especiales -->
             <div class="flex items-start gap-4">
               <div
-                class="text-[#8f6c49] flex items-center justify-center flex-shrink-0 pt-0.5"
+                class="text-[#dcb041] flex items-center justify-center flex-shrink-0 pt-0.5"
               >
                 <svg
                   class="w-8 h-8"
@@ -914,11 +920,11 @@ import MobileCTA from "../components/MobileCTA.astro";
                 </svg>
               </div>
               <div class="text-left">
-                <h4 class="font-sans text-base font-bold text-[#2A1612]">
+                <h4 class="font-sans text-base font-bold text-white">
                   Promociones Especiales
                 </h4>
                 <p
-                  class="text-xs text-[#5D4037] leading-relaxed font-sans mt-0.5"
+                  class="text-xs text-[#FAF5F0]/75 leading-relaxed font-sans mt-0.5"
                 >
                   Acceso a ofertas del mes, regalos de cumpleaños y colecciones
                   privadas.
@@ -931,10 +937,10 @@ import MobileCTA from "../components/MobileCTA.astro";
           <div class="flex flex-wrap items-center gap-6 w-full max-w-lg">
             <a
               href="/beneficios"
-              class="group inline-flex items-center gap-3 p-1.5 pr-6 rounded-full bg-gradient-to-r from-[#dcb041] via-[#e5bd52] to-[#dcb041] hover:from-[#8f6c49] hover:to-[#2A1612] text-[#2A1612] hover:text-[#FAF5F0] transition-all duration-500 shadow-xl hover:shadow-2xl"
+              class="group inline-flex items-center gap-3 p-1.5 pr-6 rounded-full bg-gradient-to-r from-[#dcb041] via-[#e5bd52] to-[#dcb041] hover:from-[#FAF5F0] hover:to-[#dcb041] text-[#2A1612] transition-all duration-500 shadow-xl hover:shadow-[0_0_30px_rgba(220,176,65,0.5)]"
             >
               <div
-                class="w-10 h-10 rounded-full bg-[#2A1612] text-[#dcb041] group-hover:bg-white group-hover:text-[#2A1612] flex items-center justify-center font-bold transition-all duration-300 group-hover:scale-110"
+                class="w-10 h-10 rounded-full bg-[#2A1612] text-[#dcb041] group-hover:bg-[#2A1612] group-hover:text-[#f4c856] flex items-center justify-center font-bold transition-all duration-300 group-hover:scale-110"
               >
                 <svg
                   class="w-5 h-5 group-hover:translate-x-0.5 transition-transform"
@@ -959,7 +965,7 @@ import MobileCTA from "../components/MobileCTA.astro";
 
             <!-- Firma / Sello en Fuente Cursiva -->
             <div
-              class="font-cursiva text-2xl md:text-3xl text-[#8f6c49] font-normal tracking-wide"
+              class="font-cursiva text-2xl md:text-3xl text-[#dcb041] font-normal tracking-wide drop-shadow-sm"
             >
               Familia Taboada
             </div>
@@ -967,47 +973,47 @@ import MobileCTA from "../components/MobileCTA.astro";
         </div>
       </div>
 
-      <!-- BARRA INFERIOR DE 4 MÉTRICAS (IGUAL A LA REFERENCIA VISUAL) -->
+      <!-- BARRA INFERIOR DE 4 MÉTRICAS -->
       <div
-        class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-12 mt-14 border-t border-[#e8dccb]/70 w-full text-center"
+        class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-12 mt-14 border-t border-white/15 w-full text-center"
       >
         <div>
           <span
-            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight"
+            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight drop-shadow-sm"
             >120+</span
           >
           <span
-            class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1"
+            class="text-[10px] sm:text-xs font-bold text-[#FAF5F0]/80 uppercase tracking-wider block mt-1"
             >Años de Historia</span
           >
         </div>
         <div>
           <span
-            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight"
+            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight drop-shadow-sm"
             >1,500+</span
           >
           <span
-            class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1"
+            class="text-[10px] sm:text-xs font-bold text-[#FAF5F0]/80 uppercase tracking-wider block mt-1"
             >Miembros Activos</span
           >
         </div>
         <div>
           <span
-            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight"
+            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight drop-shadow-sm"
             >3</span
           >
           <span
-            class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1"
+            class="text-[10px] sm:text-xs font-bold text-[#FAF5F0]/80 uppercase tracking-wider block mt-1"
             >Sucursales Oficiales</span
           >
         </div>
         <div>
           <span
-            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight"
+            class="block text-3xl sm:text-4xl font-extrabold text-[#dcb041] font-serif tracking-tight drop-shadow-sm"
             >100%</span
           >
           <span
-            class="text-[10px] sm:text-xs font-bold text-[#6b5855] uppercase tracking-wider block mt-1"
+            class="text-[10px] sm:text-xs font-bold text-[#FAF5F0]/80 uppercase tracking-wider block mt-1"
             >Cacao Sucrense</span
           >
         </div>
