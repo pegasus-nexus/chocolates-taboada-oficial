@@ -240,8 +240,12 @@
             <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#8f6c49]">Tipo de producto</p>
             <span class="flex-1 h-px bg-[#e8dccb] rounded-full"></span>
           </div>
-          <div id="dynamic-categories-list" class="flex flex-wrap gap-2">
-            <div class="text-xs text-[#a08b7a] italic py-0.5">Cargando categorías...</div>
+          <div id="dynamic-categories-list" class="flex flex-wrap gap-2 animate-pulse">
+            <div class="h-7 w-20 bg-[#e8dccb]/70 rounded-full"></div>
+            <div class="h-7 w-24 bg-[#e8dccb]/70 rounded-full"></div>
+            <div class="h-7 w-16 bg-[#e8dccb]/70 rounded-full"></div>
+            <div class="h-7 w-28 bg-[#e8dccb]/70 rounded-full"></div>
+            <div class="h-7 w-20 bg-[#e8dccb]/70 rounded-full"></div>
           </div>
         </div>
       </div>
@@ -274,13 +278,47 @@
     </div>
 
     <!-- ══════════════════════════════════════
-         5. GRID DE PRODUCTOS (4 POR FILA EN DESKTOP)
+         5. GRID DE PRODUCTOS (SKELETON LOADERS DE TARJETAS DE PRODUCTO)
          ⚠️ id="dynamic-products-grid" requerido por renderProducts()
     ══════════════════════════════════════ -->
     <div id="dynamic-products-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 min-h-[450px]">
-      <div class="col-span-full flex flex-col items-center justify-center py-24 gap-4">
-        <div class="w-10 h-10 border-[3px] border-[#dcb041] border-t-transparent rounded-full catalog-spinner"></div>
-        <p class="text-sm text-[#a08b7a] italic font-medium">Cargando colección...</p>
+      <div class="col-span-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 animate-pulse">
+        <div class="bg-white/80 rounded-2xl border border-[#ecddd0]/80 p-4 flex flex-col">
+          <div class="w-full h-44 bg-[#e8dccb]/60 rounded-xl mb-3"></div>
+          <div class="h-4 w-3/4 bg-[#e8dccb]/80 rounded mb-2"></div>
+          <div class="h-3.5 w-1/2 bg-[#e8dccb]/60 rounded mb-4"></div>
+          <div class="mt-auto flex items-center justify-between pt-2 border-t border-[#f3ece3]">
+            <div class="h-5 w-16 bg-[#e8dccb]/80 rounded"></div>
+            <div class="h-8 w-20 bg-[#e8dccb]/80 rounded-full"></div>
+          </div>
+        </div>
+        <div class="bg-white/80 rounded-2xl border border-[#ecddd0]/80 p-4 flex flex-col">
+          <div class="w-full h-44 bg-[#e8dccb]/60 rounded-xl mb-3"></div>
+          <div class="h-4 w-3/4 bg-[#e8dccb]/80 rounded mb-2"></div>
+          <div class="h-3.5 w-1/2 bg-[#e8dccb]/60 rounded mb-4"></div>
+          <div class="mt-auto flex items-center justify-between pt-2 border-t border-[#f3ece3]">
+            <div class="h-5 w-16 bg-[#e8dccb]/80 rounded"></div>
+            <div class="h-8 w-20 bg-[#e8dccb]/80 rounded-full"></div>
+          </div>
+        </div>
+        <div class="bg-white/80 rounded-2xl border border-[#ecddd0]/80 p-4 flex flex-col">
+          <div class="w-full h-44 bg-[#e8dccb]/60 rounded-xl mb-3"></div>
+          <div class="h-4 w-3/4 bg-[#e8dccb]/80 rounded mb-2"></div>
+          <div class="h-3.5 w-1/2 bg-[#e8dccb]/60 rounded mb-4"></div>
+          <div class="mt-auto flex items-center justify-between pt-2 border-t border-[#f3ece3]">
+            <div class="h-5 w-16 bg-[#e8dccb]/80 rounded"></div>
+            <div class="h-8 w-20 bg-[#e8dccb]/80 rounded-full"></div>
+          </div>
+        </div>
+        <div class="bg-white/80 rounded-2xl border border-[#ecddd0]/80 p-4 flex flex-col">
+          <div class="w-full h-44 bg-[#e8dccb]/60 rounded-xl mb-3"></div>
+          <div class="h-4 w-3/4 bg-[#e8dccb]/80 rounded mb-2"></div>
+          <div class="h-3.5 w-1/2 bg-[#e8dccb]/60 rounded mb-4"></div>
+          <div class="mt-auto flex items-center justify-between pt-2 border-t border-[#f3ece3]">
+            <div class="h-5 w-16 bg-[#e8dccb]/80 rounded"></div>
+            <div class="h-8 w-20 bg-[#e8dccb]/80 rounded-full"></div>
+          </div>
+        </div>
       </div>
     </div>
 
