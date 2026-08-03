@@ -202,6 +202,7 @@ import MobileCTA from "../components/MobileCTA.astro";
           </div>
 
           <span
+            id="hero-subtitle"
             class="uppercase tracking-[0.38em] text-[#dcb041] text-[0.75rem] font-bold"
           >
             DESDE 1948 CREANDO MOMENTOS ESPECIALES
@@ -211,6 +212,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- TITULO -->
 
         <h1
+          id="hero-title"
           class="font-playfair text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.15] tracking-[-0.03em] text-[#fff7f8] drop-shadow-[0_12px_35px_rgba(0,0,0,0.45)]"
         >
           <span class="whitespace-nowrap block">Hay momentos que</span>
@@ -222,6 +224,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- TEXTO -->
 
         <p
+          id="hero-description"
           class="mt-6 text-[clamp(0.95rem,1.5vw,1.1rem)] leading-[1.8] text-[#f3dfe5]/75 max-w-[460px] font-light"
         >
           Cada ocasión merece un detalle especial. Descubre chocolates
@@ -254,6 +257,35 @@ import MobileCTA from "../components/MobileCTA.astro";
       </div>
     </div>
   </header>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1";
+        const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.status === 'success' && data.web_config) {
+            const wc = data.web_config;
+            if (wc.hero_subtitle) document.getElementById('hero-subtitle').textContent = wc.hero_subtitle;
+            if (wc.hero_title) document.getElementById('hero-title').textContent = wc.hero_title;
+            if (wc.hero_description) document.getElementById('hero-description').textContent = wc.hero_description;
+            
+            const bgElement = document.getElementById('hero-bg-cover');
+            if (bgElement) {
+              if (wc.hero_bg_cba) bgElement.setAttribute('data-bg-cochabamba', wc.hero_bg_cba);
+              if (wc.hero_bg_lpz) bgElement.setAttribute('data-bg-lapaz', wc.hero_bg_lpz);
+              
+              const currentCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
+              window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: currentCity } }));
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error loading web config:", err);
+      }
+    });
+  </script>
 
   <section
     class="relative py-20 md:py-24 bg-[#FAF5F0] overflow-hidden border-y border-[#f0e6d8]"
