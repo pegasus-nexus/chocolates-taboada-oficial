@@ -27,30 +27,9 @@
       <img
         src="/img/popup_bolivia_edicion_especial.jpg"
         alt="Celebra Bolivia a tu manera - 6 de Agosto Edición Especial Chocolates Taboada"
-        class="w-full h-auto object-cover max-h-[70vh] sm:max-h-[75vh]"
+        class="w-full h-auto object-cover max-h-[85vh] rounded-3xl"
         loading="eager"
       />
-      <!-- Resplandor Dorado Inferior -->
-      <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#1d0c10] to-transparent pointer-events-none"></div>
-    </div>
-
-    <!-- Barra Inferior de Acción -->
-    <div class="w-full px-5 py-4 bg-[#1d0c10] flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#dcb041]/20">
-      <div class="text-center sm:text-left">
-        <span class="block text-xs uppercase tracking-[0.2em] text-[#dcb041] font-bold">Edición Limitada</span>
-        <span class="block text-sm font-serif font-bold text-white">6 de Agosto • Chocolates Taboada</span>
-      </div>
-
-      <a
-        id="promo-popup-cta-btn"
-        href="/#cajas-especiales"
-        class="w-full sm:w-auto px-6 py-3 rounded-full bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#dcb041] text-[#2A1612] font-black text-xs uppercase tracking-wider shadow-[0_4px_20px_rgba(220,176,65,0.4)] hover:shadow-[0_6px_25px_rgba(220,176,65,0.6)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-      >
-        <span>Ver Edición Especial</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-        </svg>
-      </a>
     </div>
   </div>
 </div>
@@ -61,7 +40,6 @@
     const overlay = document.getElementById('promo-popup-overlay');
     const card = document.getElementById('promo-popup-card');
     const closeBtn = document.getElementById('promo-popup-close-btn');
-    const ctaBtn = document.getElementById('promo-popup-cta-btn');
 
     if (!overlay || !card) return;
 
@@ -88,17 +66,6 @@
     }, 500);
 
     if (closeBtn) closeBtn.addEventListener('click', closePopup);
-
-    if (ctaBtn) {
-      ctaBtn.addEventListener('click', (e) => {
-        closePopup();
-        const target = document.getElementById('cajas-especiales');
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    }
 
     // Cerrar al hacer click en el fondo sombreado
     overlay.addEventListener('click', (e) => {
