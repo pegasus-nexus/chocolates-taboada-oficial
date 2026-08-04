@@ -498,9 +498,18 @@
       return `
         <div class="product-card group relative bg-white rounded-2xl border border-[#ecddd0]/80 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,22,18,0.14)]">
           ${p.is_destacado ? `<div class="absolute top-2.5 left-2.5 z-20"><span class="inline-flex items-center gap-0.5 px-2.5 py-0.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[9px] font-black uppercase tracking-wide shadow-sm">★ Destacado</span></div>` : ''}
-          <div class="absolute top-2.5 right-2.5 z-20 group/tooltip">
-            <button type="button" class="add-to-cart-btn w-8 h-8 bg-white/95 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#e8dccb] text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 cursor-pointer">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+            <button 
+              type="button" 
+              class="add-to-cart-btn w-8 h-8 bg-white/95 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#e8dccb] text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 cursor-pointer"
+              data-id="${p.id || p.nombre}"
+              data-name="${p.nombre}"
+              data-size="${p.tamano || 'Presentación Especial'}"
+              data-img="${imgUrl}"
+              data-price="${price}"
+              data-price-cochabamba="${p.precios?.cochabamba || price}"
+              data-price-lapaz="${p.precios?.lapaz || price}"
+            >
+              <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
             </button>
             <span class="absolute right-0 -bottom-8 bg-[#2A1612] text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-200 z-30">Añadir al carrito</span>
           </div>
