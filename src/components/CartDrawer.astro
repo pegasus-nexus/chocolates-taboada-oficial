@@ -91,20 +91,33 @@
 </aside>
 
 <script is:inline>
-  // ── LÓGICA INTERACTIVA DEL CARRITO DE COMPRAS ──
-  const initialCartItems = [];
+  // ── LÓGICA UNIFICADA DEL CARRITO DE COMPRAS (POR CIUDAD Y PERSISTENTE) ──
 
-  // Obtener carrito desde localStorage
+  function getCartStorageKey() {
+    const city = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toLowerCase();
+    return 'taboada_cart_' + city;
+  }
+
   function getCartData() {
     try {
-      const stored = localStorage.getItem('taboada_cart');
+      const key = getCartStorageKey();
+      let stored = localStorage.getItem(key);
+      // Migración suave desde la clave antigua global 'taboada_cart' si existe
+      if (!stored && key === 'taboada_cart_cochabamba') {
+        const legacy = localStorage.getItem('taboada_cart');
+        if (legacy) {
+          localStorage.setItem('taboada_cart_cochabamba', legacy);
+          stored = legacy;
+        }
+      }
       if (stored) return JSON.parse(stored);
     } catch(e) {}
     return [];
   }
 
   function saveCartData(items) {
-    localStorage.setItem('taboada_cart', JSON.stringify(items));
+    const key = getCartStorageKey();
+    localStorage.setItem(key, JSON.stringify(items));
     updateCartUI();
   }
 
@@ -142,8 +155,12 @@
     const cart = getCartData();
     const item = cart.find(i => i.id === id);
     if (item) {
-      item.quantity = Math.max(1, item.quantity + delta);
-      saveCartData(cart);
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        window.removeCartItem(id);
+      } else {
+        saveCartData(cart);
+      }
     }
   };
 
@@ -155,16 +172,17 @@
 
   window.addToCart = function(itemObj) {
     let cart = getCartData();
-    const existing = cart.find(i => i.id === itemObj.id || i.name === itemObj.name);
+    const existing = cart.find(i => (itemObj.id && i.id === itemObj.id) || i.name === itemObj.name);
+    const qtyToAdd = itemObj.quantity || 1;
     if (existing) {
-      existing.quantity += 1;
+      existing.quantity += qtyToAdd;
     } else {
       cart.push({
         id: itemObj.id || 'item-' + Date.now(),
         name: itemObj.name || 'Chocolate Taboada',
         size: itemObj.size || 'Presentación Especial',
         price: typeof itemObj.price === 'number' ? itemObj.price : parseFloat((itemObj.price || '80').replace(/[^0-9.]/g, '')) || 80,
-        quantity: 1,
+        quantity: qtyToAdd,
         img: itemObj.img || '/img/produc1.png',
         isFavorite: false
       });
@@ -181,12 +199,13 @@
     const totalEl = document.getElementById('cart-drawer-total');
     const checkoutBtnText = document.getElementById('cart-checkout-btn-text');
     const navBadgeEls = document.querySelectorAll('.cart-nav-badge-count');
+    const mainBadgeEl = document.getElementById('cart-count-badge');
 
-    // Calcular total de productos e importe
+    // Total count & subtotal
     const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
     const subtotalAmount = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-    // Actualizar insignias en Navbar
+    // Actualizar insignia en Navbar y flotante
     navBadgeEls.forEach(badge => {
       badge.textContent = totalCount;
       if (totalCount > 0) {
@@ -195,6 +214,10 @@
         badge.classList.add('hidden');
       }
     });
+
+    if (mainBadgeEl) {
+      mainBadgeEl.textContent = totalCount;
+    }
 
     if (countSubtitleEl) {
       countSubtitleEl.textContent = `${totalCount} ${totalCount === 1 ? 'producto seleccionado' : 'productos seleccionados'}`;
@@ -291,12 +314,25 @@
     if (overlay) overlay.addEventListener('click', window.closeCartDrawer);
     if (closeBtn) closeBtn.addEventListener('click', window.closeCartDrawer);
 
+    // Escuchar cambio de ciudad para actualizar carrito de esa ciudad automáticamente
+    window.addEventListener('cityChanged', () => {
+      updateCartUI();
+    });
+
+    window.addEventListener('storage', (e) => {
+      if (e.key && e.key.startsWith('taboada_cart')) {
+        updateCartUI();
+      }
+    });
+
     if (checkoutBtn) {
       checkoutBtn.addEventListener('click', () => {
         const cart = getCartData();
         if (cart.length === 0) return;
 
-        let msg = "Hola, me gustaría realizar el siguiente pedido de Chocolates Taboada:\n\n";
+        const currentCity = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toUpperCase();
+
+        let msg = `Hola, me gustaría realizar el siguiente pedido de Chocolates Taboada (*${currentCity}*):\n\n`;
         cart.forEach((item, idx) => {
           msg += `${idx + 1}. *${item.name}* (${item.size}) x${item.quantity} - Bs. ${(item.price * item.quantity).toFixed(2)}\n`;
         });

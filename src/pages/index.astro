@@ -1324,37 +1324,21 @@ import MobileCTA from "../components/MobileCTA.astro";
       });
     });
 
-    // ── LOGICA COMPLETA DEL CARRITO DE COMPRAS ──
-    let cart = JSON.parse(localStorage.getItem("taboada_cart") || "[]");
-
-    // Selectores Modal de Cantidad
+    // ── GESTIÓN DEL MODAL DE CANTIDAD Y BOTONES DE COMPRA ──
     const qtyModal = document.getElementById("quantity-modal");
     const qtyModalOverlay = document.getElementById("quantity-modal-overlay");
     const qtyModalClose = document.getElementById("quantity-modal-close");
     const modalProdName = document.getElementById("modal-product-name");
     const modalProdSize = document.getElementById("modal-product-size");
-    const modalProdImg = document.getElementById(
-      "modal-product-img",
-    ) as HTMLImageElement;
+    const modalProdImg = document.getElementById("modal-product-img") as HTMLImageElement;
     const modalQtyVal = document.getElementById("modal-qty-val");
     const modalQtyMinus = document.getElementById("modal-qty-minus");
     const modalQtyPlus = document.getElementById("modal-qty-plus");
-    const modalTotalPrice = document.getElementById("modal-total-price");
     const modalAddBtn = document.getElementById("modal-add-btn");
-
-    // Selectores Drawer Carrito
-    const cartDrawer = document.getElementById("cart-drawer");
-    const cartOverlay = document.getElementById("cart-overlay");
-    const cartDrawerClose = document.getElementById("cart-drawer-close");
     const floatingCartBtn = document.getElementById("floating-cart-btn");
-    const cartCountBadge = document.getElementById("cart-count-badge");
-    const cartItemsList = document.getElementById("cart-items-list");
-    const cartEmptyMsg = document.getElementById("cart-empty-msg");
-    const cartTotalPrice = document.getElementById("cart-total-price");
-    const cartCheckoutBtn = document.getElementById("cart-checkout-btn");
 
-    // Variables de control del Modal
     let modalActiveProduct = {
+      id: "",
       name: "",
       size: "",
       img: "",
@@ -1362,9 +1346,7 @@ import MobileCTA from "../components/MobileCTA.astro";
       quantity: 1,
     };
 
-    // Limpiar texto de precio "BS. 77" -> 77
     function parsePrice(priceStr: string): number {
-      // Eliminar primero la palabra "BS." o "Bs." para evitar que el punto de la abreviación se tome como decimal (.81)
       const cleanStr = priceStr
         .replace(/BS\./i, "")
         .replace(/Bs\./i, "")
@@ -1373,132 +1355,14 @@ import MobileCTA from "../components/MobileCTA.astro";
       return parseFloat(cleanStr.replace(/[^\d.]/g, "")) || 0;
     }
 
-    // Guardar y Actualizar
-    function saveCart() {
-      localStorage.setItem("taboada_cart", JSON.stringify(cart));
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const totalItems = cart.reduce(
-        (acc: number, item: any) => acc + item.quantity,
-        0,
-      );
-      if (cartCountBadge) {
-        cartCountBadge.textContent = totalItems.toString();
-      }
-
-      // Renderizar items del drawer
-      if (cartItemsList) {
-        const itemsElements = cartItemsList.querySelectorAll(".cart-item-row");
-        itemsElements.forEach((el) => el.remove());
-
-        if (cart.length === 0) {
-          cartEmptyMsg?.classList.remove("hidden");
-          if (cartTotalPrice) cartTotalPrice.textContent = "BS. 0";
-        } else {
-          cartEmptyMsg?.classList.add("hidden");
-          let grandTotal = 0;
-
-          cart.forEach((item: any, index: number) => {
-            const itemTotal = item.price * item.quantity;
-            grandTotal += itemTotal;
-
-            const itemRow = document.createElement("div");
-            itemRow.className =
-              "cart-item-row flex items-center justify-between gap-3 p-3 bg-white/5 rounded-2xl border border-white/5";
-            itemRow.innerHTML = `
-                <div class="flex items-center gap-3 flex-grow">
-                  <img src="${item.img}" alt="${item.name}" class="w-12 h-12 object-contain bg-white/5 rounded-lg p-1" />
-                  <div class="text-left">
-                    <span class="block text-xs font-bold text-white line-clamp-1">${item.name}</span>
-                    <span class="block text-[9px] text-[#f6d98d] font-bold">${item.size}</span>
-                    <span class="block text-[10px] text-white/60 mt-0.5">BS. ${item.price} c/u</span>
-                  </div>
-                </div>
-                <div class="flex flex-col items-end justify-between gap-1 flex-shrink-0">
-                  <button class="cart-remove-item text-white/40 hover:text-red-400 text-xs font-bold p-1 cursor-pointer transition-colors" data-index="${index}">✕</button>
-                  <div class="flex items-center gap-2 mt-1">
-                    <button class="cart-qty-dec w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold cursor-pointer" data-index="${index}">-</button>
-                    <span class="text-xs font-black text-white w-4 text-center">${item.quantity}</span>
-                    <button class="cart-qty-inc w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold cursor-pointer" data-index="${index}">+</button>
-                  </div>
-                </div>
-              `;
-            cartItemsList.appendChild(itemRow);
-          });
-
-          if (cartTotalPrice) {
-            cartTotalPrice.textContent = `BS. ${grandTotal.toFixed(1)}`;
-          }
-        }
-      }
-
-      bindCartDrawerEvents();
-    }
-
-    function bindCartDrawerEvents() {
-      const removeButtons = document.querySelectorAll(".cart-remove-item");
-      removeButtons.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const idx = parseInt(
-            (e.currentTarget as HTMLButtonElement).getAttribute("data-index") ||
-              "0",
-            10,
-          );
-          cart.splice(idx, 1);
-          saveCart();
-        });
-      });
-
-      const decButtons = document.querySelectorAll(".cart-qty-dec");
-      decButtons.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const idx = parseInt(
-            (e.currentTarget as HTMLButtonElement).getAttribute("data-index") ||
-              "0",
-            10,
-          );
-          if (cart[idx].quantity > 1) {
-            cart[idx].quantity -= 1;
-          } else {
-            cart.splice(idx, 1);
-          }
-          saveCart();
-        });
-      });
-
-      const incButtons = document.querySelectorAll(".cart-qty-inc");
-      incButtons.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const idx = parseInt(
-            (e.currentTarget as HTMLButtonElement).getAttribute("data-index") ||
-              "0",
-            10,
-          );
-          cart[idx].quantity += 1;
-          saveCart();
-        });
-      });
-    }
-
-    function openCartDrawer() {
-      cartDrawer?.classList.remove("translate-x-full");
-      cartOverlay?.classList.remove("hidden");
-    }
-
-    function closeCartDrawer() {
-      cartDrawer?.classList.add("translate-x-full");
-      cartOverlay?.classList.add("hidden");
-    }
-
     function openQtyModal(
+      id: string,
       name: string,
       size: string,
       img: string,
       price: number,
     ) {
-      modalActiveProduct = { name, size, img, price, quantity: 1 };
+      modalActiveProduct = { id, name, size, img, price, quantity: 1 };
 
       if (modalProdName) modalProdName.textContent = name;
       if (modalProdSize) modalProdSize.textContent = size;
@@ -1524,7 +1388,38 @@ import MobileCTA from "../components/MobileCTA.astro";
       }, 300);
     }
 
-    // Enlaces de eventos principales
+    qtyModalClose?.addEventListener("click", closeQtyModal);
+    qtyModalOverlay?.addEventListener("click", closeQtyModal);
+
+    modalQtyMinus?.addEventListener("click", () => {
+      if (modalActiveProduct.quantity > 1) {
+        modalActiveProduct.quantity -= 1;
+        if (modalQtyVal)
+          modalQtyVal.textContent = modalActiveProduct.quantity.toString();
+      }
+    });
+
+    modalQtyPlus?.addEventListener("click", () => {
+      modalActiveProduct.quantity += 1;
+      if (modalQtyVal)
+        modalQtyVal.textContent = modalActiveProduct.quantity.toString();
+    });
+
+    modalAddBtn?.addEventListener("click", () => {
+      if (typeof (window as any).addToCart === "function") {
+        (window as any).addToCart({
+          id: modalActiveProduct.id || modalActiveProduct.name.toLowerCase().replace(/\s+/g, "-"),
+          name: modalActiveProduct.name,
+          size: modalActiveProduct.size,
+          img: modalActiveProduct.img,
+          price: modalActiveProduct.price,
+          quantity: modalActiveProduct.quantity,
+        });
+      }
+      closeQtyModal();
+    });
+
+    // Enlaces de botones agregar al carrito
     const buyButtons = document.querySelectorAll(".add-to-cart-btn");
     buyButtons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -1543,19 +1438,11 @@ import MobileCTA from "../components/MobileCTA.astro";
           "75";
         const price = parsePrice(priceStr);
 
-        if (typeof (window as any).addToCart === "function") {
-          (window as any).addToCart({
-            id: name.toLowerCase().replace(/\s+/g, "-"),
-            name: name,
-            size: size,
-            img: img,
-            price: price,
-          });
-        }
+        openQtyModal(name.toLowerCase().replace(/\s+/g, "-"), name, size, img, price);
       });
     });
 
-    // Compra directa de un solo producto
+    // Compra directa WhatsApp de un solo producto
     const directBuyButtons = document.querySelectorAll(".direct-buy-btn");
     directBuyButtons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -1594,87 +1481,11 @@ import MobileCTA from "../components/MobileCTA.astro";
       });
     });
 
-    modalQtyMinus?.addEventListener("click", () => {
-      if (modalActiveProduct.quantity > 1) {
-        modalActiveProduct.quantity -= 1;
-        if (modalQtyVal)
-          modalQtyVal.textContent = modalActiveProduct.quantity.toString();
-      }
-    });
-
-    modalQtyPlus?.addEventListener("click", () => {
-      modalActiveProduct.quantity += 1;
-      if (modalQtyVal)
-        modalQtyVal.textContent = modalActiveProduct.quantity.toString();
-    });
-
-    modalAddBtn?.addEventListener("click", () => {
-      const existingIdx = cart.findIndex(
-        (item: any) =>
-          item.name === modalActiveProduct.name &&
-          item.size === modalActiveProduct.size,
-      );
-      if (existingIdx > -1) {
-        cart[existingIdx].quantity += modalActiveProduct.quantity;
-      } else {
-        cart.push({
-          name: modalActiveProduct.name,
-          size: modalActiveProduct.size,
-          img: modalActiveProduct.img,
-          price: modalActiveProduct.price,
-          quantity: modalActiveProduct.quantity,
-        });
-      }
-
-      saveCart();
-      closeQtyModal();
-
-      setTimeout(() => {
-        openCartDrawer();
-      }, 400);
-    });
-
     floatingCartBtn?.addEventListener("click", () => {
       if (typeof (window as any).openCartDrawer === "function") {
         (window as any).openCartDrawer();
       }
     });
-    cartDrawerClose?.addEventListener("click", closeCartDrawer);
-    cartOverlay?.addEventListener("click", closeCartDrawer);
-
-    cartCheckoutBtn?.addEventListener("click", () => {
-      if (cart.length === 0) return;
-
-      const cityLabel = currentCity === "cochabamba" ? "Cochabamba" : "La Paz";
-      let message = `¡Hola! Quisiera realizar el siguiente pedido de Chocolates Taboada:\n\n`;
-      message += `Ciudad de entrega: ${cityLabel}\n`;
-      message += `------------------------------------------\n`;
-
-      let total = 0;
-      cart.forEach((item: any) => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        message += `• ${item.quantity} x ${item.name} (${item.size})\n`;
-        message += `  Precio unitario: BS. ${item.price.toFixed(1)}\n`;
-        message += `  Subtotal: BS. ${itemTotal.toFixed(1)}\n\n`;
-      });
-
-      message += `------------------------------------------\n`;
-      message += `Total a pagar: BS. ${total.toFixed(1)}\n\n`;
-      message += `¡Muchas gracias!`;
-
-      const waNumber = "59179786916";
-      const encodedMsg = encodeURIComponent(message);
-      const waLink = `https://wa.me/${waNumber}?text=${encodedMsg}`;
-
-      cart = [];
-      saveCart();
-      closeCartDrawer();
-
-      window.open(waLink, "_blank");
-    });
-
-    updateCartUI();
 
     // ── CAMBIO DE COLOR DEL NAVBAR AL HACER SCROLL ──
     const navbar = document.getElementById("main-navbar");
@@ -1817,104 +1628,6 @@ import MobileCTA from "../components/MobileCTA.astro";
       </button>
     </div>
   </div>
-
-  <!-- OVERLAY Y DRAWER DE CARRITO (SIDEBAR) -->
-  <div
-    id="cart-overlay"
-    class="fixed inset-0 bg-black/60 z-[1000] hidden backdrop-blur-[2px] transition-all duration-300"
-  >
-  </div>
-  <div
-    id="cart-drawer"
-    class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-[#2A1612]/98 border-l border-white/10 shadow-2xl z-[1001] translate-x-full transition-transform duration-500 ease-in-out flex flex-col"
-  >
-    <!-- Cabecera del Carrito -->
-    <div class="p-6 border-b border-white/10 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <svg
-          class="w-6 h-6 text-[#f6d98d]"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-          ></path>
-        </svg>
-        <h3 class="text-xl font-serif text-[#f6d98d] font-bold">Tu Pedido</h3>
-      </div>
-      <button
-        id="cart-drawer-close"
-        class="w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 text-white transition-colors duration-200 cursor-pointer font-bold"
-      >
-        ✕
-      </button>
-    </div>
-
-    <!-- Lista de Productos en el Carrito (Scrollable) -->
-    <div id="cart-items-list" class="flex-grow overflow-y-auto p-6 space-y-4">
-      <!-- Los productos se inyectarán dinámicamente aquí -->
-      <div
-        id="cart-empty-msg"
-        class="h-full flex flex-col items-center justify-center text-center text-white/50"
-      >
-        <svg
-          class="w-12 h-12 mb-3 text-white/20"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M2.25 3h1.386l.542 7.962A2.25 2.25 0 006.402 13h10.196a2.25 2.25 0 002.21-1.944L18.75 3m-16.5 0h13.5m-16.5 0l.344-1.5H19.5"
-          ></path>
-        </svg>
-        <p class="text-sm font-bold">Tu carrito está vacío</p>
-        <span class="text-xs mt-1"
-          >Explora nuestras colecciones y agrega tus chocolates favoritos</span
-        >
-        <a
-          href="/#cajas-especiales"
-          class="mt-4 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-black text-xs inline-flex items-center gap-1.5 hover:scale-105 transition-all duration-300 shadow-md cursor-pointer"
-        >
-          Explorar catálogo <span>→</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Resumen y Checkout del Carrito -->
-    <div class="p-6 border-t border-white/10 bg-[#251210]/60">
-      <div class="flex items-center justify-between mb-4">
-        <span class="text-white/60 text-sm font-semibold">Total estimado:</span>
-        <span
-          id="cart-total-price"
-          class="text-2xl font-serif font-black text-[#f6d98d]">BS. 0</span
-        >
-      </div>
-
-      <button
-        id="cart-checkout-btn"
-        class="group w-full py-4 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-black text-sm shadow-lg hover:shadow-[0_4px_25px_rgba(220,176,65,0.45)] hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
-      >
-        <span>Finalizar Pedido por WhatsApp</span>
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.115-2.905-6.99-1.876-1.875-4.355-2.905-6.997-2.907-5.443 0-9.867 4.42-9.87 9.867-.001 1.698.443 3.355 1.287 4.8l-.996 3.636 3.737-.98c1.413.773 2.997 1.183 4.545 1.183z"
-          ></path>
-        </svg>
-      </button>
-      <span class="block text-center text-[10px] text-white/40 mt-3 font-sans"
-        >El pedido se enviará pre-formateado directo al WhatsApp oficial de
-        nuestra fábrica.</span
-      >
-    </div>
-  </div>
-
   <CallToAction />
   <Testimonials />
   <Footer />
