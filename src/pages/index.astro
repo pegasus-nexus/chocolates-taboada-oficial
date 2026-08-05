@@ -1421,27 +1421,28 @@ import PromoPopup from "../components/PromoPopup.astro";
       closeQtyModal();
     });
 
-    // Enlaces de botones agregar al carrito
-    const buyButtons = document.querySelectorAll(".add-to-cart-btn");
-    buyButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const target = e.currentTarget as HTMLButtonElement;
-        const name = target.getAttribute("data-name") || "Chocolate Taboada";
-        const size = target.getAttribute("data-size") || "Edición Especial";
-        const img = target.getAttribute("data-img") || "/img/produc1.png";
+    // Enlaces de botones agregar al carrito (Delegado dinámicamente para productos estáticos y del catálogo)
+    document.addEventListener("click", (e) => {
+      const target = (e.target as HTMLElement).closest(".add-to-cart-btn") as HTMLButtonElement | null;
+      if (!target) return;
 
-        const priceKey =
-          currentCity === "cochabamba"
-            ? "data-price-cochabamba"
-            : "data-price-lapaz";
-        const priceStr =
-          target.getAttribute(priceKey) ||
-          target.getAttribute("data-price-cochabamba") ||
-          "75";
-        const price = parsePrice(priceStr);
+      e.preventDefault();
+      const name = target.getAttribute("data-name") || "Chocolate Taboada";
+      const size = target.getAttribute("data-size") || "Edición Especial";
+      const img = target.getAttribute("data-img") || "/img/produc1.png";
 
-        openQtyModal(name.toLowerCase().replace(/\s+/g, "-"), name, size, img, price);
-      });
+      const selectedCity = (localStorage.getItem("taboada_selected_city") || "cochabamba").toLowerCase();
+      const priceKey = (selectedCity === "la-paz" || selectedCity === "lapaz") ? "data-price-lapaz" : "data-price-cochabamba";
+      const priceStr =
+        target.getAttribute(priceKey) ||
+        target.getAttribute("data-price") ||
+        target.getAttribute("data-price-cochabamba") ||
+        "75";
+      const price = parsePrice(priceStr);
+
+      const id = target.getAttribute("data-id") || name.toLowerCase().replace(/\s+/g, "-");
+
+      openQtyModal(id, name, size, img, price);
     });
 
     // Compra directa WhatsApp de un solo producto
