@@ -500,7 +500,7 @@
       const prodId = p.id || p.nombre.toLowerCase().replace(/\s+/g, '-');
       const prodName = p.nombre.replace(/"/g, '&quot;');
       const prodSize = (p.tamano || 'Presentación Especial').replace(/"/g, '&quot;');
-      const prodDesc = (p.descripcion || p.detalles || 'Elaborado artesanalmente con 100% cacao fino de aroma sucrense y la receta tradicional de Chocolates Taboada desde 1948.').replace(/"/g, '&quot;');
+      const prodDesc = (p.descripcion || p.detalles || p.resumen || '').replace(/"/g, '&quot;');
 
       return `
         <div

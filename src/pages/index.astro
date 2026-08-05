@@ -634,8 +634,15 @@ import PromoPopup from "../components/PromoPopup.astro";
       <div class="flex flex-col gap-8 max-w-5xl mx-auto">
         <!-- CARD 1: Caja Madre Rosada / Estuche Selección Premium -->
         <div
-          class="bg-[#18090d]/35 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 shadow-2xl transition-all duration-500 group"
+          class="product-card bg-[#18090d]/35 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center gap-8 shadow-2xl transition-all duration-500 group cursor-pointer"
           style="-webkit-backdrop-filter: blur(12px);"
+          data-id="tableta-amaranto"
+          data-name="TABLETA DE CHOCOLATE CON AMARANTO"
+          data-size="100g"
+          data-img="/img/especial 3.png"
+          data-desc="Más que chocolate... una forma elegante de decir gracias."
+          data-price-cochabamba="BS. 29.5"
+          data-price-lapaz="BS. 29.5"
         >
           <!-- IMAGEN -->
           <div
@@ -681,14 +688,30 @@ import PromoPopup from "../components/PromoPopup.astro";
                 Edición Especial
               </span>
 
-              <!-- Comprar directamente con botón dorado suave y flecha -->
+              <!-- Botón Añadir al Carrito con Pop-up de Cantidad -->
               <button
                 type="button"
-                class="direct-buy-btn bg-[#F0E0B0] hover:bg-[#EED899] text-[#1C0C12] text-xs font-extrabold px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg hover:scale-105 text-center cursor-pointer flex items-center gap-2"
+                class="add-to-cart-btn bg-[#dcb041] hover:bg-white text-[#1C0C12] text-xs font-extrabold px-5 py-2.5 rounded-full transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer flex items-center gap-2"
+                data-id="tableta-amaranto"
                 data-name="TABLETA DE CHOCOLATE CON AMARANTO"
                 data-size="100g"
-                data-price-cochabamba="BS. 25"
-                data-price-lapaz="BS. 25"
+                data-img="/img/especial 3.png"
+                data-desc="Más que chocolate... una forma elegante de decir gracias."
+                data-price-cochabamba="BS. 29.5"
+                data-price-lapaz="BS. 29.5"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                <span>Añadir al Carrito</span>
+              </button>
+
+              <!-- Comprar directamente por WhatsApp -->
+              <button
+                type="button"
+                class="direct-buy-btn bg-black/50 hover:bg-black/70 border border-white/20 text-white text-xs font-bold px-5 py-2.5 rounded-full transition-all duration-300 shadow-md hover:scale-105 text-center cursor-pointer flex items-center gap-2"
+                data-name="TABLETA DE CHOCOLATE CON AMARANTO"
+                data-size="100g"
+                data-price-cochabamba="BS. 29.5"
+                data-price-lapaz="BS. 29.5"
               >
                 Comprar <span class="text-sm">→</span>
               </button>
@@ -698,8 +721,15 @@ import PromoPopup from "../components/PromoPopup.astro";
 
         <!-- CARD 2: Caja Cartera -->
         <div
-          class="bg-[#18090d]/35 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row-reverse items-center gap-8 shadow-2xl transition-all duration-500 group"
+          class="product-card bg-[#18090d]/35 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row-reverse items-center gap-8 shadow-2xl transition-all duration-500 group cursor-pointer"
           style="-webkit-backdrop-filter: blur(12px);"
+          data-id="tableta-quinua"
+          data-name="TABLETA DE CHOCOLATE CON QUINUA"
+          data-size="100g"
+          data-img="/img/Especial 4.png"
+          data-desc="Un detalle delicado, elegante y lleno de cariño."
+          data-price-cochabamba="BS. 29.5"
+          data-price-lapaz="BS. 29.5"
         >
           <!-- IMAGEN -->
           <div
@@ -745,10 +775,26 @@ import PromoPopup from "../components/PromoPopup.astro";
                 Temporada
               </span>
 
-              <!-- Comprar directamente con botón dorado suave y flecha -->
+              <!-- Botón Añadir al Carrito con Pop-up de Cantidad -->
               <button
                 type="button"
-                class="direct-buy-btn bg-[#F0E0B0] hover:bg-[#EED899] text-[#1C0C12] text-xs font-extrabold px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg hover:scale-105 text-center cursor-pointer flex items-center gap-2"
+                class="add-to-cart-btn bg-[#dcb041] hover:bg-white text-[#1C0C12] text-xs font-extrabold px-5 py-2.5 rounded-full transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer flex items-center gap-2"
+                data-id="tableta-quinua"
+                data-name="TABLETA DE CHOCOLATE CON QUINUA"
+                data-size="100g"
+                data-img="/img/Especial 4.png"
+                data-desc="Un detalle delicado, elegante y lleno de cariño."
+                data-price-cochabamba="BS. 29.5"
+                data-price-lapaz="BS. 29.5"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                <span>Añadir al Carrito</span>
+              </button>
+
+              <!-- Comprar directamente por WhatsApp -->
+              <button
+                type="button"
+                class="direct-buy-btn bg-black/50 hover:bg-black/70 border border-white/20 text-white text-xs font-bold px-5 py-2.5 rounded-full transition-all duration-300 shadow-md hover:scale-105 text-center cursor-pointer flex items-center gap-2"
                 data-name="TABLETA DE CHOC. C/ QUINUA"
                 data-size="100g"
                 data-price-cochabamba="BS. 29.5"
@@ -1381,7 +1427,15 @@ import PromoPopup from "../components/PromoPopup.astro";
       if (modalProdName) modalProdName.textContent = name;
       if (modalProdSize) modalProdSize.textContent = size;
       if (modalProdImg) modalProdImg.src = img;
-      if (modalProdDesc) modalProdDesc.textContent = desc || "Elaborado artesanalmente con 100% cacao fino de aroma sucrense y la receta tradicional de Chocolates Taboada desde 1948.";
+      if (modalProdDesc) {
+        if (desc && desc.trim() !== "") {
+          modalProdDesc.textContent = desc;
+          modalProdDesc.classList.remove("hidden");
+        } else {
+          modalProdDesc.textContent = "";
+          modalProdDesc.classList.add("hidden");
+        }
+      }
       
       updateQtyModalUI();
 
