@@ -314,6 +314,19 @@
     if (overlay) overlay.addEventListener('click', window.closeCartDrawer);
     if (closeBtn) closeBtn.addEventListener('click', window.closeCartDrawer);
 
+    // Escuchar clics en enlaces hacia #cajas-especiales para cerrar el carrito y desplazarse al catálogo
+    document.addEventListener('click', (e) => {
+      const link = e.target && e.target.closest ? e.target.closest('a[href*="cajas-especiales"]') : null;
+      if (link) {
+        window.closeCartDrawer();
+        const catalogSec = document.getElementById('cajas-especiales');
+        if (catalogSec) {
+          e.preventDefault();
+          catalogSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+
     // Escuchar cambio de ciudad para actualizar carrito de esa ciudad automáticamente
     window.addEventListener('cityChanged', () => {
       updateCartUI();
