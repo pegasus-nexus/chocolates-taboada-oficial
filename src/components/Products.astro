@@ -500,9 +500,20 @@
       const prodId = p.id || p.nombre.toLowerCase().replace(/\s+/g, '-');
       const prodName = p.nombre.replace(/"/g, '&quot;');
       const prodSize = (p.tamano || 'Presentación Especial').replace(/"/g, '&quot;');
+      const prodDesc = (p.descripcion || p.detalles || 'Elaborado artesanalmente con 100% cacao fino de aroma sucrense y la receta tradicional de Chocolates Taboada desde 1948.').replace(/"/g, '&quot;');
 
       return `
-        <div class="product-card group relative bg-white rounded-2xl border border-[#ecddd0]/80 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,22,18,0.14)]">
+        <div
+          class="product-card group relative bg-white rounded-2xl border border-[#ecddd0]/80 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,22,18,0.14)] cursor-pointer"
+          data-id="${prodId}"
+          data-name="${prodName}"
+          data-size="${prodSize}"
+          data-img="${imgUrl}"
+          data-desc="${prodDesc}"
+          data-price="${price}"
+          data-price-cochabamba="${cochaPrice}"
+          data-price-lapaz="${lapazPrice}"
+        >
           ${p.is_destacado ? `<div class="absolute top-2.5 left-2.5 z-20"><span class="inline-flex items-center gap-0.5 px-2.5 py-0.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[9px] font-black uppercase tracking-wide shadow-sm">★ Destacado</span></div>` : ''}
           <div class="absolute top-2.5 right-2.5 z-20 group/tooltip">
             <button
@@ -512,6 +523,7 @@
               data-name="${prodName}"
               data-size="${prodSize}"
               data-img="${imgUrl}"
+              data-desc="${prodDesc}"
               data-price="${price}"
               data-price-cochabamba="${cochaPrice}"
               data-price-lapaz="${lapazPrice}"

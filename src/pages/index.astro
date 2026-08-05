@@ -1357,6 +1357,8 @@ import PromoPopup from "../components/PromoPopup.astro";
       return parseFloat(cleanStr.replace(/[^\d.]/g, "")) || 0;
     }
 
+    const modalProdDesc = document.getElementById("modal-product-desc");
+
     function updateQtyModalUI() {
       if (modalQtyVal) modalQtyVal.textContent = modalActiveProduct.quantity.toString();
       const subtotal = modalActiveProduct.price * modalActiveProduct.quantity;
@@ -1372,12 +1374,14 @@ import PromoPopup from "../components/PromoPopup.astro";
       size: string,
       img: string,
       price: number,
+      desc: string = "",
     ) {
       modalActiveProduct = { id, name, size, img, price, quantity: 1 };
 
       if (modalProdName) modalProdName.textContent = name;
       if (modalProdSize) modalProdSize.textContent = size;
       if (modalProdImg) modalProdImg.src = img;
+      if (modalProdDesc) modalProdDesc.textContent = desc || "Elaborado artesanalmente con 100% cacao fino de aroma sucrense y la receta tradicional de Chocolates Taboada desde 1948.";
       
       updateQtyModalUI();
 
@@ -1429,15 +1433,21 @@ import PromoPopup from "../components/PromoPopup.astro";
       closeQtyModal();
     });
 
-    // Enlaces de botones agregar al carrito (Delegado dinámicamente para productos estáticos y del catálogo)
+    // Enlaces de botones y tarjetas para agregar al carrito (Delegado dinámicamente al hacer clic en la tarjeta o botón)
     document.addEventListener("click", (e) => {
-      const target = (e.target as HTMLElement).closest(".add-to-cart-btn") as HTMLButtonElement | null;
+      const clickedEl = e.target as HTMLElement;
+
+      // Si hace clic en el botón direct-buy-btn ("Comprar" vía WhatsApp directo), ignorar apertura de modal
+      if (clickedEl.closest(".direct-buy-btn")) return;
+
+      const target = clickedEl.closest(".product-card, .add-to-cart-btn") as HTMLElement | null;
       if (!target) return;
 
       e.preventDefault();
       const name = target.getAttribute("data-name") || "Chocolate Taboada";
       const size = target.getAttribute("data-size") || "Edición Especial";
       const img = target.getAttribute("data-img") || "/img/produc1.png";
+      const desc = target.getAttribute("data-desc") || "Elaborado artesanalmente con 100% cacao fino de aroma sucrense y la más alta tradición chocolatera de Bolivia.";
 
       const selectedCity = (localStorage.getItem("taboada_selected_city") || "cochabamba").toLowerCase();
       const priceKey = (selectedCity === "la-paz" || selectedCity === "lapaz") ? "data-price-lapaz" : "data-price-cochabamba";
@@ -1450,7 +1460,7 @@ import PromoPopup from "../components/PromoPopup.astro";
 
       const id = target.getAttribute("data-id") || name.toLowerCase().replace(/\s+/g, "-");
 
-      openQtyModal(id, name, size, img, price);
+      openQtyModal(id, name, size, img, price, desc);
     });
 
     // Compra directa WhatsApp de un solo producto
@@ -1573,7 +1583,7 @@ import PromoPopup from "../components/PromoPopup.astro";
     </span>
   </button>
 
-  <!-- OVERLAY Y MODAL DE SELECCIÓN DE CANTIDAD (POP-UP) -->
+  <!-- OVERLAY Y MODAL DE SELECCIÓN DE CANTIDAD (POP-UP AMPLIADO CON INFORMACIÓN DE PRODUCTO) -->
   <div
     id="quantity-modal-overlay"
     class="fixed inset-0 bg-black/75 z-[10000] hidden backdrop-blur-md transition-all duration-300"
@@ -1581,7 +1591,7 @@ import PromoPopup from "../components/PromoPopup.astro";
   </div>
   <div
     id="quantity-modal"
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#FAF5F0] border border-[#dcb041]/40 rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.7)] p-6 sm:p-8 z-[10001] hidden flex flex-col items-center justify-between transition-all duration-300 scale-95 opacity-0 text-center"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-lg sm:max-w-xl bg-[#FAF5F0] border border-[#dcb041]/40 rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,0,0,0.7)] p-6 sm:p-8 z-[10001] hidden flex flex-col items-center justify-between transition-all duration-300 scale-95 opacity-0 text-center max-h-[90vh] overflow-y-auto"
   >
     <!-- Botón de Cerrar Modal -->
     <button
@@ -1593,7 +1603,7 @@ import PromoPopup from "../components/PromoPopup.astro";
     </button>
 
     <div class="w-full text-center">
-      <span class="inline-block px-3 py-1 rounded-full bg-[#dcb041]/20 text-[#7a4e2b] text-[10px] font-black uppercase tracking-wider mb-2">Selecciona la cantidad</span>
+      <span class="inline-block px-3 py-1 rounded-full bg-[#dcb041]/20 text-[#7a4e2b] text-[10px] font-black uppercase tracking-wider mb-2">Detalles del Producto</span>
       <h3
         id="modal-product-name"
         class="text-xl sm:text-2xl font-bold font-serif text-[#2A1612] leading-tight"
@@ -1603,8 +1613,9 @@ import PromoPopup from "../components/PromoPopup.astro";
         id="modal-product-size"
         class="block text-xs text-[#8f6c49] font-sans mt-1 font-bold"></span>
 
-      <div class="w-full flex justify-center my-4 sm:my-6">
-        <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-white p-3 border border-[#ecddd0] shadow-inner flex items-center justify-center">
+      <!-- Imagen del Producto -->
+      <div class="w-full flex justify-center my-4">
+        <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white p-3 border border-[#ecddd0] shadow-inner flex items-center justify-center">
           <img
             id="modal-product-img"
             src=""
@@ -1614,7 +1625,14 @@ import PromoPopup from "../components/PromoPopup.astro";
         </div>
       </div>
 
-      <!-- Selector de cantidad -->
+      <!-- Breve Información / Descripción del Producto -->
+      <p
+        id="modal-product-desc"
+        class="text-xs sm:text-sm text-[#5D4037]/90 font-sans leading-relaxed my-3 bg-white/70 p-3 sm:p-4 rounded-2xl border border-[#ecddd0] text-center"
+      >
+      </p>
+
+      <!-- Selector de cantidad pill -->
       <div class="flex items-center justify-center gap-5 my-3">
         <button
           id="modal-qty-minus"
@@ -1638,7 +1656,7 @@ import PromoPopup from "../components/PromoPopup.astro";
 
       <!-- Subtotal Precio -->
       <div class="text-center mt-2 mb-4">
-        <span class="text-xs text-[#8f6c49] font-medium uppercase tracking-wider block">Total</span>
+        <span class="text-xs text-[#8f6c49] font-medium uppercase tracking-wider block">Total Estimado</span>
         <span id="modal-total-price" class="text-2xl font-serif font-black text-[#2A1612]">Bs. 0.00</span>
       </div>
 
