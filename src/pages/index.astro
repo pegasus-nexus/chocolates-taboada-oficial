@@ -1307,7 +1307,7 @@ import PromoPopup from "../components/PromoPopup.astro";
       if (heroBgCover) {
         const bgCbba =
           heroBgCover.getAttribute("data-bg-cochabamba") ||
-          "/img/portadataboada.png";
+          "/img/agostocbba.png";
         const bgLpz =
           heroBgCover.getAttribute("data-bg-lapaz") || "/img/agostolp.png";
 
@@ -1317,10 +1317,10 @@ import PromoPopup from "../components/PromoPopup.astro";
         heroBgCover.style.opacity = "0"; // Disparar fade-out
 
         setTimeout(() => {
-          if (city === "cochabamba") {
-            heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
-          } else if (city === "la-paz") {
+          if (city === "la-paz" || city === "lapaz") {
             heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
+          } else {
+            heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
           }
           heroBgCover.style.opacity = "1"; // Disparar fade-in tras aplicar nueva imagen
         }, 500); // Sincronizado con los 500ms del desvanecimiento cubic-bezier
