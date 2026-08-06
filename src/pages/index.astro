@@ -281,11 +281,6 @@ import PromoPopup from "../components/PromoPopup.astro";
 
             const bgElement = document.getElementById("hero-bg-cover");
             if (bgElement) {
-              if (wc.hero_bg_cba)
-                bgElement.setAttribute("data-bg-cochabamba", wc.hero_bg_cba);
-              if (wc.hero_bg_lpz)
-                bgElement.setAttribute("data-bg-lapaz", wc.hero_bg_lpz);
-
               const currentCity =
                 localStorage.getItem("taboada_selected_city") || "cochabamba";
               window.dispatchEvent(
@@ -1425,35 +1420,10 @@ import PromoPopup from "../components/PromoPopup.astro";
       }
     });
 
-    // ── INICIALIZACIÓN Y DETECCIÓN POR IP SILENCIOSA ──
-    const savedCity = localStorage.getItem("taboada_selected_city");
-    if (savedCity && (savedCity === "cochabamba" || savedCity === "la-paz")) {
-      updateCity(savedCity);
-    } else {
-      // Petición silenciosa asíncrona a ipapi.co/json/ (HTTPS)
-      fetch("https://ipapi.co/json/")
-        .then((res) => {
-          if (res.ok) return res.json();
-          throw new Error("API Response Error");
-        })
-        .then((data) => {
-          console.log("Ciudad detectada por API:", data.city);
-
-          const cityValue = (data.city || "").toLowerCase();
-          const regionValue = (data.region || "").toLowerCase();
-
-          // Evaluación estricta única y exclusivamente de los campos city y region (ignora timezone)
-          const detected =
-            cityValue.includes("paz") || regionValue.includes("paz")
-              ? "la-paz"
-              : "cochabamba";
-          updateCity(detected);
-        })
-        .catch((err) => {
-          // Manejo silencioso de errores para evitar romper la carga (AdBlockers o fallos de red)
-          updateCity("cochabamba");
-        });
-    }
+    // ── INICIALIZACIÓN DE CIUDAD AL CARGAR (Sin sobreescritura por IP) ──
+    const savedCity = (localStorage.getItem("taboada_selected_city") || "cochabamba").toLowerCase();
+    const initialCity = (savedCity === "la-paz" || savedCity === "lapaz") ? "la-paz" : "cochabamba";
+    updateCity(initialCity);
 
     // ── DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) ──
     function checkUrlParams() {
