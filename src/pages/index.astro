@@ -1420,63 +1420,40 @@ import PromoPopup from "../components/PromoPopup.astro";
       }
     });
 
-    // ── MOTOR DE DETECCIÓN DE UBICACIÓN ALTA PRECISIÓN (COCHABAMBA / LA PAZ) ──
-    async function detectLocationAccurately() {
-      // 1. Intento por HTML5 Geolocation (Coordenadas GPS / Red de precisión)
-      if ("geolocation" in navigator) {
-        try {
-          const coords = await new Promise<GeolocationCoordinates>((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-              (pos) => resolve(pos.coords),
-              (err) => reject(err),
-              { timeout: 3000, maximumAge: 60000 }
-            );
-          });
-
-          const lat = coords.latitude;
-          const lon = coords.longitude;
-
-          // Rango geográfico aproximado del Valle de Cochabamba (-17.0 a -18.0 lat, -65.5 a -66.6 lon)
-          if (lat <= -17.0 && lat >= -18.0 && lon <= -65.5 && lon >= -66.6) {
-            updateCity("cochabamba");
-            return;
-          }
-          // Rango geográfico de La Paz / El Alto (-16.0 a -16.9 lat, -67.8 a -68.5 lon)
-          if (lat <= -16.0 && lat >= -16.9 && lon <= -67.8 && lon >= -68.5) {
-            updateCity("la-paz");
-            return;
-          }
-        } catch (e) {
-          // Si el usuario deniega GPS o se agota el tiempo, continuar a la detección por IP
-        }
-      }
-
-      // 2. Intento por servicios IP cruzados (ipapi.co / ip-api.com)
+    // ── ANÁLISIS SILENCIOSO DE DEPARTAMENTO POR IP (SIN PERMISOS NI POPUPS DE UBICACIÓN) ──
+    async function detectDepartmentSilently() {
       try {
         const res = await fetch("https://ipapi.co/json/");
         if (res.ok) {
           const data = await res.json();
-          const cityStr = ((data.city || "") + " " + (data.region || "") + " " + (data.timezone || "")).toLowerCase();
-          
-          if (cityStr.includes("paz") || cityStr.includes("alto") || cityStr.includes("murillo")) {
+          const regionStr = (
+            (data.city || "") +
+            " " +
+            (data.region || "") +
+            " " +
+            (data.region_code || "")
+          ).toLowerCase();
+
+          // Si el departamento/región es explícitamente La Paz / El Alto / Murillo
+          if (
+            regionStr.includes("paz") ||
+            regionStr.includes("alto") ||
+            regionStr.includes("murillo")
+          ) {
             updateCity("la-paz");
-            return;
-          }
-          if (cityStr.includes("cochabamba") || cityStr.includes("cbba") || cityStr.includes("quillacollo") || cityStr.includes("sacaba")) {
-            updateCity("cochabamba");
             return;
           }
         }
       } catch (err) {
-        // Ignorar fallos de la primera API
+        // En caso de bloqueo por AdBlocker o fallo de red, se mantiene Cochabamba por defecto
       }
 
-      // 3. Fallback de respaldo predeterminado: Cochabamba (Sede Principal)
+      // Por defecto para Cochabamba y el resto del país (Sede principal)
       updateCity("cochabamba");
     }
 
-    // Ejecutar análisis de ubicación al cargar / recargar página
-    detectLocationAccurately();
+    // Analizar departamento en segundo plano 100% transparente sin pedir permisos
+    detectDepartmentSilently();
 
     // ── DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) ──
     function checkUrlParams() {
