@@ -1420,10 +1420,54 @@ import PromoPopup from "../components/PromoPopup.astro";
       }
     });
 
-    // ── INICIALIZACIÓN FIJA Y LIMPIA DE CIUDAD AL CARGAR (COCHABAMBA POR DEFECTO) ──
+    // ── ANÁLISIS SILENCIOSO Y ULTRA-PRECISO DE DEPARTAMENTO (HTTPS + FREEIPAPI) ──
+    async function detectDepartmentSilently() {
+      try {
+        const res = await fetch("https://freeipapi.com/api/json");
+        if (res.ok) {
+          const data = await res.json();
+          const regionStr = (
+            (data.cityName || "") +
+            " " +
+            (data.regionName || "") +
+            " " +
+            (data.regionCode || "")
+          ).toLowerCase();
+
+          // Si la región es explícitamente La Paz / El Alto / Murillo / Código 'L'
+          if (
+            (regionStr.includes("paz") ||
+              regionStr.includes("alto") ||
+              regionStr.includes("murillo") ||
+              data.regionCode === "L") &&
+            data.regionCode !== "C" &&
+            !regionStr.includes("cochabamba")
+          ) {
+            updateCity("la-paz");
+            return;
+          }
+
+          // Si es Cochabamba (Código 'C' o nombre Cochabamba / Quillacollo / Sacaba)
+          if (data.regionCode === "C" || regionStr.includes("cochabamba") || regionStr.includes("cbba")) {
+            updateCity("cochabamba");
+            return;
+          }
+        }
+      } catch (err) {
+        // En caso de fallo de red, se mantiene Cochabamba por defecto
+      }
+
+      // Por defecto siempre Cochabamba (Sede Principal)
+      updateCity("cochabamba");
+    }
+
+    // Inicializar primero con valor almacenado o Cochabamba por defecto
     const savedCity = (localStorage.getItem("taboada_selected_city") || "cochabamba").toLowerCase();
     const initialCity = (savedCity === "la-paz" || savedCity === "lapaz") ? "la-paz" : "cochabamba";
     updateCity(initialCity);
+
+    // Analizar departamento en segundo plano 100% transparente sin pedir permisos
+    detectDepartmentSilently();
 
     // ── DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) ──
     function checkUrlParams() {
