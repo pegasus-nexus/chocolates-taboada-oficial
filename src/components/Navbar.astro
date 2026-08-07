@@ -184,25 +184,7 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     <!-- DERECHA (Selector Ciudad + CTA Registrarse / Perfil Limpio Sin Fondo + Hamburger) -->
     <div class="flex items-center gap-3.5 md:gap-6 ml-auto pl-4 md:pl-8 border-l border-white/15 relative overflow-visible">
       
-      <!-- SELECTOR DE CIUDAD -->
-      <!-- SELECTOR DE CIUDAD (TOGGLE) -->
-      <div class="relative inline-block overflow-visible">
-        <button
-          id="city-toggle-btn"
-          type="button"
-          class="group relative flex items-center h-8 md:h-10 w-32 md:w-36 rounded-full bg-white/10 border border-white/20 transition-all duration-300 cursor-pointer shadow-inner overflow-hidden"
-          title="Cambiar Ciudad"
-        >
-          <!-- Fondo deslizante -->
-          <div id="city-toggle-slider" class="absolute left-1 top-1 bottom-1 w-[calc(50%-4px)] rounded-full bg-[#dcb041] transition-transform duration-300 ease-in-out"></div>
-          
-          <!-- Opciones -->
-          <div class="relative w-full h-full flex items-center justify-between px-2.5 z-10 font-bold text-[9px] md:text-[10px] tracking-wider uppercase">
-            <span id="city-label-cba" class="w-1/2 text-center text-[#2A1612] transition-colors duration-300">CBBA</span>
-            <span id="city-label-lpz" class="w-1/2 text-center text-white transition-colors duration-300">LPZ</span>
-          </div>
-        </button>
-      </div>
+
 
       <!-- BOTÓN CARRITO DE COMPRAS CON INSIENIA CONTADORA DORADA -->
       <button
@@ -438,33 +420,55 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
       link.addEventListener('click', closeMenu);
     });
 
-    // ── LÓGICA DEL TOGGLE DE CIUDAD ──
-    function updateToggleUI(city: string) {
-      if (!citySlider || !cityLabelCba || !cityLabelLpz) return;
-      if (city === 'la-paz') {
-        citySlider.style.transform = 'translateX(100%)';
-        cityLabelLpz.classList.remove('text-white');
-        cityLabelLpz.classList.add('text-[#2A1612]');
-        cityLabelCba.classList.add('text-white');
-        cityLabelCba.classList.remove('text-[#2A1612]');
-      } else {
-        citySlider.style.transform = 'translateX(0)';
-        cityLabelCba.classList.remove('text-white');
-        cityLabelCba.classList.add('text-[#2A1612]');
-        cityLabelLpz.classList.add('text-white');
-        cityLabelLpz.classList.remove('text-[#2A1612]');
-      }
+    // ── ATAJO SECRETO DE TECLADO PARA ENCARGADOS ──
+    // Alt + L ➔ Cambia inmediatamente a La Paz
+    // Alt + H ➔ Cambia inmediatamente a Cochabamba
+    function switchCitySecret(newCity: string) {
+      localStorage.setItem('taboada_selected_city', newCity);
+      window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: newCity } }));
+      showSecretCityToast(newCity);
     }
 
-    const savedCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
-    updateToggleUI(savedCity);
+    function showSecretCityToast(city: string) {
+      let toast = document.getElementById('secret-city-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'secret-city-toast';
+        toast.className = 'fixed bottom-6 right-6 z-[10000] px-5 py-3 rounded-2xl bg-[#2A1612] text-[#dcb041] border border-[#dcb041]/40 font-bold text-xs shadow-2xl transition-all duration-300 transform translate-y-12 opacity-0 flex items-center gap-2.5 pointer-events-none';
+        document.body.appendChild(toast);
+      }
 
-    cityToggleBtn?.addEventListener('click', () => {
-      const current = localStorage.getItem('taboada_selected_city') || 'cochabamba';
-      const newCity = current === 'cochabamba' ? 'la-paz' : 'cochabamba';
-      localStorage.setItem('taboada_selected_city', newCity);
-      updateToggleUI(newCity);
-      window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: newCity } }));
+      const cityName = (city === 'la-paz' || city === 'lapaz') ? 'La Paz' : 'Cochabamba';
+      toast.innerHTML = `<span class="text-base">🔐</span> <span>Sucursal Activa: <strong class="text-white">${cityName}</strong></span>`;
+
+      setTimeout(() => {
+        toast?.classList.remove('translate-y-12', 'opacity-0');
+        toast?.classList.add('translate-y-0', 'opacity-100');
+      }, 10);
+
+      setTimeout(() => {
+        toast?.classList.remove('translate-y-0', 'opacity-100');
+        toast?.classList.add('translate-y-12', 'opacity-0');
+      }, 2500);
+    }
+
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      // Evitar activar cuando el usuario escribe en un campo de texto
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (activeTag === 'input' || activeTag === 'textarea' || (document.activeElement as HTMLElement)?.isContentEditable) {
+        return;
+      }
+
+      if (e.altKey) {
+        const key = e.key.toLowerCase();
+        if (key === 'l') {
+          e.preventDefault();
+          switchCitySecret('la-paz');
+        } else if (key === 'h') {
+          e.preventDefault();
+          switchCitySecret('cochabamba');
+        }
+      }
     });
   });
 </script>
