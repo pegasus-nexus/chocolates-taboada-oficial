@@ -1420,40 +1420,10 @@ import PromoPopup from "../components/PromoPopup.astro";
       }
     });
 
-    // ── ANÁLISIS SILENCIOSO DE DEPARTAMENTO POR IP (SIN PERMISOS NI POPUPS DE UBICACIÓN) ──
-    async function detectDepartmentSilently() {
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        if (res.ok) {
-          const data = await res.json();
-          const regionStr = (
-            (data.city || "") +
-            " " +
-            (data.region || "") +
-            " " +
-            (data.region_code || "")
-          ).toLowerCase();
-
-          // Si el departamento/región es explícitamente La Paz / El Alto / Murillo
-          if (
-            regionStr.includes("paz") ||
-            regionStr.includes("alto") ||
-            regionStr.includes("murillo")
-          ) {
-            updateCity("la-paz");
-            return;
-          }
-        }
-      } catch (err) {
-        // En caso de bloqueo por AdBlocker o fallo de red, se mantiene Cochabamba por defecto
-      }
-
-      // Por defecto para Cochabamba y el resto del país (Sede principal)
-      updateCity("cochabamba");
-    }
-
-    // Analizar departamento en segundo plano 100% transparente sin pedir permisos
-    detectDepartmentSilently();
+    // ── INICIALIZACIÓN FIJA Y LIMPIA DE CIUDAD AL CARGAR (COCHABAMBA POR DEFECTO) ──
+    const savedCity = (localStorage.getItem("taboada_selected_city") || "cochabamba").toLowerCase();
+    const initialCity = (savedCity === "la-paz" || savedCity === "lapaz") ? "la-paz" : "cochabamba";
+    updateCity(initialCity);
 
     // ── DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) ──
     function checkUrlParams() {
