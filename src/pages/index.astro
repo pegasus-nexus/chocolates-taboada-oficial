@@ -19,13 +19,20 @@ import MobileCTA from "../components/MobileCTA.astro";
     class="relative min-h-screen overflow-hidden bg-[#14080d]"
   >    <div
       id="hero-bg-cover"
-      class="absolute inset-0 bg-no-repeat
-           bg-cover bg-[position:80%_top] sm:bg-[position:80%_center] scale-100
-           lg:bg-center lg:scale-105 transition-all duration-700"
+      class="absolute inset-0 z-0 transition-opacity duration-700"
       data-bg-cochabamba="/img/agostocbba.webp"
       data-bg-lapaz="/img/agostolp.webp"
-      style="background-image:url('/img/agostocbba.webp')"
     >
+      <img
+        id="hero-bg-img"
+        src="/img/agostocbba.webp"
+        alt="Chocolates Taboada"
+        width="900"
+        height="1200"
+        fetchpriority="high"
+        decoding="async"
+        class="w-full h-full object-cover object-[80%_top] sm:object-[80%_center] lg:object-center scale-100 lg:scale-105 transition-transform duration-700 pointer-events-none"
+      />
     </div>
 
     <div
@@ -1324,26 +1331,26 @@ import MobileCTA from "../components/MobileCTA.astro";
       document.body.classList.add(`city-${city}`);
 
       // Actualizar la portada del Hero con una transición (Fade Out / Fade In)
-      if (heroBgCover) {
+      const heroImg = document.getElementById("hero-bg-img") as HTMLImageElement | null;
+      if (heroBgCover && heroImg) {
         const bgCbba =
           heroBgCover.getAttribute("data-bg-cochabamba") ||
           "/img/agostocbba.webp";
         const bgLpz =
           heroBgCover.getAttribute("data-bg-lapaz") || "/img/agostolp.webp";
 
-        // Transición ultra suave de opacidad (fade-out / fade-in) y transform con curva cubic-bezier premium
         heroBgCover.style.transition =
-          "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)";
-        heroBgCover.style.opacity = "0"; // Disparar fade-out
+          "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+        heroBgCover.style.opacity = "0";
 
         setTimeout(() => {
           if (city === "la-paz" || city === "lapaz") {
-            heroBgCover.style.backgroundImage = `url('${bgLpz}')`;
+            heroImg.src = bgLpz;
           } else {
-            heroBgCover.style.backgroundImage = `url('${bgCbba}')`;
+            heroImg.src = bgCbba;
           }
-          heroBgCover.style.opacity = "1"; // Disparar fade-in tras aplicar nueva imagen
-        }, 500); // Sincronizado con los 500ms del desvanecimiento cubic-bezier
+          heroBgCover.style.opacity = "1";
+        }, 500);
       }
 
       // Actualizar el degradado de fondo de Colecciones
