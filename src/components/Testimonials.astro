@@ -139,46 +139,45 @@ const defaultTestimonials = [
     let cards = Array.from(document.querySelectorAll('.testimonial-card'));
 
     function updateSlider() {
-      if (!track || !container || cards.length === 0) return;
+      if (!track || cards.length === 0) return;
 
-      requestAnimationFrame(() => {
-        const containerWidth = container.clientWidth || window.innerWidth;
-        const activeCard = cards[currentIndex];
-        if (!activeCard) return;
-        const cardWidth = activeCard.clientWidth || (window.innerWidth < 640 ? 300 : 360);
+      const isMobile = window.innerWidth < 640;
+      const cardWidth = isMobile ? 300 : 360;
+      const gap = 24;
+      const paddingLeft = 16;
+      const containerWidth = Math.min(window.innerWidth, 1280);
 
-        // Calcular la posición para centrar la tarjeta activa
-        const cardOffsetLeft = activeCard.offsetLeft;
-        const targetTranslate = (containerWidth / 2) - cardOffsetLeft - (cardWidth / 2);
+      // Calcular la posición exacta de centrado mediante matemáticas puras (sin reprocesamiento forzado)
+      const cardOffsetLeft = paddingLeft + currentIndex * (cardWidth + gap);
+      const targetTranslate = (containerWidth / 2) - cardOffsetLeft - (cardWidth / 2);
 
-        // Aplicar transformación
-        track.style.transform = `translateX(${targetTranslate}px)`;
+      // Aplicar transformación
+      track.style.transform = `translateX(${targetTranslate}px)`;
 
-        // Actualizar estilos activos y opacidad de las tarjetas
-        cards.forEach((card, idx) => {
+      // Actualizar estilos activos y opacidad de las tarjetas
+      cards.forEach((card, idx) => {
+        if (idx === currentIndex) {
+          card.classList.remove('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
+          card.classList.add('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
+        } else {
+          card.classList.remove('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
+          card.classList.add('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
+        }
+      });
+
+      // Actualizar puntos dot
+      const dots = Array.from(dotsContainer ? dotsContainer.querySelectorAll('.test-dot') : []);
+      dots.forEach((dot, idx) => {
+        const pill = dot.querySelector('.dot-pill');
+        if (pill) {
           if (idx === currentIndex) {
-            card.classList.remove('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
-            card.classList.add('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
+            pill.classList.remove('bg-[#2A1612]/20', 'w-2');
+            pill.classList.add('bg-[#dcb041]', 'w-5');
           } else {
-            card.classList.remove('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
-            card.classList.add('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
+            pill.classList.remove('bg-[#dcb041]', 'w-5');
+            pill.classList.add('bg-[#2A1612]/20', 'w-2');
           }
-        });
-
-        // Actualizar puntos dot
-        const dots = Array.from(dotsContainer ? dotsContainer.querySelectorAll('.test-dot') : []);
-        dots.forEach((dot, idx) => {
-          const pill = dot.querySelector('.dot-pill');
-          if (pill) {
-            if (idx === currentIndex) {
-              pill.classList.remove('bg-[#2A1612]/20', 'w-2');
-              pill.classList.add('bg-[#dcb041]', 'w-5');
-            } else {
-              pill.classList.remove('bg-[#dcb041]', 'w-5');
-              pill.classList.add('bg-[#2A1612]/20', 'w-2');
-            }
-          }
-        });
+        }
       });
     }
 
