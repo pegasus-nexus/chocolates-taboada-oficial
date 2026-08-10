@@ -141,41 +141,44 @@ const defaultTestimonials = [
     function updateSlider() {
       if (!track || !container || cards.length === 0) return;
 
-      const containerWidth = container.offsetWidth;
-      const activeCard = cards[currentIndex];
-      const cardWidth = activeCard.offsetWidth;
+      requestAnimationFrame(() => {
+        const containerWidth = container.clientWidth || window.innerWidth;
+        const activeCard = cards[currentIndex];
+        if (!activeCard) return;
+        const cardWidth = activeCard.clientWidth || (window.innerWidth < 640 ? 300 : 360);
 
-      // Calcular la posición para centrar la tarjeta activa
-      const cardOffsetLeft = activeCard.offsetLeft;
-      const targetTranslate = (containerWidth / 2) - cardOffsetLeft - (cardWidth / 2);
+        // Calcular la posición para centrar la tarjeta activa
+        const cardOffsetLeft = activeCard.offsetLeft;
+        const targetTranslate = (containerWidth / 2) - cardOffsetLeft - (cardWidth / 2);
 
-      // Aplicar transformación
-      track.style.transform = `translateX(${targetTranslate}px)`;
+        // Aplicar transformación
+        track.style.transform = `translateX(${targetTranslate}px)`;
 
-      // Actualizar estilos activos y opacidad de las tarjetas
-      cards.forEach((card, idx) => {
-        if (idx === currentIndex) {
-          card.classList.remove('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
-          card.classList.add('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
-        } else {
-          card.classList.remove('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
-          card.classList.add('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
-        }
-      });
-
-      // Actualizar puntos dot
-      const dots = Array.from(dotsContainer.querySelectorAll('.test-dot'));
-      dots.forEach((dot, idx) => {
-        const pill = dot.querySelector('.dot-pill');
-        if (pill) {
+        // Actualizar estilos activos y opacidad de las tarjetas
+        cards.forEach((card, idx) => {
           if (idx === currentIndex) {
-            pill.classList.remove('bg-[#2A1612]/20', 'w-2');
-            pill.classList.add('bg-[#dcb041]', 'w-5');
+            card.classList.remove('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
+            card.classList.add('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
           } else {
-            pill.classList.remove('bg-[#dcb041]', 'w-5');
-            pill.classList.add('bg-[#2A1612]/20', 'w-2');
+            card.classList.remove('opacity-100', 'scale-100', 'z-10', 'border-[#dcb041]', 'shadow-[0_15px_40px_rgba(42,22,18,0.08)]');
+            card.classList.add('opacity-40', 'scale-[0.92]', 'z-0', 'bg-white/60');
           }
-        }
+        });
+
+        // Actualizar puntos dot
+        const dots = Array.from(dotsContainer ? dotsContainer.querySelectorAll('.test-dot') : []);
+        dots.forEach((dot, idx) => {
+          const pill = dot.querySelector('.dot-pill');
+          if (pill) {
+            if (idx === currentIndex) {
+              pill.classList.remove('bg-[#2A1612]/20', 'w-2');
+              pill.classList.add('bg-[#dcb041]', 'w-5');
+            } else {
+              pill.classList.remove('bg-[#dcb041]', 'w-5');
+              pill.classList.add('bg-[#2A1612]/20', 'w-2');
+            }
+          }
+        });
       });
     }
 

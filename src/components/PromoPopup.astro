@@ -4,7 +4,7 @@
 
 <div
   id="promo-popup-overlay"
-  class="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] opacity-0 pointer-events-none transition-all duration-500 flex items-center justify-center p-4 sm:p-6"
+  class="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] opacity-0 pointer-events-none transition-all duration-500 hidden items-center justify-center p-4 sm:p-6"
 >
   <div
     id="promo-popup-card"
@@ -30,16 +30,14 @@
         width="662"
         height="441"
         class="w-full h-auto object-cover max-h-[85vh] rounded-3xl"
-        loading="eager"
-        fetchpriority="high"
+        loading="lazy"
         decoding="async"
       />
     </div>
   </div>
 </div>
 
-<script is:inline>
-  // Lógica de Aparición y Cierre del Pop-up Promocional
+<script>
   document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('promo-popup-overlay');
     const card = document.getElementById('promo-popup-card');
@@ -48,8 +46,8 @@
     if (!overlay || !card) return;
 
     function openPopup() {
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100');
+      overlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+      overlay.classList.add('flex', 'opacity-100');
       card.classList.remove('scale-95');
       card.classList.add('scale-100');
       document.body.style.overflow = 'hidden';
@@ -58,6 +56,10 @@
     function closePopup() {
       overlay.classList.remove('opacity-100');
       overlay.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }, 500);
       card.classList.remove('scale-100');
       card.classList.add('scale-95');
       document.body.style.overflow = '';
