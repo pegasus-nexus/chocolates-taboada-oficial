@@ -89,7 +89,7 @@ const defaultTestimonials = [
       <button
         id="prev-testimonial-btn"
         type="button"
-        class="w-10 h-10 rounded-full border border-[#2A1612]/30 flex items-center justify-center text-[#2A1612] hover:bg-[#2A1612] hover:text-white transition-all cursor-pointer bg-white shadow-sm"
+        class="w-11 h-11 rounded-full border border-[#2A1612]/30 flex items-center justify-center text-[#2A1612] hover:bg-[#2A1612] hover:text-white transition-all cursor-pointer bg-white shadow-sm"
         aria-label="Comentario anterior"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -98,14 +98,16 @@ const defaultTestimonials = [
       </button>
 
       <!-- Puntos Indicadores -->
-      <div id="dots-container" class="flex items-center gap-2">
+      <div id="dots-container" class="flex items-center gap-1">
         {defaultTestimonials.map((_, idx) => (
           <button
             type="button"
-            class="test-dot w-2 h-2 rounded-full bg-[#2A1612]/20 transition-all duration-300 cursor-pointer"
+            class="test-dot w-8 h-8 flex items-center justify-center p-1.5 cursor-pointer"
             data-index={idx}
             aria-label={`Ir al comentario ${idx + 1}`}
-          />
+          >
+            <span class={`dot-pill block h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-[#dcb041] w-5' : 'bg-[#2A1612]/20 w-2'}`}></span>
+          </button>
         ))}
       </div>
 
@@ -113,7 +115,7 @@ const defaultTestimonials = [
       <button
         id="next-testimonial-btn"
         type="button"
-        class="w-10 h-10 rounded-full border border-[#2A1612]/30 flex items-center justify-center text-[#2A1612] hover:bg-[#2A1612] hover:text-white transition-all cursor-pointer bg-white shadow-sm"
+        class="w-11 h-11 rounded-full border border-[#2A1612]/30 flex items-center justify-center text-[#2A1612] hover:bg-[#2A1612] hover:text-white transition-all cursor-pointer bg-white shadow-sm"
         aria-label="Comentario siguiente"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -164,12 +166,15 @@ const defaultTestimonials = [
       // Actualizar puntos dot
       const dots = Array.from(dotsContainer.querySelectorAll('.test-dot'));
       dots.forEach((dot, idx) => {
-        if (idx === currentIndex) {
-          dot.classList.remove('bg-[#2A1612]/20', 'w-2');
-          dot.classList.add('bg-[#dcb041]', 'w-4');
-        } else {
-          dot.classList.remove('bg-[#dcb041]', 'w-4');
-          dot.classList.add('bg-[#2A1612]/20', 'w-2');
+        const pill = dot.querySelector('.dot-pill');
+        if (pill) {
+          if (idx === currentIndex) {
+            pill.classList.remove('bg-[#2A1612]/20', 'w-2');
+            pill.classList.add('bg-[#dcb041]', 'w-5');
+          } else {
+            pill.classList.remove('bg-[#dcb041]', 'w-5');
+            pill.classList.add('bg-[#2A1612]/20', 'w-2');
+          }
         }
       });
     }
@@ -204,8 +209,9 @@ const defaultTestimonials = [
       cards.forEach((_, idx) => {
         const dot = document.createElement('button');
         dot.type = 'button';
-        dot.className = `test-dot w-2 h-2 rounded-full bg-[#2A1612]/20 transition-all duration-300 cursor-pointer`;
+        dot.className = `test-dot w-8 h-8 flex items-center justify-center p-1.5 cursor-pointer`;
         dot.setAttribute('aria-label', `Ir al comentario ${idx + 1}`);
+        dot.innerHTML = `<span class="dot-pill block h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#dcb041] w-5' : 'bg-[#2A1612]/20 w-2'}"></span>`;
         dot.addEventListener('click', () => goToIndex(idx));
         dotsContainer.appendChild(dot);
       });
