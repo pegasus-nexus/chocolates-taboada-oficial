@@ -66,10 +66,12 @@
       sessionStorage.setItem('taboada_promo_popup_seen', 'true');
     }
 
-    // Mostrar el pop-up automáticamente 500ms después de ingresar a la página
+    // Mostrar el pop-up automáticamente 3.2s después de ingresar para no interrumpir el LCP/FCP inicial
     setTimeout(() => {
-      openPopup();
-    }, 500);
+      if (sessionStorage.getItem('taboada_promo_popup_seen') !== 'true') {
+        openPopup();
+      }
+    }, 3200);
 
     if (closeBtn) closeBtn.addEventListener('click', closePopup);
 
