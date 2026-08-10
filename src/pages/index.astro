@@ -1439,12 +1439,16 @@ import PromoPopup from "../components/PromoPopup.astro";
       }
     });
 
-    // ── ANÁLISIS SILENCIOSO Y ULTRA-PRECISO DE DEPARTAMENTO (HTTPS + FREEIPAPI) ──
+    // ── ANÁLISIS SILENCIOSO Y ULTRA-PRECISO DE DEPARTAMENTO (HTTPS + FALLBACK SIN CORS) ──
     async function detectDepartmentSilently() {
       try {
-        const res = await fetch("https://freeipapi.com/api/json");
-        if (res.ok) {
-          const data = await res.json();
+        let data = null;
+        try {
+          const res = await fetch("https://freeipapi.com/api/json").catch(() => null);
+          if (res && res.ok) data = await res.json();
+        } catch (e) {}
+
+        if (data) {
           const regionStr = (
             (data.cityName || "") +
             " " +
@@ -1473,9 +1477,8 @@ import PromoPopup from "../components/PromoPopup.astro";
           }
         }
       } catch (err) {
-        // En caso de fallo de red, se mantiene Cochabamba por defecto
+        // Fallback silencioso a Cochabamba
       }
-
       // Por defecto siempre Cochabamba (Sede Principal)
       updateCity("cochabamba");
     }
