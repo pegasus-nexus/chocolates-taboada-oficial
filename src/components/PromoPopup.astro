@@ -26,7 +26,8 @@
     <!-- Imagen de la Edición Especial Bolivia -->
     <div class="relative w-full overflow-hidden bg-[#180a0e]">
       <img
-        src="/img/popup_bolivia_edicion_especial.webp"
+        id="promo-popup-img"
+        data-src="/img/popup_bolivia_edicion_especial.webp"
         alt="Celebra Bolivia a tu manera - 6 de Agosto Edición Especial Chocolates Taboada"
         width="662"
         height="441"
@@ -47,6 +48,10 @@
     if (!overlay || !card) return;
 
     function openPopup() {
+      const img = document.getElementById('promo-popup-img');
+      if (img && img.dataset.src && !img.src) {
+        img.src = img.dataset.src;
+      }
       overlay.style.display = 'flex';
       requestAnimationFrame(() => {
         overlay.classList.remove('opacity-0', 'pointer-events-none');
