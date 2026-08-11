@@ -399,6 +399,16 @@
             if (col && col.categories_ids) {
               const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
               renderCategories(filteredCats);
+              
+              // Auto-seleccionar la primera categoría real de la colección (o Destacados si no hay)
+              setTimeout(() => {
+                const catBtns = categoriesList.querySelectorAll('.cat-btn');
+                if (catBtns.length > 1) {
+                  (catBtns[1] as HTMLElement).click();
+                } else if (catBtns.length === 1) {
+                  (catBtns[0] as HTMLElement).click();
+                }
+              }, 50);
             }
           }
         });
