@@ -317,6 +317,27 @@
           if (allCollections.length > 0 && collectionsSection && collectionsList) {
             collectionsSection.classList.remove('hidden');
             renderCollections();
+
+            // Auto-seleccionar ocasión desde la URL
+            const pathName = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+            const searchParam = new URLSearchParams(window.location.search).get('ocasion');
+            const targetOccasion = decodeURIComponent(pathName || searchParam || '');
+
+            if (targetOccasion) {
+              const matchedCol = allCollections.find(c => c.name.toLowerCase() === targetOccasion.toLowerCase());
+              if (matchedCol) {
+                const btn = collectionsList.querySelector(`[data-collection-id="${matchedCol.id}"]`);
+                if (btn) {
+                  btn.click();
+                  // Hacer scroll suave a la sección
+                  setTimeout(() => {
+                    const section = document.getElementById('cajas-especiales');
+                    if (section) section.scrollIntoView({ behavior: 'smooth' });
+                  }, 300);
+                  return; // RenderCategories y renderProducts ya se llamaron por el click
+                }
+              }
+            }
           } else if (collectionsSection) {
             collectionsSection.classList.add('hidden');
           }
