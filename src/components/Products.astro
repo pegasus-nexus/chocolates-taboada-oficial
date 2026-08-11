@@ -392,11 +392,15 @@
           if (categorySubRow) categorySubRow.classList.add('sub-row-visible');
 
           if (colId === 'all') {
+            window.history.pushState({}, '', '/');
             renderCategories(allCategories);
             renderAllProducts();
           } else {
             const col = allCollections.find(c => c.id === colId);
             if (col && col.categories_ids) {
+              const urlName = encodeURIComponent(col.name);
+              window.history.pushState({}, '', '/' + urlName);
+              
               const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
               renderCategories(filteredCats);
               
