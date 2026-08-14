@@ -1,0 +1,68 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fetchBenefit = async () => {
+      try {
+        const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1";
+        const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.status === "success" && data.web_config) {
+            const wc = data.web_config;
+            const container = document.querySelector('.ticket-container');
+            
+            if (wc.club_benefit_product_id && data.productos && container) {
+              const product = data.productos.find(p => p.id === wc.club_benefit_product_id);
+              if (product) {
+                let validity = wc.club_benefit_valid_until || '1 Semana';
+                
+                const html = `
+                  <div class="ticket-wrapper" id="ticket-${product.id}">
+                    <div class="ticket">
+                      <div class="ticket-main">
+                        <div class="ticket-img">
+                          <img src="${product.imagen || '/img/taboada-logo.png'}" alt="${product.nombre}" width="75" height="75" style="object-fit: contain; width: 100%; height: 100%; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15)); border-radius: 12px;" />
+                        </div>
+                        <div class="ticket-info">
+                          <span class="ticket-tag" style="display:inline-block; margin-bottom:10px; font-size:0.7rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:#8f6c49; border-bottom: 2px solid #8f6c49; padding-bottom:3px;">Exclusivo</span>
+                          <h3 style="font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: #2A1612; margin: 0 0 10px; line-height: 1;">${product.nombre}</h3>
+                          <p style="font-size: 1rem; color: #42200D; margin: 0; font-weight: 500;">${wc.club_benefit_description || ''}</p>
+                          ${wc.club_benefit_branch ? `<p style="font-size: 0.7rem; color: #8f6c49; margin: 8px 0 0; font-weight: 700; text-transform: uppercase;">• ${wc.club_benefit_branch}</p>` : ''}
+                        </div>
+                      </div>
+                      <div class="ticket-divider">
+                        <div class="hole hole-start" style="width:24px; height:24px; background-color:var(--cafe-profundo); border-radius:50%; position:absolute; left:-12px; top:-12px;"></div>
+                        <div class="dash-line" style="border-left: 3px dashed rgba(42,22,18,0.15); height:100%;"></div>
+                        <div class="hole hole-end" style="width:24px; height:24px; background-color:var(--cafe-profundo); border-radius:50%; position:absolute; left:-12px; bottom:-12px;"></div>
+                      </div>
+                      <div class="ticket-stub" style="width:140px; background:linear-gradient(135deg, #F3ECE3 0%, #E8DFD3 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; padding:30px 20px; border-radius: 0 24px 24px 0;">
+                        <div class="stub-barcode" style="font-family:'Courier New', monospace; font-size:1.5rem; letter-spacing:4px; font-weight:bold; color:rgba(42,22,18,0.25); transform:rotate(-90deg); margin:20px 0;">|||| || |||</div>
+                        <span class="stub-label" style="font-size:0.65rem; font-weight:800; color:#8f6c49; letter-spacing:0.05em; text-align:center;">${validity}</span>
+                        <button class="btn-redeem" onclick="abrirModal('${product.id}')" style="background:#8f6c49; color:#FAF5F0; border:none; padding:10px 18px; border-radius:12px; font-weight:800; font-size:0.85rem; letter-spacing:0.08em; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 15px rgba(143,108,73,0.3); width:100%;">CANJEAR</button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                container.innerHTML = html;
+                
+                // Override the global calculateDeadlineDate logic for dynamic rewards
+                window.dynamicRewardsData = [{
+                  id: product.id,
+                  title: product.nombre,
+                  validity: validity
+                }];
+              }
+            } else if (container) {
+               container.innerHTML = "<p style='color: white; text-align: center; font-size: 1.2rem; font-style: italic; width: 100%;'>No hay beneficios exclusivos activos en este momento.</p>";
+            }
+          }
+        }
+      } catch (err) {}
+    };
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(fetchBenefit, { timeout: 1500 });
+    } else {
+      setTimeout(fetchBenefit, 100);
+    }
+  });
+</script>
