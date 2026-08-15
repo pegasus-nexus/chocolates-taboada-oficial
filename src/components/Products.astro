@@ -176,7 +176,7 @@
             <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#5e4225]">Tipo de producto</p>
             <span class="flex-1 h-px bg-[#e8dccb] rounded-full"></span>
           </div>
-          <div id="dynamic-categories-list" class="flex flex-wrap gap-2 animate-pulse">
+          <div id="dynamic-categories-list" class="flex flex-wrap gap-2">
             <div class="h-7 w-20 bg-[#e8dccb]/70 rounded-full"></div>
             <div class="h-7 w-24 bg-[#e8dccb]/70 rounded-full"></div>
             <div class="h-7 w-16 bg-[#e8dccb]/70 rounded-full"></div>
@@ -429,6 +429,7 @@
 
     function renderCategories(categorias) {
       if (!categoriesList) return;
+      categoriesList.classList.remove('animate-pulse');
       
       let html = `
         <div class="relative group/cat-tooltip flex-shrink-0 lg:flex-shrink w-full">
