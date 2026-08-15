@@ -470,9 +470,13 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
         <span class="text-xs uppercase tracking-widest text-[#dcb041] font-bold font-sans">Comunidad de Lealtad</span>
       </div>
       
-      <h1 id="community-welcome-title" class="font-serif text-4xl md:text-6xl text-[var(--beige-seda)] font-extrabold leading-tight tracking-tight mb-4">
+            <h1 id="community-welcome-title" class="font-serif text-4xl md:text-6xl text-[var(--beige-seda)] font-extrabold leading-tight tracking-tight mb-4">
         Comunidad <span class="text-[#dcb041] italic font-semibold">Taboada</span>
       </h1>
+      <div id="member-code-banner" style="display: none; margin-bottom: 20px; background: rgba(220,176,65,0.1); border: 1px solid #dcb041; padding: 12px 20px; border-radius: 12px; display: inline-flex; align-items: center; gap: 15px;">
+        <span style="color: #f6d98d; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Código de Miembro:</span>
+        <span id="member-code-value" style="font-family: monospace; font-size: 1.4rem; color: white; font-weight: bold; letter-spacing: 0.1em;"></span>
+      </div>
       
       <p id="community-welcome-desc" style="font-size: 16px; margin-top: 15px; max-width: 600px; line-height: 1.6; color: #e8dccb; font-family: sans-serif;">
         De cortesía elige tu regalo de bienvenida en grande, el cual podrás canjear exclusivamente en nuestra sucursal de 
@@ -787,3 +791,27 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   });
 </script>
 
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const code = localStorage.getItem('taboada_user_codigo_miembro');
+    const banner = document.getElementById('member-code-banner');
+    const valueEl = document.getElementById('member-code-value');
+    
+    if (code && banner && valueEl) {
+      valueEl.textContent = code;
+      banner.style.display = 'inline-flex';
+    } else if (banner) {
+      banner.style.display = 'none';
+    }
+    
+    // Escuchar el evento en caso de que se registre en esta misma pestaña sin recargar
+    window.addEventListener('taboadaUserRegistered', (e) => {
+      const newCode = localStorage.getItem('taboada_user_codigo_miembro');
+      if (newCode && banner && valueEl) {
+        valueEl.textContent = newCode;
+        banner.style.display = 'inline-flex';
+      }
+    });
+  });
+</script>

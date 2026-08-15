@@ -184,6 +184,9 @@
         localStorage.setItem('taboada_user_apellido', apellidoInput);
         localStorage.setItem('taboada_user_celular', data.telefono || celularInput);
         localStorage.setItem('taboada_cliente_id', data.cliente_id);
+        if (data.codigo_miembro) {
+          localStorage.setItem('taboada_user_codigo_miembro', data.codigo_miembro);
+        }
 
         // 2. Disparar evento de sincronización en vivo para Navbar y Banner de Bienvenida
         window.dispatchEvent(new CustomEvent('taboadaUserRegistered', {
