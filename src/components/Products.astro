@@ -318,23 +318,41 @@
             collectionsSection.classList.remove('hidden');
             renderCollections();
 
-            // Auto-seleccionar ocasión desde la URL
-            const pathName = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
-            const searchParam = new URLSearchParams(window.location.search).get('ocasion');
-            const targetOccasion = decodeURIComponent(pathName || searchParam || '');
+            // Auto-seleccionar ocasión y categoría desde la URL
+            const segments = window.location.pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));
+            const targetOccasion = segments[0] || '';
+            const targetCategory = segments[1] || '';
 
             if (targetOccasion) {
-              const matchedCol = allCollections.find(c => c.name.toLowerCase() === targetOccasion.toLowerCase());
+              const isVertodo = targetOccasion.toLowerCase().includes('vertodo') || targetOccasion.toLowerCase().includes('ver todo');
+              const matchedCol = allCollections.find(c => c.name.toLowerCase() === targetOccasion.toLowerCase()) ||
+                (isVertodo ? { id: 'all', name: 'Vertodo' } : null);
+
               if (matchedCol) {
                 const btn = collectionsList.querySelector(`[data-collection-id="${matchedCol.id}"]`);
                 if (btn) {
-                  btn.click();
-                  // Hacer scroll suave a la sección
+                  (btn as HTMLElement).click();
+
+                  // Si viene categoría en URL (/Vertodo/Bodega, /Vertodo/Bolsas h, etc.)
+                  if (targetCategory) {
+                    setTimeout(() => {
+                      const catBtns = categoriesList.querySelectorAll('.cat-btn');
+                      const matchedCat = allCategories.find(c =>
+                        c.name.toLowerCase() === targetCategory.toLowerCase() ||
+                        String(c.id).toLowerCase() === targetCategory.toLowerCase()
+                      );
+                      if (matchedCat) {
+                        const targetCatBtn = Array.from(catBtns).find(b => (b as HTMLElement).dataset.target === String(matchedCat.id));
+                        if (targetCatBtn) (targetCatBtn as HTMLElement).click();
+                      }
+                    }, 80);
+                  }
+
                   setTimeout(() => {
                     const section = document.getElementById('cajas-especiales');
                     if (section) section.scrollIntoView({ behavior: 'smooth' });
                   }, 300);
-                  return; // RenderCategories y renderProducts ya se llamaron por el click
+                  return;
                 }
               }
             }
@@ -392,7 +410,7 @@
           if (categorySubRow) categorySubRow.classList.add('sub-row-visible');
 
           if (colId === 'all') {
-            window.history.pushState({}, '', '/');
+            window.history.pushState({}, '', '/Vertodo');
             renderCategories(allCategories);
             renderAllProducts();
           } else {
@@ -403,16 +421,6 @@
               
               const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
               renderCategories(filteredCats);
-              
-              // Auto-seleccionar la primera categoría real de la colección (o Destacados si no hay)
-              setTimeout(() => {
-                const catBtns = categoriesList.querySelectorAll('.cat-btn');
-                if (catBtns.length > 1) {
-                  (catBtns[1] as HTMLElement).click();
-                } else if (catBtns.length === 1) {
-                  (catBtns[0] as HTMLElement).click();
-                }
-              }, 50);
             }
           }
         });
@@ -462,6 +470,26 @@
           btn.classList.add('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
           btn.classList.remove('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
           currentCategory = (btn as HTMLElement).dataset.target || 'DESTACADOS';
+
+          // Actualizar URL dinámicamente: /Vertodo/Bodega, /Vertodo/Bolsas h, /Regala/Bombones, etc.
+          const activeOccasionBtn = collectionsList ? collectionsList.querySelector('.occasion-active') : null;
+          let activeOccasionName = 'Vertodo';
+          if (activeOccasionBtn) {
+            const colId = (activeOccasionBtn as HTMLElement).dataset.collectionId;
+            if (colId !== 'all') {
+              const matchedCol = allCollections.find(c => c.id === colId);
+              if (matchedCol) activeOccasionName = matchedCol.name;
+            }
+          }
+
+          if (currentCategory === 'DESTACADOS') {
+            window.history.pushState({}, '', '/' + (activeOccasionName === 'Vertodo' ? '' : encodeURIComponent(activeOccasionName)));
+          } else {
+            const matchedCat = allCategories.find(c => String(c.id) === currentCategory);
+            const catSlug = matchedCat ? matchedCat.name : currentCategory;
+            window.history.pushState({}, '', '/' + encodeURIComponent(activeOccasionName) + '/' + encodeURIComponent(catSlug));
+          }
+
           renderProducts();
         });
       });

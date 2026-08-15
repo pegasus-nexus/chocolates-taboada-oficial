@@ -1,0 +1,82 @@
+---
+import Index from '../index.astro';
+
+export async function getStaticPaths() {
+  const apiUrl = import.meta.env.PUBLIC_API_URL || "https://sales-system-aptb.onrender.com/api/v1";
+  let collections: any[] = [];
+  let categories: any[] = [];
+  
+  try {
+    const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
+    const data = await response.json();
+    if (data.status === 'success') {
+      collections = data.colecciones || [];
+      categories = data.categorias || [];
+    }
+  } catch (error) {
+    console.error("Error fetching catalog for static paths [ocasion]/[categoria]:", error);
+  }
+
+  // Fallback lists if API is offline
+  if (categories.length === 0) {
+    categories = [
+      { name: 'Bodega' },
+      { name: 'Bolsas h' },
+      { name: 'Cremas' },
+      { name: 'Galletas celiacos' },
+      { name: 'Juguete' },
+      { name: 'Madera' },
+      { name: 'Padre' },
+      { name: 'Regalo' },
+      { name: 'Reposteria' },
+      { name: 'Sucre' },
+      { name: 'Vino' },
+      { name: 'Navidad' },
+      { name: 'Ventas lp' },
+      { name: 'Pascuas' },
+      { name: 'Pascua' },
+      { name: 'A granel' },
+      { name: 'Amor' },
+      { name: 'Blster' },
+      { name: 'Bombones' },
+      { name: 'Deporte' },
+      { name: 'Detalles' },
+      { name: 'Grageas' },
+      { name: 'Infantil' },
+      { name: 'Tabletas' },
+      { name: 'Vino taboada' },
+      { name: 'Cafe' },
+      { name: 'Alfajores' },
+      { name: 'Packs' }
+    ];
+  }
+
+  const occasionList = collections.length > 0
+    ? collections.map((c: any) => c.name)
+    : ['Regala', 'Sorprende', 'Disfruta con amigos', 'Comparte', 'Festeja', 'Ver todo', 'Vertodo'];
+
+  if (!occasionList.includes('Vertodo')) occasionList.push('Vertodo');
+  if (!occasionList.includes('Ver todo')) occasionList.push('Ver todo');
+
+  const paths: any[] = [];
+
+  for (const occName of occasionList) {
+    for (const cat of categories) {
+      if (cat.name) {
+        paths.push({
+          params: { ocasion: occName, categoria: cat.name }
+        });
+      }
+      if (cat.id && cat.id !== cat.name) {
+        paths.push({
+          params: { ocasion: occName, categoria: cat.id }
+        });
+      }
+    }
+  }
+
+  return paths;
+}
+---
+
+<Index />
