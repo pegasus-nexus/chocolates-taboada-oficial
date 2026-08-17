@@ -53,10 +53,14 @@ export async function getStaticPaths() {
 
   const occasionList = collections.length > 0
     ? collections.map((c: any) => c.name)
-    : ['Regala', 'Sorprende', 'Disfruta con amigos', 'Comparte', 'Festeja', 'Ver todo', 'Vertodo'];
+    : ['Regala', 'Sorprende', 'Disfruta con amigos', 'Comparte', 'Festeja', 'Ver todo', 'Vertodo', 'Catalogo', 'catalogo'];
 
-  if (!occasionList.includes('Vertodo')) occasionList.push('Vertodo');
-  if (!occasionList.includes('Ver todo')) occasionList.push('Ver todo');
+  const extraOccasions = ['Vertodo', 'Ver todo', 'Catalogo', 'catalogo'];
+  extraOccasions.forEach(occ => {
+    if (!occasionList.some((o: string) => o.toLowerCase() === occ.toLowerCase())) {
+      occasionList.push(occ);
+    }
+  });
 
   const paths: any[] = [];
 

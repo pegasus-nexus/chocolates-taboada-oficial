@@ -15,17 +15,13 @@ export async function getStaticPaths() {
     console.error("Error fetching collections for static paths:", error);
   }
 
-  // Fallback if API fails or no collections
-  if (collections.length === 0) {
-    collections = [
-      { name: 'Regala' },
-      { name: 'Sorprende' },
-      { name: 'Disfruta con amigos' },
-      { name: 'Comparte' },
-      { name: 'Festeja' },
-      { name: 'Ver todo' }
-    ];
-  }
+  // Ensure Catalogo, catalogo, Vertodo, and Ver todo are generated
+  const staticNames = ['Regala', 'Sorprende', 'Disfruta con amigos', 'Comparte', 'Festeja', 'Ver todo', 'Vertodo', 'Catalogo', 'catalogo'];
+  staticNames.forEach(name => {
+    if (!collections.some((c: any) => c.name.toLowerCase() === name.toLowerCase())) {
+      collections.push({ name });
+    }
+  });
 
   return collections.map((col: any) => ({
     params: { ocasion: col.name }
