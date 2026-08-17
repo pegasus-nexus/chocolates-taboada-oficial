@@ -14,10 +14,10 @@ export async function getStaticPaths() {
       categories = data.categorias || [];
     }
   } catch (error) {
-    console.error("Error fetching catalog for static paths [ocasion]/[categoria]:", error);
+    console.error("Error fetching catalog for static paths Catalogo/[...slug]:", error);
   }
 
-  // Fallback lists if API is offline
+  // Fallback list of categories if API fails
   if (categories.length === 0) {
     categories = [
       { name: 'Bodega' },
@@ -52,29 +52,26 @@ export async function getStaticPaths() {
   }
 
   const occasionList = collections.length > 0
-    ? collections.map((c: any) => c.name).filter((name: string) => name.toLowerCase() !== 'catalogo')
+    ? collections.map((c: any) => c.name)
     : ['Regala', 'Sorprende', 'Disfruta con amigos', 'Comparte', 'Festeja', 'Ver todo', 'Vertodo'];
-
-  const extraOccasions = ['Vertodo', 'Ver todo'];
-  extraOccasions.forEach(occ => {
-    if (!occasionList.some((o: string) => o.toLowerCase() === occ.toLowerCase())) {
-      occasionList.push(occ);
-    }
-  });
 
   const paths: any[] = [];
 
-  for (const occName of occasionList) {
+  // 1. Single level paths: /Catalogo/[ocasion] AND /Catalogo/[categoria]
+  for (const occ of occasionList) {
+    paths.push({ params: { slug: occ } });
+  }
+  for (const cat of categories) {
+    if (cat.name) {
+      paths.push({ params: { slug: cat.name } });
+    }
+  }
+
+  // 2. Two level paths: /Catalogo/[ocasion]/[categoria]
+  for (const occ of occasionList) {
     for (const cat of categories) {
       if (cat.name) {
-        paths.push({
-          params: { ocasion: occName, categoria: cat.name }
-        });
-      }
-      if (cat.id && cat.id !== cat.name) {
-        paths.push({
-          params: { ocasion: occName, categoria: cat.id }
-        });
+        paths.push({ params: { slug: `${occ}/${cat.name}` } });
       }
     }
   }
