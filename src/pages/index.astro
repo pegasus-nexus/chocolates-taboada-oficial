@@ -169,83 +169,147 @@ import MobileCTA from "../components/MobileCTA.astro";
 
     <!-- CONTENIDO -->
 
-    <div
-      class="relative z-[5] w-full max-w-[1440px] mx-auto min-h-[85vh] lg:min-h-screen px-4 sm:px-8 lg:pl-16 lg:pr-10 pt-20 sm:pt-28 lg:pt-[120px] pb-12 lg:pb-20 grid lg:grid-cols-2 items-center gap-6 lg:gap-8"
-    >
-      <!-- TEXTO CENTRADO EN MÓVIL, IZQUIERDA EN DESKTOP -->
+    <!-- ══════════════════════════════════════════════════
+         DISEÑO MÓVIL EDITORIAL LUXURY (Solo celular < lg)
+         Inspirado en estética editorial moderna: fondo crema,
+         tipografía a la izquierda, recorte curvo orgánico a la derecha
+         y tarjeta inferior de 3 pilares de confianza.
+    ══════════════════════════════════════════════════ -->
+    <div class="lg:hidden relative z-[5] w-full min-h-[90vh] flex flex-col justify-between pt-24 pb-6 px-4 bg-[#FAF5F0] overflow-hidden">
+      
+      <!-- Fondo sutil degradado crema -->
+      <div class="absolute inset-0 bg-gradient-to-br from-[#FAF6F0] via-[#F4ECE3] to-[#EFE4D8] pointer-events-none -z-10"></div>
+      <div class="absolute -top-12 -right-12 w-52 h-52 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-      <div class="max-w-[650px] mx-auto lg:mx-0 text-center lg:text-left flex flex-col items-center lg:items-start relative w-full p-4 sm:p-6 lg:p-0">
+      <!-- SECCIÓN SUPERIOR: TEXTO EDITORIAL + RECORTE CURVO DE IMAGEN -->
+      <div class="relative w-full flex items-center justify-between pt-2 pb-4">
         
-        <!-- Tarjeta de Cristal y Resplandor de Lujo (Exclusivo Celular) -->
-        <div class="lg:hidden absolute inset-0 bg-gradient-to-b from-[#18090d]/65 via-[#18090d]/45 to-[#18090d]/75 backdrop-blur-md rounded-3xl border border-[#dcb041]/25 shadow-[0_20px_45px_rgba(0,0,0,0.6)] -z-10"></div>
+        <!-- Contenido de Texto a la Izquierda -->
+        <div class="w-[58%] text-left pr-2 relative z-10 hero-anim-1">
+          
+          <!-- Ícono Emblema Asterisco Dorado -->
+          <div class="w-8 h-8 rounded-full bg-[#2A1612] text-[#dcb041] flex items-center justify-center mb-3 shadow-md">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.1 6.8-5.5-4.1-5.5 4.1 2.1-6.8L3 8.8h6.6L12 2z"/>
+            </svg>
+          </div>
 
-        <!-- BADGE DORADO PREMIUM (Animación rápida) -->
-        <div class="inline-flex items-center justify-center lg:justify-start gap-2 px-3.5 py-1.5 rounded-full bg-[#dcb041]/15 border border-[#dcb041]/35 backdrop-blur-md shadow-[0_0_15px_rgba(220,176,65,0.2)] mb-3 sm:mb-4 hero-anim-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-ping"></span>
-          <span
-            id="hero-subtitle"
-            class="uppercase tracking-[0.2em] sm:tracking-[0.38em] text-[#f6d98d] text-[0.62rem] sm:text-[0.75rem] font-black"
+          <!-- Título Principal -->
+          <h1 class="font-serif text-[1.65rem] sm:text-[1.85rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-2.5">
+            Hay momentos que merecen un buen chocolate.
+          </h1>
+
+          <!-- Descripción -->
+          <p class="text-[12px] text-[#5D4037]/85 leading-relaxed font-sans mb-4">
+            Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano desde 1948.
+          </p>
+
+          <!-- Botón de Acción Principal (Pill oscuro elegante) -->
+          <a
+            href="#cajas-especiales"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-[11px] font-bold shadow-[0_4px_15px_rgba(42,22,18,0.25)] transition-all whitespace-nowrap"
           >
+            <span>Explorar Catálogo</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </a>
+        </div>
+
+        <!-- Imagen con Curva Orgánica Fluida a la Derecha -->
+        <div class="w-[42%] h-72 sm:h-80 rounded-l-[45px] overflow-hidden shadow-[0_15px_30px_rgba(42,22,18,0.15)] border-y border-l border-[#e2d5c3] relative -mr-4 z-0 hero-anim-2">
+          <img
+            id="mobile-hero-img"
+            src="/img/agostocbba.webp"
+            alt="Chocolates Taboada"
+            class="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/30 via-transparent to-transparent"></div>
+        </div>
+
+      </div>
+
+      <!-- SECCIÓN INFERIOR: TARJETA FLOTANTE DE 3 CARACTERÍSTICAS -->
+      <div class="bg-white/95 backdrop-blur-md rounded-[1.75rem] p-3.5 sm:p-4 border border-[#e8dccb] shadow-[0_10px_25px_rgba(42,22,18,0.06)] grid grid-cols-3 gap-2 text-left relative z-10 hero-anim-3">
+        
+        <!-- Columna 1 -->
+        <div class="flex flex-col items-start border-r border-[#f0e6d8] pr-2">
+          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+          </div>
+          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">100% Cacao</span>
+          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Sabor noble</span>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="flex flex-col items-start border-r border-[#f0e6d8] pr-2">
+          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">Tradición</span>
+          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Desde 1948</span>
+        </div>
+
+        <!-- Columna 3 -->
+        <div class="flex flex-col items-start">
+          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.004 0V5.625c0-.621-.504-1.125-1.125-1.125H9.375c-.621 0-1.125.504-1.125 1.125v8.625m5.004 0H8.25"/></svg>
+          </div>
+          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">Calidad</span>
+          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Boliviana pura</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         DISEÑO DESKTOP CINEMÁTICO (Solo Laptop / Desktop >= lg)
+    ══════════════════════════════════════════════════ -->
+    <div
+      class="hidden lg:grid relative z-[5] w-full max-w-[1440px] mx-auto min-h-screen px-8 lg:pl-16 lg:pr-10 pt-[120px] pb-20 grid-cols-2 items-center gap-8"
+    >
+      <div class="max-w-[650px] text-left flex flex-col items-start relative w-full">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#dcb041]/15 border border-[#dcb041]/35 backdrop-blur-md shadow-[0_0_15px_rgba(220,176,65,0.2)] mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-ping"></span>
+          <span id="hero-subtitle" class="uppercase tracking-[0.38em] text-[#f6d98d] text-[0.75rem] font-black">
             DESDE 1948 CREANDO MOMENTOS ESPECIALES
           </span>
           <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041]"></span>
         </div>
 
-        <!-- TÍTULO ELEGANTE CON DEGRADADO DORADO -->
-        <h1
-          id="hero-title"
-          class="font-playfair text-2xl sm:text-3xl lg:text-[clamp(2.2rem,4.8vw,4.2rem)] leading-tight tracking-tight text-[#fff7f8] drop-shadow-[0_8px_25px_rgba(0,0,0,0.7)] hero-anim-2"
-        >
+        <!-- Título -->
+        <h1 id="hero-title" class="font-playfair text-[clamp(2.2rem,4.8vw,4.2rem)] leading-tight tracking-tight text-[#fff7f8] drop-shadow-[0_8px_25px_rgba(0,0,0,0.7)]">
           <span class="block text-white">Hay momentos que</span>
-          <span class="bg-gradient-to-r from-[#ffe8b3] via-[#dcb041] to-[#f6d98d] bg-clip-text text-transparent italic font-[700] block mt-1 drop-shadow-[0_2px_12px_rgba(220,176,65,0.35)]"
-            >merecen un buen chocolate.</span
-          >
+          <span class="bg-gradient-to-r from-[#ffe8b3] via-[#dcb041] to-[#f6d98d] bg-clip-text text-transparent italic font-[700] block mt-1 drop-shadow-[0_2px_12px_rgba(220,176,65,0.35)]">
+            merecen un buen chocolate.
+          </span>
         </h1>
 
-        <!-- TEXTO COMPACTO Y DE ALTO CONTRASTE -->
-        <p
-          id="hero-description"
-          class="mt-3 sm:mt-5 text-[12.5px] sm:text-sm lg:text-[clamp(0.95rem,1.5vw,1.1rem)] leading-relaxed text-[#f7e8ec] max-w-sm sm:max-w-md lg:max-w-[460px] font-normal drop-shadow-sm hero-anim-3"
-        >
+        <!-- Descripción -->
+        <p id="hero-description" class="mt-5 text-[clamp(0.95rem,1.5vw,1.1rem)] leading-relaxed text-[#f7e8ec] max-w-[460px] font-normal drop-shadow-sm">
           Cada ocasión merece un detalle especial. Descubre chocolates
           elaborados con tradición, elegancia y el auténtico sabor boliviano.
         </p>
 
-        <!-- BOTONES MODERNOS Y ANIMADOS -->
-        <div class="mt-5 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 w-full sm:w-auto hero-anim-4">
+        <!-- Botones -->
+        <div class="mt-8 flex items-center gap-3">
           <a
             href="#cajas-especiales"
-            class="group inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-7 sm:py-4 rounded-full bg-gradient-to-r from-[#f6d98d] via-[#dcb041] to-[#c99a2e] text-[#2e1119] font-black text-xs md:text-sm shadow-[0_8px_25px_rgba(220,176,65,0.35)] hover:shadow-[0_10px_30px_rgba(220,176,65,0.55)] hover:scale-[1.03] active:scale-95 transition-all duration-300 relative overflow-hidden flex-1 sm:flex-initial"
+            class="group inline-flex items-center gap-2 px-7 py-4 rounded-full bg-gradient-to-r from-[#f6d98d] via-[#dcb041] to-[#c99a2e] text-[#2e1119] font-black text-sm shadow-[0_8px_25px_rgba(220,176,65,0.35)] hover:shadow-[0_10px_30px_rgba(220,176,65,0.55)] hover:scale-[1.03] active:scale-95 transition-all duration-300 relative overflow-hidden"
           >
             <span class="relative z-10 tracking-wide">Explorar Colecciones</span>
             <svg class="w-3.5 h-3.5 relative z-10 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-[130%] group-hover:animate-shimmer"
-            >
-            </div>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-[130%] group-hover:animate-shimmer"></div>
           </a>
 
           <a
             href="/nosotros"
-            class="group inline-flex items-center justify-center gap-1.5 px-4 py-3 sm:px-7 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white hover:text-[#dcb041] font-bold text-xs md:text-sm transition-all duration-300 relative overflow-hidden flex-1 sm:flex-initial active:scale-95"
+            class="group inline-flex items-center gap-1.5 px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white hover:text-[#dcb041] font-bold text-sm transition-all duration-300 relative overflow-hidden active:scale-95"
           >
             <span class="relative z-10 tracking-wide">Nuestra tradición</span>
           </a>
         </div>
-
-        <!-- MICRO SELLOS DE CONFIANZA (Solo Celular) -->
-        <div class="lg:hidden mt-4 pt-3.5 border-t border-white/10 w-full flex items-center justify-center gap-1.5 flex-wrap hero-anim-4 text-[10px] font-semibold text-[#f6d98d]">
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-            🍫 100% Cacao Fino
-          </span>
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-            ✨ Calidad Tradicional
-          </span>
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-            🇧🇴 Desde 1948
-          </span>
-        </div>
-
       </div>
     </div>
   </header>
@@ -1400,6 +1464,11 @@ import MobileCTA from "../components/MobileCTA.astro";
           }
           heroBgCover.style.opacity = "1"; // Disparar fade-in tras aplicar nueva imagen
         }, 500); // Sincronizado con los 500ms del desvanecimiento cubic-bezier
+      }
+
+      const mobileHeroImg = document.getElementById("mobile-hero-img") as HTMLImageElement;
+      if (mobileHeroImg) {
+        mobileHeroImg.src = (city === "la-paz" || city === "lapaz") ? "/img/agostolp.webp" : "/img/agostocbba.webp";
       }
 
       // Actualizar el degradado de fondo de Colecciones
