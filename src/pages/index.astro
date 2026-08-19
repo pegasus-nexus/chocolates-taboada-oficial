@@ -170,76 +170,82 @@ import MobileCTA from "../components/MobileCTA.astro";
     <!-- CONTENIDO -->
 
     <div
-      class="relative z-[5] w-full max-w-[1440px] mx-auto min-h-[85vh] lg:min-h-screen px-5 sm:px-8 lg:pl-16 lg:pr-10 pt-24 sm:pt-28 lg:pt-[120px] pb-12 lg:pb-20 grid lg:grid-cols-2 items-center gap-6 lg:gap-8"
+      class="relative z-[5] w-full max-w-[1440px] mx-auto min-h-[85vh] lg:min-h-screen px-4 sm:px-8 lg:pl-16 lg:pr-10 pt-20 sm:pt-28 lg:pt-[120px] pb-12 lg:pb-20 grid lg:grid-cols-2 items-center gap-6 lg:gap-8"
     >
-      <!-- TEXTO CENTRADO EN MÃ“VIL, IZQUIERDA EN DESKTOP -->
+      <!-- TEXTO CENTRADO EN MÓVIL, IZQUIERDA EN DESKTOP -->
 
-      <div class="max-w-[650px] mx-auto lg:mx-0 text-center lg:text-left flex flex-col items-center lg:items-start">
-        <!-- MINI TEXTO CENTRADO EN MÃ“VIL -->
+      <div class="max-w-[650px] mx-auto lg:mx-0 text-center lg:text-left flex flex-col items-center lg:items-start relative w-full p-4 sm:p-6 lg:p-0">
+        
+        <!-- Tarjeta de Cristal y Resplandor de Lujo (Exclusivo Celular) -->
+        <div class="lg:hidden absolute inset-0 bg-gradient-to-b from-[#18090d]/65 via-[#18090d]/45 to-[#18090d]/75 backdrop-blur-md rounded-3xl border border-[#dcb041]/25 shadow-[0_20px_45px_rgba(0,0,0,0.6)] -z-10"></div>
 
-        <div class="flex items-center justify-center lg:justify-start gap-3 mb-3 sm:mb-4">
-          <div
-            class="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-[#dcb041] to-transparent"
-          >
-          </div>
-
+        <!-- BADGE DORADO PREMIUM (Animación rápida) -->
+        <div class="inline-flex items-center justify-center lg:justify-start gap-2 px-3.5 py-1.5 rounded-full bg-[#dcb041]/15 border border-[#dcb041]/35 backdrop-blur-md shadow-[0_0_15px_rgba(220,176,65,0.2)] mb-3 sm:mb-4 hero-anim-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-ping"></span>
           <span
             id="hero-subtitle"
-            class="uppercase tracking-[0.25em] sm:tracking-[0.38em] text-[#dcb041] text-[0.65rem] sm:text-[0.75rem] font-extrabold"
+            class="uppercase tracking-[0.2em] sm:tracking-[0.38em] text-[#f6d98d] text-[0.62rem] sm:text-[0.75rem] font-black"
           >
             DESDE 1948 CREANDO MOMENTOS ESPECIALES
           </span>
-
-          <div
-            class="w-6 sm:w-10 h-[1px] bg-gradient-to-l from-[#dcb041] to-transparent lg:hidden"
-          >
-          </div>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041]"></span>
         </div>
 
-        <!-- TITULO MÁS PEQUEÃ‘O Y ELEGANTE EN MÃ“VIL -->
-
+        <!-- TÍTULO ELEGANTE CON DEGRADADO DORADO -->
         <h1
           id="hero-title"
-          class="font-playfair text-2xl sm:text-3xl lg:text-[clamp(2.2rem,4.8vw,4.2rem)] leading-tight tracking-tight text-[#fff7f8] drop-shadow-[0_8px_25px_rgba(0,0,0,0.6)]"
+          class="font-playfair text-2xl sm:text-3xl lg:text-[clamp(2.2rem,4.8vw,4.2rem)] leading-tight tracking-tight text-[#fff7f8] drop-shadow-[0_8px_25px_rgba(0,0,0,0.7)] hero-anim-2"
         >
-          <span class="block">Hay momentos que</span>
-          <span class="text-[#dcb041] italic font-[600] block mt-0.5"
+          <span class="block text-white">Hay momentos que</span>
+          <span class="bg-gradient-to-r from-[#ffe8b3] via-[#dcb041] to-[#f6d98d] bg-clip-text text-transparent italic font-[700] block mt-1 drop-shadow-[0_2px_12px_rgba(220,176,65,0.35)]"
             >merecen un buen chocolate.</span
           >
         </h1>
 
-        <!-- TEXTO COMPACTO EN MÃ“VIL -->
-
+        <!-- TEXTO COMPACTO Y DE ALTO CONTRASTE -->
         <p
           id="hero-description"
-          class="mt-3 sm:mt-5 text-xs sm:text-sm lg:text-[clamp(0.95rem,1.5vw,1.1rem)] leading-relaxed text-[#f3dfe5]/85 max-w-sm sm:max-w-md lg:max-w-[460px] font-light"
+          class="mt-3 sm:mt-5 text-[12.5px] sm:text-sm lg:text-[clamp(0.95rem,1.5vw,1.1rem)] leading-relaxed text-[#f7e8ec] max-w-sm sm:max-w-md lg:max-w-[460px] font-normal drop-shadow-sm hero-anim-3"
         >
           Cada ocasión merece un detalle especial. Descubre chocolates
           elaborados con tradición, elegancia y el auténtico sabor boliviano.
         </p>
 
-        <!-- BOTONES CENTRADOS EN MÃ“VIL -->
-
-        <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+        <!-- BOTONES MODERNOS Y ANIMADOS -->
+        <div class="mt-5 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 w-full sm:w-auto hero-anim-4">
           <a
             href="#cajas-especiales"
-            class="group inline-flex items-center gap-2 px-6 py-3 sm:px-7 sm:py-4 rounded-full bg-[linear-gradient(145deg,#f6d98d,#dcb041)] text-[#2e1119] font-black text-xs md:text-sm shadow-[0_10px_25px_rgba(220,176,65,0.25)] hover:scale-[1.03] transition-all duration-500 relative overflow-hidden"
+            class="group inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-7 sm:py-4 rounded-full bg-gradient-to-r from-[#f6d98d] via-[#dcb041] to-[#c99a2e] text-[#2e1119] font-black text-xs md:text-sm shadow-[0_8px_25px_rgba(220,176,65,0.35)] hover:shadow-[0_10px_30px_rgba(220,176,65,0.55)] hover:scale-[1.03] active:scale-95 transition-all duration-300 relative overflow-hidden flex-1 sm:flex-initial"
           >
-            <span class="relative z-10 tracking-wide">Explorar Colecciones</span
-            >
+            <span class="relative z-10 tracking-wide">Explorar Colecciones</span>
+            <svg class="w-3.5 h-3.5 relative z-10 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
             <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-[130%] group-hover:animate-shimmer"
+              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-[130%] group-hover:animate-shimmer"
             >
             </div>
           </a>
 
           <a
             href="/nosotros"
-            class="group inline-flex items-center gap-2 px-5 py-3 sm:px-7 sm:py-4 text-warm-white hover:text-[#dcb041] font-bold text-xs md:text-sm transition-all duration-500 relative overflow-hidden"
+            class="group inline-flex items-center justify-center gap-1.5 px-4 py-3 sm:px-7 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white hover:text-[#dcb041] font-bold text-xs md:text-sm transition-all duration-300 relative overflow-hidden flex-1 sm:flex-initial active:scale-95"
           >
             <span class="relative z-10 tracking-wide">Nuestra tradición</span>
           </a>
         </div>
+
+        <!-- MICRO SELLOS DE CONFIANZA (Solo Celular) -->
+        <div class="lg:hidden mt-4 pt-3.5 border-t border-white/10 w-full flex items-center justify-center gap-1.5 flex-wrap hero-anim-4 text-[10px] font-semibold text-[#f6d98d]">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+            🍫 100% Cacao Fino
+          </span>
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+            ✨ Calidad Tradicional
+          </span>
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+            🇧🇴 Desde 1948
+          </span>
+        </div>
+
       </div>
     </div>
   </header>
@@ -1855,6 +1861,21 @@ import MobileCTA from "../components/MobileCTA.astro";
     .font-cursiva {
       font-family: "Pinyon Script", cursive;
     }
+
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .hero-anim-1 { animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+    .hero-anim-2 { animation: heroFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+    .hero-anim-3 { animation: heroFadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+    .hero-anim-4 { animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
   </style>
 
   <!-- ======================================================== -->
