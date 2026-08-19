@@ -170,107 +170,101 @@ import MobileCTA from "../components/MobileCTA.astro";
     <!-- CONTENIDO -->
 
     <!-- ══════════════════════════════════════════════════
-         DISEÑO MÓVIL EDITORIAL FULL-COVER (Solo celular < lg)
-         Imagen en todo el fondo + tarjeta inferior con Regalar, Sorprender, Disfrutar, Compartir
+         DISEÑO MÓVIL EDITORIAL LUXURY (Solo celular < lg)
+         Inspirado en estética editorial moderna: fondo crema,
+         tipografía a la izquierda, recorte curvo orgánico a la derecha
+         y tarjeta inferior de 3 pilares de confianza.
     ══════════════════════════════════════════════════ -->
-    <div class="lg:hidden relative z-[5] w-full min-h-[92vh] flex flex-col justify-between pt-24 pb-6 px-4 overflow-hidden">
+    <div class="lg:hidden relative z-[5] w-full min-h-[90vh] flex flex-col justify-between pt-24 pb-6 px-4 bg-[#FAF5F0] overflow-hidden">
       
-      <!-- IMAGEN EN TODO EL FONDO DE CELULAR -->
-      <div
-        id="mobile-hero-bg"
-        class="absolute inset-0 bg-cover bg-[position:80%_center] -z-10 transition-all duration-700"
-        style="background-image: url('/img/agostocbba.webp');"
-      >
-        <!-- Overlay degradado para legibilidad y lujo -->
-        <div class="absolute inset-0 bg-gradient-to-t from-[#14080d]/95 via-[#14080d]/65 to-[#14080d]/80"></div>
-      </div>
+      <!-- Fondo sutil degradado crema -->
+      <div class="absolute inset-0 bg-gradient-to-br from-[#FAF6F0] via-[#F4ECE3] to-[#EFE4D8] pointer-events-none -z-10"></div>
+      <div class="absolute -top-12 -right-12 w-52 h-52 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-      <!-- PARTE SUPERIOR: TEXTO EDITORIAL -->
-      <div class="w-full text-left pt-2 pb-4 relative z-10 hero-anim-1">
+      <!-- SECCIÓN SUPERIOR: TEXTO EDITORIAL + RECORTE CURVO DE IMAGEN -->
+      <div class="relative w-full flex items-center justify-between pt-2 pb-4">
         
-        <!-- Badge Emblema Dorado -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#dcb041]/15 border border-[#dcb041]/40 backdrop-blur-md shadow-[0_0_15px_rgba(220,176,65,0.2)] mb-3.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-ping"></span>
-          <span
-            class="uppercase tracking-[0.2em] text-[#f6d98d] text-[0.62rem] font-black"
+        <!-- Contenido de Texto a la Izquierda -->
+        <div class="w-[58%] text-left pr-2 relative z-10 hero-anim-1">
+          
+          <!-- Ícono Emblema Asterisco Dorado -->
+          <div class="w-8 h-8 rounded-full bg-[#2A1612] text-[#dcb041] flex items-center justify-center mb-2.5 shadow-md">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.1 6.8-5.5-4.1-5.5 4.1 2.1-6.8L3 8.8h6.6L12 2z"/>
+            </svg>
+          </div>
+
+          <!-- Texto Desde 1948 sin borde ni fondo -->
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-3.5 h-[1.5px] bg-[#dcb041]"></span>
+            <span class="uppercase tracking-[0.16em] text-[#8f6c49] text-[0.62rem] font-extrabold">
+              DESDE 1948 CREANDO MOMENTOS ESPECIALES
+            </span>
+          </div>
+
+          <!-- Título Principal -->
+          <h1 class="font-serif text-[1.65rem] sm:text-[1.85rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-2.5">
+            Hay momentos que merecen un buen chocolate.
+          </h1>
+
+          <!-- Descripción -->
+          <p class="text-[12px] text-[#5D4037]/85 leading-relaxed font-sans mb-4">
+            Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano desde 1948.
+          </p>
+
+          <!-- Botón de Acción Principal (Pill oscuro elegante) -->
+          <a
+            href="#cajas-especiales"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-[11px] font-bold shadow-[0_4px_15px_rgba(42,22,18,0.25)] transition-all whitespace-nowrap"
           >
-            DESDE 1948 CREANDO MOMENTOS ESPECIALES
-          </span>
+            <span>Explorar Catálogo</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </a>
         </div>
 
-        <!-- Título Principal -->
-        <h1 class="font-playfair text-[1.85rem] sm:text-3xl leading-[1.12] font-black text-white tracking-tight mb-3 drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
-          <span>Hay momentos que</span>
-          <span class="bg-gradient-to-r from-[#ffe8b3] via-[#dcb041] to-[#f6d98d] bg-clip-text text-transparent italic font-[700] block mt-0.5"
-            >merecen un buen chocolate.</span
-          >
-        </h1>
+        <!-- Imagen con Curva Orgánica Fluida a la Derecha -->
+        <div class="w-[42%] h-72 sm:h-80 rounded-l-[45px] overflow-hidden shadow-[0_15px_30px_rgba(42,22,18,0.15)] border-y border-l border-[#e2d5c3] relative -mr-4 z-0 hero-anim-2">
+          <img
+            id="mobile-hero-img"
+            src="/img/agostocbba.webp"
+            alt="Chocolates Taboada"
+            class="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/30 via-transparent to-transparent"></div>
+        </div>
 
-        <!-- Descripción -->
-        <p class="text-[13px] text-[#f7e8ec]/90 leading-relaxed font-sans mb-5 max-w-sm drop-shadow-sm">
-          Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano desde 1948.
-        </p>
-
-        <!-- Botón de Acción Principal -->
-        <a
-          href="#cajas-especiales"
-          class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-[#f6d98d] via-[#dcb041] to-[#c99a2e] text-[#2e1119] font-black text-xs shadow-[0_8px_25px_rgba(220,176,65,0.35)] hover:scale-[1.03] active:scale-95 transition-all"
-        >
-          <span>Explorar Catálogo</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </a>
       </div>
 
-      <!-- PARTE INFERIOR: TARJETA FLOTANTE CON LAS 4 OCASIONES (Regalar, Sorprender, Disfrutar, Compartir) -->
-      <div class="bg-[#1C0C12]/80 backdrop-blur-md rounded-[1.75rem] p-2.5 sm:p-3 border border-[#dcb041]/30 shadow-[0_15px_35px_rgba(0,0,0,0.6)] grid grid-cols-4 gap-1.5 text-center relative z-10 hero-anim-3">
+      <!-- SECCIÓN INFERIOR: TARJETA FLOTANTE DE 3 CARACTERÍSTICAS -->
+      <div class="bg-white/95 backdrop-blur-md rounded-[1.75rem] p-3.5 sm:p-4 border border-[#e8dccb] shadow-[0_10px_25px_rgba(42,22,18,0.06)] grid grid-cols-3 gap-2 text-left relative z-10 hero-anim-3">
         
-        <!-- 1. Regalar -->
-        <a
-          href="/Catalogo/Regala"
-          class="flex flex-col items-center justify-center p-2 rounded-2xl bg-white/5 hover:bg-[#dcb041]/20 border border-white/10 active:scale-95 transition-all group"
-        >
-          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 text-[#f6d98d] flex items-center justify-center mb-1 group-hover:bg-[#dcb041] group-hover:text-[#2A1612] transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-13.5h17.25c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125H3.375c-.621 0-1.125-.504-1.125-1.125v-1.5c0-.621.504-1.125 1.125-1.125z"/></svg>
+        <!-- Columna 1 -->
+        <div class="flex flex-col items-start border-r border-[#f0e6d8] pr-2">
+          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
           </div>
-          <span class="text-[11px] font-bold text-white font-serif leading-tight">Regalar</span>
-          <span class="text-[8px] text-[#dcb041] font-sans mt-0.5">Detalles</span>
-        </a>
+          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">100% Cacao</span>
+          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Sabor noble</span>
+        </div>
 
-        <!-- 2. Sorprender -->
-        <a
-          href="/Catalogo/Sorprende"
-          class="flex flex-col items-center justify-center p-2 rounded-2xl bg-white/5 hover:bg-[#dcb041]/20 border border-white/10 active:scale-95 transition-all group"
-        >
-          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 text-[#f6d98d] flex items-center justify-center mb-1 group-hover:bg-[#dcb041] group-hover:text-[#2A1612] transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+        <!-- Columna 2 -->
+        <div class="flex flex-col items-start border-r border-[#f0e6d8] pr-2">
+          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <span class="text-[11px] font-bold text-white font-serif leading-tight">Sorprender</span>
-          <span class="text-[8px] text-[#dcb041] font-sans mt-0.5">Especial</span>
-        </a>
+          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">Tradición</span>
+          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Desde 1948</span>
+        </div>
 
-        <!-- 3. Disfrutar -->
-        <a
-          href="/Catalogo/Disfruta%20con%20amigos"
-          class="flex flex-col items-center justify-center p-2 rounded-2xl bg-white/5 hover:bg-[#dcb041]/20 border border-white/10 active:scale-95 transition-all group"
-        >
-          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 text-[#f6d98d] flex items-center justify-center mb-1 group-hover:bg-[#dcb041] group-hover:text-[#2A1612] transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"/></svg>
+        <!-- Columna 3 -->
+        <div class="flex flex-col items-start">
+          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
+            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.004 0V5.625c0-.621-.504-1.125-1.125-1.125H9.375c-.621 0-1.125.504-1.125 1.125v8.625m5.004 0H8.25"/></svg>
           </div>
-          <span class="text-[11px] font-bold text-white font-serif leading-tight">Disfrutar</span>
-          <span class="text-[8px] text-[#dcb041] font-sans mt-0.5">Momentos</span>
-        </a>
-
-        <!-- 4. Compartir -->
-        <a
-          href="/Catalogo/Comparte"
-          class="flex flex-col items-center justify-center p-2 rounded-2xl bg-white/5 hover:bg-[#dcb041]/20 border border-white/10 active:scale-95 transition-all group"
-        >
-          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 text-[#f6d98d] flex items-center justify-center mb-1 group-hover:bg-[#dcb041] group-hover:text-[#2A1612] transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
-          </div>
-          <span class="text-[11px] font-bold text-white font-serif leading-tight">Compartir</span>
-          <span class="text-[8px] text-[#dcb041] font-sans mt-0.5">En familia</span>
-        </a>
+          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">Calidad</span>
+          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Boliviana pura</span>
+        </div>
 
       </div>
 
@@ -283,13 +277,13 @@ import MobileCTA from "../components/MobileCTA.astro";
       class="hidden lg:grid relative z-[5] w-full max-w-[1440px] mx-auto min-h-screen px-8 lg:pl-16 lg:pr-10 pt-[120px] pb-20 grid-cols-2 items-center gap-8"
     >
       <div class="max-w-[650px] text-left flex flex-col items-start relative w-full">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#dcb041]/15 border border-[#dcb041]/35 backdrop-blur-md shadow-[0_0_15px_rgba(220,176,65,0.2)] mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-ping"></span>
-          <span id="hero-subtitle" class="uppercase tracking-[0.38em] text-[#f6d98d] text-[0.75rem] font-black">
+        <!-- Texto Desde 1948 sin borde ni fondo -->
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-8 h-[1.5px] bg-[#dcb041]"></span>
+          <span id="hero-subtitle" class="uppercase tracking-[0.32em] text-[#dcb041] text-[0.75rem] font-black">
             DESDE 1948 CREANDO MOMENTOS ESPECIALES
           </span>
-          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041]"></span>
+          <span class="w-8 h-[1.5px] bg-[#dcb041]"></span>
         </div>
 
         <!-- Título -->
@@ -422,7 +416,7 @@ import MobileCTA from "../components/MobileCTA.astro";
   </script>
 
   <section
-    class="hidden lg:block relative py-20 md:py-24 bg-[#FAF5F0] overflow-hidden border-y border-[#f0e6d8]"
+    class="relative py-10 sm:py-20 md:py-24 bg-[#FAF5F0] overflow-hidden border-y border-[#f0e6d8]"
   >
     <!-- Sutil brillo decorativo de fondo -->
     <div
