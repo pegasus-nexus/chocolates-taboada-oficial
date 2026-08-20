@@ -666,10 +666,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       </div>
       
       <p id="community-welcome-desc" class="text-xs sm:text-sm md:text-base mt-2 max-w-xl leading-relaxed text-[#e8dccb] font-sans">
-        De cortesía elige tu regalo de bienvenida en grande, el cual podrás canjear exclusivamente en nuestra sucursal de 
-        <a href="https://n9.cl/cg9lw" target="_blank" rel="noopener noreferrer" class="text-[#f6d98d] underline font-bold hover:text-white transition-colors">
-           La Recoleta
-        </a>.
+        De cortesía elige tu regalo de bienvenida, el cual podrás canjear en nuestras sucursales de <span id="community-branch-names" class="text-[#f6d98d] font-bold">Cochabamba (La Recoleta y Heroínas)</span>.
       </p>
     </header>
 
@@ -688,7 +685,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
                 <span class="ticket-tag">{r.tag}</span>
                 <h3 class="ticket-title">{r.title}</h3>
                 <p class="ticket-desc">{r.desc}</p>
-                <div class="ticket-loc">📍 SOLO VÁLIDO PARA LA SUCURSAL RECOLETA · 2026</div>
+                <div class="ticket-loc">📍 VÁLIDO EN SUCURSALES CBBA (RECOLETA Y HEROÍNAS) · 2026</div>
               </div>
             </div>
 
@@ -832,6 +829,35 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     }, 2400);
   };
 
+  const updateBeneficiosCityInfo = () => {
+    const rawCity = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toLowerCase();
+    const isLaPaz = rawCity === 'la-paz' || rawCity === 'lapaz' || rawCity === 'la paz';
+    
+    const descEl = document.getElementById('community-welcome-desc');
+    const branchNamesEl = document.getElementById('community-branch-names');
+    const redeemedTicketId = localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado');
+    
+    if (!redeemedTicketId) {
+      const cityBranchesText = isLaPaz 
+        ? 'La Paz (Calacoto)' 
+        : 'Cochabamba (La Recoleta y Heroínas)';
+
+      if (branchNamesEl) {
+        branchNamesEl.textContent = cityBranchesText;
+      } else if (descEl) {
+        descEl.innerHTML = `De cortesía elige tu regalo de bienvenida, el cual podrás canjear en nuestras sucursales de <span id="community-branch-names" class="text-[#f6d98d] font-bold">${cityBranchesText}</span>.`;
+      }
+    }
+    
+    const locText = isLaPaz 
+      ? '📍 VÁLIDO EN SUCURSAL LA PAZ (CALACOTO) · 2026' 
+      : '📍 VÁLIDO EN SUCURSALES CBBA (RECOLETA Y HEROÍNAS) · 2026';
+
+    document.querySelectorAll('.ticket-loc').forEach(locEl => {
+      locEl.textContent = locText;
+    });
+  };
+
   const checkRedeemedState = () => {
     const redeemedTicketId = localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado');
     const redeemedValidity = localStorage.getItem('taboada_redeemed_validity') || '2 Semanas';
@@ -846,6 +872,10 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     const container = document.querySelector('.ticket-container');
     const descEl = document.getElementById('community-welcome-desc');
 
+    const rawCity = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toLowerCase();
+    const isLaPaz = rawCity === 'la-paz' || rawCity === 'lapaz' || rawCity === 'la paz';
+    const sucursalName = isLaPaz ? 'Sucursal Calacoto (La Paz)' : 'Sucursales La Recoleta o Heroínas (Cochabamba)';
+
     // 1. Reemplazar el texto del subtítulo con íconos SVG vectoriales limpios sin cajas ni bordes
     if (descEl) {
       descEl.innerHTML = `
@@ -857,6 +887,17 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
             <div>
               <span class="block text-[10px] sm:text-xs font-bold text-[#dcb041] uppercase tracking-widest mb-0.5">Fecha Límite de Recojo</span>
               <span class="text-xs sm:text-sm md:text-base font-bold text-white font-serif">Válido para recoger hasta: ${calculateDeadlineDate(redeemedValidity, redeemedDateIso)}</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-2.5 sm:gap-3.5">
+            <svg class="w-5 h-5 sm:w-7 sm:h-7 text-[#dcb041] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+            </svg>
+            <div>
+              <span class="block text-[10px] sm:text-xs font-bold text-[#dcb041] uppercase tracking-widest mb-0.5">Lugar de Canje Autorizado</span>
+              <span class="text-xs sm:text-sm md:text-base font-bold text-white font-serif">${sucursalName}</span>
             </div>
           </div>
 
@@ -909,11 +950,25 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
   document.addEventListener('DOMContentLoaded', () => {
     updateWelcomeBanner();
+    updateBeneficiosCityInfo();
     checkRedeemedState();
 
     window.addEventListener('taboadaUserRegistered', () => {
       updateWelcomeBanner();
+      updateBeneficiosCityInfo();
       checkRedeemedState();
+    });
+
+    window.addEventListener('cityChanged', () => {
+      updateBeneficiosCityInfo();
+      checkRedeemedState();
+    });
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'taboada_selected_city') {
+        updateBeneficiosCityInfo();
+        checkRedeemedState();
+      }
     });
   });
 </script>

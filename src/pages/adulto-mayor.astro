@@ -374,14 +374,23 @@ import Footer from '../components/Footer.astro';
                 <label class="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1">
                   Parentesco / Relación
                 </label>
-                <input 
-                  type="text" 
+                <select 
                   id="am-parentezco" 
-                  class="field-input" 
-                  placeholder="Ej. Hijo(a) / Beneficiario" 
-                  required 
-                  autocomplete="off"
-                />
+                  class="field-input cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23dcb041%22%3E%3Cpath%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%2F%3E%3C%2Fsvg%3E')] bg-[right_10px_center] bg-no-repeat pr-8"
+                  required
+                >
+                  <option value="" disabled selected class="bg-[#180a0e] text-[#f6d98d]/60">Selecciona parentesco</option>
+                  <option value="Titular" class="bg-[#180a0e] text-[#f6d98d]">Titular (Beneficiario Directo)</option>
+                  <option value="Hijo" class="bg-[#180a0e] text-[#f6d98d]">Hijo</option>
+                  <option value="Hija" class="bg-[#180a0e] text-[#f6d98d]">Hija</option>
+                  <option value="Nieto" class="bg-[#180a0e] text-[#f6d98d]">Nieto</option>
+                  <option value="Nieta" class="bg-[#180a0e] text-[#f6d98d]">Nieta</option>
+                  <option value="Sobrino" class="bg-[#180a0e] text-[#f6d98d]">Sobrino</option>
+                  <option value="Sobrina" class="bg-[#180a0e] text-[#f6d98d]">Sobrina</option>
+                  <option value="Tío" class="bg-[#180a0e] text-[#f6d98d]">Tío</option>
+                  <option value="Tía" class="bg-[#180a0e] text-[#f6d98d]">Tía</option>
+                  <option value="Otro" class="bg-[#180a0e] text-[#f6d98d]">Otro Familiar / Tutor</option>
+                </select>
               </div>
 
               <div>
@@ -413,10 +422,10 @@ import Footer from '../components/Footer.astro';
 
           </form>
 
-          <!-- MENSAJE DE ÉXITO DE DESPLIEGUE TRAS GUARDAR -->
-          <div id="success-panel" class="hidden text-center py-5">
-            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#dcb041]/20 border-2 border-[#dcb041] flex items-center justify-center mx-auto mb-3 text-[#f6d98d]">
-              <svg class="w-8 h-8 sm:w-9 sm:h-9 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+          <!-- PANEL DE ÉXITO POST-REGISTRO -->
+          <div id="success-panel" class="hidden text-center py-6 sm:py-8">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#dcb041] to-[#f4c856] text-[#180a0e] flex items-center justify-center mx-auto mb-3 shadow-[0_0_30px_rgba(220,176,65,0.6)]">
+              <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
               </svg>
             </div>
@@ -426,7 +435,7 @@ import Footer from '../components/Footer.astro';
             </h3>
 
             <p class="text-xs sm:text-sm text-[#f3dfe5]/90 max-w-md mx-auto mb-5 leading-relaxed">
-              La tarjeta ha sido registrada y vinculada en el sistema de Chocolates Taboada. Preséntate con el código <strong id="success-code-display" class="text-[#f6d98d] font-bold">#LEG-2026</strong> en Sucursal La Recoleta.
+              La tarjeta ha sido registrada y vinculada en el sistema de Chocolates Taboada. Preséntate con el código <strong id="success-code-display" class="text-[#f6d98d] font-bold">#LEG-2026</strong> en cualquiera de nuestras sucursales oficiales de Chocolates Taboada.
             </p>
 
             <div class="flex flex-wrap items-center justify-center gap-2.5">
@@ -504,6 +513,7 @@ import Footer from '../components/Footer.astro';
     inputNombre?.addEventListener('input', updateLiveCard);
     inputApellido?.addEventListener('input', updateLiveCard);
     inputParentezco?.addEventListener('input', updateLiveCard);
+    inputParentezco?.addEventListener('change', updateLiveCard);
 
     // Efecto 3D interactivo al mover el cursor sobre la tarjeta
     const cardWrapper = document.querySelector('.card-3d-wrapper');
