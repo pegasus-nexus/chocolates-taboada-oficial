@@ -172,58 +172,57 @@ import MobileCTA from "../components/MobileCTA.astro";
     <!-- ══════════════════════════════════════════════════
          DISEÑO MÓVIL EDITORIAL LUXURY (Solo celular < lg)
          Inspirado en estética editorial moderna: fondo crema,
-         tipografía a la izquierda, recorte curvo orgánico a la derecha
-         y tarjeta inferior de 3 pilares de confianza.
+         tipografía grande a la izquierda y recorte curvo orgánico a la derecha.
     ══════════════════════════════════════════════════ -->
-    <div class="lg:hidden relative z-[5] w-full min-h-[90vh] flex flex-col justify-between pt-24 pb-6 px-4 bg-[#FAF5F0] overflow-hidden">
+    <div class="lg:hidden relative z-[5] w-full min-h-[85vh] flex flex-col justify-center pt-24 pb-10 px-4 sm:px-6 bg-[#FAF5F0] overflow-hidden">
       
       <!-- Fondo sutil degradado crema -->
       <div class="absolute inset-0 bg-gradient-to-br from-[#FAF6F0] via-[#F4ECE3] to-[#EFE4D8] pointer-events-none -z-10"></div>
-      <div class="absolute -top-12 -right-12 w-52 h-52 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div class="absolute -top-12 -right-12 w-60 h-60 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-      <!-- SECCIÓN SUPERIOR: TEXTO EDITORIAL + RECORTE CURVO DE IMAGEN -->
-      <div class="relative w-full flex items-center justify-between pt-2 pb-4">
+      <!-- SECCIÓN PRINCIPAL AMPLIADA: TEXTO EDITORIAL + RECORTE CURVO DE IMAGEN -->
+      <div class="relative w-full flex items-center justify-between py-2">
         
-        <!-- Contenido de Texto a la Izquierda -->
+        <!-- Contenido de Texto a la Izquierda (Más amplio y grande) -->
         <div class="w-[58%] text-left pr-2 relative z-10 hero-anim-1">
           
           <!-- Ícono Emblema Asterisco Dorado -->
-          <div class="w-8 h-8 rounded-full bg-[#2A1612] text-[#dcb041] flex items-center justify-center mb-2.5 shadow-md">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-9 h-9 rounded-full bg-[#2A1612] text-[#dcb041] flex items-center justify-center mb-3 shadow-md">
+            <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.1 6.8-5.5-4.1-5.5 4.1 2.1-6.8L3 8.8h6.6L12 2z"/>
             </svg>
           </div>
 
           <!-- Texto Desde 1948 sin borde ni fondo -->
-          <div class="flex items-center gap-1.5 mb-2">
-            <span class="w-3.5 h-[1.5px] bg-[#dcb041]"></span>
-            <span class="uppercase tracking-[0.16em] text-[#8f6c49] text-[0.62rem] font-extrabold">
+          <div class="flex items-center gap-1.5 mb-2.5">
+            <span class="w-4 h-[1.5px] bg-[#dcb041]"></span>
+            <span class="uppercase tracking-[0.18em] text-[#8f6c49] text-[0.65rem] font-black">
               DESDE 1948 CREANDO MOMENTOS ESPECIALES
             </span>
           </div>
 
-          <!-- Título Principal -->
-          <h1 class="font-serif text-[1.65rem] sm:text-[1.85rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-2.5">
+          <!-- Título Principal Más Grande -->
+          <h1 class="font-serif text-[1.85rem] sm:text-[2.2rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-3">
             Hay momentos que merecen un buen chocolate.
           </h1>
 
-          <!-- Descripción -->
-          <p class="text-[12px] text-[#5D4037]/85 leading-relaxed font-sans mb-4">
+          <!-- Descripción Más Amplia -->
+          <p class="text-[13.5px] text-[#5D4037]/90 leading-relaxed font-sans mb-5 font-normal">
             Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano desde 1948.
           </p>
 
-          <!-- Botón de Acción Principal (Pill oscuro elegante) -->
+          <!-- Botón de Acción Principal Más Grande -->
           <a
             href="#cajas-especiales"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-[11px] font-bold shadow-[0_4px_15px_rgba(42,22,18,0.25)] transition-all whitespace-nowrap"
+            class="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-xs font-bold shadow-[0_6px_20px_rgba(42,22,18,0.3)] transition-all whitespace-nowrap"
           >
             <span>Explorar Catálogo</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
           </a>
         </div>
 
-        <!-- Imagen con Curva Orgánica Fluida a la Derecha -->
-        <div class="w-[42%] h-72 sm:h-80 rounded-l-[45px] overflow-hidden shadow-[0_15px_30px_rgba(42,22,18,0.15)] border-y border-l border-[#e2d5c3] relative -mr-4 z-0 hero-anim-2">
+        <!-- Imagen con Curva Orgánica Fluida a la Derecha (Más alta y espaciosa) -->
+        <div class="w-[42%] h-[340px] sm:h-[400px] rounded-l-[50px] overflow-hidden shadow-[0_20px_35px_rgba(42,22,18,0.2)] border-y border-l border-[#e2d5c3] relative -mr-4 sm:-mr-6 z-0 hero-anim-2">
           <img
             id="mobile-hero-img"
             src="/img/agostocbba.webp"
@@ -231,39 +230,7 @@ import MobileCTA from "../components/MobileCTA.astro";
             class="w-full h-full object-cover object-center"
             loading="eager"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/30 via-transparent to-transparent"></div>
-        </div>
-
-      </div>
-
-      <!-- SECCIÓN INFERIOR: TARJETA FLOTANTE DE 3 CARACTERÍSTICAS -->
-      <div class="bg-white/95 backdrop-blur-md rounded-[1.75rem] p-3.5 sm:p-4 border border-[#e8dccb] shadow-[0_10px_25px_rgba(42,22,18,0.06)] grid grid-cols-3 gap-2 text-left relative z-10 hero-anim-3">
-        
-        <!-- Columna 1 -->
-        <div class="flex flex-col items-start border-r border-[#f0e6d8] pr-2">
-          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
-            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
-          </div>
-          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">100% Cacao</span>
-          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Sabor noble</span>
-        </div>
-
-        <!-- Columna 2 -->
-        <div class="flex flex-col items-start border-r border-[#f0e6d8] pr-2">
-          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
-            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">Tradición</span>
-          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Desde 1948</span>
-        </div>
-
-        <!-- Columna 3 -->
-        <div class="flex flex-col items-start">
-          <div class="w-7 h-7 rounded-lg bg-[#FAF5F0] text-[#5e4225] flex items-center justify-center mb-1.5 flex-shrink-0">
-            <svg class="w-4 h-4 text-[#8f6c49]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.004 0V5.625c0-.621-.504-1.125-1.125-1.125H9.375c-.621 0-1.125.504-1.125 1.125v8.625m5.004 0H8.25"/></svg>
-          </div>
-          <span class="text-[11px] font-bold text-[#2A1612] leading-tight font-serif">Calidad</span>
-          <span class="text-[9px] text-[#8f6c49] leading-tight mt-0.5">Boliviana pura</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/35 via-transparent to-transparent"></div>
         </div>
 
       </div>
@@ -454,14 +421,14 @@ import MobileCTA from "../components/MobileCTA.astro";
         </p>
       </div>
 
-      <!-- GRILLA DE BENEFICIOS / CARACTERÍSTICAS -->
+      <!-- GRILLA DE BENEFICIOS / CARACTERÍSTICAS (En 1 fila para celular con deslizamiento suave) -->
       <div
-        class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 items-stretch"
+        class="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 items-stretch scrollbar-none"
       >
         <!-- Tarjeta 1: Regalar -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
           <img
@@ -530,7 +497,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- Tarjeta 2: Sorprender -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
           <img
@@ -602,7 +569,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- Tarjeta 3: Disfrutar -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
         >
           <img
             src="/img/sugerencia3.webp"
@@ -671,7 +638,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- Tarjeta 4: Compartir -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
           <img
@@ -1931,6 +1898,14 @@ import MobileCTA from "../components/MobileCTA.astro";
   </script>
 
   <style>
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
     .font-elegante {
       font-family: "Playfair Display", serif;
     }
