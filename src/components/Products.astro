@@ -289,7 +289,9 @@
     let currentCategory = 'DESTACADOS';
     let currentCity = localStorage.getItem('taboada_selected_city') || 'cochabamba';
     
-    const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1";
+    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+      ? 'http://127.0.0.1:8001/api/v1' 
+      : 'https://sales-system-production-f30c.up.railway.app/api/v1';
 
     window.addEventListener('cityChanged', (e) => {
       const detail = (e as CustomEvent).detail;
