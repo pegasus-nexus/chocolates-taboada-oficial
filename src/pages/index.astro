@@ -16,10 +16,10 @@ import MobileCTA from "../components/MobileCTA.astro";
 
   <header
     id="inicio"
-    class="relative min-h-screen overflow-hidden bg-[#14080d]"
+    class="relative min-h-screen overflow-hidden bg-[#FAF5F0] lg:bg-[#14080d]"
   >    <div
       id="hero-bg-cover"
-      class="absolute inset-0 bg-no-repeat
+      class="hidden lg:block absolute inset-0 bg-no-repeat
            bg-cover bg-[position:80%_top] sm:bg-[position:80%_center] scale-100
            lg:bg-center lg:scale-105 transition-all duration-700"
       data-bg-cochabamba="/img/agostocbba.webp"
@@ -29,20 +29,20 @@ import MobileCTA from "../components/MobileCTA.astro";
     </div>
 
     <div
-      class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,5,7,0.72)_0%,rgba(20,10,15,0.55)_50%,rgba(14,8,13,0.88)_100%)] lg:bg-[linear-gradient(to_right,rgba(10,5,7,0.96)_0%,rgba(20,10,15,0.92)_20%,rgba(38,18,25,0.82)_42%,rgba(62,28,40,0.58)_68%,rgba(120,70,85,0.18)_88%,rgba(255,255,255,0)_100%)]"
+      class="hidden lg:block absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,5,7,0.72)_0%,rgba(20,10,15,0.55)_50%,rgba(14,8,13,0.88)_100%)] lg:bg-[linear-gradient(to_right,rgba(10,5,7,0.96)_0%,rgba(20,10,15,0.92)_20%,rgba(38,18,25,0.82)_42%,rgba(62,28,40,0.58)_68%,rgba(120,70,85,0.18)_88%,rgba(255,255,255,0)_100%)]"
     >
     </div>
 
     <!-- BRILLO PREMIUM -->
 
     <div
-      class="absolute top-[-180px] left-[-120px] w-[500px] h-[500px] rounded-full bg-[#f6d98d]/10 blur-[120px]"
+      class="hidden lg:block absolute top-[-180px] left-[-120px] w-[500px] h-[500px] rounded-full bg-[#f6d98d]/10 blur-[120px]"
     >
     </div>
 
-    <!-- PARTICULAS -->
+    <!-- PARTICULAS (Solo Desktop) -->
 
-    <div class="absolute inset-0 overflow-hidden z-[2]">
+    <div class="hidden lg:block absolute inset-0 overflow-hidden z-[2]">
       <!-- LUCES -->
 
       <svg
@@ -171,68 +171,67 @@ import MobileCTA from "../components/MobileCTA.astro";
 
     <!-- ══════════════════════════════════════════════════
          DISEÑO MÓVIL EDITORIAL LUXURY (Solo celular < lg)
-         Inspirado en estética editorial moderna: fondo crema,
-         tipografía grande a la izquierda y recorte curvo orgánico a la derecha.
+         Estética moderna de alta gama: fondo crema limpio,
+         bloque editorial superior y showcase fotográfico completo
+         mostrando los chocolates y el paisaje característico del departamento.
     ══════════════════════════════════════════════════ -->
-    <div class="lg:hidden relative z-[5] w-full min-h-[85vh] flex flex-col justify-center pt-24 pb-10 px-4 sm:px-6 bg-[#FAF5F0] overflow-hidden">
+    <div class="lg:hidden relative z-[5] w-full min-h-[92vh] flex flex-col justify-between pt-24 pb-8 px-4 sm:px-6 bg-[#FAF5F0] overflow-hidden">
       
-      <!-- Fondo sutil degradado crema -->
-      <div class="absolute inset-0 bg-gradient-to-br from-[#FAF6F0] via-[#F4ECE3] to-[#EFE4D8] pointer-events-none -z-10"></div>
-      <div class="absolute -top-12 -right-12 w-60 h-60 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <!-- Fondo sutil degradado crema puro -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#FAF6F0] via-[#F5EEE5] to-[#EFE4D8] pointer-events-none -z-10"></div>
+      <div class="absolute -top-10 -right-10 w-48 h-48 bg-[#dcb041]/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-      <!-- SECCIÓN PRINCIPAL AMPLIADA: TEXTO EDITORIAL + RECORTE CURVO DE IMAGEN -->
-      <div class="relative w-full flex items-center justify-between py-2">
+      <!-- PARTE SUPERIOR: TEXTO EDITORIAL ELEGANTE -->
+      <div class="w-full text-left pt-2 pb-3 hero-anim-1">
         
-        <!-- Contenido de Texto a la Izquierda (Más amplio y grande) -->
-        <div class="w-[58%] text-left pr-2 relative z-10 hero-anim-1">
-          
-          <!-- Ícono Emblema Asterisco Dorado -->
-          <div class="w-9 h-9 rounded-full bg-[#2A1612] text-[#dcb041] flex items-center justify-center mb-3 shadow-md">
-            <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.1 6.8-5.5-4.1-5.5 4.1 2.1-6.8L3 8.8h6.6L12 2z"/>
-            </svg>
-          </div>
+        <!-- Badge y Desde 1948 sin fondo ni borde -->
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-4 h-[1.5px] bg-[#dcb041]"></span>
+          <span class="uppercase tracking-[0.2em] text-[#8f6c49] text-[0.68rem] font-extrabold font-sans">
+            DESDE 1948 CREANDO MOMENTOS ESPECIALES
+          </span>
+        </div>
 
-          <!-- Texto Desde 1948 sin borde ni fondo -->
-          <div class="flex items-center gap-1.5 mb-2.5">
-            <span class="w-4 h-[1.5px] bg-[#dcb041]"></span>
-            <span class="uppercase tracking-[0.18em] text-[#8f6c49] text-[0.65rem] font-black">
-              DESDE 1948 CREANDO MOMENTOS ESPECIALES
-            </span>
-          </div>
+        <!-- Título Principal -->
+        <h1 class="font-serif text-[1.95rem] sm:text-[2.3rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-2.5">
+          Hay momentos que merecen un buen chocolate.
+        </h1>
 
-          <!-- Título Principal Más Grande -->
-          <h1 class="font-serif text-[1.85rem] sm:text-[2.2rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-3">
-            Hay momentos que merecen un buen chocolate.
-          </h1>
+        <!-- Descripción -->
+        <p class="text-[13px] sm:text-sm text-[#5D4037]/85 leading-relaxed font-sans mb-4">
+          Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano.
+        </p>
 
-          <!-- Descripción Más Amplia -->
-          <p class="text-[13.5px] text-[#5D4037]/90 leading-relaxed font-sans mb-5 font-normal">
-            Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano desde 1948.
-          </p>
-
-          <!-- Botón de Acción Principal Más Grande -->
+        <!-- Botón de Acción Principal Pill Oscuro -->
+        <div class="flex items-center gap-3">
           <a
             href="#cajas-especiales"
-            class="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-xs font-bold shadow-[0_6px_20px_rgba(42,22,18,0.3)] transition-all whitespace-nowrap"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-xs font-bold shadow-[0_4px_16px_rgba(42,22,18,0.25)] transition-all whitespace-nowrap"
           >
             <span>Explorar Catálogo</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </a>
+          
+          <a
+            href="/nosotros"
+            class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-[#2A1612]/20 text-[#2A1612] hover:bg-[#2A1612]/5 active:scale-95 text-xs font-bold transition-all whitespace-nowrap"
+          >
+            <span>Nuestra Historia</span>
           </a>
         </div>
+      </div>
 
-        <!-- Imagen con Curva Orgánica Fluida a la Derecha (Más alta y espaciosa) -->
-        <div class="w-[42%] h-[340px] sm:h-[400px] rounded-l-[50px] overflow-hidden shadow-[0_20px_35px_rgba(42,22,18,0.2)] border-y border-l border-[#e2d5c3] relative -mr-4 sm:-mr-6 z-0 hero-anim-2">
-          <img
-            id="mobile-hero-img"
-            src="/img/agostocbba.webp"
-            alt="Chocolates Taboada"
-            class="w-full h-full object-cover object-center"
-            loading="eager"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/35 via-transparent to-transparent"></div>
-        </div>
-
+      <!-- PARTE INFERIOR: SHOWCASE FOTOGRÁFICO COMPLETO CON BORDES REDONDEADOS DE LUJO -->
+      <div class="w-full mt-3 rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_12px_30px_rgba(42,22,18,0.12)] border border-[#e2d5c3] relative hero-anim-2 aspect-[16/10] max-h-[300px] sm:max-h-[360px] bg-[#2A1612]/5">
+        <img
+          id="mobile-hero-img"
+          src="/img/agostocbba.webp"
+          alt="Chocolates Taboada"
+          class="w-full h-full object-cover object-center"
+          loading="eager"
+        />
+        <!-- Sutil viñeta degradada inferior -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/30 via-transparent to-transparent pointer-events-none"></div>
       </div>
 
     </div>
