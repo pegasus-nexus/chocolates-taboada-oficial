@@ -23,32 +23,43 @@ import Footer from '../components/Footer.astro';
 
   /* ── EFECTO CRISTAL Y RESPLANDOR DORADO ── */
   .gold-glow {
-    box-shadow: 0 0 50px rgba(220, 176, 65, 0.35);
+    box-shadow: 0 0 40px rgba(220, 176, 65, 0.3);
   }
 
-  /* ── TARJETA CRÉDITO INTERACTIVA ── */
+  /* ── TARJETA CRÉDITO INTERACTIVA RESPONSIVA ── */
   .card-3d-wrapper {
     perspective: 1000px;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
   }
 
   .credit-card-preview {
     width: 100%;
-    max-width: 440px;
-    aspect-ratio: 1.586 / 1;
+    min-height: 200px;
     margin: 0 auto;
-    background: linear-gradient(135deg, rgba(55, 28, 20, 0.96) 0%, rgba(24, 10, 14, 0.98) 50%, rgba(42, 22, 18, 0.96) 100%);
-    border: 1.5px solid rgba(220, 176, 65, 0.55);
-    border-radius: 22px;
-    padding: 24px;
+    background: linear-gradient(135deg, rgba(55, 28, 20, 0.98) 0%, rgba(24, 10, 14, 0.99) 50%, rgba(42, 22, 18, 0.98) 100%);
+    border: 1.5px solid rgba(220, 176, 65, 0.6);
+    border-radius: 18px;
+    padding: 16px 18px;
     box-shadow: 
-      0 30px 60px -12px rgba(0, 0, 0, 0.9),
-      0 0 35px rgba(220, 176, 65, 0.15),
+      0 20px 45px -10px rgba(0, 0, 0, 0.9),
+      0 0 25px rgba(220, 176, 65, 0.15),
       inset 0 1px 2px rgba(246, 217, 141, 0.4),
       inset 0 -1px 2px rgba(0, 0, 0, 0.7);
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease-out, box-shadow 0.3s ease;
     transform-style: preserve-3d;
+  }
+
+  @media (min-width: 640px) {
+    .credit-card-preview {
+      aspect-ratio: 1.586 / 1;
+      min-height: 225px;
+      border-radius: 22px;
+      padding: 22px 24px;
+    }
   }
 
   .credit-card-preview::before {
@@ -78,20 +89,28 @@ import Footer from '../components/Footer.astro';
   }
 
   .card-chip-emv {
-    width: 44px;
-    height: 34px;
+    width: 38px;
+    height: 28px;
     background: linear-gradient(135deg, #f3d482 0%, #c69b43 50%, #e7c269 100%);
-    border-radius: 7px;
+    border-radius: 6px;
     position: relative;
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 2px 5px rgba(0,0,0,0.5);
+  }
+
+  @media (min-width: 640px) {
+    .card-chip-emv {
+      width: 44px;
+      height: 32px;
+      border-radius: 7px;
+    }
   }
 
   .card-chip-emv::after {
     content: '';
     position: absolute;
-    inset: 4px;
+    inset: 3px;
     border: 1px solid rgba(42, 22, 18, 0.4);
-    border-radius: 4px;
+    border-radius: 3px;
     background-image: 
       linear-gradient(90deg, transparent 45%, rgba(42, 22, 18, 0.35) 50%, transparent 55%),
       linear-gradient(0deg, transparent 45%, rgba(42, 22, 18, 0.35) 50%, transparent 55%);
@@ -99,57 +118,73 @@ import Footer from '../components/Footer.astro';
 
   .embossed-gold {
     font-family: 'OCR-A Extended', monospace, 'Courier New', serif;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     color: #f6d98d;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.95), 0 0 12px rgba(246, 217, 141, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.95), 0 0 10px rgba(246, 217, 141, 0.4);
   }
 
   /* ── ESTILOS DEL FORMULARIO GLASSMORPHISM DORADO ── */
   .field-input {
     width: 100%;
-    padding: 14px 18px;
+    padding: 10px 14px;
     border: 1.5px solid rgba(220, 176, 65, 0.35);
-    border-radius: 14px;
-    background: rgba(24, 10, 14, 0.85);
+    border-radius: 12px;
+    background: rgba(24, 10, 14, 0.9);
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     color: #f6d98d;
     font-weight: 600;
     transition: all 0.3s ease;
     box-sizing: border-box;
   }
 
+  @media (min-width: 640px) {
+    .field-input {
+      padding: 12px 16px;
+      font-size: 14px;
+      border-radius: 14px;
+    }
+  }
+
   .field-input::placeholder {
-    color: rgba(246, 217, 141, 0.45);
+    color: rgba(246, 217, 141, 0.4);
   }
 
   .field-input:focus {
     outline: none;
     border-color: #dcb041;
-    box-shadow: 0 0 0 4px rgba(220, 176, 65, 0.25);
-    background: rgba(36, 16, 22, 0.95);
+    box-shadow: 0 0 0 3px rgba(220, 176, 65, 0.25);
+    background: rgba(36, 16, 22, 0.98);
   }
 
   .btn-gold-action {
     width: 100%;
-    padding: 18px 24px;
+    padding: 13px 20px;
     background: linear-gradient(135deg, #dcb041 0%, #f4c856 50%, #c9982b 100%);
     color: #2A1612;
     border: none;
     border-radius: 9999px;
     font-weight: 900;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(220, 176, 65, 0.4);
+    box-shadow: 0 8px 25px rgba(220, 176, 65, 0.35);
+  }
+
+  @media (min-width: 640px) {
+    .btn-gold-action {
+      padding: 16px 24px;
+      font-size: 13px;
+      box-shadow: 0 10px 30px rgba(220, 176, 65, 0.4);
+    }
   }
 
   .btn-gold-action:hover {
     transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 14px 35px rgba(220, 176, 65, 0.6);
-    filter: brightness(1.08);
+    box-shadow: 0 12px 30px rgba(220, 176, 65, 0.55);
+    filter: brightness(1.06);
   }
 
   /* ── ANIMACIÓN AL COMPLETAR ── */
@@ -164,119 +199,120 @@ import Footer from '../components/Footer.astro';
   }
 </style>
 
-<div class="am-page flex flex-col min-h-screen">
+<div class="am-page flex flex-col min-h-screen bg-[#12080a] overflow-x-hidden">
   
   <!-- NAVBAR REUTILIZABLE OFICIAL -->
   <Navbar />
 
-  <!-- BOTÓN REGRESAR ALINEADO A LA IZQUIERDA (IGUAL AL RESTO DE LA PÁGINA) -->
-  <div class="absolute top-28 left-0 right-0 z-20 pointer-events-none">
-    <div class="max-w-[1280px] mx-auto px-6 lg:px-12 pointer-events-auto">
+  <!-- BOTÓN DE REGRESO Y ACCESO (Librando el navbar fijo con pt-20 / pt-28) -->
+  <div class="pt-20 sm:pt-28 pb-1 max-w-7xl mx-auto px-5 md:px-8 w-full relative z-10">
+    <div class="flex justify-between items-center py-1">
       <a
         href="/"
         onclick="if(history.length > 1){ history.back(); return false; }"
-        class="inline-flex items-center gap-2.5 text-white/90 hover:text-[#dcb041] font-bold text-sm tracking-wide transition-colors duration-300 group cursor-pointer"
+        class="inline-flex items-center gap-2 text-white/90 hover:text-[#dcb041] font-bold text-xs sm:text-sm tracking-wide transition-colors duration-300 group cursor-pointer"
       >
-        <svg class="w-5 h-5 text-[#dcb041] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#dcb041] group-hover:-translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
         </svg>
         <span>Regresar</span>
       </a>
+      <div class="inline-flex items-center gap-1.5 text-[#dcb041] text-xs sm:text-sm font-semibold font-serif italic">
+        ✦ Membresía Legado
+      </div>
     </div>
   </div>
 
-  <!-- HERO SECTION CON ESTILO BOUTIQUE LUXURY -->
-  <section class="relative pt-32 pb-12 md:pt-40 md:pb-16 text-center px-4 overflow-hidden">
-    <div class="max-w-4xl mx-auto relative z-10">
-
-      <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
+  <!-- HERO SECTION COMPACTO Y ELEGANTE -->
+  <section class="relative pt-2 pb-5 md:pt-4 md:pb-8 text-center px-4 overflow-hidden">
+    <div class="max-w-3xl mx-auto relative z-10">
+      <h1 class="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-2 sm:mb-3 drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
         Credencial de Honor para <span class="text-[#f6d98d] italic">Adultos Mayores</span>
       </h1>
 
-      <p class="text-sm sm:text-base md:text-lg text-[#f3dfe5]/90 max-w-2xl mx-auto leading-relaxed font-sans mb-4 drop-shadow-md">
+      <p class="text-xs sm:text-sm md:text-base text-[#f3dfe5]/90 max-w-xl mx-auto leading-relaxed font-sans drop-shadow-md">
         Otorgamos un <strong class="text-[#f6d98d]">descuento vitalicio del 5%</strong> en nuestras sucursales. 
-        Completa los datos para generar tu tarjeta digital instantánea y preséntala al realizar tu compra.
+        Completa los datos para generar tu tarjeta digital instantánea.
       </p>
-
     </div>
   </section>
 
   <!-- CONTENIDO PRINCIPAL: TARJETA INTERACTIVA + FORMULARIO -->
-  <main class="max-w-6xl mx-auto px-4 md:px-8 pb-20 w-full flex-grow">
+  <main class="max-w-7xl mx-auto px-5 md:px-8 pb-16 w-full flex-grow relative z-10">
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-10 items-start">
       
       <!-- COLUMNA IZQUIERDA: TARJETA DIGITAL INTERACTIVA (PREVIEW EN TIEMPO REAL) -->
       <div class="lg:col-span-5 flex flex-col items-center justify-center">
         
-        <div class="w-full text-center mb-3">
-          <span class="text-xs font-bold uppercase tracking-widest text-[#f6d98d] flex items-center justify-center gap-2 drop-shadow-md">
-            <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        <div class="w-full text-center mb-2.5">
+          <span class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-[#f6d98d] flex items-center justify-center gap-1.5 drop-shadow-md">
+            <svg class="w-3.5 h-3.5 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
             Vista Previa de la Credencial
           </span>
         </div>
 
         <!-- CONTENEDOR 3D DE LA TARJETA -->
-        <div class="card-3d-wrapper w-full">
+        <div class="card-3d-wrapper">
           <div id="credit-card" class="credit-card-preview flex flex-col justify-between relative z-10">
             
             <!-- HEADER DE LA TARJETA -->
             <div class="flex justify-between items-start z-10">
-              <img src="/img/taboada-logo.png" alt="Taboada" class="h-7 sm:h-9 object-contain drop-shadow-md" />
+              <img src="/img/taboada-logo.webp" alt="Taboada" class="h-6 sm:h-8 object-contain drop-shadow-md" />
               <div class="text-right">
-                <span class="text-[9px] font-black uppercase tracking-widest text-[#f6d98d] block opacity-90">VIP LEGADO</span>
-                <span class="text-[8px] text-white/70 tracking-wider uppercase font-semibold">Credencial Honorífica</span>
+                <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-[#f6d98d] block opacity-90">VIP LEGADO</span>
+                <span class="text-[7px] sm:text-[8px] text-white/70 tracking-wider uppercase font-semibold">Credencial Honorífica</span>
               </div>
             </div>
 
             <!-- CUERPO DE LA TARJETA (CHIP Y DATOS EN TIEMPO REAL) -->
-            <div class="my-3 z-10">
-              <div class="flex items-center justify-between mb-3">
+            <div class="my-2 sm:my-3 z-10">
+              <div class="flex items-center justify-between mb-2 sm:mb-2.5">
                 <div class="card-chip-emv"></div>
                 <!-- Holograma / Marca de agua -->
-                <div class="w-8 h-8 rounded-full border border-[#f6d98d]/50 bg-gradient-to-tr from-[#dcb041]/30 to-[#f4c856]/50 flex items-center justify-center text-[#f6d98d] text-[9px] font-bold shadow-md">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#f6d98d]/50 bg-gradient-to-tr from-[#dcb041]/30 to-[#f4c856]/50 flex items-center justify-center text-[#f6d98d] text-[9px] font-bold shadow-md">
                   5%
                 </div>
               </div>
 
               <!-- NOMBRE COMPLETO DINÁMICO EN TIEMPO REAL -->
-              <div class="mb-1">
-                <span class="text-[8px] uppercase tracking-widest text-[#f6d98d]/80 font-bold block">Titular Beneficiario</span>
-                <div id="live-card-name" class="embossed-gold text-lg sm:text-xl font-bold truncate">
+              <div class="mb-0.5">
+                <span class="text-[7.5px] sm:text-[8px] uppercase tracking-widest text-[#f6d98d]/80 font-bold block">Titular Beneficiario</span>
+                <div id="live-card-name" class="embossed-gold text-sm sm:text-base md:text-lg font-bold truncate">
                   NOMBRE APELLIDO
                 </div>
               </div>
             </div>
 
             <!-- FOOTER DE LA TARJETA (CÓDIGO ID, PARENTESCO Y DESCUENTO) -->
-            <div class="border-t border-[#f6d98d]/30 pt-2.5 flex justify-between items-end z-10">
+            <div class="border-t border-[#f6d98d]/30 pt-2 flex justify-between items-end z-10">
               <div>
-                <span class="text-[7px] uppercase tracking-widest text-[#f6d98d]/80 font-bold block">Código Único ID</span>
-                <div id="live-card-id" class="embossed-gold text-xs sm:text-sm">
+                <span class="text-[6.5px] sm:text-[7px] uppercase tracking-widest text-[#f6d98d]/80 font-bold block">Código Único ID</span>
+                <div id="live-card-id" class="embossed-gold text-[10px] sm:text-xs md:text-sm font-semibold">
                   #LEG-2026-8942
                 </div>
               </div>
 
-              <div class="text-center px-2 py-0.5 rounded bg-[#f6d98d]/15 border border-[#f6d98d]/40">
-                <span class="text-[7px] uppercase tracking-widest text-[#f6d98d] font-bold block">Parentesco</span>
-                <span id="live-card-relation" class="text-[10px] font-extrabold text-white uppercase block">
+              <div class="text-center px-1.5 py-0.5 rounded bg-[#f6d98d]/15 border border-[#f6d98d]/40">
+                <span class="text-[6.5px] sm:text-[7px] uppercase tracking-widest text-[#f6d98d] font-bold block">Parentesco</span>
+                <span id="live-card-relation" class="text-[8.5px] sm:text-[10px] font-extrabold text-white uppercase block">
                   TITULAR
                 </span>
               </div>
 
               <div class="text-right">
-                <div class="font-serif font-black text-xl sm:text-2xl text-[#f6d98d] leading-none">
+                <div class="font-serif font-black text-base sm:text-xl md:text-2xl text-[#f6d98d] leading-none">
                   5%
                 </div>
-                <span class="text-[7px] uppercase tracking-widest text-white/80 font-bold block">Desc. Vitalicio</span>
+                <span class="text-[6.5px] sm:text-[7px] uppercase tracking-widest text-white/80 font-bold block">Desc. Vitalicio</span>
               </div>
             </div>
 
           </div>
         </div>
 
-        <p class="text-[11px] text-[#f6d98d]/70 mt-4 text-center italic drop-shadow-md">
-          ✨ La tarjeta se actualiza automáticamente al escribir en el formulario.
+        <p class="text-[10px] sm:text-[11px] text-[#f6d98d]/70 mt-3 text-center italic drop-shadow-md">
+          ✨ Se actualiza en tiempo real al escribir tus datos.
         </p>
 
       </div>
@@ -285,26 +321,26 @@ import Footer from '../components/Footer.astro';
       <!-- COLUMNA DERECHA: FORMULARIO DE REGISTRO CON DISEÑO BOUTIQUE DORADO -->
       <div class="lg:col-span-7">
         
-        <div class="bg-[#180a0e]/85 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-[#dcb041]/40 shadow-[0_25px_60px_rgba(0,0,0,0.85)] text-white relative overflow-hidden">
+        <div class="bg-[#180a0e]/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-7 md:p-8 border border-[#dcb041]/40 shadow-[0_20px_50px_rgba(0,0,0,0.85)] text-white relative overflow-hidden">
           
           <!-- Borde decorativo superior dorado -->
-          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#8f6c49]"></div>
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#8f6c49]"></div>
 
-          <div class="mb-6 border-b border-[#dcb041]/20 pb-4">
-            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white mb-1">
+          <div class="mb-4 border-b border-[#dcb041]/20 pb-3">
+            <h2 class="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-white mb-0.5">
               Registro del Beneficiario
             </h2>
-            <p class="text-xs sm:text-sm text-[#f3dfe5]/80 font-medium">
-              Ingresa los datos requeridos para emitir la Credencial de Honor.
+            <p class="text-[11px] sm:text-xs md:text-sm text-[#f3dfe5]/80 font-medium">
+              Ingresa los datos para emitir la Credencial de Honor.
             </p>
           </div>
 
-          <form id="am-form" class="space-y-4 sm:space-y-5">
+          <form id="am-form" class="space-y-3 sm:space-y-4">
             
             <!-- NOMBRE Y APELLIDOS EN PARALELO -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label class="block text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1.5">
+                <label class="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1">
                   Nombre (s)
                 </label>
                 <input 
@@ -318,7 +354,7 @@ import Footer from '../components/Footer.astro';
               </div>
 
               <div>
-                <label class="block text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1.5">
+                <label class="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1">
                   Apellidos
                 </label>
                 <input 
@@ -333,9 +369,9 @@ import Footer from '../components/Footer.astro';
             </div>
 
             <!-- PARENTESCO Y FECHA DE NACIMIENTO -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label class="block text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1.5">
+                <label class="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1">
                   Parentesco / Relación
                 </label>
                 <input 
@@ -349,7 +385,7 @@ import Footer from '../components/Footer.astro';
               </div>
 
               <div>
-                <label class="block text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1.5">
+                <label class="block text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#f6d98d] mb-1">
                   Fecha de Nacimiento
                 </label>
                 <input 
@@ -362,15 +398,15 @@ import Footer from '../components/Footer.astro';
             </div>
 
             <!-- BOTÓN GENERAR -->
-            <div class="pt-3">
-              <button type="submit" id="submit-btn" class="btn-gold-action flex items-center justify-center gap-3">
+            <div class="pt-2">
+              <button type="submit" id="submit-btn" class="btn-gold-action flex items-center justify-center gap-2.5">
                 <span>Ser Legado</span>
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
                 </svg>
               </button>
 
-              <p class="text-[11px] text-center text-[#f6d98d]/70 italic font-sans mt-3">
+              <p class="text-[10px] sm:text-[11px] text-center text-[#f6d98d]/70 italic font-sans mt-2.5">
                 * Preséntate con el código ID generado en caja para validar tu beneficio.
               </p>
             </div>
@@ -378,32 +414,32 @@ import Footer from '../components/Footer.astro';
           </form>
 
           <!-- MENSAJE DE ÉXITO DE DESPLIEGUE TRAS GUARDAR -->
-          <div id="success-panel" class="hidden text-center py-6">
-            <div class="w-16 h-16 rounded-full bg-[#dcb041]/20 border-2 border-[#dcb041] flex items-center justify-center mx-auto mb-4 text-[#f6d98d]">
-              <svg class="w-9 h-9 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+          <div id="success-panel" class="hidden text-center py-5">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#dcb041]/20 border-2 border-[#dcb041] flex items-center justify-center mx-auto mb-3 text-[#f6d98d]">
+              <svg class="w-8 h-8 sm:w-9 sm:h-9 text-[#f6d98d]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
               </svg>
             </div>
 
-            <h3 class="font-serif text-2xl font-bold text-white mb-2">
+            <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-1.5">
               ¡Credencial Generada Exitosamente!
             </h3>
 
-            <p class="text-sm text-[#f3dfe5]/90 max-w-md mx-auto mb-6 leading-relaxed">
+            <p class="text-xs sm:text-sm text-[#f3dfe5]/90 max-w-md mx-auto mb-5 leading-relaxed">
               La tarjeta ha sido registrada y vinculada en el sistema de Chocolates Taboada. Preséntate con el código <strong id="success-code-display" class="text-[#f6d98d] font-bold">#LEG-2026</strong> en Sucursal La Recoleta.
             </p>
 
-            <div class="flex flex-wrap items-center justify-center gap-3">
+            <div class="flex flex-wrap items-center justify-center gap-2.5">
               <button 
                 type="button" 
                 onclick="window.print()" 
-                class="px-6 py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] font-bold text-xs border border-[#dcb041]/40 hover:bg-[#dcb041] hover:text-[#2A1612] transition-all cursor-pointer shadow-lg"
+                class="px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] font-bold text-xs border border-[#dcb041]/40 hover:bg-[#dcb041] hover:text-[#2A1612] transition-all cursor-pointer shadow-lg"
               >
                 🖨️ Imprimir / Guardar
               </button>
               <a 
                 href="/" 
-                class="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-black text-xs hover:scale-105 transition-all shadow-lg"
+                class="px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-black text-xs hover:scale-105 transition-all shadow-lg"
               >
                 Volver al Inicio →
               </a>
@@ -445,6 +481,9 @@ import Footer from '../components/Footer.astro';
 
     // Actualización dinámica en tiempo real al escribir
     function updateLiveCard() {
+      if (inputNombre) inputNombre.value = inputNombre.value.replace(/[0-9]/g, '');
+      if (inputApellido) inputApellido.value = inputApellido.value.replace(/[0-9]/g, '');
+
       const nombre = (inputNombre?.value || "").trim();
       const apellido = (inputApellido?.value || "").trim();
       const parentezco = (inputParentezco?.value || "").trim();
