@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
 // 1. Datos de los beneficios con VALIDEZ PERSONALIZADA e imágenes corregidas
-const apiUrl = process.env.PUBLIC_API_URL || import.meta.env.PUBLIC_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1";
+const apiUrl = process.env.PUBLIC_API_URL || import.meta.env.PUBLIC_API_URL || "https://app.pegasus-nexus.com/api/v1";
 let rewards = [];
 try {
     const res = await fetch(`${apiUrl}/fidelizacion/catalog`);
@@ -636,7 +636,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     const celular = localStorage.getItem('taboada_user_celular');
     if (celular) {
       // In browser, try to use the same logic or hardcode to current setup
-      const baseApiUrl = window.GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1"; 
+      const baseApiUrl = window.GLOBAL_API_URL || "https://app.pegasus-nexus.com/api/v1"; 
       fetch(baseApiUrl + "/fidelizacion/reclamar_cupon?tenant_id=69cd7f0a8f3f6866d4cfbb62", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -779,7 +779,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   document.addEventListener("DOMContentLoaded", () => {
     const fetchBenefit = async () => {
       try {
-        const apiUrl = window.GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1";
+        const apiUrl = window.GLOBAL_API_URL || "https://app.pegasus-nexus.com/api/v1";
         const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
         if (response.ok) {
           const data = await response.json();
@@ -860,7 +860,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       const celular = localStorage.getItem('taboada_user_celular');
       
       if (celular) {
-        const apiUrl = window.GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1";
+        const apiUrl = window.GLOBAL_API_URL || "https://app.pegasus-nexus.com/api/v1";
         fetch(apiUrl + "/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
