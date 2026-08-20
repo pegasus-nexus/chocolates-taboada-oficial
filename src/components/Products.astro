@@ -8,79 +8,86 @@
   #dynamic-categories-list {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 0.5rem !important;
-    overflow-x: auto;
+    gap: 0.35rem !important;
+    max-height: 110px;
+    overflow-y: auto;
+    padding-bottom: 2px;
   }
-  #dynamic-categories-list > div,
-  #dynamic-categories-list > button {
-    flex-shrink: 0 !important;
-    width: auto !important;
+  @media (min-width: 640px) {
+    #dynamic-categories-list {
+      gap: 0.5rem !important;
+      max-height: 160px;
+    }
   }
+
   /* Chip base — sobre fondo beige */
   #dynamic-categories-list .cat-btn {
     display: inline-flex !important;
     align-items: center !important;
     width: auto !important;
-    padding: 0.4rem 1.1rem !important;
+    padding: 0.25rem 0.65rem !important;
     border-radius: 9999px !important;
-    font-size: 0.8125rem !important;
-    font-weight: 500 !important;
-    border: 1.5px solid #e2d5c3 !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    border: 1px solid #e2d5c3 !important;
     background: #ffffff !important;
-    color: #7a5c45 !important;
+    color: #5D4037 !important;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap !important;
     text-align: center !important;
     text-transform: none !important;
-    letter-spacing: 0 !important;
-    box-shadow: 0 1px 3px rgba(42,22,18,0.05) !important;
+    box-shadow: 0 1px 2px rgba(42,22,18,0.04) !important;
   }
+  @media (min-width: 640px) {
+    #dynamic-categories-list .cat-btn {
+      padding: 0.35rem 0.95rem !important;
+      font-size: 0.8rem !important;
+      border-width: 1.5px !important;
+    }
+  }
+
   #dynamic-categories-list .cat-btn:hover {
     border-color: #dcb041 !important;
     color: #2A1612 !important;
-    background: #fffff8 !important;
-    box-shadow: 0 2px 8px rgba(220,176,65,0.18) !important;
+    background: #fffdf9 !important;
+    box-shadow: 0 2px 6px rgba(220,176,65,0.15) !important;
   }
-  /* Activo — JS añade "font-black" al chip seleccionado */
+
+  /* Activo — chip seleccionado */
+  #dynamic-categories-list .cat-btn.cat-active,
   #dynamic-categories-list .cat-btn.font-black {
     background: #2A1612 !important;
-    color: #dcb041 !important;
+    color: #f6d98d !important;
     border-color: #2A1612 !important;
     font-weight: 800 !important;
-    box-shadow: 0 3px 12px rgba(42,22,18,0.25) !important;
+    box-shadow: 0 2px 8px rgba(42,22,18,0.25) !important;
   }
-  #dynamic-categories-list .cat-floating-tooltip { display: none !important; }
-  #dynamic-categories-list .cat-btn svg { display: none !important; }
-  #dynamic-categories-list::-webkit-scrollbar { display: none; }
-  #dynamic-categories-list { -ms-overflow-style: none; scrollbar-width: none; }
 
-  @media (max-width: 640px) {
-    #dynamic-categories-list {
-      gap: 0.35rem !important;
-    }
-    #dynamic-categories-list .cat-btn {
-      padding: 0.25rem 0.65rem !important;
-      font-size: 0.72rem !important;
-      border-width: 1px !important;
-      line-height: 1.15 !important;
-      letter-spacing: -0.01em !important;
-    }
-  }
+  /* Custom scrollbar discreta para categorías */
+  #dynamic-categories-list::-webkit-scrollbar { width: 3px; }
+  #dynamic-categories-list::-webkit-scrollbar-track { background: transparent; }
+  #dynamic-categories-list::-webkit-scrollbar-thumb { background: #dcb041; border-radius: 4px; }
 
   /* ══════════════════════════════════════════════════
      OCASIÓN ACTIVA — círculo se rellena dorado
   ══════════════════════════════════════════════════ */
+  .occasion-chip {
+    transition: transform 0.2s ease;
+  }
+  .occasion-chip:hover {
+    transform: translateY(-2px);
+  }
   .occasion-chip.occasion-active .occ-circle {
     background: #2A1612 !important;
     color: #dcb041 !important;
-    border-color: #2A1612 !important;
-    box-shadow: 0 0 22px rgba(42,22,18,0.3) !important;
-    transform: scale(1.1);
+    border-color: #dcb041 !important;
+    box-shadow: 0 0 16px rgba(220,176,65,0.35) !important;
+    transform: scale(1.08);
   }
   .occasion-chip.occasion-active .occ-label {
     color: #2A1612 !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
   }
 
   /* ══════════════════════════════════════════════════
@@ -95,7 +102,7 @@
       opacity 0.32s ease 0.05s;
   }
   #category-sub-row.sub-row-visible {
-    max-height: 320px;
+    max-height: 450px;
     opacity: 1;
   }
 
@@ -400,21 +407,21 @@
       allCollections.forEach(col => {
         const iconSrc = col.image_url || 'https://api.iconify.design/lucide:gift.svg?color=%238f6c49';
         html += `
-          <button type="button" class="occasion-chip group/occ flex flex-col items-center gap-2 p-2 rounded-2xl hover:bg-[#FAF5F0] transition-all duration-300 cursor-pointer w-full text-center" data-collection-id="${col.id}">
-            <div class="occ-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FAF5F0] border border-[#e8dccb] flex items-center justify-center text-[#8f6c49] group-hover/occ:bg-[#dcb041] group-hover/occ:text-[#2A1612] group-hover/occ:border-[#dcb041] group-hover/occ:scale-110 group-hover/occ:shadow-[0_0_20px_rgba(220,176,65,0.4)] transition-all duration-300 flex-shrink-0 overflow-hidden">
-              <img src="${iconSrc}" alt="" aria-hidden="true" class="w-6 h-6 object-contain" onError="this.src='https://api.iconify.design/lucide:star.svg?color=%23dcb041'" />
+          <button type="button" class="occasion-chip group/occ flex flex-col items-center gap-1.5 p-1.5 sm:p-2 rounded-2xl hover:bg-[#FAF5F0] transition-all duration-300 cursor-pointer w-auto min-w-[62px] sm:w-full text-center flex-shrink-0" data-collection-id="${col.id}">
+            <div class="occ-circle w-10 h-10 sm:w-13 sm:h-13 rounded-full bg-[#FAF5F0] border border-[#e8dccb] flex items-center justify-center text-[#8f6c49] group-hover/occ:bg-[#dcb041] group-hover/occ:text-[#2A1612] group-hover/occ:border-[#dcb041] group-hover/occ:scale-110 group-hover/occ:shadow-[0_0_20px_rgba(220,176,65,0.4)] transition-all duration-300 flex-shrink-0 overflow-hidden">
+              <img src="${iconSrc}" alt="" aria-hidden="true" class="w-5 h-5 sm:w-6 sm:h-6 object-contain" onError="this.src='https://api.iconify.design/lucide:star.svg?color=%23dcb041'" />
             </div>
-            <span class="occ-label text-[11px] font-semibold text-[#5D4037]/80 group-hover/occ:text-[#2A1612] transition-colors leading-tight">${col.name}</span>
+            <span class="occ-label text-[10px] sm:text-[11px] font-semibold text-[#5D4037]/80 group-hover/occ:text-[#2A1612] transition-colors leading-tight whitespace-nowrap sm:whitespace-normal">${col.name}</span>
           </button>
         `;
       });
 
       html += `
-        <button type="button" class="occasion-chip group/occ flex flex-col items-center gap-2 p-2 rounded-2xl hover:bg-[#FAF5F0] transition-all duration-300 cursor-pointer w-full text-center" data-collection-id="all">
-          <div class="occ-circle w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#dcb041] border border-[#dcb041] flex items-center justify-center text-[#2A1612] group-hover/occ:scale-110 group-hover/occ:shadow-[0_0_25px_rgba(220,176,65,0.6)] transition-all duration-300 flex-shrink-0">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+        <button type="button" class="occasion-chip group/occ flex flex-col items-center gap-1.5 p-1.5 sm:p-2 rounded-2xl hover:bg-[#FAF5F0] transition-all duration-300 cursor-pointer w-auto min-w-[62px] sm:w-full text-center flex-shrink-0" data-collection-id="all">
+          <div class="occ-circle w-10 h-10 sm:w-13 sm:h-13 rounded-full bg-[#dcb041] border border-[#dcb041] flex items-center justify-center text-[#2A1612] group-hover/occ:scale-110 group-hover/occ:shadow-[0_0_25px_rgba(220,176,65,0.6)] transition-all duration-300 flex-shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
           </div>
-          <span class="occ-label text-[11px] font-extrabold text-[#8f6c49] group-hover/occ:text-[#2A1612] transition-colors leading-tight">Ver todo</span>
+          <span class="occ-label text-[10px] sm:text-[11px] font-extrabold text-[#8f6c49] group-hover/occ:text-[#2A1612] transition-colors leading-tight whitespace-nowrap sm:whitespace-normal">Ver todo</span>
         </button>
       `;
 
@@ -460,34 +467,30 @@
     }
 
     function getCategoryIcon(name) {
-      return `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>`;
+      return `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>`;
     }
 
     function getCategoryFallbackIcon() {
-      return `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>`;
+      return `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>`;
     }
 
     function renderCategories(categorias) {
       if (!categoriesList) return;
       categoriesList.classList.remove('animate-pulse');
       
+      const isDestacadosActive = currentCategory === 'DESTACADOS';
       let html = `
-        <div class="relative group/cat-tooltip flex-shrink-0 lg:flex-shrink w-full">
-          <button type="button" class="cat-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-black transition-all duration-300 cursor-pointer text-left group bg-transparent text-[#2A1612] border-l-2 border-[#dcb041]" data-target="DESTACADOS">
-            <span class="cat-btn-label flex-1 truncate text-xs font-sans tracking-tight">⭐ Destacados</span>
-          </button>
-          <span class="cat-floating-tooltip absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1 bg-[#2A1612] text-white text-[11px] font-bold rounded-lg shadow-xl opacity-0 pointer-events-none transition-opacity duration-200 z-50 whitespace-nowrap border border-white/10 hidden">Destacados</span>
-        </div>
+        <button type="button" class="cat-btn ${isDestacadosActive ? 'cat-active font-black' : 'font-semibold'}" data-target="DESTACADOS">
+          <span class="cat-btn-label">⭐ Destacados</span>
+        </button>
       `;
 
       categorias.forEach(cat => {
+        const isActive = String(cat.id) === currentCategory;
         html += `
-          <div class="relative group/cat-tooltip flex-shrink-0 lg:flex-shrink w-full">
-            <button type="button" class="cat-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all duration-300 cursor-pointer text-left group text-[#5D4037]/80 hover:text-[#2A1612] bg-transparent border-l-2 border-transparent" data-target="${cat.id}">
-              <span class="cat-btn-label flex-1 truncate text-xs font-sans tracking-tight">${cat.name}</span>
-            </button>
-            <span class="cat-floating-tooltip absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1 bg-[#2A1612] text-white text-[11px] font-bold rounded-lg shadow-xl opacity-0 pointer-events-none transition-opacity duration-200 z-50 whitespace-nowrap border border-white/10 hidden">${cat.name}</span>
-          </div>
+          <button type="button" class="cat-btn ${isActive ? 'cat-active font-black' : 'font-semibold'}" data-target="${cat.id}">
+            <span class="cat-btn-label">${cat.name}</span>
+          </button>
         `;
       });
       categoriesList.innerHTML = html;
@@ -496,11 +499,11 @@
       catBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           catBtns.forEach(b => {
-            b.classList.remove('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
-            b.classList.add('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
+            b.classList.remove('cat-active', 'font-black');
+            b.classList.add('font-semibold');
           });
-          btn.classList.add('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
-          btn.classList.remove('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
+          btn.classList.add('cat-active', 'font-black');
+          btn.classList.remove('font-semibold');
           currentCategory = (btn as HTMLElement).dataset.target || 'DESTACADOS';
 
           // Actualizar URL dinámicamente: /Catalogo, /Catalogo/Regala, /Catalogo/Regala/Tabletas, /Catalogo/Tabletas
