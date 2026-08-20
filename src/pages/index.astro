@@ -171,23 +171,23 @@ import MobileCTA from "../components/MobileCTA.astro";
 
     <!-- ══════════════════════════════════════════════════
          DISEÑO MÓVIL EDITORIAL LUXURY (Solo celular < lg)
-         Inspirado en estética editorial moderna: fondo crema,
-         tipografía a la izquierda y recorte curvo orgánico a la derecha.
+         Estética Dark Chocolate Luxury con tipografía dorada
+         y recorte curvo orgánico amplio para chocolates y paisaje.
     ══════════════════════════════════════════════════ -->
-    <div class="lg:hidden relative z-[5] w-full min-h-[88vh] flex flex-col justify-center pt-24 pb-8 px-4 sm:px-6 bg-[#FAF5F0] overflow-hidden">
+    <div class="lg:hidden relative z-[5] w-full pt-24 pb-8 px-4 sm:px-6 bg-gradient-to-b from-[#14080D] via-[#220E15] to-[#16090E] overflow-hidden">
       
-      <!-- Fondo sutil degradado crema -->
-      <div class="absolute inset-0 bg-gradient-to-br from-[#FAF6F0] via-[#F4ECE3] to-[#EFE4D8] pointer-events-none -z-10"></div>
-      <div class="absolute -top-12 -right-12 w-60 h-60 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <!-- Fondos de brillo dorado sutil -->
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-[#dcb041]/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-[#dcb041]/10 rounded-full blur-2xl pointer-events-none -z-10"></div>
 
       <!-- SECCIÓN PRINCIPAL: TEXTO EDITORIAL + IMAGEN DESTACADA EXPANDIDA -->
-      <div class="relative w-full flex items-center justify-between py-2">
+      <div class="relative w-full flex items-center justify-between py-1">
         
         <!-- Contenido de Texto a la Izquierda -->
-        <div class="w-[50%] text-left pr-2 relative z-10 hero-anim-1">
+        <div class="w-[48%] text-left pr-2 relative z-10 hero-anim-1">
           
           <!-- Ícono Emblema Asterisco Dorado -->
-          <div class="w-8 h-8 rounded-full bg-[#2A1612] text-[#dcb041] flex items-center justify-center mb-2.5 shadow-md">
+          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 border border-[#dcb041]/40 text-[#f6d98d] flex items-center justify-center mb-2 shadow-md">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.1 6.8-5.5-4.1-5.5 4.1 2.1-6.8L3 8.8h6.6L12 2z"/>
             </svg>
@@ -196,25 +196,25 @@ import MobileCTA from "../components/MobileCTA.astro";
           <!-- Texto Desde 1948 sin borde ni fondo -->
           <div class="flex items-center gap-1.5 mb-2">
             <span class="w-3.5 h-[1.5px] bg-[#dcb041]"></span>
-            <span class="uppercase tracking-[0.14em] text-[#8f6c49] text-[0.6rem] font-black">
+            <span class="uppercase tracking-[0.14em] text-[#f6d98d] text-[0.58rem] font-black">
               DESDE 1948 CREANDO MOMENTOS ESPECIALES
             </span>
           </div>
 
           <!-- Título Principal -->
-          <h1 class="font-serif text-[1.65rem] sm:text-[2rem] leading-[1.12] font-black text-[#2A1612] tracking-tight mb-2.5">
-            Hay momentos que merecen un buen chocolate.
+          <h1 class="font-serif text-[1.65rem] sm:text-[2rem] leading-[1.12] font-black text-white tracking-tight mb-2">
+            Hay momentos que <span class="bg-gradient-to-r from-[#ffe8b3] via-[#dcb041] to-[#f6d98d] bg-clip-text text-transparent block">merecen un buen chocolate.</span>
           </h1>
 
           <!-- Descripción -->
-          <p class="text-[12.5px] text-[#5D4037]/90 leading-relaxed font-sans mb-4 font-normal">
+          <p class="text-[12px] text-[#f7e8ec]/85 leading-relaxed font-sans mb-3.5 font-normal">
             Chocolates elaborados con tradición, elegancia y el auténtico sabor boliviano.
           </p>
 
           <!-- Botón de Acción Principal -->
           <a
-            href="#cajas-especiales"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2A1612] text-[#f6d98d] hover:bg-[#3D1E15] active:scale-95 text-[11px] font-bold shadow-[0_4px_16px_rgba(42,22,18,0.25)] transition-all whitespace-nowrap"
+            href="/Catalogo"
+            class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#f6d98d] via-[#dcb041] to-[#c99a2e] text-[#2A1612] hover:scale-105 active:scale-95 text-[11px] font-black shadow-[0_4px_18px_rgba(220,176,65,0.4)] transition-all whitespace-nowrap"
           >
             <span>Explorar Catálogo</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
@@ -222,15 +222,15 @@ import MobileCTA from "../components/MobileCTA.astro";
         </div>
 
         <!-- Imagen con Curva Orgánica Fluida a la Derecha (Más amplia, mostrando chocolates completos y paisaje) -->
-        <div class="w-[50%] h-[380px] sm:h-[430px] rounded-l-[45px] overflow-hidden shadow-[0_15px_35px_rgba(42,22,18,0.2)] border-y border-l border-[#e2d5c3] relative -mr-4 sm:-mr-6 z-0 hero-anim-2">
+        <div class="w-[52%] h-[380px] sm:h-[430px] rounded-l-[3.5rem] rounded-tr-[1.5rem] rounded-br-[2rem] overflow-hidden shadow-[0_20px_45px_rgba(0,0,0,0.6)] border-y border-l border-[#dcb041]/35 relative -mr-4 sm:-mr-6 z-0 hero-anim-2">
           <img
             id="mobile-hero-img"
             src="/img/agostocbba.webp"
             alt="Chocolates Taboada"
-            class="w-full h-full object-cover object-[72%_center] scale-105"
+            class="w-full h-full object-cover object-[75%_center] scale-105"
             loading="eager"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#2A1612]/30 via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#14080D]/40 via-transparent to-transparent"></div>
         </div>
 
       </div>
@@ -406,29 +406,29 @@ import MobileCTA from "../components/MobileCTA.astro";
 
         <!-- Título Principal Centrado -->
         <h2
-          class="font-serif text-2xl sm:text-3xl md:text-5xl text-[#2A1612] font-extrabold leading-[1.15] sm:leading-tight tracking-tight mb-2 sm:mb-4"
+          class="font-serif text-xl sm:text-3xl md:text-5xl text-[#2A1612] font-extrabold leading-[1.15] sm:leading-tight tracking-tight mb-2 sm:mb-4"
         >
           Calidad, variedad y facilidad de compra.
         </h2>
 
-        <!-- Mini Texto Agregado (Ajustado para Celular) -->
+        <!-- Mini Texto Agregado -->
         <p
           class="text-xs sm:text-sm md:text-base text-[#5D4037]/80 max-w-lg mx-auto leading-snug sm:leading-relaxed"
         >
           Encuentra chocolates elaborados con ingredientes seleccionados, una
           amplia variedad de opciones para cada ocasión y un proceso de compra
-          rápido, sencillo
+          rápido y sencillo.
         </p>
       </div>
 
-      <!-- GRILLA DE BENEFICIOS / CARACTERÍSTICAS (En 1 fila para celular con deslizamiento suave) -->
+      <!-- GRILLA DE BENEFICIOS / CARACTERÍSTICAS (4 en 1 sola fila fija sin desplazamiento) -->
       <div
-        class="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 items-stretch scrollbar-none"
+        class="grid grid-cols-4 gap-1.5 sm:gap-4 md:gap-6 items-stretch"
       >
         <!-- Tarjeta 1: Regalar -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
           <img
@@ -453,14 +453,14 @@ import MobileCTA from "../components/MobileCTA.astro";
 
           <!-- Contenido en la base -->
           <div
-            class="relative z-10 flex flex-col items-start text-left text-white"
+            class="relative z-10 flex flex-col items-center sm:items-start text-center sm:text-left text-white w-full"
           >
             <!-- Icono blanco -->
             <div
-              class="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500 flex-shrink-0"
+              class="w-6 h-6 sm:w-11 sm:h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center mb-1 sm:mb-3 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-300 flex-shrink-0"
             >
               <svg
-                class="w-5 h-5 sm:w-6 sm:h-6"
+                class="w-3.5 h-3.5 sm:w-6 sm:h-6"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -475,20 +475,19 @@ import MobileCTA from "../components/MobileCTA.astro";
             </div>
 
             <h3
-              class="font-serif font-bold text-base sm:text-lg md:text-2xl text-white mb-1 sm:mb-2 leading-tight"
+              class="font-serif font-bold text-[10px] sm:text-lg md:text-2xl text-white mb-0.5 sm:mb-2 leading-tight truncate w-full"
             >
               Regalar
             </h3>
 
-            <!-- Descripción que se despliega elegantemente en hover -->
+            <!-- Descripción -->
             <div
-              class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
+              class="hidden sm:grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
             >
               <p
-                class="overflow-hidden text-[10px] sm:text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
+                class="overflow-hidden text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
               >
-                Encuentra cajas, detalles y obsequios para sorprender en
-                cualquier ocasión.
+                Encuentra cajas, detalles y obsequios para sorprender en cualquier ocasión.
               </p>
             </div>
           </div>
@@ -497,7 +496,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- Tarjeta 2: Sorprender -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
           <img
@@ -522,14 +521,14 @@ import MobileCTA from "../components/MobileCTA.astro";
 
           <!-- Contenido en la base -->
           <div
-            class="relative z-10 flex flex-col items-start text-left text-white"
+            class="relative z-10 flex flex-col items-center sm:items-start text-center sm:text-left text-white w-full"
           >
             <!-- Icono blanco -->
             <div
-              class="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500 flex-shrink-0"
+              class="w-6 h-6 sm:w-11 sm:h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center mb-1 sm:mb-3 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-300 flex-shrink-0"
             >
               <svg
-                class="w-5 h-5 sm:w-6 sm:h-6"
+                class="w-3.5 h-3.5 sm:w-6 sm:h-6"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -547,20 +546,19 @@ import MobileCTA from "../components/MobileCTA.astro";
             </div>
 
             <h3
-              class="font-serif font-bold text-base sm:text-lg md:text-2xl text-white mb-1 sm:mb-2 leading-tight"
+              class="font-serif font-bold text-[10px] sm:text-lg md:text-2xl text-white mb-0.5 sm:mb-2 leading-tight truncate w-full"
             >
               Sorprender
             </h3>
 
-            <!-- Descripción que se despliega elegantemente en hover -->
+            <!-- Descripción -->
             <div
-              class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
+              class="hidden sm:grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
             >
               <p
-                class="overflow-hidden text-[10px] sm:text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
+                class="overflow-hidden text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
               >
-                Colecciones pensadas para aniversarios, cumpleaños y momentos
-                especiales.
+                Colecciones pensadas para aniversarios, cumpleaños y momentos especiales.
               </p>
             </div>
           </div>
@@ -569,7 +567,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- Tarjeta 3: Disfrutar -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <img
             src="/img/sugerencia3.webp"
@@ -593,14 +591,14 @@ import MobileCTA from "../components/MobileCTA.astro";
 
           <!-- Contenido en la base -->
           <div
-            class="relative z-10 flex flex-col items-start text-left text-white"
+            class="relative z-10 flex flex-col items-center sm:items-start text-center sm:text-left text-white w-full"
           >
             <!-- Icono blanco -->
             <div
-              class="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500 flex-shrink-0"
+              class="w-6 h-6 sm:w-11 sm:h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center mb-1 sm:mb-3 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-300 flex-shrink-0"
             >
               <svg
-                class="w-5 h-5 sm:w-6 sm:h-6"
+                class="w-3.5 h-3.5 sm:w-6 sm:h-6"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -616,20 +614,19 @@ import MobileCTA from "../components/MobileCTA.astro";
             </div>
 
             <h3
-              class="font-serif font-bold text-base sm:text-lg md:text-2xl text-white mb-1 sm:mb-2 leading-tight"
+              class="font-serif font-bold text-[10px] sm:text-lg md:text-2xl text-white mb-0.5 sm:mb-2 leading-tight truncate w-full"
             >
               Disfrutar
             </h3>
 
-            <!-- Descripción que se despliega elegantemente en hover -->
+            <!-- Descripción -->
             <div
-              class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
+              class="hidden sm:grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
             >
               <p
-                class="overflow-hidden text-[10px] sm:text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
+                class="overflow-hidden text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
               >
-                Bombones, tabletas, café y chocolates para darte un gusto todos
-                los días.
+                Bombones, tabletas, café y chocolates para darte un gusto todos los días.
               </p>
             </div>
           </div>
@@ -638,7 +635,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         <!-- Tarjeta 4: Compartir -->
         <a
           href="#cajas-especiales"
-          class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] aspect-[3/4.2] w-[64vw] sm:w-auto flex-shrink-0 snap-center group cursor-pointer shadow-lg hover:shadow-xl transition-all duration-500 flex flex-col justify-end p-4 sm:p-6 bg-black/10"
+          class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
           <img
@@ -663,14 +660,14 @@ import MobileCTA from "../components/MobileCTA.astro";
 
           <!-- Contenido en la base -->
           <div
-            class="relative z-10 flex flex-col items-start text-left text-white"
+            class="relative z-10 flex flex-col items-center sm:items-start text-center sm:text-left text-white w-full"
           >
             <!-- Icono blanco -->
             <div
-              class="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-4 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-500 flex-shrink-0"
+              class="w-6 h-6 sm:w-11 sm:h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center mb-1 sm:mb-3 text-[#f6d98d] group-hover:bg-[#8f6c49]/80 group-hover:text-white transition-all duration-300 flex-shrink-0"
             >
               <svg
-                class="w-5 h-5 sm:w-6 sm:h-6"
+                class="w-3.5 h-3.5 sm:w-6 sm:h-6"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -678,27 +675,27 @@ import MobileCTA from "../components/MobileCTA.astro";
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M6 3h12l4 6-10 13L2 9z"></path>
-                <path d="M11 3 8 9l4 13 4-13-3-6"></path>
-                <path d="M2 9h20"></path>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
             </div>
 
             <h3
-              class="font-serif font-bold text-base sm:text-lg md:text-2xl text-white mb-1 sm:mb-2 leading-tight"
+              class="font-serif font-bold text-[10px] sm:text-lg md:text-2xl text-white mb-0.5 sm:mb-2 leading-tight truncate w-full"
             >
               Compartir
             </h3>
 
-            <!-- Descripción que se despliega elegantemente en hover -->
+            <!-- Descripción -->
             <div
-              class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
+              class="hidden sm:grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out"
             >
               <p
-                class="overflow-hidden text-[10px] sm:text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
+                class="overflow-hidden text-xs md:text-lg text-white/80 leading-relaxed font-sans transition-all duration-500"
               >
-                Presentaciones ideales para compartir momentos inolvidables con
-                tus seres queridos.
+                Momentos inolvidables para disfrutar en familia o con amigos.
               </p>
             </div>
           </div>
