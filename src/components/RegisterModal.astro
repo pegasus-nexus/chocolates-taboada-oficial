@@ -158,8 +158,8 @@
 
       try {
         // En Astro, las variables de entorno de cliente deben empezar con PUBLIC_
-        // Si no está definida (ej. fallback), usamos localhost
-        const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1"; 
+        // Si no está definida (ej. fallback), usamos la global
+        const apiUrl = (window as any).GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1"; 
         const response = await fetch(`${apiUrl}/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62`, {
           method: 'POST',
           headers: {

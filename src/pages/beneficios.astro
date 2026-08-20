@@ -569,6 +569,10 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
 </div>
 
+<script is:inline define:vars={{ apiUrl }}>
+  window.GLOBAL_API_URL = apiUrl;
+</script>
+
 <script is:inline>
   // Ãƒ¢Ã¢â‚¬Ã¢â€š¬Ãƒ¢Ã¢â‚¬Ã¢â€š¬ EFECTOS DE SONIDO PARA LA EXPERIENCIA DE CANJE Ãƒ¢Ã¢â‚¬Ã¢â€š¬Ãƒ¢Ã¢â‚¬Ã¢â€š¬
   const sonidoRasgar = new Audio('/sounds/rasgar.mp3');
@@ -636,7 +640,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     const celular = localStorage.getItem('taboada_user_celular');
     if (celular) {
       // In browser, try to use the same logic or hardcode to current setup
-      const baseApiUrl = "http://localhost:8001/api/v1"; 
+      const baseApiUrl = window.GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1"; 
       fetch(baseApiUrl + "/fidelizacion/reclamar_cupon?tenant_id=69cd7f0a8f3f6866d4cfbb62", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -779,7 +783,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   document.addEventListener("DOMContentLoaded", () => {
     const fetchBenefit = async () => {
       try {
-        const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1";
+        const apiUrl = window.GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1";
         const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
         if (response.ok) {
           const data = await response.json();
@@ -860,7 +864,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       const celular = localStorage.getItem('taboada_user_celular');
       
       if (celular) {
-        const apiUrl = import.meta.env.PUBLIC_API_URL || "http://localhost:10000/api/v1";
+        const apiUrl = window.GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1";
         fetch(apiUrl + "/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
