@@ -7,11 +7,20 @@ const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.replace(/\/$/, "") || "/";
 ---
 
+<style is:global>
+  @media (max-width: 767px) {
+    #nav-register-btn,
+    #user-profile-nav {
+      display: none !important;
+    }
+  }
+</style>
+
 <nav
   id="main-navbar"
   class="fixed top-0 left-0 w-full z-[999] transition-[background-color,box-shadow,backdrop-filter] duration-500 bg-transparent border-b border-transparent hover:bg-white/10"
 >
-  <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[64px] sm:h-[76px] md:h-[95px] px-4 sm:px-6 lg:px-12 relative">
+  <div class="max-w-7xl mx-auto flex items-center justify-between h-[60px] sm:h-[75px] md:h-[95px] px-5 md:px-8 relative">
     
     <!-- LOGO IZQUIERDO -->
     <div class="flex items-center">
@@ -21,7 +30,7 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
           alt="Taboada"
           width="221"
           height="69"
-          class="h-[40px] sm:h-[50px] md:h-[65px] w-auto object-contain transition-transform duration-300 hover:scale-105"
+          class="h-[38px] sm:h-[48px] md:h-[65px] w-auto object-contain transition-transform duration-300 hover:scale-105"
         />
       </a>
     </div>
