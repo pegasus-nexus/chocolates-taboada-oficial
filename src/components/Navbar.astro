@@ -253,130 +253,140 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
   class="fixed inset-0 z-[99998] bg-black/75 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
 ></div>
 
-<!-- MENÚ MÓVIL SOFISTICADO (Tono Chocolate Suave & Crema Aterciopelado) -->
+<!-- MENÚ MÓVIL SOFISTICADO (Tono Chocolate Artesanal Cálido, Limpio y Sin Bordes) -->
 <aside
   id="mobile-drawer"
-  class="fixed inset-y-0 right-0 z-[99999] w-[85vw] max-w-[315px] bg-gradient-to-b from-[#341F1A] via-[#3E241E] to-[#2B1612] border-l border-[#dcb041]/35 shadow-[0_0_80px_rgba(0,0,0,0.9)] p-5 transform translate-x-full transition-transform duration-300 flex flex-col justify-between overflow-y-auto"
+  class="fixed inset-y-0 right-0 z-[99999] w-[86vw] max-w-[320px] bg-gradient-to-b from-[#241310] via-[#2D1814] to-[#1C0D0A] shadow-[-10px_0_40px_rgba(0,0,0,0.85)] p-5 sm:p-6 transform translate-x-full transition-transform duration-300 flex flex-col justify-between overflow-y-auto"
   aria-label="Menú de navegación móvil"
 >
-  <!-- Decoración de brillo cálido superior -->
-  <div class="absolute -top-10 -right-10 w-44 h-44 bg-[#dcb041]/12 rounded-full blur-2xl pointer-events-none"></div>
+  <!-- Sutil resplandor dorado de fondo -->
+  <div class="absolute -top-12 -right-12 w-48 h-48 bg-[#dcb041]/10 rounded-full blur-3xl pointer-events-none"></div>
 
   <div class="relative z-10">
     <!-- CABECERA DEL MENÚ -->
-    <div class="flex items-center justify-between pb-3.5 border-b border-[#FAF5F0]/15">
+    <div class="flex items-center justify-between pb-4 border-b border-white/[0.08]">
       <a href="/" class="flex flex-col mobile-link">
-        <img src="/img/taboada-logo.webp" alt="Taboada" width="125" height="38" class="h-8.5 w-auto object-contain" />
-        <span class="text-[8px] uppercase tracking-[0.25em] text-[#dcb041] font-bold mt-1">Desde 1948</span>
+        <img src="/img/taboada-logo.webp" alt="Taboada" width="130" height="40" class="h-8.5 w-auto object-contain" />
+        <span class="text-[8px] uppercase tracking-[0.28em] text-[#dcb041] font-bold mt-1">✦ Desde 1948 ✦</span>
       </a>
       <button
         id="mobile-close-btn"
         type="button"
-        class="w-8 h-8 rounded-full bg-white/10 border border-white/15 text-white/90 hover:text-[#2A1612] hover:bg-[#dcb041] hover:border-[#dcb041] flex items-center justify-center transition-all cursor-pointer shadow-sm"
+        class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.15] text-white/80 hover:text-white flex items-center justify-center transition-all cursor-pointer"
         aria-label="Cerrar menú"
       >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
 
     <!-- SECCIÓN USUARIO VIP / REGISTRO COMUNIDAD -->
-    <div class="mt-3.5 mb-2.5">
-      <!-- TARJETA VIP USUARIO REGISTRADO -->
+    <div class="mt-4 mb-3">
+      <!-- TARJETA VIP USUARIO REGISTRADO (Sin bordes toscos, diseño fluido de alta gama) -->
       <a
         href="/beneficios"
         id="mobile-user-profile-nav"
-        class="mobile-link hidden items-center justify-between p-2.5 rounded-2xl bg-[#4A2A22]/90 border border-[#dcb041]/40 shadow-md hover:border-[#dcb041] transition-all group"
+        class="mobile-link hidden items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-[#3B201A] to-[#2E1713] hover:from-[#45261F] hover:to-[#381D18] shadow-md transition-all group"
       >
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-[#dcb041]/25 border border-[#dcb041]/50 flex items-center justify-center text-[#f6d98d] flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 flex items-center justify-center text-[#f6d98d] flex-shrink-0">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
           </div>
           <div class="text-left">
-            <div class="text-xs font-bold text-[#FAF5F0] group-hover:text-[#f6d98d] transition-colors leading-tight truncate max-w-[140px]" id="mobile-user-nav-name">Sahian</div>
+            <div class="text-xs font-bold text-[#FAF5F0] group-hover:text-[#f6d98d] transition-colors leading-tight truncate max-w-[145px]" id="mobile-user-nav-name">Sahian</div>
             <span class="text-[9px] uppercase tracking-wider text-[#dcb041] font-semibold">Miembro VIP • Beneficios</span>
           </div>
         </div>
-        <svg class="w-4 h-4 text-[#dcb041]/80 group-hover:text-[#dcb041] group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <svg class="w-4 h-4 text-[#dcb041]/70 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
 
-      <!-- BANNER DE REGISTRO SI NO ESTÁ REGISTRADO -->
-      <div id="mobile-register-banner" class="p-3 rounded-2xl bg-[#4A2A22]/80 border border-[#dcb041]/30 text-left shadow-sm">
+      <!-- BANNER DE REGISTRO SI NO ESTÁ REGISTRADO (Elegante sin bordes) -->
+      <div id="mobile-register-banner" class="p-3.5 rounded-2xl bg-gradient-to-br from-[#3B201A] to-[#281410] text-left shadow-md">
         <div class="flex items-center gap-1.5 mb-1">
           <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041]"></span>
           <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#dcb041]">Comunidad Taboada</span>
         </div>
-        <p class="text-[11px] text-[#FAF5F0]/85 leading-tight mb-2.5">Únete gratis y recibe regalos de bienvenida.</p>
+        <p class="text-[11px] text-[#FAF5F0]/85 leading-tight mb-3">Únete gratis y recibe regalos exclusivos de bienvenida.</p>
         <button
           id="mobile-register-btn"
           type="button"
-          class="w-full py-2 px-3 rounded-full bg-gradient-to-r from-[#dcb041] to-[#e8c05b] text-[#2A1612] text-xs font-extrabold shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center"
+          class="w-full py-2.5 px-4 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] text-xs font-black shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center"
         >
           Registrarme Gratis
         </button>
       </div>
     </div>
 
-    <!-- LISTA DE ENLACES CON ÍCONOS LUXURY -->
-    <div class="flex flex-col gap-1.5 mt-2">
+    <!-- LISTA DE ENLACES CON ÍCONOS LUXURY (100% SIN BORDES) -->
+    <nav class="flex flex-col gap-1 mt-3">
       <!-- 1. Inicio -->
-      <a href="/" class={`mobile-link flex items-center justify-between px-3 py-2.5 rounded-xl transition-all border ${currentPath === '/' ? 'bg-[#dcb041]/20 border-[#dcb041]/50 text-[#f6d98d]' : 'bg-[#FAF5F0]/[0.06] hover:bg-[#FAF5F0]/[0.12] border-[#FAF5F0]/10 text-[#FAF5F0] hover:text-[#f6d98d]'}`}>
-        <div class="flex items-center gap-2.5">
-          <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
-          <span class="font-bold text-xs">Inicio</span>
+      <a href="/" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath === '/' ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
+        <div class="flex items-center gap-3">
+          <div class={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${currentPath === '/' ? 'text-[#dcb041]' : 'text-[#dcb041]/80 group-hover:text-[#dcb041]'}`}>
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+          </div>
+          <span class="text-xs">Inicio</span>
         </div>
-        <svg class="w-3.5 h-3.5 text-[#dcb041]/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
 
       <!-- 2. Nosotros -->
-      <a href="/nosotros" class={`mobile-link flex items-center justify-between px-3 py-2.5 rounded-xl transition-all border ${currentPath === '/nosotros' ? 'bg-[#dcb041]/20 border-[#dcb041]/50 text-[#f6d98d]' : 'bg-[#FAF5F0]/[0.06] hover:bg-[#FAF5F0]/[0.12] border-[#FAF5F0]/10 text-[#FAF5F0] hover:text-[#f6d98d]'}`}>
-        <div class="flex items-center gap-2.5">
-          <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
-          <span class="font-bold text-xs">Nuestra Historia</span>
+      <a href="/nosotros" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath === '/nosotros' ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
+        <div class="flex items-center gap-3">
+          <div class={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${currentPath === '/nosotros' ? 'text-[#dcb041]' : 'text-[#dcb041]/80 group-hover:text-[#dcb041]'}`}>
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+          </div>
+          <span class="text-xs">Nuestra Historia</span>
         </div>
-        <svg class="w-3.5 h-3.5 text-[#dcb041]/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
 
       <!-- 3. Colecciones & Catálogo -->
-      <a href="/#cajas-especiales" class={`mobile-link flex items-center justify-between px-3 py-2.5 rounded-xl transition-all border ${currentPath.includes('Catalogo') ? 'bg-[#dcb041]/20 border-[#dcb041]/50 text-[#f6d98d]' : 'bg-[#FAF5F0]/[0.06] hover:bg-[#FAF5F0]/[0.12] border-[#FAF5F0]/10 text-[#FAF5F0] hover:text-[#f6d98d]'}`}>
-        <div class="flex items-center gap-2.5">
-          <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21"/></svg>
-          <span class="font-bold text-xs">Catálogo & Ocasiones</span>
+      <a href="/#cajas-especiales" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath.includes('Catalogo') ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
+        <div class="flex items-center gap-3">
+          <div class={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${currentPath.includes('Catalogo') ? 'text-[#dcb041]' : 'text-[#dcb041]/80 group-hover:text-[#dcb041]'}`}>
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21"/></svg>
+          </div>
+          <span class="text-xs">Catálogo & Ocasiones</span>
         </div>
-        <svg class="w-3.5 h-3.5 text-[#dcb041]/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
 
       <!-- 4. Comunidad / Beneficios -->
-      <a href="/beneficios" class={`mobile-link flex items-center justify-between px-3 py-2.5 rounded-xl transition-all border ${currentPath === '/beneficios' ? 'bg-[#dcb041]/20 border-[#dcb041]/50 text-[#f6d98d]' : 'bg-[#FAF5F0]/[0.06] hover:bg-[#FAF5F0]/[0.12] border-[#FAF5F0]/10 text-[#FAF5F0] hover:text-[#f6d98d]'}`}>
-        <div class="flex items-center gap-2.5">
-          <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>
-          <span class="font-bold text-xs">Comunidad de Lealtad</span>
+      <a href="/beneficios" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath === '/beneficios' ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
+        <div class="flex items-center gap-3">
+          <div class={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${currentPath === '/beneficios' ? 'text-[#dcb041]' : 'text-[#dcb041]/80 group-hover:text-[#dcb041]'}`}>
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>
+          </div>
+          <span class="text-xs">Comunidad de Lealtad</span>
         </div>
-        <svg class="w-3.5 h-3.5 text-[#dcb041]/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
 
       <!-- 5. Membresía Legado -->
-      <a href="/adulto-mayor" class={`mobile-link flex items-center justify-between px-3 py-2.5 rounded-xl transition-all border ${currentPath === '/adulto-mayor' ? 'bg-[#dcb041]/20 border-[#dcb041]/50 text-[#f6d98d]' : 'bg-[#FAF5F0]/[0.06] hover:bg-[#FAF5F0]/[0.12] border-[#FAF5F0]/10 text-[#FAF5F0] hover:text-[#f6d98d]'}`}>
-        <div class="flex items-center gap-2.5">
-          <svg class="w-4 h-4 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
-          <span class="font-bold text-xs">Membresía Legado</span>
+      <a href="/adulto-mayor" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath === '/adulto-mayor' ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
+        <div class="flex items-center gap-3">
+          <div class={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${currentPath === '/adulto-mayor' ? 'text-[#dcb041]' : 'text-[#dcb041]/80 group-hover:text-[#dcb041]'}`}>
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+          </div>
+          <span class="text-xs">Membresía Legado</span>
         </div>
-        <svg class="w-3.5 h-3.5 text-[#dcb041]/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
       </a>
-    </div>
+    </nav>
   </div>
 
-  <!-- ACCIONES INFERIORES -->
-  <div class="flex flex-col gap-2 border-t border-[#FAF5F0]/15 pt-3.5 mt-3.5 relative z-10">
+  <!-- ACCIONES INFERIORES (Sin bordes toscos, diseño boutique pulido) -->
+  <div class="flex flex-col gap-2.5 border-t border-white/[0.08] pt-4 mt-3 relative z-10">
     <!-- BOTÓN CARRITO MÓVIL -->
     <button
       type="button"
       onclick="if(typeof window.openCartDrawer === 'function') { window.openCartDrawer(); document.getElementById('mobile-close-btn')?.click(); }"
-      class="w-full py-2.5 px-4 bg-[#FAF5F0]/10 hover:bg-[#FAF5F0]/15 text-[#FAF5F0] font-bold text-xs rounded-full flex items-center justify-between border border-[#FAF5F0]/15 transition-all cursor-pointer group"
+      class="w-full py-2.5 px-4 bg-white/[0.07] hover:bg-white/[0.12] text-[#FAF5F0] font-bold text-xs rounded-2xl flex items-center justify-between transition-all cursor-pointer group"
     >
-      <div class="flex items-center gap-2">
-        <svg class="w-4 h-4 text-[#dcb041] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <div class="flex items-center gap-2.5">
+        <svg class="w-4.5 h-4.5 text-[#dcb041] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
         </svg>
         <span>Mi Carrito</span>
@@ -386,12 +396,12 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
 
     <!-- ATENCIÓN AL CLIENTE WHATSAPP -->
     <a
-      href="https://wa.me/59170700000"
+      href="https://wa.me/59162679408"
       target="_blank"
       rel="noopener noreferrer"
-      class="w-full py-2 px-4 rounded-full bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/40 text-[#FAF5F0] text-[11px] font-bold flex items-center justify-center gap-2 transition-all"
+      class="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-[#25D366]/20 to-[#128C7E]/25 hover:from-[#25D366]/35 hover:to-[#128C7E]/40 text-[#FAF5F0] text-xs font-bold flex items-center justify-center gap-2 transition-all"
     >
-      <svg class="w-3.5 h-3.5 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <svg class="w-4 h-4 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       <span>Pedir por WhatsApp</span>
     </a>
   </div>
