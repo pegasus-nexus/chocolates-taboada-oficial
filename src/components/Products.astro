@@ -260,6 +260,21 @@
     <div id="dynamic-products-grid" class="hidden grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5 md:gap-6 min-h-[120px]">
     </div>
 
+    <!-- BOTÓN VER MÁS PRODUCTOS (CARGA PROGRESIVA DE 10 EN 10) -->
+    <div id="catalog-load-more-wrapper" class="hidden mt-6 sm:mt-10 text-center flex flex-col items-center justify-center gap-2.5">
+      <button
+        id="catalog-load-more-btn"
+        type="button"
+        class="inline-flex items-center gap-2.5 px-7 py-3 sm:px-9 sm:py-3.5 rounded-full bg-[#2A1612] hover:bg-[#dcb041] text-[#FAF5F0] hover:text-[#2A1612] text-xs sm:text-sm font-extrabold shadow-[0_6px_20px_rgba(42,22,18,0.25)] hover:shadow-[0_8px_25px_rgba(220,176,65,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+      >
+        <span>Ver más productos</span>
+        <svg class="w-4 h-4 text-[#dcb041] group-hover:text-[#2A1612] group-hover:translate-y-0.5 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </button>
+      <span id="catalog-load-more-info" class="text-[11px] sm:text-xs text-[#5D4037]/75 font-semibold"></span>
+    </div>
+
     <div id="no-products-msg" class="hidden py-4 sm:py-8 text-center">
       <div class="inline-flex items-center justify-center w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-white/60 mb-2 shadow-inner">
         <svg class="w-5 h-5 sm:w-8 sm:h-8 text-[#dcb041]/60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
@@ -547,17 +562,50 @@
       });
     }
 
-    function updateCatalogCount(count) {
+    const ITEMS_PER_PAGE = 10;
+    let currentVisibleLimit = 10;
+    let currentFilteredProducts = [];
+
+    const loadMoreWrapper = document.getElementById('catalog-load-more-wrapper');
+    const loadMoreBtn = document.getElementById('catalog-load-more-btn');
+    const loadMoreInfo = document.getElementById('catalog-load-more-info');
+
+    function updateCatalogCount(shown, total) {
       const countEl = document.getElementById('catalog-count');
-      if (countEl) countEl.textContent = String(count);
+      if (countEl) {
+        if (total !== undefined && total > shown) {
+          countEl.textContent = `${shown} de ${total}`;
+        } else {
+          countEl.textContent = String(shown);
+        }
+      }
+    }
+
+    function updateLoadMoreUI(totalCount) {
+      if (!loadMoreWrapper) return;
+      if (currentVisibleLimit < totalCount) {
+        loadMoreWrapper.classList.remove('hidden');
+        loadMoreWrapper.classList.add('flex');
+        if (loadMoreInfo) {
+          const remaining = totalCount - currentVisibleLimit;
+          loadMoreInfo.textContent = `Quedan ${remaining} producto${remaining === 1 ? '' : 's'} por descubrir`;
+        }
+      } else {
+        loadMoreWrapper.classList.add('hidden');
+        loadMoreWrapper.classList.remove('flex');
+      }
     }
 
     const loadingState = document.getElementById('catalog-loading-state');
 
-    function renderProducts() {
+    function renderProducts(resetPagination = true) {
       if (!productsGrid) return;
       if (loadingState) loadingState.classList.add('hidden');
       productsGrid.classList.remove('hidden');
+
+      if (resetPagination) {
+        currentVisibleLimit = ITEMS_PER_PAGE;
+      }
 
       let filtered = allProducts.filter(p => {
         let matchCategory = false;
@@ -574,48 +622,91 @@
         filtered = [...allProducts];
       }
 
+      currentFilteredProducts = filtered;
+
       if (filtered.length === 0) {
         productsGrid.innerHTML = '';
         if(noProductsMsg) noProductsMsg.classList.remove('hidden');
-        updateCatalogCount(0);
+        if(loadMoreWrapper) {
+          loadMoreWrapper.classList.add('hidden');
+          loadMoreWrapper.classList.remove('flex');
+        }
+        updateCatalogCount(0, 0);
         return;
       }
       if(noProductsMsg) noProductsMsg.classList.add('hidden');
-      updateCatalogCount(filtered.length);
+
+      const visibleList = filtered.slice(0, currentVisibleLimit);
+      updateCatalogCount(visibleList.length, filtered.length);
       
       let html = '';
-      filtered.forEach(p => {
+      visibleList.forEach(p => {
         const price = getProductPrice(p, currentCity);
         const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
         const imgUrl = p.imagen || '/img/produc1.png';
         html += buildProductCard(p, price, wappText, imgUrl);
       });
       productsGrid.innerHTML = html;
+
+      updateLoadMoreUI(filtered.length);
     }
 
-    // Renderizar TODOS los productos (para "Ver todo") — función adicional, no modifica renderProducts
-    function renderAllProducts() {
+    // Renderizar TODOS los productos (para "Ver todo") con paginación inicial de 10
+    function renderAllProducts(resetPagination = true) {
       if (!productsGrid) return;
       if (loadingState) loadingState.classList.add('hidden');
       productsGrid.classList.remove('hidden');
 
+      if (resetPagination) {
+        currentVisibleLimit = ITEMS_PER_PAGE;
+      }
+
+      currentFilteredProducts = allProducts;
+
       if (allProducts.length === 0) {
         productsGrid.innerHTML = '';
         if(noProductsMsg) noProductsMsg.classList.remove('hidden');
-        updateCatalogCount(0);
+        if(loadMoreWrapper) {
+          loadMoreWrapper.classList.add('hidden');
+          loadMoreWrapper.classList.remove('flex');
+        }
+        updateCatalogCount(0, 0);
         return;
       }
       if(noProductsMsg) noProductsMsg.classList.add('hidden');
-      updateCatalogCount(allProducts.length);
+
+      const visibleList = allProducts.slice(0, currentVisibleLimit);
+      updateCatalogCount(visibleList.length, allProducts.length);
+
       let html = '';
-      allProducts.forEach(p => {
+      visibleList.forEach(p => {
         const price = getProductPrice(p, currentCity);
         const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
         const imgUrl = p.imagen || '/img/produc1.png';
         html += buildProductCard(p, price, wappText, imgUrl);
       });
       productsGrid.innerHTML = html;
+
+      updateLoadMoreUI(allProducts.length);
     }
+
+    // Event listener para el botón "Ver más productos"
+    loadMoreBtn?.addEventListener('click', () => {
+      currentVisibleLimit += ITEMS_PER_PAGE;
+      const visibleList = currentFilteredProducts.slice(0, currentVisibleLimit);
+      
+      let html = '';
+      visibleList.forEach(p => {
+        const price = getProductPrice(p, currentCity);
+        const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
+        const imgUrl = p.imagen || '/img/produc1.png';
+        html += buildProductCard(p, price, wappText, imgUrl);
+      });
+      productsGrid.innerHTML = html;
+
+      updateCatalogCount(visibleList.length, currentFilteredProducts.length);
+      updateLoadMoreUI(currentFilteredProducts.length);
+    });
 
     // Plantilla de tarjeta — compartida entre renderProducts y renderAllProducts
     function buildProductCard(p, price, wappText, imgUrl) {
@@ -680,14 +771,31 @@
 
     function applySearchFilter(query) {
       const q = query.toLowerCase().trim();
-      let visible = 0;
-      document.querySelectorAll('#dynamic-products-grid .product-card').forEach(card => {
-        const name = card.querySelector('h3')?.textContent?.toLowerCase() || '';
-        const matches = q === '' || name.includes(q);
-        (card as HTMLElement).style.display = matches ? '' : 'none';
-        if (matches) visible++;
+      if (q === '') {
+        renderProducts(true);
+        return;
+      }
+      if (loadMoreWrapper) {
+        loadMoreWrapper.classList.add('hidden');
+        loadMoreWrapper.classList.remove('flex');
+      }
+      const matching = allProducts.filter(p => p.nombre && p.nombre.toLowerCase().includes(q));
+      if (matching.length === 0) {
+        productsGrid.innerHTML = '';
+        if(noProductsMsg) noProductsMsg.classList.remove('hidden');
+        updateCatalogCount(0, 0);
+        return;
+      }
+      if(noProductsMsg) noProductsMsg.classList.add('hidden');
+      updateCatalogCount(matching.length, matching.length);
+      let html = '';
+      matching.forEach(p => {
+        const price = getProductPrice(p, currentCity);
+        const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
+        const imgUrl = p.imagen || '/img/produc1.png';
+        html += buildProductCard(p, price, wappText, imgUrl);
       });
-      if (q !== '') updateCatalogCount(visible);
+      productsGrid.innerHTML = html;
     }
 
     function setupSidebarToggle() {
@@ -748,7 +856,7 @@
             b.classList.remove('text-[#2A1612]', 'font-black', 'border-[#dcb041]');
             b.classList.add('text-[#5D4037]/80', 'font-semibold', 'border-transparent', 'hover:text-[#2A1612]');
           });
-          renderAllProducts();
+          renderAllProducts(true);
         }
       });
     });
@@ -773,21 +881,9 @@
         searchInput.value = '';
         (searchClearBtn as HTMLElement).style.opacity = '0';
         (searchClearBtn as HTMLElement).style.pointerEvents = 'none';
-        document.querySelectorAll('#dynamic-products-grid .product-card').forEach(card => {
-          (card as HTMLElement).style.display = '';
-        });
-        const total = document.querySelectorAll('#dynamic-products-grid .product-card').length;
-        updateCatalogCount(total);
+        renderProducts(true);
         searchInput.focus();
       });
-    }
-
-    // ── Re-aplicar búsqueda cuando el grid cambia ──
-    if (productsGrid && searchInput) {
-      const gridObserver = new MutationObserver(() => {
-        if (searchInput.value.trim()) setTimeout(() => applySearchFilter(searchInput.value), 0);
-      });
-      gridObserver.observe(productsGrid, { childList: true });
     }
 
   });

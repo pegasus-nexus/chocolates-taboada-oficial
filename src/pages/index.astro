@@ -221,8 +221,11 @@ import MobileCTA from "../components/MobileCTA.astro";
           </a>
         </div>
 
-        <!-- Imagen con Curva Orgánica Fluida a la Derecha (Más amplia, mostrando chocolates completos y paisaje) -->
-        <div class="w-[52%] h-[380px] sm:h-[430px] rounded-l-[3.5rem] rounded-tr-[1.5rem] rounded-br-[2rem] overflow-hidden shadow-[0_20px_45px_rgba(0,0,0,0.6)] border-y border-l border-[#dcb041]/35 relative -mr-4 sm:-mr-6 z-0 hero-anim-2">
+        <!-- Imagen con Curva Orgánica Esculpida a la Izquierda y Borde Recto al Margen Derecho -->
+        <div class="w-[53%] h-[390px] sm:h-[440px] rounded-tl-[4.5rem] rounded-bl-[4.5rem] rounded-tr-none rounded-br-none overflow-hidden shadow-[-15px_15px_40px_rgba(0,0,0,0.7)] border-y border-l border-r-0 border-[#dcb041]/45 relative -mr-4 sm:-mr-6 z-0 hero-anim-2">
+          <!-- Resplandor dorado sobre la curva interior -->
+          <div class="absolute -left-8 inset-y-0 w-16 bg-gradient-to-r from-[#dcb041]/25 to-transparent pointer-events-none z-10"></div>
+          
           <img
             id="mobile-hero-img"
             src="/img/agostocbba.webp"
@@ -230,7 +233,7 @@ import MobileCTA from "../components/MobileCTA.astro";
             class="w-full h-full object-cover object-[75%_center] scale-105"
             loading="eager"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#14080D]/40 via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#14080D]/50 via-transparent to-transparent"></div>
         </div>
 
       </div>
