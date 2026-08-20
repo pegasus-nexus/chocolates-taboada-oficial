@@ -11,7 +11,7 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
   id="main-navbar"
   class="fixed top-0 left-0 w-full z-[999] transition-[background-color,box-shadow,backdrop-filter] duration-500 bg-transparent border-b border-transparent hover:bg-white/10"
 >
-  <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[85px] md:h-[95px] px-6 lg:px-12 relative">
+  <div class="max-w-[1280px] mx-auto flex items-center justify-between h-[64px] sm:h-[76px] md:h-[95px] px-4 sm:px-6 lg:px-12 relative">
     
     <!-- LOGO IZQUIERDO -->
     <div class="flex items-center">
@@ -21,7 +21,7 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
           alt="Taboada"
           width="221"
           height="69"
-          class="h-[50px] md:h-[65px] w-auto object-contain transition-transform duration-300 hover:scale-105"
+          class="h-[40px] sm:h-[50px] md:h-[65px] w-auto object-contain transition-transform duration-300 hover:scale-105"
         />
       </a>
     </div>
@@ -444,9 +444,9 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
         }
         if (mobileUserNavName) mobileUserNavName.textContent = userNombre;
       } else {
-        // Usuario No Registrado
+        // Usuario No Registrado: Asegurar que navRegisterBtn se oculta en móvil (< md) y solo se muestra en desktop (md+)
         if (navRegisterBtn) {
-          navRegisterBtn.classList.remove('hidden');
+          navRegisterBtn.classList.remove('inline-flex', 'flex');
           navRegisterBtn.classList.add('hidden', 'md:inline-flex');
         }
         if (mobileRegisterBtn) mobileRegisterBtn.classList.remove('hidden');
