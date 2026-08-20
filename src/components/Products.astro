@@ -237,16 +237,16 @@
          5. ESTADO DE CARGA Y GRID DE PRODUCTOS
     ══════════════════════════════════════ -->
     <!-- ESTADO DE CARGA ANIMADO CON CHOCOLATE -->
-    <div id="catalog-loading-state" class="py-16 sm:py-24 text-center flex flex-col items-center justify-center min-h-[350px]">
-      <div class="relative w-20 h-20 sm:w-24 sm:h-24 mb-5 flex items-center justify-center">
+    <div id="catalog-loading-state" class="py-8 sm:py-16 text-center flex flex-col items-center justify-center min-h-[160px] sm:min-h-[260px]">
+      <div class="relative w-14 h-14 sm:w-20 sm:h-20 mb-3 flex items-center justify-center">
         <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#2A1612] via-[#5D4037] to-[#dcb041] opacity-25 animate-ping"></div>
-        <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[#2A1612] to-[#3D1E15] border border-[#dcb041]/50 flex items-center justify-center shadow-[0_10px_25px_rgba(42,22,18,0.35)] transform hover:rotate-6 transition-transform">
-          <svg class="w-9 h-9 sm:w-11 sm:h-11 text-[#dcb041] animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+        <div class="relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#2A1612] to-[#3D1E15] border border-[#dcb041]/50 flex items-center justify-center shadow-[0_8px_20px_rgba(42,22,18,0.3)] transform hover:rotate-6 transition-transform">
+          <svg class="w-6 h-6 sm:w-9 sm:h-9 text-[#dcb041] animate-pulse" fill="currentColor" viewBox="0 0 24 24">
             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 4h3v3h-3V7zm0 5h3v3h-3v-3zM6 7h3v3H6V7zm0 5h3v3H6v-3zm0 5h3v2H6v-2zm5 2v-2h3v2h-3zm8-2h-3v-3h3v3zm0-5h-3V7h3v3zm0 7h-3v-2h3v2z" />
           </svg>
         </div>
       </div>
-      <h3 class="text-xl sm:text-2xl font-serif font-bold text-[#2A1612] mb-1.5 flex items-center gap-2 justify-center">
+      <h3 class="text-base sm:text-xl font-serif font-bold text-[#2A1612] mb-1 flex items-center gap-1.5 justify-center">
         <span>Cargando productos deliciosos</span>
         <span class="inline-flex gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-bounce" style="animation-delay: 0s;"></span>
@@ -254,20 +254,20 @@
           <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041] animate-bounce" style="animation-delay: 0.3s;"></span>
         </span>
       </h3>
-      <p class="text-xs sm:text-sm text-[#8f6c49] font-medium tracking-wide">Preparando la selección de Chocolates Taboada...</p>
+      <p class="text-[11px] sm:text-xs text-[#8f6c49] font-medium tracking-wide">Preparando la selección de Chocolates Taboada...</p>
     </div>
 
-    <div id="dynamic-products-grid" class="hidden grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 min-h-[450px]">
+    <div id="dynamic-products-grid" class="hidden grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6 min-h-[180px]">
     </div>
 
-    <div id="no-products-msg" class="hidden py-24 text-center">
-      <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/60 mb-6 shadow-inner">
-        <svg class="w-12 h-12 text-[#dcb041]/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+    <div id="no-products-msg" class="hidden py-8 sm:py-16 text-center">
+      <div class="inline-flex items-center justify-center w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-white/60 mb-3 shadow-inner">
+        <svg class="w-7 h-7 sm:w-10 sm:h-10 text-[#dcb041]/60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
         </svg>
       </div>
-      <h3 class="text-2xl font-bold text-[#2A1612] font-serif mb-2">No se encontraron productos</h3>
-      <p class="text-[#5D4037]/60 font-sans text-sm">Prueba con otra categoría o busca de nuevo.</p>
+      <h3 class="text-lg sm:text-2xl font-bold text-[#2A1612] font-serif mb-1">No se encontraron productos</h3>
+      <p class="text-[#5D4037]/60 font-sans text-xs sm:text-sm">Prueba con otra categoría o busca de nuevo.</p>
     </div>
 
     <!-- Elementos ocultos — compatibilidad setupSidebarToggle() -->
@@ -547,17 +547,23 @@
       if (loadingState) loadingState.classList.add('hidden');
       productsGrid.classList.remove('hidden');
 
-      const filtered = allProducts.filter(p => {
+      let filtered = allProducts.filter(p => {
         let matchCategory = false;
         if (currentCategory === 'DESTACADOS') {
-          matchCategory = p.is_destacado === true;
+          matchCategory = p.is_destacado === true || p.is_destacado === 1 || p.is_destacado === 'true' || p.destacado === true || p.destacado === 1 || p.destacado === 'true';
         } else {
-          matchCategory = p.categoria_id === currentCategory;
+          matchCategory = String(p.categoria_id) === String(currentCategory);
         }
         const cityKey = currentCity === 'la-paz' ? 'la_paz' : currentCity;
         const hasPriceForCity = p.precios && p.precios[cityKey] !== undefined;
         return matchCategory && hasPriceForCity;
       });
+
+      // Si en destacados ningún producto viene con flag is_destacado, mostrar los productos disponibles de la ciudad
+      if (currentCategory === 'DESTACADOS' && filtered.length === 0) {
+        const cityKey = currentCity === 'la-paz' ? 'la_paz' : currentCity;
+        filtered = allProducts.filter(p => p.precios && p.precios[cityKey] !== undefined);
+      }
 
       if (filtered.length === 0) {
         productsGrid.innerHTML = '';
