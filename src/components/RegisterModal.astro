@@ -35,8 +35,8 @@
       </p>
     </div>
 
-    <!-- FORMULARIO DE REGISTRO (3 CAMPOS STRICTOS) -->
-    <form id="taboada-reg-form" class="space-y-4">
+    <!-- FORMULARIO DE REGISTRO (3 CAMPOS ESTRICTOS) -->
+    <form id="taboada-reg-form" class="space-y-4" novalidate>
       <div>
         <label for="reg-nombre" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
           Nombre *
@@ -46,8 +46,10 @@
           id="reg-nombre"
           required
           placeholder="Ej. Sahian"
+          autocomplete="given-name"
           class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-[#dcb041] focus:ring-1 focus:ring-[#dcb041] text-white text-sm placeholder:text-white/30 outline-none transition-all"
         />
+        <p id="reg-nombre-error" class="hidden text-xs text-amber-300 mt-1 font-medium"></p>
       </div>
 
       <div>
@@ -59,21 +61,27 @@
           id="reg-apellido"
           required
           placeholder="Ej. Mariné"
+          autocomplete="family-name"
           class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-[#dcb041] focus:ring-1 focus:ring-[#dcb041] text-white text-sm placeholder:text-white/30 outline-none transition-all"
         />
+        <p id="reg-apellido-error" class="hidden text-xs text-amber-300 mt-1 font-medium"></p>
       </div>
 
       <div>
         <label for="reg-celular" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
-          Número de Celular *
+          Número de Celular (8 dígitos) *
         </label>
         <input
           type="tel"
           id="reg-celular"
           required
-          placeholder="Ej. 62679408"
+          maxlength="8"
+          inputmode="numeric"
+          placeholder="Ej. 62679408 (Inicia con 5, 6 o 7)"
+          autocomplete="tel"
           class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-[#dcb041] focus:ring-1 focus:ring-[#dcb041] text-white text-sm placeholder:text-white/30 outline-none transition-all"
         />
+        <p id="reg-celular-error" class="hidden text-xs text-amber-300 mt-1 font-medium"></p>
       </div>
 
       <button
@@ -108,6 +116,71 @@
     const form = document.getElementById('taboada-reg-form') as HTMLFormElement;
     const submitBtn = document.getElementById('reg-submit-btn');
 
+    const nombreInput = document.getElementById('reg-nombre') as HTMLInputElement;
+    const apellidoInput = document.getElementById('reg-apellido') as HTMLInputElement;
+    const celularInput = document.getElementById('reg-celular') as HTMLInputElement;
+
+    const nombreError = document.getElementById('reg-nombre-error');
+    const apellidoError = document.getElementById('reg-apellido-error');
+    const celularError = document.getElementById('reg-celular-error');
+
+    const showError = (el: HTMLElement | null, input: HTMLInputElement | null, msg: string) => {
+      if (el) {
+        el.textContent = msg;
+        el.classList.remove('hidden');
+      }
+      if (input) {
+        input.classList.add('border-amber-400', 'bg-amber-400/10');
+        input.classList.remove('border-white/15');
+      }
+    };
+
+    const clearError = (el: HTMLElement | null, input: HTMLInputElement | null) => {
+      if (el) {
+        el.textContent = '';
+        el.classList.add('hidden');
+      }
+      if (input) {
+        input.classList.remove('border-amber-400', 'bg-amber-400/10');
+        input.classList.add('border-white/15');
+      }
+    };
+
+    // Restricción en tiempo real: NO números en nombre ni apellido
+    nombreInput?.addEventListener('input', () => {
+      const sanitized = nombreInput.value.replace(/[0-9]/g, '');
+      if (sanitized !== nombreInput.value) {
+        nombreInput.value = sanitized;
+        showError(nombreError, nombreInput, 'El nombre no puede contener números.');
+      } else {
+        clearError(nombreError, nombreInput);
+      }
+    });
+
+    apellidoInput?.addEventListener('input', () => {
+      const sanitized = apellidoInput.value.replace(/[0-9]/g, '');
+      if (sanitized !== apellidoInput.value) {
+        apellidoInput.value = sanitized;
+        showError(apellidoError, apellidoInput, 'El apellido no puede contener números.');
+      } else {
+        clearError(apellidoError, apellidoInput);
+      }
+    });
+
+    // Restricción en tiempo real: Solo números y máximo 8 dígitos en celular
+    celularInput?.addEventListener('input', () => {
+      const sanitized = celularInput.value.replace(/\D/g, '').slice(0, 8);
+      celularInput.value = sanitized;
+
+      if (sanitized.length > 0 && !['5', '6', '7'].includes(sanitized.charAt(0))) {
+        showError(celularError, celularInput, 'El número de celular debe iniciar con 5, 6 o 7.');
+      } else if (sanitized.length > 0 && sanitized.length < 8) {
+        clearError(celularError, celularInput);
+      } else {
+        clearError(celularError, celularInput);
+      }
+    });
+
     const openModal = (ticketId: string | null = null) => {
       activeTicketTarget = ticketId;
       modal?.classList.remove('opacity-0', 'pointer-events-none');
@@ -119,6 +192,9 @@
       card?.classList.remove('scale-100');
       card?.classList.add('scale-95');
       modal?.classList.add('opacity-0', 'pointer-events-none');
+      clearError(nombreError, nombreInput);
+      clearError(apellidoError, apellidoInput);
+      clearError(celularError, celularInput);
     };
 
     // Exponer funciones globales
@@ -140,15 +216,55 @@
       if (e.target === modal) closeModal();
     });
 
-    // Envío del Formulario
+    // Envío del Formulario con Validación Estricta
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      const nombreInput = (document.getElementById('reg-nombre') as HTMLInputElement)?.value.trim();
-      const apellidoInput = (document.getElementById('reg-apellido') as HTMLInputElement)?.value.trim();
-      const celularInput = (document.getElementById('reg-celular') as HTMLInputElement)?.value.trim();
 
-      if (!nombreInput || !apellidoInput || !celularInput) return;
+      let hasError = false;
+      const nombreVal = nombreInput?.value.trim();
+      const apellidoVal = apellidoInput?.value.trim();
+      const celularVal = celularInput?.value.trim();
+
+      // Validación Nombre: Sin números y no vacío
+      if (!nombreVal) {
+        showError(nombreError, nombreInput, 'Por favor, ingresa tu nombre.');
+        hasError = true;
+      } else if (/\d/.test(nombreVal)) {
+        showError(nombreError, nombreInput, 'El nombre no puede contener números.');
+        hasError = true;
+      } else {
+        clearError(nombreError, nombreInput);
+      }
+
+      // Validación Apellido: Sin números y no vacío
+      if (!apellidoVal) {
+        showError(apellidoError, apellidoInput, 'Por favor, ingresa tu apellido.');
+        hasError = true;
+      } else if (/\d/.test(apellidoVal)) {
+        showError(apellidoError, apellidoInput, 'El apellido no puede contener números.');
+        hasError = true;
+      } else {
+        clearError(apellidoError, apellidoInput);
+      }
+
+      // Validación Celular: Exactamente 8 dígitos numéricos iniciando en 5, 6 o 7
+      if (!celularVal) {
+        showError(celularError, celularInput, 'Por favor, ingresa tu número de celular.');
+        hasError = true;
+      } else if (!/^[567]\d{7}$/.test(celularVal)) {
+        if (!['5', '6', '7'].includes(celularVal.charAt(0))) {
+          showError(celularError, celularInput, 'El número de celular debe iniciar con 5, 6 o 7.');
+        } else if (celularVal.length !== 8) {
+          showError(celularError, celularInput, `Debe tener exactamente 8 dígitos (ingresaste ${celularVal.length}).`);
+        } else {
+          showError(celularError, celularInput, 'Formato de celular inválido (Ej. 62679408).');
+        }
+        hasError = true;
+      } else {
+        clearError(celularError, celularInput);
+      }
+
+      if (hasError) return;
       
       const originalBtnText = submitBtn?.textContent || 'Confirmar y Canjear';
       if (submitBtn) {
@@ -157,8 +273,6 @@
       }
 
       try {
-        // En Astro, las variables de entorno de cliente deben empezar con PUBLIC_
-        // Si no está definida (ej. fallback), usamos la global
         const apiUrl = (window as any).GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1"; 
         const response = await fetch(`${apiUrl}/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62`, {
           method: 'POST',
@@ -166,9 +280,9 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            nombre: nombreInput,
-            apellido: apellidoInput,
-            telefono: celularInput,
+            nombre: nombreVal,
+            apellido: apellidoVal,
+            telefono: celularVal,
             premio_id: activeTicketTarget
           })
         });
@@ -181,9 +295,9 @@
         
         // 1. Guardar en localStorage
         localStorage.setItem('taboada_user_registered', 'true');
-        localStorage.setItem('taboada_user_nombre', data.nombre || nombreInput);
-        localStorage.setItem('taboada_user_apellido', apellidoInput);
-        localStorage.setItem('taboada_user_celular', data.telefono || celularInput);
+        localStorage.setItem('taboada_user_nombre', data.nombre || nombreVal);
+        localStorage.setItem('taboada_user_apellido', apellidoVal);
+        localStorage.setItem('taboada_user_celular', data.telefono || celularVal);
         localStorage.setItem('taboada_cliente_id', data.cliente_id);
         if (data.codigo_miembro) {
           localStorage.setItem('taboada_user_codigo_miembro', data.codigo_miembro);
@@ -192,9 +306,9 @@
         // 2. Disparar evento de sincronización en vivo para Navbar y Banner de Bienvenida
         window.dispatchEvent(new CustomEvent('taboadaUserRegistered', {
           detail: {
-            nombre: data.nombre || nombreInput,
-            apellido: apellidoInput,
-            celular: data.telefono || celularInput,
+            nombre: data.nombre || nombreVal,
+            apellido: apellidoVal,
+            celular: data.telefono || celularVal,
             cliente_id: data.cliente_id,
             ticketId: activeTicketTarget
           }
