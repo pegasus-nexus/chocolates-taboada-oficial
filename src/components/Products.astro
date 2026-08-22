@@ -211,6 +211,7 @@
     <!-- ══════════════════════════════════════
          4. BARRA SUPERIOR — CONTADOR + ORDEN
     ══════════════════════════════════════ -->
+    <div id="catalog-products-view" class="scroll-mt-20 sm:scroll-mt-28"></div>
     <div class="flex flex-row items-center justify-between gap-2 mb-3 sm:mb-5 py-2 sm:py-3 border-y border-[#e8dccb]/70">
       <p class="text-xs sm:text-sm text-[#5D4037]/75 font-medium">
         <span class="mr-1">Mostrando</span>
@@ -403,11 +404,18 @@
               }, 100);
             }
 
-            if (targetOccasionName || targetCategoryName) {
+            const currentPathLower = window.location.pathname.toLowerCase();
+            const isCatalogRoute = currentPathLower.includes('catalogo') || 
+                                  currentPathLower.includes('vertodo') || 
+                                  currentPathLower.includes('ver todo') || 
+                                  window.location.hash.includes('cajas-especiales') ||
+                                  window.location.search.includes('cat=') ||
+                                  Boolean(targetOccasionName || targetCategoryName);
+
+            if (isCatalogRoute) {
               setTimeout(() => {
-                const section = document.getElementById('cajas-especiales');
-                if (section) section.scrollIntoView({ behavior: 'smooth' });
-              }, 300);
+                scrollToProducts(true);
+              }, 350);
             }
           } else if (collectionsSection) {
             collectionsSection.classList.add('hidden');
@@ -472,7 +480,7 @@
             }
             window.history.pushState({}, '', newUrl);
             renderCategories(allCategories);
-            renderAllProducts();
+            renderAllProducts(true);
           } else {
             const col = allCollections.find(c => c.id === colId);
             if (col && col.categories_ids) {
@@ -487,8 +495,12 @@
               
               const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
               renderCategories(filteredCats);
+              renderProducts(true);
             }
           }
+          setTimeout(() => {
+            scrollToProducts(true);
+          }, 80);
         });
       });
     }
@@ -557,9 +569,19 @@
 
           window.history.pushState({}, '', newUrl);
 
-          renderProducts();
+          renderProducts(true);
+          setTimeout(() => {
+            scrollToProducts(true);
+          }, 80);
         });
       });
+    }
+
+    function scrollToProducts(smooth = true) {
+      const target = document.getElementById('catalog-products-view') || document.getElementById('dynamic-products-grid') || document.getElementById('cajas-especiales');
+      if (target) {
+        target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+      }
     }
 
     const ITEMS_PER_PAGE = 10;
@@ -885,6 +907,43 @@
         searchInput.focus();
       });
     }
+
+    // ── Ordenar catálogo ──
+    const sortSelect = document.getElementById('catalog-sort-select') as HTMLSelectElement;
+    if (sortSelect) {
+      sortSelect.addEventListener('change', () => {
+        const sortVal = sortSelect.value;
+        if (sortVal === 'price-asc') {
+          currentFilteredProducts.sort((a, b) => getProductPrice(a, currentCity) - getProductPrice(b, currentCity));
+        } else if (sortVal === 'price-desc') {
+          currentFilteredProducts.sort((a, b) => getProductPrice(b, currentCity) - getProductPrice(a, currentCity));
+        } else if (sortVal === 'name-az') {
+          currentFilteredProducts.sort((a, b) => (a.nombre || '').localeCompare(b.nombre || ''));
+        } else {
+          // default
+          currentFilteredProducts.sort((a, b) => ((b.is_destacado || 0) - (a.is_destacado || 0)));
+        }
+        const visibleList = currentFilteredProducts.slice(0, currentVisibleLimit);
+        let html = '';
+        visibleList.forEach(p => {
+          const price = getProductPrice(p, currentCity);
+          const wappText = encodeURIComponent(`Hola, quiero comprar el producto: ${p.nombre}`);
+          const imgUrl = p.imagen || '/img/produc1.png';
+          html += buildProductCard(p, price, wappText, imgUrl);
+        });
+        if (productsGrid) productsGrid.innerHTML = html;
+      });
+    }
+
+    // ── Interceptor global de enlaces hacia el catálogo ──
+    document.addEventListener('click', (e) => {
+      const link = (e.target as HTMLElement)?.closest?.('a[href*="cajas-especiales"], a[href*="Catalogo"], a[href*="catalogo"], a[href*="Vertodo"], a[href*="Ver todo"]');
+      if (link) {
+        setTimeout(() => {
+          scrollToProducts(true);
+        }, 120);
+      }
+    });
 
   });
 </script>

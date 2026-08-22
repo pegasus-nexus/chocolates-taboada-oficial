@@ -1597,7 +1597,7 @@ import MobileCTA from "../components/MobileCTA.astro";
     // Analizar departamento en segundo plano 100% transparente sin pedir permisos
     detectDepartmentSilently();
 
-    // â”€â”€ DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) â”€â”€
+    // ── DETECTAR Y FILTRAR POR PARÁMETROS URL (?cat=...) ──
     function checkUrlParams() {
       const urlParams = new URLSearchParams(window.location.search);
       const catParam = urlParams.get("cat");
@@ -1608,7 +1608,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         if (targetBtn) {
           setTimeout(() => {
             targetBtn.click();
-            const targetSection = document.getElementById("cajas-especiales");
+            const targetSection = document.getElementById("catalog-products-view") || document.getElementById("dynamic-products-grid") || document.getElementById("cajas-especiales");
             if (targetSection) {
               targetSection.scrollIntoView({
                 behavior: "smooth",
@@ -1641,7 +1641,7 @@ import MobileCTA from "../components/MobileCTA.astro";
             if (targetBtn) {
               e.preventDefault();
               targetBtn.click();
-              const targetSection = document.getElementById("cajas-especiales");
+              const targetSection = document.getElementById("catalog-products-view") || document.getElementById("dynamic-products-grid") || document.getElementById("cajas-especiales");
               if (targetSection) {
                 targetSection.scrollIntoView({
                   behavior: "smooth",
