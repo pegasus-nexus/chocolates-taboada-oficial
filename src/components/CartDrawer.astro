@@ -170,10 +170,17 @@
     saveCartData(cart);
   };
 
+  function trackGACart(eventName, params = {}) {
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', eventName, params);
+    }
+  }
+
   window.addToCart = function(itemObj) {
     let cart = getCartData();
     const existing = cart.find(i => (itemObj.id && i.id === itemObj.id) || i.name === itemObj.name);
     const qtyToAdd = itemObj.quantity || 1;
+    const itemPrice = typeof itemObj.price === 'number' ? itemObj.price : parseFloat((itemObj.price || '80').replace(/[^0-9.]/g, '')) || 80;
     if (existing) {
       existing.quantity += qtyToAdd;
     } else {
@@ -181,7 +188,7 @@
         id: itemObj.id || 'item-' + Date.now(),
         name: itemObj.name || 'Chocolate Taboada',
         size: itemObj.size || 'Presentación Especial',
-        price: typeof itemObj.price === 'number' ? itemObj.price : parseFloat((itemObj.price || '80').replace(/[^0-9.]/g, '')) || 80,
+        price: itemPrice,
         quantity: qtyToAdd,
         img: itemObj.img || '/img/produc1.png',
         isFavorite: false
@@ -189,6 +196,18 @@
     }
     saveCartData(cart);
     window.openCartDrawer();
+
+    // Telemetría GA4: Añadir al Carrito
+    trackGACart('add_to_cart', {
+      currency: 'BOB',
+      value: itemPrice * qtyToAdd,
+      items: [{
+        item_id: itemObj.id,
+        item_name: itemObj.name,
+        price: itemPrice,
+        quantity: qtyToAdd
+      }]
+    });
   };
 
   function updateCartUI() {
@@ -352,6 +371,26 @@
 
         const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
         msg += `\n*Total a Pagar:* Bs. ${total.toFixed(2)}\n\n¡Quedo atento a la confirmación para la entrega!`;
+
+        // Telemetría GA4: Conversión y Finalización de Pedido
+        trackGACart('purchase', {
+          transaction_id: 'ORD-' + Date.now(),
+          value: total,
+          currency: 'BOB',
+          items: cart.map(i => ({
+            item_id: i.id,
+            item_name: i.name,
+            price: i.price,
+            quantity: i.quantity
+          }))
+        });
+        trackGACart('whatsapp_checkout', {
+          event_category: 'conversion',
+          event_label: 'Finalizar Pedido WhatsApp',
+          value: total,
+          currency: 'BOB',
+          city: currentCity
+        });
 
         const waUrl = `https://wa.me/59162679408?text=${encodeURIComponent(msg)}`;
         window.open(waUrl, '_blank');

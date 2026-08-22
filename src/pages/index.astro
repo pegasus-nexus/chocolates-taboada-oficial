@@ -1854,6 +1854,21 @@ import MobileCTA from "../components/MobileCTA.astro";
         const encodedMsg = encodeURIComponent(message);
         const waLink = `https://wa.me/${waNumber}?text=${encodedMsg}`;
 
+        // Telemetría GA4: Lead directo WhatsApp
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'whatsapp_lead', {
+            event_category: 'ecommerce',
+            event_label: name,
+            value: priceVal,
+            currency: 'BOB'
+          });
+          (window as any).gtag('event', 'begin_checkout', {
+            value: priceVal,
+            currency: 'BOB',
+            items: [{ item_name: name, price: priceVal, quantity: 1 }]
+          });
+        }
+
         window.open(waLink, "_blank");
       });
     });

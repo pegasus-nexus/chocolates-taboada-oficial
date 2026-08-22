@@ -481,6 +481,7 @@
             window.history.pushState({}, '', newUrl);
             renderCategories(allCategories);
             renderAllProducts(true);
+            trackGA('select_collection', { collection_id: 'all', collection_name: 'Ver todo' });
           } else {
             const col = allCollections.find(c => c.id === colId);
             if (col && col.categories_ids) {
@@ -496,6 +497,7 @@
               const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
               renderCategories(filteredCats);
               renderProducts(true);
+              trackGA('select_collection', { collection_id: colId, collection_name: col.name });
             }
           }
           setTimeout(() => {
@@ -570,11 +572,49 @@
           window.history.pushState({}, '', newUrl);
 
           renderProducts(true);
+          const matchedCat = allCategories.find(c => String(c.id) === currentCategory);
+          trackGA('filter_category', {
+            category_id: currentCategory,
+            category_name: currentCategory === 'DESTACADOS' ? 'Destacados' : (matchedCat ? matchedCat.name : currentCategory)
+          });
           setTimeout(() => {
             scrollToProducts(true);
           }, 80);
         });
       });
+    }
+
+    function trackGA(eventName, params = {}) {
+      if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', eventName, params);
+      }
+    }
+
+    let catalogTracked = false;
+    function trackCatalogView() {
+      if (catalogTracked) return;
+      catalogTracked = true;
+      trackGA('page_view', {
+        page_title: 'Catálogo de Chocolates | Chocolates Taboada',
+        page_location: window.location.origin + '/Catalogo',
+        page_path: '/Catalogo'
+      });
+      trackGA('view_catalog', {
+        event_category: 'engagement',
+        event_label: 'Catalogo Principal'
+      });
+    }
+
+    const catalogSection = document.getElementById('cajas-especiales');
+    if (catalogSection && 'IntersectionObserver' in window) {
+      const catalogObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            trackCatalogView();
+          }
+        });
+      }, { threshold: 0.1 });
+      catalogObs.observe(catalogSection);
     }
 
     function scrollToProducts(smooth = true) {
@@ -942,6 +982,27 @@
         setTimeout(() => {
           scrollToProducts(true);
         }, 120);
+      }
+    });
+
+    // ── Telemetría GA4: Clics en Comprar por WhatsApp ──
+    document.addEventListener('click', (e) => {
+      const buyBtn = (e.target as HTMLElement)?.closest?.('.buy-btn');
+      if (buyBtn) {
+        const card = buyBtn.closest('.product-card') as HTMLElement;
+        const prodName = card?.dataset?.name || 'Chocolate Taboada';
+        const prodPrice = parseFloat(card?.dataset?.price || '0') || 0;
+        trackGA('whatsapp_lead', {
+          event_category: 'ecommerce',
+          event_label: prodName,
+          value: prodPrice,
+          currency: 'BOB'
+        });
+        trackGA('begin_checkout', {
+          currency: 'BOB',
+          value: prodPrice,
+          items: [{ item_name: prodName, price: prodPrice, quantity: 1 }]
+        });
       }
     });
 
