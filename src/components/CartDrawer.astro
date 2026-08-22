@@ -5,13 +5,13 @@
 <!-- FONDO OSCURO CON BACKDROP BLUR -->
 <div
   id="cart-drawer-overlay"
-  class="fixed inset-0 z-[9998] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-400"
+  class="fixed inset-0 z-[99990] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-400"
 ></div>
 
 <!-- PANEL DESLIZANTE DEL CARRITO (SLIDE-OVER DRAWER COMPACTO Y ELEGANTE) -->
 <aside
   id="cart-drawer"
-  class="fixed top-0 right-0 z-[9999] h-full w-[360px] max-w-[88vw] sm:w-[410px] bg-[#FAF5F0] text-[#2A1612] shadow-[-15px_0_45px_rgba(0,0,0,0.4)] transform translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between overflow-hidden border-l border-[#2A1612]/10"
+  class="fixed top-0 right-0 z-[99999] h-full w-[360px] max-w-[88vw] sm:w-[410px] bg-[#FAF5F0] text-[#2A1612] shadow-[-15px_0_45px_rgba(0,0,0,0.4)] transform translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between overflow-hidden border-l border-[#2A1612]/10"
 >
   
   <!-- CABECERA DEL CARRITO COMPACTA -->
@@ -128,7 +128,8 @@
       overlay.classList.remove('opacity-0', 'pointer-events-none');
       overlay.classList.add('opacity-100');
       drawer.classList.remove('translate-x-full');
-      updateCartUI();
+      drawer.classList.add('translate-x-0');
+      try { updateCartUI(); } catch(err) {}
     }
   };
 
@@ -138,6 +139,7 @@
     if (drawer && overlay) {
       overlay.classList.remove('opacity-100');
       overlay.classList.add('opacity-0', 'pointer-events-none');
+      drawer.classList.remove('translate-x-0');
       drawer.classList.add('translate-x-full');
     }
   };
@@ -323,6 +325,25 @@
     `).join('');
   }
 
+  // Disparar UI inmediatamente si el DOM ya está listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateCartUI);
+  } else {
+    updateCartUI();
+  }
+
+  // Escuchar clics globales para abrir el carrito desde cualquier botón
+  document.addEventListener('click', (e) => {
+    const trigger = e.target && (e.target as HTMLElement).closest ? (e.target as HTMLElement).closest('#navbar-cart-btn, #mobile-drawer-cart-btn, #floating-cart-btn, .nav-cart-btn-trigger, [data-action="open-cart"]') : null;
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      const mobileClose = document.getElementById('mobile-close-btn');
+      if (mobileClose) mobileClose.click();
+      window.openCartDrawer();
+    }
+  }, true);
+
   document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
 
@@ -335,7 +356,7 @@
 
     // Escuchar clics en enlaces hacia #cajas-especiales para cerrar el carrito y desplazarse al catálogo
     document.addEventListener('click', (e) => {
-      const link = e.target && e.target.closest ? e.target.closest('a[href*="cajas-especiales"]') : null;
+      const link = e.target && (e.target as HTMLElement).closest ? (e.target as HTMLElement).closest('a[href*="cajas-especiales"]') : null;
       if (link) {
         window.closeCartDrawer();
         const catalogSec = document.getElementById('cajas-especiales-nav') || document.getElementById('cajas-especiales');
