@@ -343,14 +343,17 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
       </a>
 
       <!-- 3. Colecciones & Catálogo -->
-      <a href="/#cajas-especiales" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath.includes('Catalogo') ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
+      <a href="/Catalogo#cajas-especiales" class={`mobile-link flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all group ${currentPath.includes('Catalogo') ? 'bg-[#dcb041]/15 text-[#f6d98d] font-bold' : 'hover:bg-white/[0.05] text-[#FAF5F0]/90 hover:text-[#f6d98d] font-medium'}`}>
         <div class="flex items-center gap-3">
           <div class={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${currentPath.includes('Catalogo') ? 'text-[#dcb041]' : 'text-[#dcb041]/80 group-hover:text-[#dcb041]'}`}>
             <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21"/></svg>
           </div>
-          <span class="text-xs">Catálogo & Ocasiones</span>
+          <span class="text-xs font-bold text-white">Catálogo & Ocasiones</span>
         </div>
-        <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[9px] font-black tracking-wide shadow-sm flex items-center gap-0.5">⭐ 200+ Chocolates</span>
+          <svg class="w-3.5 h-3.5 text-[#dcb041]/50 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        </div>
       </a>
 
       <!-- 4. Comunidad / Beneficios -->

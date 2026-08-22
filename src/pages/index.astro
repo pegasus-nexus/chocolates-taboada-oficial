@@ -238,6 +238,15 @@ import MobileCTA from "../components/MobileCTA.astro";
 
       </div>
 
+      <!-- Indicador visual sutil de exploración en celular -->
+      <a
+        href="#cajas-especiales"
+        class="mt-2.5 flex items-center justify-center gap-1.5 py-1 text-[#f6d98d]/85 hover:text-white transition-colors cursor-pointer group"
+      >
+        <span class="text-[9.5px] uppercase tracking-[0.16em] font-extrabold">Desliza para descubrir nuestros chocolates</span>
+        <svg class="w-3.5 h-3.5 text-[#dcb041] animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+      </a>
+
     </div>
 
     <!-- ══════════════════════════════════════════════════
@@ -288,6 +297,15 @@ import MobileCTA from "../components/MobileCTA.astro";
             <span class="relative z-10 tracking-wide">Nuestra tradición</span>
           </a>
         </div>
+
+        <!-- Indicador visual sutil de exploración en desktop -->
+        <a
+          href="#cajas-especiales"
+          class="mt-8 inline-flex items-center gap-2 text-white/70 hover:text-[#dcb041] transition-colors cursor-pointer group"
+        >
+          <span class="text-xs uppercase tracking-widest font-bold">Desliza para descubrir más de 200 chocolates</span>
+          <svg class="w-4 h-4 text-[#dcb041] animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </a>
       </div>
     </div>
   </header>
@@ -430,7 +448,8 @@ import MobileCTA from "../components/MobileCTA.astro";
       >
         <!-- Tarjeta 1: Regalar -->
         <a
-          href="#cajas-especiales"
+          href="/Catalogo/Regala#cajas-especiales"
+          data-occasion-target="Regala"
           class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
@@ -498,7 +517,8 @@ import MobileCTA from "../components/MobileCTA.astro";
 
         <!-- Tarjeta 2: Sorprender -->
         <a
-          href="#cajas-especiales"
+          href="/Catalogo/Sorprende#cajas-especiales"
+          data-occasion-target="Sorprende"
           class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
@@ -569,7 +589,8 @@ import MobileCTA from "../components/MobileCTA.astro";
 
         <!-- Tarjeta 3: Disfrutar -->
         <a
-          href="#cajas-especiales"
+          href="/Catalogo/Disfruta con amigos#cajas-especiales"
+          data-occasion-target="Disfruta"
           class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <img
@@ -637,7 +658,8 @@ import MobileCTA from "../components/MobileCTA.astro";
 
         <!-- Tarjeta 4: Compartir -->
         <a
-          href="#cajas-especiales"
+          href="/Catalogo/Comparte#cajas-especiales"
+          data-occasion-target="Comparte"
           class="relative overflow-hidden rounded-xl sm:rounded-[2rem] aspect-[3/4.5] group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-1.5 sm:p-5 bg-black/10"
         >
           <!-- Imagen de fondo texturada -->
@@ -1054,6 +1076,17 @@ import MobileCTA from "../components/MobileCTA.astro";
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- BOTÓN CONECTOR AL CATÁLOGO COMPLETO -->
+      <div class="w-full text-center mt-8 sm:mt-12 relative z-10">
+        <a
+          href="#cajas-especiales"
+          class="inline-flex items-center gap-2.5 px-6 py-3.5 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#dcb041] text-[#2A1612] font-black text-xs sm:text-sm tracking-wide shadow-[0_8px_25px_rgba(220,176,65,0.4)] hover:shadow-[0_12px_30px_rgba(220,176,65,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer"
+        >
+          <span>¿Buscas más opciones? Ver todos nuestros bombones y tabletas</span>
+          <svg class="w-4 h-4 text-[#2A1612] group-hover:translate-y-1 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -1650,6 +1683,41 @@ import MobileCTA from "../components/MobileCTA.astro";
               }
               // Limpiar la query de la URL sin recargar
               window.history.pushState({}, "", window.location.pathname);
+            }
+          }
+        }
+      });
+    });
+
+    // Interceptar clicks en las 4 tarjetas de ocasiones de la portada
+    const occasionCards = document.querySelectorAll("[data-occasion-target]");
+    occasionCards.forEach((card) => {
+      card.addEventListener("click", (e) => {
+        const isHomePage =
+          window.location.pathname === "/" ||
+          window.location.pathname === "/index.html" ||
+          window.location.pathname === "";
+        if (isHomePage) {
+          const targetOccasion = card.getAttribute("data-occasion-target");
+          if (targetOccasion) {
+            e.preventDefault();
+            const occBtns = document.querySelectorAll("#dynamic-collections-list .occasion-chip");
+            let matchedBtn: HTMLElement | null = null;
+            occBtns.forEach((btn) => {
+              const label = btn.querySelector(".occ-label")?.textContent?.trim()?.toLowerCase() || "";
+              if (label && (label.includes(targetOccasion.toLowerCase()) || targetOccasion.toLowerCase().includes(label))) {
+                matchedBtn = btn as HTMLElement;
+              }
+            });
+            if (matchedBtn) {
+              (matchedBtn as HTMLElement).click();
+            }
+            const targetSection = document.getElementById("catalog-products-view") || document.getElementById("dynamic-products-grid") || document.getElementById("cajas-especiales");
+            if (targetSection) {
+              targetSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
             }
           }
         }
