@@ -175,7 +175,7 @@
          Nivel 1 — Íconos circulares beige/dorado (mismo estilo Colecciones Navbar)
          Nivel 2 — Panel beige con chips dorados (slide-down)
     ══════════════════════════════════════ -->
-    <div class="mb-3 sm:mb-6 rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_2px_18px_rgba(42,22,18,0.06)] border border-[#e2d5c3]">
+    <div id="cajas-especiales-nav" class="mb-3 sm:mb-6 rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_2px_18px_rgba(42,22,18,0.06)] border border-[#e2d5c3] scroll-mt-20 sm:scroll-mt-28">
 
       <!-- ── NIVEL 1: Barra de ocasiones con íconos circulares (Dinámico por WebCollections) ── -->
       <div id="collections-section" class="bg-white px-3 sm:px-8 py-2.5 sm:py-4 border-b border-[#e8dccb]/70 hidden">
@@ -373,6 +373,11 @@
               }
             }
 
+            const currentPathLower = window.location.pathname.toLowerCase();
+            const isHomePage = currentPathLower === '/' || currentPathLower === '/index.html' || currentPathLower === '';
+            const hasHash = window.location.hash.includes('cajas-especiales');
+            const hasCatParam = window.location.search.includes('cat=');
+
             if (targetOccasionName) {
               const isVertodo = targetOccasionName.toLowerCase().includes('vertodo') || 
                                 targetOccasionName.toLowerCase().includes('ver todo');
@@ -387,7 +392,9 @@
               }
             } else {
               const allBtn = collectionsList.querySelector(`[data-collection-id="all"]`);
-              if (allBtn) (allBtn as HTMLElement).click();
+              if (allBtn) {
+                allBtn.classList.add('occasion-active');
+              }
             }
 
             if (targetCategoryName) {
@@ -404,18 +411,13 @@
               }, 100);
             }
 
-            const currentPathLower = window.location.pathname.toLowerCase();
-            const isCatalogRoute = currentPathLower.includes('catalogo') || 
-                                  currentPathLower.includes('vertodo') || 
-                                  currentPathLower.includes('ver todo') || 
-                                  window.location.hash.includes('cajas-especiales') ||
-                                  window.location.search.includes('cat=') ||
-                                  Boolean(targetOccasionName || targetCategoryName);
+            // Scroll automático ÚNICAMENTE si entró con hash (#cajas-especiales), parámetro (?cat=) o ruta directa (/Catalogo)
+            const shouldAutoScroll = (!isHomePage && (currentPathLower.includes('catalogo') || Boolean(targetOccasionName || targetCategoryName))) || hasHash || hasCatParam;
 
-            if (isCatalogRoute) {
+            if (shouldAutoScroll) {
               setTimeout(() => {
                 scrollToProducts(true);
-              }, 350);
+              }, 300);
             }
           } else if (collectionsSection) {
             collectionsSection.classList.add('hidden');
@@ -618,7 +620,7 @@
     }
 
     function scrollToProducts(smooth = true) {
-      const target = document.getElementById('catalog-products-view') || document.getElementById('dynamic-products-grid') || document.getElementById('cajas-especiales');
+      const target = document.getElementById('cajas-especiales-nav') || document.getElementById('cajas-especiales') || document.getElementById('catalog-products-view');
       if (target) {
         target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
       }

@@ -338,7 +338,7 @@
       const link = e.target && e.target.closest ? e.target.closest('a[href*="cajas-especiales"]') : null;
       if (link) {
         window.closeCartDrawer();
-        const catalogSec = document.getElementById('catalog-products-view') || document.getElementById('dynamic-products-grid') || document.getElementById('cajas-especiales');
+        const catalogSec = document.getElementById('cajas-especiales-nav') || document.getElementById('cajas-especiales');
         if (catalogSec) {
           e.preventDefault();
           catalogSec.scrollIntoView({ behavior: 'smooth', block: 'start' });

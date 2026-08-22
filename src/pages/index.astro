@@ -1078,14 +1078,14 @@ import MobileCTA from "../components/MobileCTA.astro";
         </div>
       </div>
 
-      <!-- BOTÓN CONECTOR AL CATÁLOGO COMPLETO -->
-      <div class="w-full text-center mt-8 sm:mt-12 relative z-10">
+      <!-- ENLACE CONECTOR ELEGANTE AL CATÁLOGO COMPLETO -->
+      <div class="w-full text-center mt-6 sm:mt-10 relative z-10">
         <a
           href="#cajas-especiales"
-          class="inline-flex items-center gap-2.5 px-6 py-3.5 sm:px-10 sm:py-4 rounded-full bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#dcb041] text-[#2A1612] font-black text-xs sm:text-sm tracking-wide shadow-[0_8px_25px_rgba(220,176,65,0.4)] hover:shadow-[0_12px_30px_rgba(220,176,65,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer"
+          class="inline-flex items-center gap-2 text-[#dcb041] hover:text-[#f6d98d] font-serif italic text-xs sm:text-sm md:text-base tracking-wide transition-all duration-300 group cursor-pointer drop-shadow-sm hover:translate-y-0.5"
         >
-          <span>¿Buscas más opciones? Ver todos nuestros bombones y tabletas</span>
-          <svg class="w-4 h-4 text-[#2A1612] group-hover:translate-y-1 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+          <span class="underline underline-offset-8 decoration-[#dcb041]/40 group-hover:decoration-[#f6d98d]">¿Buscas más opciones? Ver todos nuestros bombones y tabletas</span>
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dcb041] group-hover:text-[#f6d98d] group-hover:translate-y-1 transition-transform duration-300 flex-shrink-0 not-italic" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
         </a>
       </div>
     </div>
@@ -1641,7 +1641,7 @@ import MobileCTA from "../components/MobileCTA.astro";
         if (targetBtn) {
           setTimeout(() => {
             targetBtn.click();
-            const targetSection = document.getElementById("catalog-products-view") || document.getElementById("dynamic-products-grid") || document.getElementById("cajas-especiales");
+            const targetSection = document.getElementById("cajas-especiales-nav") || document.getElementById("cajas-especiales");
             if (targetSection) {
               targetSection.scrollIntoView({
                 behavior: "smooth",
@@ -1674,7 +1674,7 @@ import MobileCTA from "../components/MobileCTA.astro";
             if (targetBtn) {
               e.preventDefault();
               targetBtn.click();
-              const targetSection = document.getElementById("catalog-products-view") || document.getElementById("dynamic-products-grid") || document.getElementById("cajas-especiales");
+              const targetSection = document.getElementById("cajas-especiales-nav") || document.getElementById("cajas-especiales");
               if (targetSection) {
                 targetSection.scrollIntoView({
                   behavior: "smooth",
@@ -1712,7 +1712,7 @@ import MobileCTA from "../components/MobileCTA.astro";
             if (matchedBtn) {
               (matchedBtn as HTMLElement).click();
             }
-            const targetSection = document.getElementById("catalog-products-view") || document.getElementById("dynamic-products-grid") || document.getElementById("cajas-especiales");
+            const targetSection = document.getElementById("cajas-especiales-nav") || document.getElementById("cajas-especiales");
             if (targetSection) {
               targetSection.scrollIntoView({
                 behavior: "smooth",
