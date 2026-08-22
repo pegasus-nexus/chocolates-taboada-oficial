@@ -948,7 +948,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     }
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  const initBeneficios = () => {
     updateWelcomeBanner();
     updateBeneficiosCityInfo();
     checkRedeemedState();
@@ -970,7 +970,13 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
         checkRedeemedState();
       }
     });
-  });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBeneficios);
+  } else {
+    initBeneficios();
+  }
 </script>
 
 </AppLayout>

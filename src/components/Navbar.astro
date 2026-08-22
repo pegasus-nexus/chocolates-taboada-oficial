@@ -415,7 +415,7 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
 
 <script>
   // Script interactivo para el Navbar (Móvil + Selección de Ciudad + Estado de Usuario)
-  document.addEventListener('DOMContentLoaded', () => {
+  function initNavbar() {
     const navbar = document.getElementById('main-navbar');
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileCloseBtn = document.getElementById('mobile-close-btn');
@@ -583,5 +583,11 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
         }
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    initNavbar();
+  }
 </script>

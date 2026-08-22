@@ -40,7 +40,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initPromoPopup() {
     const overlay = document.getElementById('promo-popup-overlay');
     const card = document.getElementById('promo-popup-card');
     const closeBtn = document.getElementById('promo-popup-close-btn');
@@ -53,30 +53,35 @@
         img.src = img.dataset.src;
       }
       overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => {
         overlay.classList.remove('opacity-0', 'pointer-events-none');
         overlay.classList.add('opacity-100');
         card.classList.remove('scale-95');
         card.classList.add('scale-100');
       });
-      document.body.style.overflow = 'hidden';
     }
 
     function closePopup() {
       overlay.classList.remove('opacity-100');
       overlay.classList.add('opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        overlay.style.display = 'none';
-      }, 500);
       card.classList.remove('scale-100');
       card.classList.add('scale-95');
       document.body.style.overflow = '';
-      sessionStorage.setItem('taboada_promo_popup_seen', 'true');
+      sessionStorage.setItem('taboada_promo_seen_v1', 'true');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 400);
     }
 
-    // Mostrar el pop-up automáticamente 3.2s después de ingresar para no interrumpir el LCP/FCP inicial
+    // Exponer globalmente
+    window.openPromoPopup = openPopup;
+    window.closePromoPopup = closePopup;
+
+    // Mostrar automáticamente tras 3.2 segundos solo si no ha sido cerrado en esta sesión
     setTimeout(() => {
-      if (sessionStorage.getItem('taboada_promo_popup_seen') !== 'true') {
+      const hasSeen = sessionStorage.getItem('taboada_promo_seen_v1');
+      if (!hasSeen) {
         openPopup();
       }
     }, 3200);
@@ -96,5 +101,11 @@
         closePopup();
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPromoPopup);
+  } else {
+    initPromoPopup();
+  }
 </script>

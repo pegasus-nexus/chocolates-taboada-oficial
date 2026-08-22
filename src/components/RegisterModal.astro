@@ -108,7 +108,7 @@
 <script>
   let activeTicketTarget: string | null = null;
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initRegisterModal() {
     const modal = document.getElementById('taboada-register-modal');
     const card = document.getElementById('taboada-register-card');
     const closeBtn = document.getElementById('close-reg-modal-btn');
@@ -334,5 +334,11 @@
         }
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRegisterModal);
+  } else {
+    initRegisterModal();
+  }
 </script>

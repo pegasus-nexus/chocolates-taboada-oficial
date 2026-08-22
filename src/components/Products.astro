@@ -298,7 +298,7 @@
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initProductsCatalog() {
     const collectionsSection = document.getElementById('collections-section');
     const collectionsList = document.getElementById('dynamic-collections-list');
     const categoriesList = document.getElementById('dynamic-categories-list');
@@ -1007,6 +1007,11 @@
         });
       }
     });
+  }
 
-  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProductsCatalog);
+  } else {
+    initProductsCatalog();
+  }
 </script>
