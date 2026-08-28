@@ -219,16 +219,21 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
       </button>
 
       <!-- PERFIL LIMPIO DE USUARIO (Para usuario REGISTRADO: Sin fondo ni bordes) -->
-      <a
-        href="/beneficios"
-        id="user-profile-nav"
-        class="hidden items-center gap-1.5 sm:gap-2 py-1.5 text-white/90 hover:text-[#dcb041] font-bold text-xs sm:text-sm tracking-wide transition-colors duration-300 cursor-pointer group max-w-[110px] sm:max-w-[150px] truncate"
-      >
-        <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-        </svg>
-        <span id="user-nav-name" class="truncate">Sahian</span>
-      </a>
+      <div id="desktop-user-wrapper" class="hidden items-center gap-3">
+        <a
+          href="/beneficios"
+          id="user-profile-nav"
+          class="flex items-center gap-1.5 sm:gap-2 py-1.5 text-white/90 hover:text-[#dcb041] font-bold text-xs sm:text-sm tracking-wide transition-colors duration-300 cursor-pointer group max-w-[110px] sm:max-w-[150px] truncate"
+        >
+          <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          <span id="user-nav-name" class="truncate">Sahian</span>
+        </a>
+        <button id="nav-logout-btn" type="button" class="text-[9px] text-white/40 hover:text-red-400 font-bold uppercase tracking-widest transition-colors cursor-pointer" title="Cerrar Sesión">
+          Salir
+        </button>
+      </div>
 
       <!-- BOTÓN MENÚ MÓVIL (Hamburger) -->
       <button
@@ -284,22 +289,27 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     <!-- SECCIÓN USUARIO VIP / REGISTRO COMUNIDAD -->
     <div class="mt-4 mb-3">
       <!-- TARJETA VIP USUARIO REGISTRADO (Sin bordes toscos, diseño fluido de alta gama) -->
-      <a
-        href="/beneficios"
-        id="mobile-user-profile-nav"
-        class="mobile-link hidden items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-[#3B201A] to-[#2E1713] hover:from-[#45261F] hover:to-[#381D18] shadow-md transition-all group"
-      >
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 flex items-center justify-center text-[#f6d98d] flex-shrink-0">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+      <div id="mobile-user-wrapper" class="hidden flex-col gap-2">
+        <a
+          href="/beneficios"
+          id="mobile-user-profile-nav"
+          class="mobile-link flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-[#3B201A] to-[#2E1713] hover:from-[#45261F] hover:to-[#381D18] shadow-md transition-all group"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-[#dcb041]/20 flex items-center justify-center text-[#f6d98d] flex-shrink-0">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+            </div>
+            <div class="text-left">
+              <div class="text-xs font-bold text-[#FAF5F0] group-hover:text-[#f6d98d] transition-colors leading-tight truncate max-w-[145px]" id="mobile-user-nav-name">Sahian</div>
+              <span class="text-[9px] uppercase tracking-wider text-[#dcb041] font-semibold">Miembro VIP • Beneficios</span>
+            </div>
           </div>
-          <div class="text-left">
-            <div class="text-xs font-bold text-[#FAF5F0] group-hover:text-[#f6d98d] transition-colors leading-tight truncate max-w-[145px]" id="mobile-user-nav-name">Sahian</div>
-            <span class="text-[9px] uppercase tracking-wider text-[#dcb041] font-semibold">Miembro VIP • Beneficios</span>
-          </div>
-        </div>
-        <svg class="w-4 h-4 text-[#dcb041]/70 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
-      </a>
+          <svg class="w-4 h-4 text-[#dcb041]/70 group-hover:text-[#dcb041] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        </a>
+        <button id="mobile-logout-btn" type="button" class="text-[10px] text-white/30 hover:text-red-400 font-bold tracking-widest transition-colors cursor-pointer self-end">
+          CERRAR SESIÓN
+        </button>
+      </div>
 
       <!-- BANNER DE REGISTRO SI NO ESTÁ REGISTRADO (Elegante sin bordes) -->
       <div id="mobile-register-banner" class="p-3.5 rounded-2xl bg-gradient-to-br from-[#3B201A] to-[#281410] text-left shadow-md">
@@ -428,11 +438,11 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
 
     // Elementos dinámicos del estado de usuario
     const navRegisterBtn = document.getElementById('nav-register-btn');
-    const userProfileNav = document.getElementById('user-profile-nav');
+    const desktopUserWrapper = document.getElementById('desktop-user-wrapper');
     const userNavName = document.getElementById('user-nav-name');
 
     const mobileRegisterBtn = document.getElementById('mobile-register-btn');
-    const mobileUserProfileNav = document.getElementById('mobile-user-profile-nav');
+    const mobileUserWrapper = document.getElementById('mobile-user-wrapper');
     const mobileUserNavName = document.getElementById('mobile-user-nav-name');
     const mobileRegisterBanner = document.getElementById('mobile-register-banner');
 
@@ -451,15 +461,15 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
         if (mobileRegisterBanner) mobileRegisterBanner.classList.add('hidden');
 
         // Mostrar elemento limpio de perfil (SVG + Nombre sin fondo ni bordes)
-        if (userProfileNav) {
-          userProfileNav.classList.remove('hidden');
-          userProfileNav.classList.add('flex');
+        if (desktopUserWrapper) {
+          desktopUserWrapper.classList.remove('hidden');
+          desktopUserWrapper.classList.add('flex');
         }
         if (userNavName) userNavName.textContent = userNombre;
 
-        if (mobileUserProfileNav) {
-          mobileUserProfileNav.classList.remove('hidden');
-          mobileUserProfileNav.classList.add('flex');
+        if (mobileUserWrapper) {
+          mobileUserWrapper.classList.remove('hidden');
+          mobileUserWrapper.classList.add('flex');
         }
         if (mobileUserNavName) mobileUserNavName.textContent = userNombre;
       } else {
@@ -471,13 +481,13 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
         if (mobileRegisterBtn) mobileRegisterBtn.classList.remove('hidden');
         if (mobileRegisterBanner) mobileRegisterBanner.classList.remove('hidden');
 
-        if (userProfileNav) {
-          userProfileNav.classList.add('hidden');
-          userProfileNav.classList.remove('flex');
+        if (desktopUserWrapper) {
+          desktopUserWrapper.classList.add('hidden');
+          desktopUserWrapper.classList.remove('flex');
         }
-        if (mobileUserProfileNav) {
-          mobileUserProfileNav.classList.add('hidden');
-          mobileUserProfileNav.classList.remove('flex');
+        if (mobileUserWrapper) {
+          mobileUserWrapper.classList.add('hidden');
+          mobileUserWrapper.classList.remove('flex');
         }
       }
     };
@@ -489,6 +499,28 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     window.addEventListener('taboadaUserRegistered', () => {
       updateNavbarUserState();
     });
+
+    const handleLogout = () => {
+      if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        localStorage.removeItem('taboada_user_registered');
+        localStorage.removeItem('taboada_user_nombre');
+        localStorage.removeItem('taboada_user_apellido');
+        localStorage.removeItem('taboada_user_celular');
+        localStorage.removeItem('taboada_cliente_id');
+        localStorage.removeItem('taboada_user_codigo_miembro');
+        updateNavbarUserState();
+        
+        // Si estamos en la página de beneficios, redirigir a inicio
+        if (window.location.pathname.includes('/beneficios')) {
+          window.location.href = '/';
+        }
+      }
+    };
+
+    const navLogoutBtn = document.getElementById('nav-logout-btn');
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+    if (navLogoutBtn) navLogoutBtn.addEventListener('click', handleLogout);
+    if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', handleLogout);
 
     // Manejo de scroll para navbar
     const handleScroll = () => {
