@@ -1,0 +1,6 @@
+
+> pagina-oficial-taboada@0.0.1 dev
+> astro dev
+
+{"message":"Dev server running at http://localhost:4321 (pid 19964)\n  Network:\n    http://192.168.0.10:4321/\n    http://172.19.128.1:4321/\n  Stop:   astro dev stop\n  Status: astro dev status\n  Logs:   astro dev logs","label":"SKIP_FORMAT","level":"info"}
+

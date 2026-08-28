@@ -27,17 +27,17 @@
       <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#dcb041]/15 text-[#dcb041] mb-3 shadow-[0_0_15px_rgba(220,176,65,0.2)]">
         <span class="text-2xl">✨</span>
       </div>
-      <h3 class="font-serif text-2xl md:text-3xl font-extrabold text-[#f6d98d] tracking-wide mb-2">
+      <h3 id="reg-modal-title" class="font-serif text-2xl md:text-3xl font-extrabold text-[#f6d98d] tracking-wide mb-2">
         Verifica tu Identidad
       </h3>
-      <p class="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs mx-auto">
+      <p id="reg-modal-subtitle" class="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs mx-auto">
         Para asegurar que tus beneficios exclusivos y regalos de la Comunidad Taboada lleguen a tus manos, completa tus datos.
       </p>
     </div>
 
     <!-- FORMULARIO DE REGISTRO (3 CAMPOS ESTRICTOS) -->
     <form id="taboada-reg-form" class="space-y-4" novalidate>
-      <div>
+      <div id="reg-nombre-container">
         <label for="reg-nombre" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
           Nombre *
         </label>
@@ -52,7 +52,7 @@
         <p id="reg-nombre-error" class="hidden text-xs text-amber-300 mt-1 font-medium"></p>
       </div>
 
-      <div>
+      <div id="reg-apellido-container">
         <label for="reg-apellido" class="block text-xs font-bold text-[#dcb041] uppercase tracking-wider mb-1">
           Apellido *
         </label>
@@ -93,11 +93,20 @@
       </button>
     </form>
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-5">
+      <p id="reg-toggle-text" class="text-xs text-white/50 mb-2">¿Ya eres parte de la comunidad?</p>
+      <button
+        type="button"
+        id="toggle-login-mode-btn"
+        class="text-sm text-[#dcb041] hover:text-[#f6d98d] font-bold transition-colors cursor-pointer mb-4 block mx-auto"
+      >
+        Inicia Sesión
+      </button>
+
       <button
         type="button"
         id="cancel-reg-modal-btn"
-        class="text-xs text-white/40 hover:text-white/70 transition-colors uppercase tracking-widest cursor-pointer"
+        class="text-xs text-white/40 hover:text-white/70 transition-colors uppercase tracking-widest cursor-pointer mt-2"
       >
         Cancelar
       </button>
@@ -107,14 +116,22 @@
 
 <script>
   let activeTicketTarget: string | null = null;
+  let isLoginMode = false;
 
   function initRegisterModal() {
     const modal = document.getElementById('taboada-register-modal');
     const card = document.getElementById('taboada-register-card');
     const closeBtn = document.getElementById('close-reg-modal-btn');
     const cancelBtn = document.getElementById('cancel-reg-modal-btn');
+    const toggleModeBtn = document.getElementById('toggle-login-mode-btn');
+    const toggleText = document.getElementById('reg-toggle-text');
+    const title = document.getElementById('reg-modal-title');
+    const subtitle = document.getElementById('reg-modal-subtitle');
     const form = document.getElementById('taboada-reg-form') as HTMLFormElement;
     const submitBtn = document.getElementById('reg-submit-btn');
+
+    const nombreContainer = document.getElementById('reg-nombre-container');
+    const apellidoContainer = document.getElementById('reg-apellido-container');
 
     const nombreInput = document.getElementById('reg-nombre') as HTMLInputElement;
     const apellidoInput = document.getElementById('reg-apellido') as HTMLInputElement;
@@ -216,6 +233,31 @@
       if (e.target === modal) closeModal();
     });
 
+    toggleModeBtn?.addEventListener('click', () => {
+      isLoginMode = !isLoginMode;
+      if (isLoginMode) {
+        if (title) title.textContent = 'Inicia Sesión';
+        if (subtitle) subtitle.textContent = 'Ingresa tu número de celular para entrar a tu cuenta.';
+        if (nombreContainer) nombreContainer.classList.add('hidden');
+        if (apellidoContainer) apellidoContainer.classList.add('hidden');
+        if (nombreInput) nombreInput.required = false;
+        if (apellidoInput) apellidoInput.required = false;
+        if (submitBtn) submitBtn.textContent = 'Ingresar';
+        if (toggleText) toggleText.textContent = '¿Aún no eres parte de la comunidad?';
+        if (toggleModeBtn) toggleModeBtn.textContent = 'Regístrate aquí';
+      } else {
+        if (title) title.textContent = 'Verifica tu Identidad';
+        if (subtitle) subtitle.textContent = 'Para asegurar que tus beneficios exclusivos y regalos de la Comunidad Taboada lleguen a tus manos, completa tus datos.';
+        if (nombreContainer) nombreContainer.classList.remove('hidden');
+        if (apellidoContainer) apellidoContainer.classList.remove('hidden');
+        if (nombreInput) nombreInput.required = true;
+        if (apellidoInput) apellidoInput.required = true;
+        if (submitBtn) submitBtn.textContent = 'Confirmar y Canjear';
+        if (toggleText) toggleText.textContent = '¿Ya eres parte de la comunidad?';
+        if (toggleModeBtn) toggleModeBtn.textContent = 'Inicia Sesión';
+      }
+    });
+
     // Envío del Formulario con Validación Estricta
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -225,26 +267,27 @@
       const apellidoVal = apellidoInput?.value.trim();
       const celularVal = celularInput?.value.trim();
 
-      // Validación Nombre: Sin números y no vacío
-      if (!nombreVal) {
-        showError(nombreError, nombreInput, 'Por favor, ingresa tu nombre.');
-        hasError = true;
-      } else if (/\d/.test(nombreVal)) {
-        showError(nombreError, nombreInput, 'El nombre no puede contener números.');
-        hasError = true;
-      } else {
-        clearError(nombreError, nombreInput);
-      }
+      // Validación Nombre y Apellido solo si NO es login
+      if (!isLoginMode) {
+        if (!nombreVal) {
+          showError(nombreError, nombreInput, 'Por favor, ingresa tu nombre.');
+          hasError = true;
+        } else if (/\d/.test(nombreVal)) {
+          showError(nombreError, nombreInput, 'El nombre no puede contener números.');
+          hasError = true;
+        } else {
+          clearError(nombreError, nombreInput);
+        }
 
-      // Validación Apellido: Sin números y no vacío
-      if (!apellidoVal) {
-        showError(apellidoError, apellidoInput, 'Por favor, ingresa tu apellido.');
-        hasError = true;
-      } else if (/\d/.test(apellidoVal)) {
-        showError(apellidoError, apellidoInput, 'El apellido no puede contener números.');
-        hasError = true;
-      } else {
-        clearError(apellidoError, apellidoInput);
+        if (!apellidoVal) {
+          showError(apellidoError, apellidoInput, 'Por favor, ingresa tu apellido.');
+          hasError = true;
+        } else if (/\d/.test(apellidoVal)) {
+          showError(apellidoError, apellidoInput, 'El apellido no puede contener números.');
+          hasError = true;
+        } else {
+          clearError(apellidoError, apellidoInput);
+        }
       }
 
       // Validación Celular: Exactamente 8 dígitos numéricos iniciando en 5, 6 o 7
@@ -266,7 +309,7 @@
 
       if (hasError) return;
       
-      const originalBtnText = submitBtn?.textContent || 'Confirmar y Canjear';
+      const originalBtnText = submitBtn?.textContent || (isLoginMode ? 'Ingresar' : 'Confirmar y Canjear');
       if (submitBtn) {
         submitBtn.textContent = 'Procesando...';
         (submitBtn as HTMLButtonElement).disabled = true;
@@ -274,21 +317,30 @@
 
       try {
         const apiUrl = (window as any).GLOBAL_API_URL || "https://sales-system-production-f30c.up.railway.app/api/v1"; 
-        const response = await fetch(`${apiUrl}/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nombre: nombreVal,
-            apellido: apellidoVal,
-            telefono: celularVal,
-            premio_id: activeTicketTarget
-          })
-        });
+        
+        let response;
+        if (isLoginMode) {
+          response = await fetch(`${apiUrl}/fidelizacion/login?tenant_id=69cd7f0a8f3f6866d4cfbb62`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telefono: celularVal })
+          });
+        } else {
+          response = await fetch(`${apiUrl}/fidelizacion/register?tenant_id=69cd7f0a8f3f6866d4cfbb62`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              nombre: nombreVal,
+              apellido: apellidoVal,
+              telefono: celularVal,
+              premio_id: activeTicketTarget
+            })
+          });
+        }
 
         if (!response.ok) {
-          throw new Error('Error al conectar con el servidor');
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.detail || (isLoginMode ? 'No se pudo iniciar sesión.' : 'Error al conectar con el servidor'));
         }
 
         const data = await response.json();
@@ -296,7 +348,7 @@
         // 1. Guardar en localStorage
         localStorage.setItem('taboada_user_registered', 'true');
         localStorage.setItem('taboada_user_nombre', data.nombre || nombreVal);
-        localStorage.setItem('taboada_user_apellido', apellidoVal);
+        localStorage.setItem('taboada_user_apellido', data.apellido || apellidoVal);
         localStorage.setItem('taboada_user_celular', data.telefono || celularVal);
         localStorage.setItem('taboada_cliente_id', data.cliente_id);
         if (data.codigo_miembro) {
@@ -307,7 +359,7 @@
         window.dispatchEvent(new CustomEvent('taboadaUserRegistered', {
           detail: {
             nombre: data.nombre || nombreVal,
-            apellido: apellidoVal,
+            apellido: data.apellido || apellidoVal,
             celular: data.telefono || celularVal,
             cliente_id: data.cliente_id,
             ticketId: activeTicketTarget
@@ -324,9 +376,9 @@
         if (ticketToExecute && typeof (window as any).ejecutarCanjeTicket === 'function') {
           (window as any).ejecutarCanjeTicket(ticketToExecute);
         }
-      } catch (error) {
-        console.error('Error de registro:', error);
-        alert('Hubo un problema con el registro. Por favor, inténtalo de nuevo.');
+      } catch (error: any) {
+        console.error('Error:', error);
+        alert(error.message || 'Hubo un problema. Por favor, inténtalo de nuevo.');
       } finally {
         if (submitBtn) {
           submitBtn.textContent = originalBtnText;
