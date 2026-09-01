@@ -152,7 +152,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   }
 
   /* ══════════════════════════════════════════════════
-     SECCIÓN DE TICKETS RESPONSIVOS
+     SECCIÓN DE TICKETS RESPONSIVOS (2 COLUMNAS ALINEADAS)
   ══════════════════════════════════════════════════ */
   .ticket-container {
     display: grid;
@@ -165,17 +165,17 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     z-index: 10;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .ticket-container {
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
       margin: 20px auto 40px;
     }
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1280px) {
     .ticket-container {
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 28px;
     }
   }
