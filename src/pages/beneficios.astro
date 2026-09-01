@@ -678,7 +678,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       </div>
       
       <p id="community-welcome-desc" class="text-xs sm:text-sm md:text-base mt-2 max-w-xl leading-relaxed text-[#e8dccb] font-sans">
-        De cortesía elige tu regalo de bienvenida, el cual podrás canjear en nuestra sucursal de <span id="community-branch-names" class="text-[#f6d98d] font-bold">Cochabamba (La Recoleta)</span>.
+        De cortesía elige tu regalo de bienvenida, el cual podrás canjear en nuestra <a id="community-branch-link" href="https://www.google.com/maps/place/Chocolates+Taboada+SRL+-+Sucursal+Recoleta/@-17.3785545,-66.1548723,17z/data=!3m1!4b1!4m6!3m5!1s0x93e3757ceaa47fab:0x46b5f8628bbfa414!8m2!3d-17.3785545!4d-66.152292!16s%2Fg%2F11y_qhwhk0?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="text-[#f6d98d] hover:text-white underline underline-offset-4 decoration-[#f6d98d]/60 font-bold transition-colors inline-flex items-center gap-1"><span id="community-branch-names">Sucursal Recoleta CBBA</span> <svg class="w-3.5 h-3.5 text-[#dcb041] inline-block flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></a>.
       </p>
     </header>
 
@@ -852,27 +852,28 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     
     const descEl = document.getElementById('community-welcome-desc');
     const branchNamesEl = document.getElementById('community-branch-names');
+    const branchLinkEl = document.getElementById('community-branch-link');
     const redeemedTicketId = localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado');
     
-    if (!redeemedTicketId) {
-      const cityBranchesText = isLaPaz 
-        ? 'La Paz (Calacoto)' 
-        : 'Cochabamba (La Recoleta)';
+    const recoletaMapUrl = "https://www.google.com/maps/place/Chocolates+Taboada+SRL+-+Sucursal+Recoleta/@-17.3785545,-66.1548723,17z/data=!3m1!4b1!4m6!3m5!1s0x93e3757ceaa47fab:0x46b5f8628bbfa414!8m2!3d-17.3785545!4d-66.152292!16s%2Fg%2F11y_qhwhk0?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D";
+    const calacotoMapUrl = "https://www.google.com/maps/place/Chocolates+Taboada+SRL+-+Sucursal+Calacoto/@-16.5355259,-68.0911517,15.24z/data=!4m10!1m2!2m1!1sChocolates+Taboada+SRL+-+Sucursal+calacoto!3m6!1s0x915f21d034fad8af:0x870d9bf8675a7e01!8m2!3d-16.5435614!4d-68.0769367!15sCipDaG9jb2xhdGVzIFRhYm9hZGEgU1JMIC0gU3VjdXJzYWwgY2FsYWNvdG-SAQ5jaG9jb2xhdGVfc2hvcOABAA!16s%2Fg%2F11n40v7kv4?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D";
 
-      if (branchNamesEl) {
-        branchNamesEl.textContent = cityBranchesText;
+    const branchName = isLaPaz ? 'Sucursal Calacoto LPZ' : 'Sucursal Recoleta CBBA';
+    const branchMapUrl = isLaPaz ? calacotoMapUrl : recoletaMapUrl;
+
+    if (!redeemedTicketId) {
+      if (branchNamesEl && branchLinkEl) {
+        branchNamesEl.textContent = branchName;
+        branchLinkEl.href = branchMapUrl;
       } else if (descEl) {
-        descEl.innerHTML = `De cortesía elige tu regalo de bienvenida, el cual podrás canjear en nuestra sucursal de <span id="community-branch-names" class="text-[#f6d98d] font-bold">${cityBranchesText}</span>.`;
+        descEl.innerHTML = `De cortesía elige tu regalo de bienvenida, el cual podrás canjear en nuestra <a id="community-branch-link" href="${branchMapUrl}" target="_blank" rel="noopener noreferrer" class="text-[#f6d98d] hover:text-white underline underline-offset-4 decoration-[#f6d98d]/60 font-bold transition-colors inline-flex items-center gap-1"><span id="community-branch-names">${branchName}</span> <svg class="w-3.5 h-3.5 text-[#dcb041] inline-block flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></a>.`;
       }
     }
     
     const storeSvg = `<svg class="ticket-store-icon w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#8f6c49] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009 9.35c.66 0 1.28-.214 1.785-.584.505.37 1.125.584 1.785.584a2.993 2.993 0 002.465-1.284 3 3 0 003.75.615m-16.5 0L4.5 4.5h15l1.5 4.85" /></svg>`;
-    const locBranchName = isLaPaz 
-      ? 'Sucursal Calacoto LPZ' 
-      : 'Sucursal Recoleta CBBA';
 
     document.querySelectorAll('.ticket-loc').forEach(locEl => {
-      locEl.innerHTML = `${storeSvg} <span>${locBranchName}</span>`;
+      locEl.innerHTML = `${storeSvg} <span>${branchName}</span>`;
     });
   };
 
@@ -892,7 +893,12 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
     const rawCity = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toLowerCase();
     const isLaPaz = rawCity === 'la-paz' || rawCity === 'lapaz' || rawCity === 'la paz';
-    const sucursalName = isLaPaz ? 'Sucursal Calacoto (La Paz)' : 'Sucursal La Recoleta (Cochabamba)';
+    
+    const recoletaMapUrl = "https://www.google.com/maps/place/Chocolates+Taboada+SRL+-+Sucursal+Recoleta/@-17.3785545,-66.1548723,17z/data=!3m1!4b1!4m6!3m5!1s0x93e3757ceaa47fab:0x46b5f8628bbfa414!8m2!3d-17.3785545!4d-66.152292!16s%2Fg%2F11y_qhwhk0?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D";
+    const calacotoMapUrl = "https://www.google.com/maps/place/Chocolates+Taboada+SRL+-+Sucursal+Calacoto/@-16.5355259,-68.0911517,15.24z/data=!4m10!1m2!2m1!1sChocolates+Taboada+SRL+-+Sucursal+calacoto!3m6!1s0x915f21d034fad8af:0x870d9bf8675a7e01!8m2!3d-16.5435614!4d-68.0769367!15sCipDaG9jb2xhdGVzIFRhYm9hZGEgU1JMIC0gU3VjdXJzYWwgY2FsYWNvdG-SAQ5jaG9jb2xhdGVfc2hvcOABAA!16s%2Fg%2F11n40v7kv4?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D";
+
+    const sucursalName = isLaPaz ? 'Sucursal Calacoto LPZ' : 'Sucursal Recoleta CBBA';
+    const sucursalUrl = isLaPaz ? calacotoMapUrl : recoletaMapUrl;
 
     // 1. Reemplazar el texto del subtítulo con íconos SVG vectoriales limpios sin cajas ni bordes
     if (descEl) {
@@ -915,7 +921,10 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
             </svg>
             <div>
               <span class="block text-[10px] sm:text-xs font-bold text-[#dcb041] uppercase tracking-widest mb-0.5">Lugar de Canje Autorizado</span>
-              <span class="text-xs sm:text-sm md:text-base font-bold text-white font-serif">${sucursalName}</span>
+              <a href="${sucursalUrl}" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#dcb041] underline underline-offset-4 decoration-[#dcb041]/60 font-serif font-bold text-xs sm:text-sm md:text-base inline-flex items-center gap-1.5 transition-colors">
+                <span>${sucursalName}</span>
+                <svg class="w-3.5 h-3.5 text-[#dcb041] flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+              </a>
             </div>
           </div>
 
