@@ -336,13 +336,58 @@
       }
     });
 
+    function sortProductsNewestFirst(products) {
+      if (!Array.isArray(products)) return [];
+      
+      const indexed = products.map((p, idx) => ({ ...p, _originalIndex: idx }));
+      
+      return indexed.sort((a, b) => {
+        // 1. Si tienen fecha explícita de creación
+        const dateA = a.created_at || a.createdAt || a.fecha_creacion || a.fecha_registro || a.fecha;
+        const dateB = b.created_at || b.createdAt || b.fecha_creacion || b.fecha_registro || b.fecha;
+        if (dateA && dateB) {
+          const timeA = new Date(dateA).getTime();
+          const timeB = new Date(dateB).getTime();
+          if (!isNaN(timeA) && !isNaN(timeB) && timeA !== timeB) {
+            return timeB - timeA; // Más reciente primero
+          }
+        }
+
+        // 2. Si es ObjectId de MongoDB (24 caracteres hexadecimales, los primeros 8 contienen el timestamp Unix de creación)
+        const idA = String(a.id || a._id || '');
+        const idB = String(b.id || b._id || '');
+        const isMongoA = /^[0-9a-fA-F]{24}$/.test(idA);
+        const isMongoB = /^[0-9a-fA-F]{24}$/.test(idB);
+        if (isMongoA && isMongoB) {
+          const timeHexA = parseInt(idA.substring(0, 8), 16);
+          const timeHexB = parseInt(idB.substring(0, 8), 16);
+          if (timeHexA !== timeHexB) {
+            return timeHexB - timeHexA; // Más reciente primero
+          }
+          const cmp = idB.localeCompare(idA);
+          if (cmp !== 0) return cmp;
+        }
+
+        // 3. Si tienen ID numérico
+        const numA = Number(idA);
+        const numB = Number(idB);
+        if (!isNaN(numA) && !isNaN(numB) && numA !== numB) {
+          return numB - numA;
+        }
+
+        // 4. Desempate por orden de inserción en la base de datos (los últimos registrados vienen al final del array original)
+        return b._originalIndex - a._originalIndex;
+      });
+    }
+
     async function loadCatalog() {
       try {
         const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
         if (!response.ok) throw new Error('Error fetching catalog');
         const data = await response.json();
         if (data.status === 'success') {
-          allProducts = data.productos || [];
+          const rawProducts = data.productos || [];
+          allProducts = sortProductsNewestFirst(rawProducts);
           allCategories = data.categorias || [];
           allCollections = data.colecciones || [];
           
