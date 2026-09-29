@@ -114,6 +114,37 @@
 
   /* Botón limpiar */
   #catalog-search-clear { transition: opacity 0.2s ease; }
+
+  /* ══════════════════════════════════════════════════
+     PRODUCT CARD GLOW / ILUMINACIÓN DESTACADA
+  ══════════════════════════════════════════════════ */
+  @keyframes taboadaProductGlow {
+    0% {
+      box-shadow: 0 0 0 0 rgba(220, 176, 65, 0.7);
+      transform: scale(1);
+    }
+    30% {
+      box-shadow: 0 0 35px 8px rgba(220, 176, 65, 0.85);
+      border-color: #dcb041;
+      transform: scale(1.03);
+    }
+    60% {
+      box-shadow: 0 0 25px 5px rgba(220, 176, 65, 0.6);
+      transform: scale(1.02);
+    }
+    100% {
+      box-shadow: 0 10px 30px rgba(220, 176, 65, 0.35);
+      border-color: #dcb041;
+      transform: scale(1);
+    }
+  }
+
+  .highlight-product-glow {
+    animation: taboadaProductGlow 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    border-color: #dcb041 !important;
+    position: relative;
+    z-index: 30 !important;
+  }
 </style>
 
 <!-- ════════════════════════════════════════════════
@@ -316,6 +347,18 @@
       ? 'http://127.0.0.1:8001/api/v1' 
       : 'https://sales-system-aptb.onrender.com/api/v1';
 
+    function createProductSlug(name) {
+      if (!name) return '';
+      return name
+        .toString()
+        .toLowerCase()
+        .trim()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
     function getProductPrice(p, city) {
       if (!p) return 0;
       if (typeof p.precio === 'number' && p.precio > 0) return p.precio;
@@ -471,6 +514,63 @@
           renderCategories(allCategories);
           renderProducts();
           setupSidebarToggle();
+
+          // ── Detección de producto directo (/producto/[slug] o ?p=[slug] o ?producto=[slug]) ──
+          let targetProductSlug = '';
+          const urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.has('p')) {
+            targetProductSlug = urlParams.get('p') || '';
+          } else if (urlParams.has('producto')) {
+            targetProductSlug = urlParams.get('producto') || '';
+          } else {
+            const rawSegments = window.location.pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));
+            if (rawSegments[0] && (rawSegments[0].toLowerCase() === 'producto' || rawSegments[0].toLowerCase() === 'p') && rawSegments[1]) {
+              targetProductSlug = rawSegments[1] || '';
+            }
+          }
+
+          if (targetProductSlug) {
+            const cleanTargetSlug = decodeURIComponent(targetProductSlug).toLowerCase().trim();
+            const matchedProduct = allProducts.find(p => {
+              const slugP = createProductSlug(p.nombre);
+              return slugP === cleanTargetSlug || String(p.id).toLowerCase() === cleanTargetSlug;
+            });
+
+            if (matchedProduct) {
+              if (matchedProduct.categoria_id) {
+                currentCategory = String(matchedProduct.categoria_id);
+              } else {
+                currentCategory = 'DESTACADOS';
+              }
+              renderCategories(allCategories);
+              renderProducts(true);
+
+              setTimeout(() => {
+                const card = document.querySelector(`.product-card[data-id="${matchedProduct.id}"]`) ||
+                             document.querySelector(`.product-card[data-name="${matchedProduct.nombre.replace(/"/g, '&quot;')}"]`);
+                if (card) {
+                  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  card.classList.add('highlight-product-glow');
+                } else {
+                  scrollToProducts(true);
+                }
+
+                // Abrir automáticamente el modal con detalles del producto
+                const price = getProductPrice(matchedProduct, currentCity);
+                const name = matchedProduct.nombre;
+                const size = matchedProduct.tamano || 'Presentación Especial';
+                const img = matchedProduct.imagen || '/img/produc1.png';
+                const desc = matchedProduct.descripcion || matchedProduct.detalles || '';
+                const id = matchedProduct.id || createProductSlug(name);
+
+                setTimeout(() => {
+                  if (typeof (window as any).openQtyModal === 'function') {
+                    (window as any).openQtyModal(id, name, size, img, price, desc);
+                  }
+                }, 400);
+              }, 350);
+            }
+          }
         }
       } catch (error) {
         console.error('Error cargando catálogo:', error);
@@ -823,6 +923,7 @@
       const lapazPrice = p.precios?.la_paz || p.precios?.lapaz || price;
       const prodId = p.id || p.nombre.toLowerCase().replace(/\s+/g, '-');
       const prodName = p.nombre.replace(/"/g, '&quot;');
+      const prodSlug = createProductSlug(p.nombre);
       const prodSize = (p.tamano || 'Presentación Especial').replace(/"/g, '&quot;');
       const prodDesc = (p.descripcion || p.detalles || p.resumen || '').replace(/"/g, '&quot;');
 
@@ -830,6 +931,7 @@
         <div
           class="product-card group relative bg-white rounded-2xl border border-[#ecddd0]/80 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,22,18,0.14)] cursor-pointer"
           data-id="${prodId}"
+          data-slug="${prodSlug}"
           data-name="${prodName}"
           data-size="${prodSize}"
           data-img="${imgUrl}"
@@ -839,23 +941,43 @@
           data-price-lapaz="${lapazPrice}"
         >
           ${p.is_destacado ? `<div class="absolute top-2.5 left-2.5 z-20"><span class="inline-flex items-center gap-0.5 px-2.5 py-0.5 rounded-full bg-[#dcb041] text-[#2A1612] text-[9px] font-black uppercase tracking-wide shadow-sm">★ Destacado</span></div>` : ''}
-          <div class="absolute top-2.5 right-2.5 z-20 group/tooltip">
-            <button
-              type="button"
-              aria-label="Añadir al carrito"
-              class="add-to-cart-btn w-8 h-8 bg-white/95 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#e8dccb] text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 cursor-pointer"
-              data-id="${prodId}"
-              data-name="${prodName}"
-              data-size="${prodSize}"
-              data-img="${imgUrl}"
-              data-desc="${prodDesc}"
-              data-price="${price}"
-              data-price-cochabamba="${cochaPrice}"
-              data-price-lapaz="${lapazPrice}"
-            >
-              <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
-            </button>
-            <span class="absolute right-0 -bottom-8 bg-[#2A1612] text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-200 z-30">Añadir al carrito</span>
+          <div class="absolute top-2.5 right-2.5 z-20 flex items-center gap-1.5">
+            <!-- Botón Copiar Enlace Directo -->
+            <div class="relative group/copytip">
+              <button
+                type="button"
+                aria-label="Copiar enlace del producto"
+                class="copy-prod-link-btn w-8 h-8 bg-white/95 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#e8dccb] text-[#5D4037] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 cursor-pointer"
+                data-name="${prodName}"
+                data-slug="${prodSlug}"
+                data-id="${prodId}"
+              >
+                <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                </svg>
+              </button>
+              <span class="absolute right-0 -bottom-8 bg-[#2A1612] text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/copytip:opacity-100 transition-opacity duration-200 z-30">Copiar enlace</span>
+            </div>
+
+            <!-- Botón Añadir al Carrito -->
+            <div class="relative group/tooltip">
+              <button
+                type="button"
+                aria-label="Añadir al carrito"
+                class="add-to-cart-btn w-8 h-8 bg-white/95 hover:bg-[#2A1612] hover:text-[#dcb041] border border-[#e8dccb] text-[#2A1612] rounded-full flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 active:scale-95 cursor-pointer"
+                data-id="${prodId}"
+                data-name="${prodName}"
+                data-size="${prodSize}"
+                data-img="${imgUrl}"
+                data-desc="${prodDesc}"
+                data-price="${price}"
+                data-price-cochabamba="${cochaPrice}"
+                data-price-lapaz="${lapazPrice}"
+              >
+                <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+              </button>
+              <span class="absolute right-0 -bottom-8 bg-[#2A1612] text-white text-[9px] font-bold px-2 py-1 rounded-lg shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover/tooltip:opacity-100 transition-opacity duration-200 z-30">Añadir al carrito</span>
+            </div>
           </div>
           <div class="w-full bg-[#FAF5F0] h-44 sm:h-48 flex items-center justify-center p-4 sm:p-5 overflow-hidden relative">
             <img src="${imgUrl}" alt="${p.nombre}" width="300" height="300" loading="lazy" decoding="async" class="max-w-full max-h-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-500" />
@@ -1029,6 +1151,39 @@
         setTimeout(() => {
           scrollToProducts(true);
         }, 120);
+      }
+    });
+
+    // ── Copiar enlace individual de producto ──
+    document.addEventListener('click', async (e) => {
+      const copyBtn = (e.target as HTMLElement)?.closest?.('.copy-prod-link-btn');
+      if (copyBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const slug = (copyBtn as HTMLElement).getAttribute('data-slug') || createProductSlug((copyBtn as HTMLElement).getAttribute('data-name') || '');
+        const url = `${window.location.origin}/producto/${slug}`;
+        
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          const textarea = document.createElement("textarea");
+          textarea.value = url;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+        }
+
+        if (typeof (window as any).showTaboadaToast === 'function') {
+          (window as any).showTaboadaToast('¡Enlace copiado! 🍫 Listo para pegar en WhatsApp.');
+        }
+
+        // Efecto visual temporal en el botón
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = `<svg class="w-3.5 h-3.5 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>`;
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+        }, 1800);
       }
     });
 

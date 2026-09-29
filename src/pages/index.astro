@@ -1,4 +1,20 @@
 ---
+export interface Props {
+  targetProduct?: any;
+  customTitle?: string;
+  customDescription?: string;
+  customImage?: string;
+  customUrl?: string;
+}
+
+const {
+  targetProduct,
+  customTitle,
+  customDescription,
+  customImage,
+  customUrl,
+} = Astro.props;
+
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import CallToAction from "../components/CallToAction.astro";
@@ -9,8 +25,10 @@ import MobileCTA from "../components/MobileCTA.astro";
 ---
 
 <Layout
-  title="El sabor de la tradición | Chocolates Taboada"
-  description="Descubre Chocolates Taboada, la primera industria chocolatera de Bolivia desde 1948. Tradición, elegancia y un sabor inolvidable."
+  title={customTitle || "El sabor de la tradición | Chocolates Taboada"}
+  description={customDescription || "Descubre Chocolates Taboada, la primera industria chocolatera de Bolivia desde 1948. Tradición, elegancia y un sabor inolvidable."}
+  image={customImage}
+  url={customUrl}
 >
   <Navbar />
 
@@ -1840,12 +1858,69 @@ import MobileCTA from "../components/MobileCTA.astro";
       closeQtyModal();
     });
 
+    // Toast Notification helper
+    function showTaboadaToast(message = "¡Enlace copiado! Listo para compartir en WhatsApp.") {
+      const toast = document.getElementById("taboada-toast");
+      const toastMsg = document.getElementById("taboada-toast-msg");
+      if (!toast) return;
+      if (toastMsg) toastMsg.textContent = message;
+      
+      toast.classList.remove("opacity-0", "translate-y-6", "pointer-events-none");
+      toast.classList.add("opacity-100", "translate-y-0", "pointer-events-auto");
+      
+      clearTimeout((window as any)._taboadaToastTimer);
+      (window as any)._taboadaToastTimer = setTimeout(() => {
+        toast.classList.remove("opacity-100", "translate-y-0", "pointer-events-auto");
+        toast.classList.add("opacity-0", "translate-y-6", "pointer-events-none");
+      }, 3000);
+    }
+    (window as any).showTaboadaToast = showTaboadaToast;
+    (window as any).openQtyModal = openQtyModal;
+
+    function createProductSlugClient(name: string) {
+      if (!name) return "";
+      return name
+        .toString()
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    const modalCopyLinkBtn = document.getElementById("modal-copy-link-btn");
+    const modalCopyLinkBtnText = document.getElementById("modal-copy-link-btn-text");
+
+    modalCopyLinkBtn?.addEventListener("click", async () => {
+      const slug = createProductSlugClient(modalActiveProduct.name);
+      const url = `${window.location.origin}/producto/${slug}`;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        const textarea = document.createElement("textarea");
+        textarea.value = url;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+      showTaboadaToast("¡Enlace copiado! 🍫 Listo para pegar en WhatsApp.");
+      if (modalCopyLinkBtnText) {
+        const originalText = modalCopyLinkBtnText.textContent;
+        modalCopyLinkBtnText.textContent = "¡Copiado! ✓";
+        setTimeout(() => {
+          if (modalCopyLinkBtnText) modalCopyLinkBtnText.textContent = originalText;
+        }, 2000);
+      }
+    });
+
     // Enlaces de botones y tarjetas para agregar al carrito (Delegado dinámicamente al hacer clic en la tarjeta o botón)
     document.addEventListener("click", (e) => {
       const clickedEl = e.target as HTMLElement;
 
-      // Si hace clic en el botón direct-buy-btn o buy-btn ("Comprar" vía WhatsApp directo), ignorar apertura de modal
-      if (clickedEl.closest(".direct-buy-btn, .buy-btn")) return;
+      // Si hace clic en el botón direct-buy-btn o buy-btn ("Comprar" vía WhatsApp directo) o copy-prod-link-btn, ignorar apertura de modal
+      if (clickedEl.closest(".direct-buy-btn, .buy-btn, .copy-prod-link-btn")) return;
 
       const target = clickedEl.closest(
         ".product-card, .add-to-cart-btn",
@@ -2131,12 +2206,38 @@ import MobileCTA from "../components/MobileCTA.astro";
       <button
         id="modal-add-btn"
         type="button"
-        class="w-full py-4 rounded-full bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#dcb041] text-[#2A1612] font-black text-sm uppercase tracking-wide shadow-lg hover:shadow-[0_6px_25px_rgba(220,176,65,0.5)] hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+        class="w-full py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#dcb041] text-[#2A1612] font-black text-xs sm:text-sm uppercase tracking-wide shadow-lg hover:shadow-[0_6px_25px_rgba(220,176,65,0.5)] hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
       >
         <span id="modal-add-btn-text">Agregar al Carrito</span>
       </button>
+
+      <!-- Botón Copiar Enlace Directo para WhatsApp -->
+      <button
+        id="modal-copy-link-btn"
+        type="button"
+        class="w-full mt-2.5 py-2.5 px-4 rounded-full bg-[#2A1612]/5 hover:bg-[#2A1612]/10 border border-[#2A1612]/15 text-[#2A1612] font-bold text-xs uppercase tracking-wide transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 group/copy"
+      >
+        <svg class="w-4 h-4 text-[#8f6c49] group-hover/copy:text-[#2A1612] transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+        </svg>
+        <span id="modal-copy-link-btn-text">Copiar Enlace para WhatsApp</span>
+      </button>
     </div>
   </div>
+
+  <!-- TOAST NOTIFICACIÓN FLOTANTE ELEGANTE -->
+  <div
+    id="taboada-toast"
+    class="fixed bottom-24 sm:bottom-8 left-1/2 -translate-x-1/2 z-[100000] bg-[#2A1612] text-[#f6d98d] px-5 py-3 rounded-full border border-[#dcb041]/50 shadow-[0_10px_35px_rgba(0,0,0,0.5)] flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-6 pointer-events-none text-xs sm:text-sm font-bold"
+  >
+    <div class="w-6 h-6 rounded-full bg-[#dcb041] text-[#2A1612] flex items-center justify-center flex-shrink-0">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>
+    </div>
+    <span id="taboada-toast-msg">¡Enlace copiado! Listo para compartir en WhatsApp.</span>
+  </div>
+
   <CallToAction />
   <Testimonials />
   <Footer />

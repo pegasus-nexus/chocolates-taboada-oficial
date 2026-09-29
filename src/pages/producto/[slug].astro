@@ -1,0 +1,58 @@
+---
+import Index from "../index.astro";
+import { createProductSlug } from "../../utils/slugs.js";
+
+export async function getStaticPaths() {
+  const apiUrl =
+    import.meta.env.PUBLIC_API_URL ||
+    "https://sales-system-aptb.onrender.com/api/v1";
+  let products: any[] = [];
+
+  try {
+    const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
+    const data = await response.json();
+    if (data.status === "success" && data.productos) {
+      products = data.productos;
+    }
+  } catch (error) {
+    console.error("Error fetching products for static paths producto/[slug]:", error);
+  }
+
+  const paths: any[] = [];
+
+  for (const prod of products) {
+    const slug = createProductSlug(prod.nombre);
+    if (slug) {
+      paths.push({
+        params: { slug },
+        props: { product: prod, slug }
+      });
+    }
+    // Support MongoDB ID as secondary slug fallback: /producto/69cd81b6...
+    if (prod.id && String(prod.id) !== slug) {
+      paths.push({
+        params: { slug: String(prod.id) },
+        props: { product: prod, slug: String(prod.id) }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { product, slug } = Astro.props;
+
+const prodName = product?.nombre || "Chocolate Taboada";
+const prodDesc = product?.descripcion || product?.detalles || product?.resumen || "Exclusiva pieza artesanal de Chocolates Taboada, elaborada con 100% fino cacao boliviano.";
+const prodImg = product?.imagen || "/img/agostocbba.webp";
+const prodUrl = `https://chocolatestaboada.pro/producto/${slug}`;
+const pageTitle = `${prodName} | Chocolates Taboada`;
+---
+
+<Index
+  targetProduct={product}
+  customTitle={pageTitle}
+  customDescription={prodDesc}
+  customImage={prodImg}
+  customUrl={prodUrl}
+/>

@@ -4,12 +4,20 @@ import '../styles/global.css';
 export interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	url?: string;
+	type?: string;
 }
 
 const { 
 	title = "Chocolates Taboada | El Verdadero Chocolate Boliviano",
-	description = "Producto 100% nacional. Conoce el verdadero Chocolate Boliviano, hecho en Bolivia desde la primera hasta la última etapa. Tradición desde 1903."
+	description = "Producto 100% nacional. Conoce el verdadero Chocolate Boliviano, hecho en Bolivia desde la primera hasta la última etapa. Tradición desde 1903.",
+	image = "/img/agostocbba.webp",
+	url = "https://chocolatestaboada.pro",
+	type = "website"
 } = Astro.props;
+
+const absoluteImageUrl = image.startsWith('http') ? image : `https://chocolatestaboada.pro${image.startsWith('/') ? '' : '/'}${image}`;
 ---
 
 <!doctype html>
@@ -23,9 +31,25 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={url} />
+
+		<!-- OPEN GRAPH / WHATSAPP / FACEBOOK / TELEGRAM -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
+		<meta property="og:image" content={absoluteImageUrl} />
+		<meta property="og:image:secure_url" content={absoluteImageUrl} />
+		<meta property="og:image:alt" content={title} />
+		<meta property="og:site_name" content="Chocolates Taboada" />
+		<meta property="og:locale" content="es_BO" />
+
+		<!-- TWITTER / X -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={url} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={absoluteImageUrl} />
 
 		<script is:inline>
 			window.GLOBAL_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
