@@ -423,161 +423,206 @@
       });
     }
 
+    function processCatalogData(data: any, isFromCache = false) {
+      if (!data || data.status !== 'success') return;
+      const rawProducts = data.productos || [];
+      allProducts = sortProductsNewestFirst(rawProducts);
+      allCategories = data.categorias || [];
+      allCollections = data.colecciones || [];
+      
+      const currentPathLower = window.location.pathname.toLowerCase();
+      const isHomePage = currentPathLower === '/' || currentPathLower === '/index.html' || currentPathLower === '';
+      const hasHash = window.location.hash.includes('cajas-especiales');
+      const hasCatParam = window.location.search.includes('cat=');
+
+      // Auto-seleccionar ocasión y categoría desde la URL
+      const segments = window.location.pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));
+      let targetOccasionName = '';
+      let targetCategoryName = '';
+
+      if (segments[0] && segments[0].toLowerCase() === 'catalogo') {
+        targetOccasionName = segments[1] || '';
+        targetCategoryName = segments[2] || '';
+      } else {
+        targetOccasionName = segments[0] || '';
+        targetCategoryName = segments[1] || '';
+      }
+
+      // Si viene /Catalogo/Tabletas o /Tabletas, verificar si es categoría
+      if (targetOccasionName && !targetCategoryName) {
+        const isCol = allCollections.some(c => c.name.toLowerCase() === targetOccasionName.toLowerCase());
+        const isCat = allCategories.some(c => c.name.toLowerCase() === targetOccasionName.toLowerCase() || String(c.id).toLowerCase() === targetOccasionName.toLowerCase());
+        if (!isCol && isCat) {
+          targetCategoryName = targetOccasionName;
+          targetOccasionName = '';
+        }
+      }
+
+      if (allCollections.length > 0 && collectionsSection && collectionsList) {
+        collectionsSection.classList.remove('hidden');
+        renderCollections();
+
+        let activeCol: any = null;
+        if (targetOccasionName) {
+          const isVertodo = targetOccasionName.toLowerCase().includes('vertodo') || 
+                            targetOccasionName.toLowerCase().includes('ver todo');
+          activeCol = allCollections.find(c => c.name.toLowerCase() === targetOccasionName.toLowerCase()) ||
+            (isVertodo ? { id: 'all', name: 'Catalogo' } : null);
+        }
+
+        if (activeCol) {
+          const occasionBtns = collectionsList.querySelectorAll('.occasion-chip');
+          occasionBtns.forEach(b => b.classList.remove('occasion-active'));
+          const btn = collectionsList.querySelector(`[data-collection-id="${activeCol.id}"]`);
+          if (btn) btn.classList.add('occasion-active');
+          const categorySubRow = document.getElementById('category-sub-row');
+          if (categorySubRow) categorySubRow.classList.add('sub-row-visible');
+
+          if (activeCol.id === 'all') {
+            renderCategories(allCategories);
+          } else if (activeCol.categories_ids) {
+            const filteredCats = allCategories.filter(c => activeCol.categories_ids.includes(c.id));
+            renderCategories(filteredCats);
+          } else {
+            renderCategories(allCategories);
+          }
+        } else {
+          const allBtn = collectionsList.querySelector(`[data-collection-id="all"]`);
+          if (allBtn) {
+            allBtn.classList.add('occasion-active');
+          }
+          renderCategories(allCategories);
+        }
+
+        if (targetCategoryName) {
+          const matchedCat = allCategories.find(c =>
+            c.name.toLowerCase() === targetCategoryName.toLowerCase() ||
+            String(c.id).toLowerCase() === targetCategoryName.toLowerCase()
+          );
+          if (matchedCat) {
+            currentCategory = String(matchedCat.id);
+            const catBtns = categoriesList.querySelectorAll('.cat-btn');
+            catBtns.forEach(b => {
+              if ((b as HTMLElement).dataset.target === String(matchedCat.id)) {
+                b.classList.add('cat-active', 'font-black');
+                b.classList.remove('font-semibold');
+              } else {
+                b.classList.remove('cat-active', 'font-black');
+                b.classList.add('font-semibold');
+              }
+            });
+          }
+        }
+      } else if (collectionsSection) {
+        collectionsSection.classList.add('hidden');
+        renderCategories(allCategories);
+      }
+      
+      renderProducts();
+      setupSidebarToggle();
+
+      // Scroll instantáneo sin demora si entró con hash (#cajas-especiales), parámetro (?cat=) o ruta directa (/Catalogo)
+      const shouldAutoScroll = (!isHomePage && (currentPathLower.includes('catalogo') || Boolean(targetOccasionName || targetCategoryName))) || hasHash || hasCatParam;
+      if (shouldAutoScroll) {
+        scrollToProducts(false);
+      }
+
+      // ── Detección de producto directo (/producto/[slug] o ?p=[slug] o ?producto=[slug]) ──
+      let targetProductSlug = '';
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('p')) {
+        targetProductSlug = urlParams.get('p') || '';
+      } else if (urlParams.has('producto')) {
+        targetProductSlug = urlParams.get('producto') || '';
+      } else {
+        const rawSegments = window.location.pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));
+        if (rawSegments[0] && (rawSegments[0].toLowerCase() === 'producto' || rawSegments[0].toLowerCase() === 'p') && rawSegments[1]) {
+          targetProductSlug = rawSegments[1] || '';
+        }
+      }
+
+      if (targetProductSlug) {
+        const cleanTargetSlug = decodeURIComponent(targetProductSlug).toLowerCase().trim();
+        const matchedProduct = allProducts.find(p => {
+          const slugP = createProductSlug(p.nombre);
+          return slugP === cleanTargetSlug || String(p.id).toLowerCase() === cleanTargetSlug;
+        });
+
+        if (matchedProduct) {
+          if (matchedProduct.categoria_id) {
+            currentCategory = String(matchedProduct.categoria_id);
+          } else {
+            currentCategory = 'DESTACADOS';
+          }
+          renderCategories(allCategories);
+          renderProducts(true);
+
+          const card = document.querySelector(`.product-card[data-id="${matchedProduct.id}"]`) ||
+                       document.querySelector(`.product-card[data-name="${matchedProduct.nombre.replace(/"/g, '&quot;')}"]`);
+          if (card) {
+            card.scrollIntoView({ behavior: 'auto', block: 'center' });
+            card.classList.add('highlight-product-glow');
+          } else {
+            scrollToProducts(false);
+          }
+
+          // Abrir automáticamente el modal con detalles del producto
+          const price = getProductPrice(matchedProduct, currentCity);
+          const name = matchedProduct.nombre;
+          const size = matchedProduct.tamano || 'Presentación Especial';
+          const img = matchedProduct.imagen || '/img/produc1.png';
+          const desc = matchedProduct.descripcion || matchedProduct.detalles || '';
+          const id = matchedProduct.id || createProductSlug(name);
+
+          if (typeof (window as any).openQtyModal === 'function') {
+            (window as any).openQtyModal(id, name, size, img, price, desc);
+          }
+        }
+      }
+    }
+
     async function loadCatalog() {
+      // 1. Desplazamiento instantáneo inmediato si la ruta es directa
+      const currentPathLower = window.location.pathname.toLowerCase();
+      const hasHash = window.location.hash.includes('cajas-especiales');
+      const hasCatParam = window.location.search.includes('cat=');
+      const isDirectRoute = currentPathLower.includes('catalogo') || currentPathLower.startsWith('/producto') || hasHash || hasCatParam;
+      if (isDirectRoute) {
+        scrollToProducts(false);
+      }
+
+      // 2. Cargar datos cacheados en localStorage inmediatamente (0ms)
+      try {
+        const cachedRaw = localStorage.getItem('taboada_catalog_cache');
+        if (cachedRaw) {
+          const cachedData = JSON.parse(cachedRaw);
+          if (cachedData && cachedData.status === 'success' && Array.isArray(cachedData.productos) && cachedData.productos.length > 0) {
+            processCatalogData(cachedData, true);
+          }
+        }
+      } catch (e) {
+        console.warn('Error leyendo caché de catálogo:', e);
+      }
+
+      // 3. Obtener catálogo fresco en segundo plano y actualizar caché
       try {
         const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
         if (!response.ok) throw new Error('Error fetching catalog');
         const data = await response.json();
         if (data.status === 'success') {
-          const rawProducts = data.productos || [];
-          allProducts = sortProductsNewestFirst(rawProducts);
-          allCategories = data.categorias || [];
-          allCollections = data.colecciones || [];
-          
-          if (allCollections.length > 0 && collectionsSection && collectionsList) {
-            collectionsSection.classList.remove('hidden');
-            renderCollections();
-
-            // Auto-seleccionar ocasión y categoría desde la URL
-            const segments = window.location.pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));
-            let targetOccasionName = '';
-            let targetCategoryName = '';
-
-            if (segments[0] && segments[0].toLowerCase() === 'catalogo') {
-              targetOccasionName = segments[1] || '';
-              targetCategoryName = segments[2] || '';
-            } else {
-              targetOccasionName = segments[0] || '';
-              targetCategoryName = segments[1] || '';
-            }
-
-            // Si viene /Catalogo/Tabletas o /Tabletas, verificar si es categoría
-            if (targetOccasionName && !targetCategoryName) {
-              const isCol = allCollections.some(c => c.name.toLowerCase() === targetOccasionName.toLowerCase());
-              const isCat = allCategories.some(c => c.name.toLowerCase() === targetOccasionName.toLowerCase() || String(c.id).toLowerCase() === targetOccasionName.toLowerCase());
-              if (!isCol && isCat) {
-                targetCategoryName = targetOccasionName;
-                targetOccasionName = '';
-              }
-            }
-
-            const currentPathLower = window.location.pathname.toLowerCase();
-            const isHomePage = currentPathLower === '/' || currentPathLower === '/index.html' || currentPathLower === '';
-            const hasHash = window.location.hash.includes('cajas-especiales');
-            const hasCatParam = window.location.search.includes('cat=');
-
-            if (targetOccasionName) {
-              const isVertodo = targetOccasionName.toLowerCase().includes('vertodo') || 
-                                targetOccasionName.toLowerCase().includes('ver todo');
-              const matchedCol = allCollections.find(c => c.name.toLowerCase() === targetOccasionName.toLowerCase()) ||
-                (isVertodo ? { id: 'all', name: 'Catalogo' } : null);
-
-              if (matchedCol) {
-                const btn = collectionsList.querySelector(`[data-collection-id="${matchedCol.id}"]`);
-                if (btn) {
-                  (btn as HTMLElement).click();
-                }
-              }
-            } else {
-              const allBtn = collectionsList.querySelector(`[data-collection-id="all"]`);
-              if (allBtn) {
-                allBtn.classList.add('occasion-active');
-              }
-            }
-
-            if (targetCategoryName) {
-              setTimeout(() => {
-                const catBtns = categoriesList.querySelectorAll('.cat-btn');
-                const matchedCat = allCategories.find(c =>
-                  c.name.toLowerCase() === targetCategoryName.toLowerCase() ||
-                  String(c.id).toLowerCase() === targetCategoryName.toLowerCase()
-                );
-                if (matchedCat) {
-                  const targetCatBtn = Array.from(catBtns).find(b => (b as HTMLElement).dataset.target === String(matchedCat.id));
-                  if (targetCatBtn) (targetCatBtn as HTMLElement).click();
-                }
-              }, 100);
-            }
-
-            // Scroll automático ÚNICAMENTE si entró con hash (#cajas-especiales), parámetro (?cat=) o ruta directa (/Catalogo)
-            const shouldAutoScroll = (!isHomePage && (currentPathLower.includes('catalogo') || Boolean(targetOccasionName || targetCategoryName))) || hasHash || hasCatParam;
-
-            if (shouldAutoScroll) {
-              setTimeout(() => {
-                scrollToProducts(true);
-              }, 300);
-            }
-          } else if (collectionsSection) {
-            collectionsSection.classList.add('hidden');
-          }
-          
-          renderCategories(allCategories);
-          renderProducts();
-          setupSidebarToggle();
-
-          // ── Detección de producto directo (/producto/[slug] o ?p=[slug] o ?producto=[slug]) ──
-          let targetProductSlug = '';
-          const urlParams = new URLSearchParams(window.location.search);
-          if (urlParams.has('p')) {
-            targetProductSlug = urlParams.get('p') || '';
-          } else if (urlParams.has('producto')) {
-            targetProductSlug = urlParams.get('producto') || '';
-          } else {
-            const rawSegments = window.location.pathname.split('/').filter(Boolean).map(s => decodeURIComponent(s));
-            if (rawSegments[0] && (rawSegments[0].toLowerCase() === 'producto' || rawSegments[0].toLowerCase() === 'p') && rawSegments[1]) {
-              targetProductSlug = rawSegments[1] || '';
-            }
-          }
-
-          if (targetProductSlug) {
-            const cleanTargetSlug = decodeURIComponent(targetProductSlug).toLowerCase().trim();
-            const matchedProduct = allProducts.find(p => {
-              const slugP = createProductSlug(p.nombre);
-              return slugP === cleanTargetSlug || String(p.id).toLowerCase() === cleanTargetSlug;
-            });
-
-            if (matchedProduct) {
-              if (matchedProduct.categoria_id) {
-                currentCategory = String(matchedProduct.categoria_id);
-              } else {
-                currentCategory = 'DESTACADOS';
-              }
-              renderCategories(allCategories);
-              renderProducts(true);
-
-              setTimeout(() => {
-                const card = document.querySelector(`.product-card[data-id="${matchedProduct.id}"]`) ||
-                             document.querySelector(`.product-card[data-name="${matchedProduct.nombre.replace(/"/g, '&quot;')}"]`);
-                if (card) {
-                  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  card.classList.add('highlight-product-glow');
-                } else {
-                  scrollToProducts(true);
-                }
-
-                // Abrir automáticamente el modal con detalles del producto
-                const price = getProductPrice(matchedProduct, currentCity);
-                const name = matchedProduct.nombre;
-                const size = matchedProduct.tamano || 'Presentación Especial';
-                const img = matchedProduct.imagen || '/img/produc1.png';
-                const desc = matchedProduct.descripcion || matchedProduct.detalles || '';
-                const id = matchedProduct.id || createProductSlug(name);
-
-                setTimeout(() => {
-                  if (typeof (window as any).openQtyModal === 'function') {
-                    (window as any).openQtyModal(id, name, size, img, price, desc);
-                  }
-                }, 400);
-              }, 350);
-            }
-          }
+          try {
+            localStorage.setItem('taboada_catalog_cache', JSON.stringify(data));
+          } catch (e) {}
+          processCatalogData(data, false);
         }
       } catch (error) {
         console.error('Error cargando catálogo:', error);
-        if (loadingState) loadingState.classList.add('hidden');
-        if (productsGrid) {
-          productsGrid.classList.remove('hidden');
-          productsGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-6 text-sm">Ocurrió un error al cargar el catálogo.</div>';
+        if (allProducts.length === 0) {
+          if (loadingState) loadingState.classList.add('hidden');
+          if (productsGrid) {
+            productsGrid.classList.remove('hidden');
+            productsGrid.innerHTML = '<div class="col-span-full text-center text-red-500 py-6 text-sm">Ocurrió un error al cargar el catálogo.</div>';
+          }
         }
       }
     }
@@ -764,7 +809,7 @@
       catalogObs.observe(catalogSection);
     }
 
-    function scrollToProducts(smooth = true) {
+    function scrollToProducts(smooth = false) {
       const target = document.getElementById('cajas-especiales-nav') || document.getElementById('cajas-especiales') || document.getElementById('catalog-products-view');
       if (target) {
         target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });

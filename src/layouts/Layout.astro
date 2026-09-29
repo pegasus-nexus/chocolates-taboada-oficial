@@ -55,6 +55,31 @@ const absoluteImageUrl = image.startsWith('http') ? image : `https://chocolatest
 			window.GLOBAL_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
 			  ? 'http://127.0.0.1:8001/api/v1' 
 			  : 'https://sales-system-aptb.onrender.com/api/v1';
+
+			// INSTANT VIEWPORT ANCHORING FOR DIRECT CATALOG / CATEGORY / PRODUCT LINKS
+			(function() {
+				try {
+					var p = window.location.pathname.toLowerCase();
+					var h = window.location.hash.toLowerCase();
+					var isDirectCatalog = p.includes('/catalogo') || h.includes('cajas-especiales') || p.startsWith('/producto');
+					if (isDirectCatalog) {
+						if ('scrollRestoration' in history) {
+							history.scrollRestoration = 'manual';
+						}
+						var jumpToCatalog = function() {
+							var target = document.getElementById('cajas-especiales-nav') || document.getElementById('cajas-especiales');
+							if (target) {
+								target.scrollIntoView({ behavior: 'auto', block: 'start' });
+							}
+						};
+						if (document.readyState === 'loading') {
+							document.addEventListener('DOMContentLoaded', jumpToCatalog, { once: true });
+						} else {
+							jumpToCatalog();
+						}
+					}
+				} catch(e) {}
+			})();
 		</script>
 
 		<!-- PRECONNECT & DNS PREFETCH -->

@@ -1651,16 +1651,14 @@ import MobileCTA from "../components/MobileCTA.astro";
           `.cat-btn[data-target="${catParam}"]`,
         ) as HTMLButtonElement;
         if (targetBtn) {
-          setTimeout(() => {
-            targetBtn.click();
-            const targetSection = document.getElementById("cajas-especiales-nav") || document.getElementById("cajas-especiales");
-            if (targetSection) {
-              targetSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }
-          }, 300);
+          targetBtn.click();
+          const targetSection = document.getElementById("cajas-especiales-nav") || document.getElementById("cajas-especiales");
+          if (targetSection) {
+            targetSection.scrollIntoView({
+              behavior: "auto",
+              block: "start",
+            });
+          }
         }
       }
     }
