@@ -558,6 +558,7 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     mobileBtn?.addEventListener('click', openMenu);
     mobileCloseBtn?.addEventListener('click', closeMenu);
     drawerOverlay?.addEventListener('click', closeMenu);
+    mobileRegisterBtn?.addEventListener('click', closeMenu);
 
     document.querySelectorAll('.mobile-link').forEach(link => {
       link.addEventListener('click', () => {
