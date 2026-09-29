@@ -2194,16 +2194,16 @@ import MobileCTA from "../components/MobileCTA.astro";
 
     <!-- Marca + Título del Producto + Pastilla de Precio -->
     <div class="mt-2 mb-3">
-      <span class="text-[10px] font-black uppercase tracking-widest text-[#8f6c49] block mb-0.5">Chocolates Taboada</span>
+      <span class="text-[10px] font-black uppercase tracking-widest text-[#8f6c49] block mb-0.5 font-sans">Chocolates Taboada</span>
       <div class="flex items-start justify-between gap-2">
         <h3
           id="modal-product-name"
-          class="font-sans font-extrabold text-xl sm:text-2xl text-[#2A1612] leading-tight tracking-tight flex-1"
+          class="font-serif font-bold text-xl sm:text-2xl text-[#2A1612] leading-tight tracking-tight flex-1"
         >
         </h3>
         <span
           id="modal-product-price-badge"
-          class="flex-shrink-0 bg-[#f0ebe3] text-[#2A1612] font-black font-sans text-xs sm:text-sm px-3.5 py-1.5 rounded-full shadow-xs whitespace-nowrap"
+          class="flex-shrink-0 bg-[#f0ebe3] text-[#2A1612] font-black font-serif text-sm sm:text-base px-3.5 py-1.5 rounded-full shadow-xs whitespace-nowrap"
         >
           Bs. 0.00
         </span>
@@ -2212,7 +2212,7 @@ import MobileCTA from "../components/MobileCTA.astro";
 
     <!-- Descripción del Producto -->
     <div class="mb-4">
-      <p class="text-[11px] font-black text-[#8f6c49] mb-1 uppercase tracking-wide">Descripción</p>
+      <p class="text-[11px] font-black text-[#8f6c49] mb-1 uppercase tracking-wide font-sans">Descripción</p>
       <p
         id="modal-product-desc"
         class="text-xs sm:text-sm text-[#5D4037] font-sans leading-relaxed"
@@ -2224,8 +2224,8 @@ import MobileCTA from "../components/MobileCTA.astro";
     <!-- Fila de Detalles & Contador de Cantidad (- 1 +) -->
     <div class="flex items-center justify-between pt-3 border-t border-[#f0ebe3] mb-4">
       <div>
-        <span class="text-[10px] text-[#8f6c49] font-bold uppercase tracking-wider block">Total Estimado</span>
-        <span id="modal-total-price" class="text-lg sm:text-xl font-black text-[#2A1612] font-sans">Bs. 0.00</span>
+        <span class="text-[10px] text-[#8f6c49] font-bold uppercase tracking-wider block font-sans">Total Estimado</span>
+        <span id="modal-total-price" class="text-xl sm:text-2xl font-black text-[#2A1612] font-serif">Bs. 0.00</span>
       </div>
 
       <!-- Pill Selector (- 1 +) -->
@@ -2233,18 +2233,18 @@ import MobileCTA from "../components/MobileCTA.astro";
         <button
           id="modal-qty-minus"
           type="button"
-          class="w-6 h-6 rounded-full flex items-center justify-center font-black text-sm text-[#2A1612] hover:bg-black/10 active:scale-95 transition-all cursor-pointer"
+          class="w-6 h-6 rounded-full flex items-center justify-center font-black text-sm text-[#2A1612] hover:bg-black/10 active:scale-95 transition-all cursor-pointer font-sans"
         >
           -
         </button>
         <span
           id="modal-qty-val"
-          class="w-5 text-center text-sm font-black text-[#2A1612]"
+          class="w-5 text-center text-sm font-black text-[#2A1612] font-sans"
         >1</span>
         <button
           id="modal-qty-plus"
           type="button"
-          class="w-6 h-6 rounded-full flex items-center justify-center font-black text-sm text-[#2A1612] hover:bg-black/10 active:scale-95 transition-all cursor-pointer"
+          class="w-6 h-6 rounded-full flex items-center justify-center font-black text-sm text-[#2A1612] hover:bg-black/10 active:scale-95 transition-all cursor-pointer font-sans"
         >
           +
         </button>
@@ -2266,12 +2266,15 @@ import MobileCTA from "../components/MobileCTA.astro";
         </svg>
       </button>
 
-      <!-- Botón Principal "Añadir al Carrito" -->
+      <!-- Botón Principal "Añadir al Carrito" (Diseño Dorado Luxury a Juego) -->
       <button
         id="modal-add-btn"
         type="button"
-        class="flex-1 py-3.5 px-5 rounded-full bg-[#c89d66] hover:bg-[#b58b54] text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_6px_20px_rgba(200,157,102,0.4)] hover:shadow-[0_8px_25px_rgba(200,157,102,0.55)] hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
+        class="flex-1 py-3.5 px-5 rounded-full bg-gradient-to-r from-[#dcb041] via-[#f4c856] to-[#c99a2e] hover:from-[#f6d98d] hover:via-[#dcb041] hover:to-[#b88926] text-[#2A1612] font-black text-xs sm:text-sm tracking-wide shadow-[0_8px_25px_rgba(220,176,65,0.4)] hover:shadow-[0_12px_32px_rgba(220,176,65,0.6)] hover:scale-[1.02] active:scale-95 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 font-sans"
       >
+        <svg class="w-4 h-4 text-[#2A1612]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
         <span id="modal-add-btn-text">Añadir al Carrito</span>
       </button>
     </div>
