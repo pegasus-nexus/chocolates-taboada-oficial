@@ -1,0 +1,32 @@
+---
+import Index from "./index.astro";
+
+const pageTitle = "Mi Carrito de Compras | Chocolates Taboada";
+const pageDesc = "Revisa tu selección exclusiva de chocolates artesanales Taboada y finaliza tu pedido directamente por WhatsApp.";
+const pageImg = "/img/agostocbba.webp";
+const pageUrl = "https://chocolatestaboada.pro/carrito";
+---
+
+<Index
+  customTitle={pageTitle}
+  customDescription={pageDesc}
+  customImage={pageImg}
+  customUrl={pageUrl}
+/>
+
+<script>
+  // Si entra directamente a /carrito (con o sin parámetros), asegurar que el drawer del carrito se abra
+  const openCartOnLoad = () => {
+    setTimeout(() => {
+      if (typeof (window as any).openCartDrawer === 'function') {
+        (window as any).openCartDrawer();
+      }
+    }, 250);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', openCartOnLoad);
+  } else {
+    openCartOnLoad();
+  }
+</script>

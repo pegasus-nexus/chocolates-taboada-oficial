@@ -83,6 +83,33 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
       </svg>
     </button>
+    <!-- ACCIONES DE COMPARTIR CARRITO -->
+    <div id="cart-share-container" class="grid grid-cols-2 gap-2 pt-0.5">
+      <button
+        id="cart-share-link-btn"
+        type="button"
+        class="py-2.5 px-3 rounded-xl bg-white hover:bg-[#2A1612] border border-[#2A1612]/15 hover:border-[#2A1612] text-[#2A1612] hover:text-[#f6d98d] font-bold text-[11px] transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 shadow-xs group"
+        title="Copiar enlace para que otra persona vea este mismo carrito"
+      >
+        <svg class="w-3.5 h-3.5 text-[#8f6c49] group-hover:text-[#f6d98d] transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+        </svg>
+        <span id="cart-share-link-text">Copiar Link</span>
+      </button>
+
+      <button
+        id="cart-share-wa-btn"
+        type="button"
+        class="py-2.5 px-3 rounded-xl bg-[#25D366]/10 hover:bg-[#25D366] border border-[#25D366]/30 text-[#128C7E] hover:text-white font-bold text-[11px] transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 shadow-xs group"
+        title="Compartir lista y link del carrito por WhatsApp"
+      >
+        <svg class="w-3.5 h-3.5 fill-current text-[#25D366] group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span>Compartir</span>
+      </button>
+    </div>
+
     <p class="text-[9.5px] sm:text-[10px] text-center text-[#5D4037]/75 font-sans leading-tight pt-0.5">
       🔒 Tu lista de productos se enviará verificada directo al WhatsApp de nuestra fábrica.
     </p>
@@ -250,7 +277,14 @@
 
     if (!listEl) return;
 
+    const shareContainerEl = document.getElementById('cart-share-container');
+    const checkoutBtn = document.getElementById('cart-drawer-checkout-btn');
+
     if (cart.length === 0) {
+      if (shareContainerEl) shareContainerEl.classList.add('hidden');
+      if (checkoutBtn) {
+        checkoutBtn.classList.add('opacity-50', 'pointer-events-none');
+      }
       listEl.innerHTML = `
         <div class="flex flex-col items-center justify-center py-8 sm:py-12 text-center text-[#5D4037]/70">
           <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/5 flex items-center justify-center mb-3 text-[#8f6c49]">
@@ -266,6 +300,11 @@
         </div>
       `;
       return;
+    }
+
+    if (shareContainerEl) shareContainerEl.classList.remove('hidden');
+    if (checkoutBtn) {
+      checkoutBtn.classList.remove('opacity-50', 'pointer-events-none');
     }
 
     listEl.innerHTML = cart.map(item => `
@@ -325,11 +364,89 @@
     `).join('');
   }
 
+  // ── FUNCIONES DE CODIFICACIÓN Y DECODIFICACIÓN DE CARRITO COMPARTIDO ──
+
+  function generateShareCartUrl(cart, city) {
+    if (!cart || cart.length === 0) return '';
+    const currentCity = city || localStorage.getItem('taboada_selected_city') || 'cochabamba';
+    const payload = {
+      c: currentCity,
+      items: cart.map(i => ({
+        i: i.id,
+        n: i.name,
+        s: i.size,
+        p: i.price,
+        q: i.quantity,
+        m: i.img
+      }))
+    };
+    const jsonStr = JSON.stringify(payload);
+    const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
+    return `${window.location.origin}/carrito?c=${encodeURIComponent(base64)}`;
+  }
+
+  function decodeShareCartUrl(encodedStr) {
+    try {
+      const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(encodedStr))));
+      const payload = JSON.parse(jsonStr);
+      if (payload && Array.isArray(payload.items) && payload.items.length > 0) {
+        return {
+          city: payload.c || 'cochabamba',
+          items: payload.items.map(item => ({
+            id: item.i || 'item-' + Date.now(),
+            name: item.n || 'Chocolate Taboada',
+            size: item.s || 'Presentación Especial',
+            price: Number(item.p) || 0,
+            quantity: Number(item.q) || 1,
+            img: item.m || '/img/produc1.png',
+            isFavorite: false
+          }))
+        };
+      }
+    } catch (e) {
+      console.warn('Error decodificando carrito compartido:', e);
+    }
+    return null;
+  }
+
+  function checkAndRestoreSharedCart() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let encodedCart = urlParams.get('c') || urlParams.get('cart');
+
+    if (encodedCart) {
+      const decoded = decodeShareCartUrl(encodedCart);
+      if (decoded && decoded.items.length > 0) {
+        const targetCity = decoded.city.toLowerCase();
+        localStorage.setItem('taboada_selected_city', targetCity);
+        const storageKey = 'taboada_cart_' + targetCity;
+        localStorage.setItem(storageKey, JSON.stringify(decoded.items));
+
+        window.dispatchEvent(new CustomEvent('cityChanged', { detail: { city: targetCity } }));
+        updateCartUI();
+
+        setTimeout(() => {
+          if (typeof (window as any).showTaboadaToast === 'function') {
+            (window as any).showTaboadaToast('¡Carrito compartido cargado con éxito! 🍫');
+          }
+          window.openCartDrawer();
+        }, 350);
+
+        // Limpiar URL sin recargar
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    }
+  }
+
   // Disparar UI inmediatamente si el DOM ya está listo
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateCartUI);
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartUI();
+      checkAndRestoreSharedCart();
+    });
   } else {
     updateCartUI();
+    checkAndRestoreSharedCart();
   }
 
   // Escuchar clics globales para abrir el carrito desde cualquier botón
@@ -350,9 +467,66 @@
     var overlay = document.getElementById('cart-drawer-overlay');
     var closeBtn = document.getElementById('cart-drawer-close-btn');
     var checkoutBtn = document.getElementById('cart-drawer-checkout-btn');
+    var shareLinkBtn = document.getElementById('cart-share-link-btn');
+    var shareLinkText = document.getElementById('cart-share-link-text');
+    var shareWaBtn = document.getElementById('cart-share-wa-btn');
 
     if (overlay) overlay.addEventListener('click', window.closeCartDrawer);
     if (closeBtn) closeBtn.addEventListener('click', window.closeCartDrawer);
+
+    // Copiar link del carrito
+    if (shareLinkBtn) {
+      shareLinkBtn.addEventListener('click', async () => {
+        const cart = getCartData();
+        if (cart.length === 0) return;
+        const shareUrl = generateShareCartUrl(cart);
+
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+        } catch {
+          const textarea = document.createElement("textarea");
+          textarea.value = shareUrl;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+        }
+
+        if (typeof (window as any).showTaboadaToast === 'function') {
+          (window as any).showTaboadaToast('¡Enlace del carrito copiado! 🎁 Listo para compartir');
+        }
+
+        if (shareLinkText) {
+          const original = shareLinkText.textContent;
+          shareLinkText.textContent = '¡Copiado! ✓';
+          setTimeout(() => {
+            if (shareLinkText) shareLinkText.textContent = original;
+          }, 2000);
+        }
+      });
+    }
+
+    // Compartir carrito por WhatsApp
+    if (shareWaBtn) {
+      shareWaBtn.addEventListener('click', () => {
+        const cart = getCartData();
+        if (cart.length === 0) return;
+        const currentCity = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toUpperCase();
+        const shareUrl = generateShareCartUrl(cart);
+        const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+
+        let msg = `🍫 *¡Hola! Te comparto esta selección de Chocolates Taboada:*\n`;
+        msg += `Ciudad: *${currentCity}*\n\n`;
+        cart.forEach((item, idx) => {
+          msg += `${idx + 1}. *${item.name}* (${item.size}) x${item.quantity} - Bs. ${(item.price * item.quantity).toFixed(2)}\n`;
+        });
+        msg += `\n*Total estimado:* Bs. ${total.toFixed(2)}\n\n`;
+        msg += `👉 *Toca este enlace para abrir y pedir o modificar este mismo carrito:*\n${shareUrl}`;
+
+        const waUrl = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        window.open(waUrl, '_blank');
+      });
+    }
 
     // Escuchar clics en enlaces hacia #cajas-especiales para cerrar el carrito y desplazarse al catálogo
     document.addEventListener('click', function(e) {
