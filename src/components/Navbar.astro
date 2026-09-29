@@ -537,20 +537,12 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     handleScroll();
 
     // Abrir/Cerrar Menú Móvil
-    const openMenu = (e?: Event) => {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
+    const openMenu = () => {
       mobileDrawer?.classList.remove('translate-x-full');
       drawerOverlay?.classList.remove('opacity-0', 'pointer-events-none');
     };
 
-    const closeMenu = (e?: Event) => {
-      if (e && (e.target as HTMLElement).tagName !== 'A') {
-        e.preventDefault();
-        e.stopPropagation();
-      }
+    const closeMenu = () => {
       mobileDrawer?.classList.add('translate-x-full');
       drawerOverlay?.classList.add('opacity-0', 'pointer-events-none');
     };
@@ -558,7 +550,19 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     mobileBtn?.addEventListener('click', openMenu);
     mobileCloseBtn?.addEventListener('click', closeMenu);
     drawerOverlay?.addEventListener('click', closeMenu);
-    mobileRegisterBtn?.addEventListener('click', closeMenu);
+
+    mobileRegisterBtn?.addEventListener('click', () => {
+      closeMenu();
+      if (typeof (window as any).openRegisterModal === 'function') {
+        (window as any).openRegisterModal(null);
+      }
+    });
+
+    navRegisterBtn?.addEventListener('click', () => {
+      if (typeof (window as any).openRegisterModal === 'function') {
+        (window as any).openRegisterModal(null);
+      }
+    });
 
     document.querySelectorAll('.mobile-link').forEach(link => {
       link.addEventListener('click', () => {
