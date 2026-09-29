@@ -425,8 +425,8 @@
         updateCartUI();
 
         setTimeout(() => {
-          if (typeof (window as any).showTaboadaToast === 'function') {
-            (window as any).showTaboadaToast('¡Carrito compartido cargado con éxito! 🍫');
+          if (typeof window.showTaboadaToast === 'function') {
+            window.showTaboadaToast('¡Carrito compartido cargado con éxito! 🍫');
           }
           window.openCartDrawer();
         }, 350);
@@ -492,8 +492,8 @@
           document.body.removeChild(textarea);
         }
 
-        if (typeof (window as any).showTaboadaToast === 'function') {
-          (window as any).showTaboadaToast('¡Enlace del carrito copiado! 🎁 Listo para compartir');
+        if (typeof window.showTaboadaToast === 'function') {
+          window.showTaboadaToast('¡Enlace del carrito copiado! 🎁 Listo para compartir');
         }
 
         if (shareLinkText) {
