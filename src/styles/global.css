@@ -109,3 +109,10 @@
   pointer-events: none;
   z-index: 2;
 }
+
+/* Mantener íconos del dropdown de Catálogo visibles y nítidos con contraste oscuro al hacer hover */
+#nav-collections-grid a:hover img,
+#nav-collections-grid .group\/item:hover img {
+  filter: brightness(0) !important;
+  opacity: 1 !important;
+}
