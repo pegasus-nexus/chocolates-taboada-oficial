@@ -479,9 +479,15 @@
           if (categorySubRow) categorySubRow.classList.add('sub-row-visible');
 
           if (activeCol.id === 'all') {
+            if (!targetCategoryName) {
+              currentCategory = 'DESTACADOS';
+            }
             renderCategories(allCategories);
           } else if (activeCol.categories_ids) {
             const filteredCats = allCategories.filter(c => activeCol.categories_ids.includes(c.id));
+            if (!targetCategoryName && filteredCats.length > 0) {
+              currentCategory = String(filteredCats[0].id);
+            }
             renderCategories(filteredCats);
           } else {
             renderCategories(allCategories);
@@ -665,11 +671,8 @@
           if (categorySubRow) categorySubRow.classList.add('sub-row-visible');
 
           if (colId === 'all') {
+            currentCategory = 'DESTACADOS';
             let newUrl = '/Catalogo';
-            if (currentCategory && currentCategory !== 'DESTACADOS') {
-              const matchedCat = allCategories.find(c => String(c.id) === currentCategory);
-              if (matchedCat) newUrl += '/' + encodeURIComponent(matchedCat.name);
-            }
             window.history.pushState({}, '', newUrl);
             renderCategories(allCategories);
             renderAllProducts(true);
@@ -677,16 +680,24 @@
           } else {
             const col = allCollections.find(c => c.id === colId);
             if (col && col.categories_ids) {
+              const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
+              
+              // Seleccionar automáticamente la primera subcategoría de la ocasión
+              if (filteredCats.length > 0) {
+                currentCategory = String(filteredCats[0].id);
+              } else {
+                currentCategory = 'DESTACADOS';
+              }
+
               let newUrl = '/Catalogo/' + encodeURIComponent(col.name);
               if (currentCategory && currentCategory !== 'DESTACADOS') {
                 const matchedCat = allCategories.find(c => String(c.id) === currentCategory);
-                if (matchedCat && col.categories_ids.includes(matchedCat.id)) {
+                if (matchedCat) {
                   newUrl += '/' + encodeURIComponent(matchedCat.name);
                 }
               }
               window.history.pushState({}, '', newUrl);
               
-              const filteredCats = allCategories.filter(c => col.categories_ids.includes(c.id));
               renderCategories(filteredCats);
               renderProducts(true);
               trackGA('select_collection', { collection_id: colId, collection_name: col.name });
