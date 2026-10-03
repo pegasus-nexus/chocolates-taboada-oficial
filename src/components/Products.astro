@@ -699,6 +699,58 @@
       });
     }
 
+    // ── Funciones Globales para Controlar Colección y Categoría desde el Navbar ──
+    (window as any).selectCollectionByName = (colName: string) => {
+      if (!collectionsList) return;
+      const isVertodo = !colName || colName.toLowerCase().includes('vertodo') || colName.toLowerCase().includes('ver todo') || colName.toLowerCase() === 'all' || colName.toLowerCase() === 'catalogo';
+      let btn: HTMLElement | null = null;
+      if (isVertodo) {
+        btn = collectionsList.querySelector('[data-collection-id="all"]');
+      } else {
+        const foundCol = allCollections.find(c => c.name.toLowerCase() === colName.toLowerCase());
+        if (foundCol) {
+          btn = collectionsList.querySelector(`[data-collection-id="${foundCol.id}"]`);
+        }
+      }
+      if (btn) {
+        btn.click();
+      } else {
+        scrollToProducts(true);
+      }
+    };
+
+    (window as any).selectCategoryByName = (catName: string) => {
+      if (!categoriesList) return;
+      const isDestacados = catName.toLowerCase().includes('destacado');
+      let targetId = 'DESTACADOS';
+      if (!isDestacados) {
+        const matched = allCategories.find(c => c.name.toLowerCase() === catName.toLowerCase() || String(c.id).toLowerCase() === catName.toLowerCase());
+        if (matched) targetId = String(matched.id);
+      }
+      const catBtn = categoriesList.querySelector(`[data-target="${targetId}"]`) as HTMLElement;
+      if (catBtn) {
+        catBtn.click();
+      } else {
+        currentCategory = targetId;
+        renderProducts(true);
+        scrollToProducts(true);
+      }
+    };
+
+    window.addEventListener('selectCollection', (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail && detail.name) {
+        (window as any).selectCollectionByName(detail.name);
+      }
+    });
+
+    window.addEventListener('selectCategory', (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail && detail.name) {
+        (window as any).selectCategoryByName(detail.name);
+      }
+    });
+
     function getCategoryIcon(name) {
       return `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>`;
     }

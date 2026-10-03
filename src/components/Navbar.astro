@@ -535,6 +535,19 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
         `;
 
         navCollectionsGrid.innerHTML = html;
+
+        // Si ya estamos en la página del catálogo / inicio, cambiar en tiempo real sin recargar
+        const navLinks = navCollectionsGrid.querySelectorAll('a');
+        navLinks.forEach((link, idx) => {
+          link.addEventListener('click', (e) => {
+            const hasCatalogComponent = Boolean(document.getElementById('cajas-especiales-nav') || document.getElementById('catalog-products-view'));
+            if (hasCatalogComponent && typeof (window as any).selectCollectionByName === 'function') {
+              e.preventDefault();
+              const colName = idx < collections.length ? collections[idx].name : 'all';
+              (window as any).selectCollectionByName(colName);
+            }
+          });
+        });
       };
 
       // 1. Cargar inmediatamente desde caché local
