@@ -78,12 +78,19 @@
   .occasion-chip:hover {
     transform: translateY(-2px);
   }
+  .occasion-chip:hover:not(.occasion-active) .occ-circle img {
+    filter: brightness(0) !important;
+  }
   .occasion-chip.occasion-active .occ-circle {
     background: #2A1612 !important;
     color: #dcb041 !important;
     border-color: #dcb041 !important;
     box-shadow: 0 0 16px rgba(220,176,65,0.35) !important;
     transform: scale(1.08);
+  }
+  .occasion-chip.occasion-active .occ-circle img,
+  .occasion-chip.occasion-active:hover .occ-circle img {
+    filter: none !important;
   }
   .occasion-chip.occasion-active .occ-label {
     color: #2A1612 !important;
@@ -642,7 +649,7 @@
         html += `
           <button type="button" class="occasion-chip group/occ flex flex-col items-center gap-1.5 p-1.5 sm:p-2 rounded-2xl hover:bg-[#FAF5F0] transition-all duration-300 cursor-pointer w-auto min-w-[62px] sm:w-full text-center flex-shrink-0" data-collection-id="${col.id}">
             <div class="occ-circle w-10 h-10 sm:w-13 sm:h-13 rounded-full bg-[#FAF5F0] border border-[#e8dccb] flex items-center justify-center text-[#8f6c49] group-hover/occ:bg-[#dcb041] group-hover/occ:text-[#2A1612] group-hover/occ:border-[#dcb041] group-hover/occ:scale-110 group-hover/occ:shadow-[0_0_20px_rgba(220,176,65,0.4)] transition-all duration-300 flex-shrink-0 overflow-hidden">
-              <img src="${iconSrc}" alt="" aria-hidden="true" class="w-5 h-5 sm:w-6 sm:h-6 object-contain" onError="this.src='https://api.iconify.design/lucide:star.svg?color=%23dcb041'" />
+              <img src="${iconSrc}" alt="" aria-hidden="true" class="w-5 h-5 sm:w-6 sm:h-6 object-contain transition-all duration-300 group-hover/occ:brightness-0" onError="this.src='https://api.iconify.design/lucide:star.svg?color=%23dcb041'" />
             </div>
             <span class="occ-label text-[10px] sm:text-[11px] font-semibold text-[#5D4037]/80 group-hover/occ:text-[#2A1612] transition-colors leading-tight whitespace-nowrap sm:whitespace-normal">${col.name}</span>
           </button>

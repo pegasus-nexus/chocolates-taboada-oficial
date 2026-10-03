@@ -110,9 +110,15 @@
   z-index: 2;
 }
 
-/* Mantener íconos del dropdown de Catálogo visibles y nítidos con contraste oscuro al hacer hover */
+/* Mantener íconos del dropdown de Catálogo y Chips de Ocasiones visibles y nítidos con contraste oscuro al hacer hover */
 #nav-collections-grid a:hover img,
-#nav-collections-grid .group\/item:hover img {
+#nav-collections-grid .group\/item:hover img,
+.occasion-chip:hover:not(.occasion-active) .occ-circle img {
   filter: brightness(0) !important;
   opacity: 1 !important;
+}
+
+.occasion-chip.occasion-active .occ-circle img,
+.occasion-chip.occasion-active:hover .occ-circle img {
+  filter: none !important;
 }
