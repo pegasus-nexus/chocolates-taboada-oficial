@@ -730,11 +730,24 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 </div>
 
 <script is:inline>
-  // Ãƒ¢Ã¢â‚¬Ã¢â€š¬Ãƒ¢Ã¢â‚¬Ã¢â€š¬ EFECTOS DE SONIDO PARA LA EXPERIENCIA DE CANJE Ãƒ¢Ã¢â‚¬Ã¢â€š¬Ãƒ¢Ã¢â‚¬Ã¢â€š¬
-  const sonidoRasgar = new Audio('/sounds/rasgar.mp3');
-  const sonidoSello = new Audio('/sounds/sello.mp3');
+  // EFECTOS DE SONIDO PARA LA EXPERIENCIA DE CANJE (CON MANEJO SEGURO DE AUDIO)
+  let sonidoRasgar = null;
+  let sonidoSello = null;
+  try {
+    sonidoRasgar = new Audio('/sounds/rasgar.mp3');
+    sonidoSello = new Audio('/sounds/sello.mp3');
+  } catch(e) {}
 
-  const rewardsData = [
+  function playSoundSafely(audio) {
+    try {
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(function() {});
+      }
+    } catch(e) {}
+  }
+
+  let rewardsData = [
     { id:'trufa', title:'Chocolate Amargo', validity: '2 Semanas' },
     { id:'choco', title:'Trufas de Chocolate', validity: '2 Semanas' },
     { id:'cupon2', title:'Gesto 2%', validity: 'Un mes' },
@@ -745,9 +758,15 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
   const calculateDeadlineDate = (validityStr, redemptionDateIso) => {
     const startDate = redemptionDateIso ? new Date(redemptionDateIso) : new Date();
     let daysToAdd = 14;
-    if (validityStr.includes('1 Semana')) daysToAdd = 7;
-    else if (validityStr.includes('2 Semanas')) daysToAdd = 14;
-    else if (validityStr.includes('Un mes') || validityStr.includes('1 mes')) daysToAdd = 30;
+    const vLower = (validityStr || '').toLowerCase();
+    if (vLower.includes('1 semana') || vLower.includes('7 d')) daysToAdd = 7;
+    else if (vLower.includes('2 semana') || vLower.includes('14 d')) daysToAdd = 14;
+    else if (vLower.includes('mes') || vLower.includes('30 d')) daysToAdd = 30;
+    else if (vLower.includes('1 d')) daysToAdd = 1;
+    else {
+      const match = vLower.match(/(\d+)\s*d/);
+      if (match) daysToAdd = parseInt(match[1]) || 14;
+    }
 
     const deadline = new Date(startDate.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
     const rawDate = deadline.toLocaleDateString('es-ES', {
@@ -789,13 +808,12 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     localStorage.setItem('taboada_redeemed_ticket', id);
     localStorage.setItem('taboada_ticket_reclamado', id);
     localStorage.setItem('taboada_redeemed_title', rewardInfo.title);
-    localStorage.setItem('taboada_redeemed_validity', rewardInfo.validity);
+    localStorage.setItem('taboada_redeemed_validity', rewardInfo.validity || '14 días');
     localStorage.setItem('taboada_redeemed_date', nowIso);
     
     // Notificar al backend del reclamo
     const celular = localStorage.getItem('taboada_user_celular');
     if (celular) {
-      // In browser, try to use the same logic or hardcode to current setup
       const baseApiUrl = window.GLOBAL_API_URL || "https://sales-system-aptb.onrender.com/api/v1"; 
       fetch(baseApiUrl + "/fidelizacion/reclamar_cupon?tenant_id=69cd7f0a8f3f6866d4cfbb62", {
         method: 'POST',
@@ -804,7 +822,7 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       }).catch(err => console.error(err));
     }
 
-    // 2. Mover temporalmente al Stage Portal para la animaciÃƒ³n cinematogrÃƒ¡fica
+    // 2. Mover temporalmente al Stage Portal para la animación cinematográfica
     const portalStage = document.getElementById('redeem-portal-stage');
     if (portalStage && wrapper) {
       portalStage.appendChild(wrapper);
@@ -819,21 +837,15 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 
     setTimeout(() => { 
       wrapper?.classList.add('is-broken'); 
-      try {
-        sonidoRasgar.currentTime = 0;
-        sonidoRasgar.play().catch(e => console.log('Audio autoplay notice:', e));
-      } catch(e) {}
+      playSoundSafely(sonidoRasgar);
     }, 700);
 
     setTimeout(() => { 
       wrapper?.classList.add('is-stamped'); 
-      try {
-        sonidoSello.currentTime = 0;
-        sonidoSello.play().catch(e => console.log('Audio autoplay notice:', e));
-      } catch(e) {}
+      playSoundSafely(sonidoSello);
     }, 1400);
 
-    // 4. Tras la animaciÃƒ³n, cerrar portal y pasar fluidamente al Estado de Recompensa Permanente
+    // 4. Tras la animación, cerrar portal y pasar fluidamente al Estado de Recompensa Permanente
     setTimeout(() => {
       if (portalStage) portalStage.classList.remove('active');
       
@@ -900,7 +912,6 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     const sucursalName = isLaPaz ? 'Sucursal Calacoto LPZ' : 'Sucursal Recoleta CBBA';
     const sucursalUrl = isLaPaz ? calacotoMapUrl : recoletaMapUrl;
 
-    // 1. Reemplazar el texto del subtítulo con íconos SVG vectoriales limpios sin cajas ni bordes
     if (descEl) {
       descEl.innerHTML = `
         <div style="margin-top: 14px; text-align: left;" class="space-y-3 sm:space-y-4">
@@ -941,7 +952,6 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       `;
     }
 
-    // 2. Ocultar los demás tickets del grid
     const allWrappers = document.querySelectorAll('.ticket-wrapper');
     allWrappers.forEach(w => {
       if (w !== wrapper) {
@@ -949,7 +959,6 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
       }
     });
 
-    // 3. Transformar contenedor y ticket al Estado Gigante de Recompensa Permanente
     if (container) container.classList.add('estado-recompensa-permanente');
     if (wrapper) {
       wrapper.classList.remove('is-active');
@@ -975,10 +984,90 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
     }
   };
 
+  const renderDynamicRewards = (dynamicRewards) => {
+    if (!dynamicRewards || dynamicRewards.length === 0) return;
+    
+    rewardsData = dynamicRewards.map(r => ({
+      id: r.id,
+      title: r.title,
+      validity: r.validity || (r.validity_days ? `${r.validity_days} días` : '14 días')
+    }));
+
+    const redeemedTicketId = localStorage.getItem('taboada_redeemed_ticket') || localStorage.getItem('taboada_ticket_reclamado');
+    const container = document.querySelector('.ticket-container');
+    if (!container) return;
+
+    const rawCity = (localStorage.getItem('taboada_selected_city') || 'cochabamba').toLowerCase();
+    const isLaPaz = rawCity === 'la-paz' || rawCity === 'lapaz' || rawCity === 'la paz';
+    const branchName = isLaPaz ? 'Sucursal Calacoto LPZ' : 'Sucursal Recoleta CBBA';
+
+    // Generar los tickets dinámicos
+    const ticketsHtml = dynamicRewards.map(r => `
+      <div class="ticket-wrapper">
+        <div class="ticket" id="${r.id}">
+          <div class="stamp-redeemed">CANJEADO</div>
+          <div class="ticket-main">
+            <div class="ticket-img">
+              <img src="${r.img || '/img/taboada-logo.png'}" alt="${r.title}" onerror="this.src='/img/taboada-logo.png'" />
+            </div>
+            <div class="ticket-info">
+              <span class="ticket-tag">${r.tag || 'Exclusivo'}</span>
+              <h3 class="ticket-title">${r.title}</h3>
+              <p class="ticket-desc">${r.desc || ''}</p>
+              <div class="ticket-loc">
+                <svg class="ticket-store-icon w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#8f6c49] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009 9.35c.66 0 1.28-.214 1.785-.584.505.37 1.125.584 1.785.584a2.993 2.993 0 002.465-1.284 3 3 0 003.75.615m-16.5 0L4.5 4.5h15l1.5 4.85" />
+                </svg>
+                <span>${branchName}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticket-divider">
+            <div class="hole hole-start"></div>
+            <div class="dash-line"></div>
+            <div class="hole hole-end"></div>
+          </div>
+
+          <div class="ticket-stub">
+            <div class="stub-barcode">|||| || |||</div>
+            <span class="stub-label">VALIDEZ: ${r.validity || (r.validity_days ? `${r.validity_days} días` : '14 días')}</span>
+            <button class="btn-redeem" onclick="abrirModal('${r.id}')">CANJEAR</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    container.innerHTML = ticketsHtml;
+    
+    if (redeemedTicketId) {
+      checkRedeemedState();
+    }
+  };
+
+  const fetchDynamicRewards = async () => {
+    try {
+      const baseApiUrl = window.GLOBAL_API_URL || "https://sales-system-aptb.onrender.com/api/v1";
+      const response = await fetch(`${baseApiUrl}/fidelizacion/catalog?tenant_id=69cd7f0a8f3f6866d4cfbb62`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.status === "success" && data.web_config && data.web_config.rewards) {
+          const activeRewards = data.web_config.rewards.filter(r => r.is_active && !r.deleted);
+          if (activeRewards.length > 0) {
+            renderDynamicRewards(activeRewards);
+          }
+        }
+      }
+    } catch(err) {
+      console.warn("Could not fetch live rewards:", err);
+    }
+  };
+
   const initBeneficios = () => {
     updateWelcomeBanner();
     updateBeneficiosCityInfo();
     checkRedeemedState();
+    fetchDynamicRewards();
 
     window.addEventListener('taboadaUserRegistered', () => {
       updateWelcomeBanner();
@@ -1007,74 +1096,6 @@ const fechaHoyFormatted = rawFecha.charAt(0).toUpperCase() + rawFecha.slice(1);
 </script>
 
 </AppLayout>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const fetchBenefit = async () => {
-      try {
-        const apiUrl = window.GLOBAL_API_URL || "https://sales-system-aptb.onrender.com/api/v1";
-        const response = await fetch(`${apiUrl}/fidelizacion/catalog`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.status === "success" && data.web_config) {
-            const wc = data.web_config;
-            const container = document.querySelector('.ticket-container');
-            
-            if (wc.club_benefit_product_id && data.productos && container) {
-              const product = data.productos.find(p => p.id === wc.club_benefit_product_id);
-              if (product) {
-                let validity = wc.club_benefit_valid_until || '1 Semana';
-                
-                const html = `
-                  <div class="ticket-wrapper" id="ticket-${product.id}">
-                    <div class="ticket">
-                      <div class="ticket-main">
-                        <div class="ticket-img">
-                          <img src="${product.imagen || '/img/taboada-logo.png'}" alt="${product.nombre}" width="75" height="75" style="object-fit: contain; width: 100%; height: 100%; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15)); border-radius: 12px;" />
-                        </div>
-                        <div class="ticket-info">
-                          <span class="ticket-tag" style="display:inline-block; margin-bottom:10px; font-size:0.7rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:#8f6c49; border-bottom: 2px solid #8f6c49; padding-bottom:3px;">Exclusivo</span>
-                          <h3 style="font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: #2A1612; margin: 0 0 10px; line-height: 1;">${product.nombre}</h3>
-                          <p style="font-size: 1rem; color: #42200D; margin: 0; font-weight: 500;">${wc.club_benefit_description || ''}</p>
-                          ${wc.club_benefit_branch ? `<p style="font-size: 0.7rem; color: #8f6c49; margin: 8px 0 0; font-weight: 700; text-transform: uppercase;">â€¢ ${wc.club_benefit_branch}</p>` : ''}
-                        </div>
-                      </div>
-                      <div class="ticket-divider">
-                        <div class="hole hole-start" style="width:24px; height:24px; background-color:var(--cafe-profundo); border-radius:50%; position:absolute; left:-12px; top:-12px;"></div>
-                        <div class="dash-line" style="border-left: 3px dashed rgba(42,22,18,0.15); height:100%;"></div>
-                        <div class="hole hole-end" style="width:24px; height:24px; background-color:var(--cafe-profundo); border-radius:50%; position:absolute; left:-12px; bottom:-12px;"></div>
-                      </div>
-                      <div class="ticket-stub" style="width:140px; background:linear-gradient(135deg, #F3ECE3 0%, #E8DFD3 100%); display:flex; flex-direction:column; align-itemás:center; justify-content:center; gap:20px; padding:30px 20px; border-radius: 0 24px 24px 0;">
-                        <div class="stub-barcode" style="font-family:'Courier New', monospace; font-size:1.5rem; letter-spacing:4px; font-weight:bold; color:rgba(42,22,18,0.25); transform:rotate(-90deg); margin:20px 0;">|||| || |||</div>
-                        <span class="stub-label" style="font-size:0.65rem; font-weight:800; color:#8f6c49; letter-spacing:0.05em; text-align:center;">${validity}</span>
-                        <button class="btn-redeem" onclick="abrirModal('${product.id}')" style="background:#8f6c49; color:#FAF5F0; border:none; padding:10px 18px; border-radius:12px; font-weight:800; font-size:0.85rem; letter-spacing:0.08em; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 15px rgba(143,108,73,0.3); width:100%;">CANJEAR</button>
-                      </div>
-                    </div>
-                  </div>
-                `;
-                container.innerHTML = html;
-                
-                // Override the global calculateDeadlineDate logic for dynamic rewards
-                window.dynamicRewardsData = [{
-                  id: product.id,
-                  title: product.nombre,
-                  validity: validity
-                }];
-              }
-            }
-          }
-        }
-      } catch (err) {}
-    };
-
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(fetchBenefit, { timeout: 1500 });
-    } else {
-      setTimeout(fetchBenefit, 100);
-    }
-  });
-</script>
 
 
 <script>
