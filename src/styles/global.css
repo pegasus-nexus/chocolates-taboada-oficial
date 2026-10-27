@@ -111,6 +111,13 @@
 }
 
 /* Mantener íconos del dropdown de Catálogo y Chips de Ocasiones visibles y nítidos con contraste oscuro al hacer hover */
+#nav-collections-grid a:hover svg,
+#nav-collections-grid .group\/item:hover svg,
+.occasion-chip:hover:not(.occasion-active) .occ-circle svg {
+  stroke: #2A1612 !important;
+  color: #2A1612 !important;
+}
+
 #nav-collections-grid a:hover img,
 #nav-collections-grid .group\/item:hover img,
 .occasion-chip:hover:not(.occasion-active) .occ-circle img {
