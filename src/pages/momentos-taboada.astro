@@ -1,0 +1,444 @@
+---
+// momentos-taboada.astro - Campaña Oficial de Fidelización "Momentos Taboada"
+import AppLayout from '../layouts/AppLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const premios = [
+  {
+    id: 'taza-negra',
+    nombre: 'Taza Negra Luxury Taboada',
+    categoria: 'Edición Clásica',
+    imagen: '/img/premio-taza-negra.webp',
+    sellos: '10 sellos',
+    aporte: 'Bs. 15',
+    descripcion: 'Cerámica negra de alto brillo con logotipo oficial Chocolates Taboada impreso en oro metalizado. Resistente, elegante y perfecta para disfrutar de tu submarino o chocolate caliente.',
+    destacado: false,
+    caracteristicas: ['Capacidad: 350 ml', 'Cerámica de alta densidad', 'Acabado dorado brillante', 'Apta para lavavajillas']
+  },
+  {
+    id: 'taza-blanca-bambu',
+    nombre: 'Taza Cerámica & Bamboo Eco',
+    categoria: 'Línea Eco-Natural',
+    imagen: '/img/premio-taza-blanca-corcho.webp',
+    sellos: '15 sellos',
+    aporte: 'Bs. 20',
+    descripcion: 'Diseño nórdico minimalista en cerámica blanca satinada, con tapa hermética de bambú natural y base aislante de corcho grabado que protege las superficies de tu mesa.',
+    destacado: true,
+    caracteristicas: ['Capacidad: 400 ml', 'Tapa hermética de bambú', 'Base térmica de corcho', 'Retención de calor prolongada']
+  },
+  {
+    id: 'duo-tazas-vino',
+    nombre: 'Dúo Tazas Tinto Clásico',
+    categoria: 'Set para Dos',
+    imagen: '/img/premio-duo-tazas-vino.webp',
+    sellos: '20 sellos',
+    aporte: 'Bs. 25',
+    descripcion: 'Juego exclusivo de dos tazas cerámicas en tono vino oscuro artesanal con el sello dorado Taboada. Pensadas para compartir momentos cálidos en pareja o con quien más quieres.',
+    destacado: false,
+    caracteristicas: ['Set completo de 2 tazas', 'Color vino chocolate de temporada', 'Asa ergonómica comfort', 'Detalles dorados Taboada']
+  },
+  {
+    id: 'set-espumador',
+    nombre: 'Set Taza & Batidor Espumador Eléctrico',
+    categoria: 'Experiencia Barista',
+    imagen: '/img/premio-set-batidor.webp',
+    sellos: '25 sellos',
+    aporte: 'Bs. 30',
+    descripcion: 'La experiencia completa para los amantes del chocolate con leche espumoso: taza blanca con tapa de madera noble más un mini batidor eléctrico portátil de acero inoxidable.',
+    destacado: true,
+    caracteristicas: ['Taza blanca con tapa de bambú', 'Espumador inalámbrico potente', 'Varilla de acero inoxidable', 'Textura cremosa en segundos']
+  }
+];
+
+const sucursales = [
+  {
+    ciudad: 'Cochabamba',
+    nombre: 'Sucursal Heroínas',
+    direccion: 'Av. Heroínas #121 casi Av. Ayacucho',
+    horario: 'Lunes a Domingo: 08:00 a 20:00 (Continuo)',
+    telefono: '62679408',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Chocolates+Taboada+SRL+Sucursal+Heroinas+Cochabamba'
+  },
+  {
+    ciudad: 'Cochabamba',
+    nombre: 'Sucursal Recoleta',
+    direccion: 'Av. Pando esquina Av. Portales',
+    horario: 'Lunes a Domingo: 08:00 a 20:00 (Continuo)',
+    telefono: '62679408',
+    mapsUrl: 'https://www.google.com/maps/place/Chocolates+Taboada+SRL+-+Sucursal+Recoleta/@-17.3785545,-66.1548723,17z'
+  },
+  {
+    ciudad: 'La Paz',
+    nombre: 'Sucursal Calacoto',
+    direccion: 'Av. 21 de Calacoto 8401, La Paz',
+    horario: 'Lunes a Domingo: 08:00 a 20:00 (Continuo)',
+    telefono: '62679408',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Chocolates+Taboada+Calacoto+La+Paz'
+  }
+];
+---
+
+<AppLayout title="Momentos Taboada · Colecciona sellos y canjea premios exclusivos">
+  <Navbar />
+
+  <main class="min-h-screen bg-[#2A1612] text-[#FAF5F0] pt-[75px] md:pt-[105px] overflow-hidden">
+    
+    <!-- ═══════════════════════════════════════════════════════════
+         HERO SECTION: CAMPAÑA MOMENTOS TABOADA
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="relative py-10 sm:py-16 bg-gradient-to-b from-[#1E0D0A] via-[#2A1612] to-[#24120F] border-b border-[#dcb041]/20 overflow-hidden">
+      <!-- Brillos sutiles de fondo -->
+      <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#dcb041]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-[#4A1521]/30 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+        
+        <!-- Insignia Campaña -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF5EE]/10 border border-[#dcb041]/35 backdrop-blur-md mb-6 shadow-md">
+          <span class="w-2 h-2 rounded-full bg-[#dcb041] animate-pulse"></span>
+          <span class="text-xs uppercase tracking-[0.2em] text-[#dcb041] font-extrabold font-sans">
+            Campaña de Fidelización 2026
+          </span>
+        </div>
+
+        <!-- Título Principal -->
+        <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15] max-w-4xl mx-auto mb-4 drop-shadow-md">
+          Cada compra te acerca a <span class="bg-gradient-to-r from-[#ffe8b3] via-[#dcb041] to-[#f4c856] bg-clip-text text-transparent">tu momento Taboada</span>
+        </h1>
+
+        <p class="text-sm sm:text-base md:text-lg text-[#FAF5EE]/80 max-w-2xl mx-auto leading-relaxed font-sans mb-8">
+          Colecciona sellos físicos en tu cartilla oficial y canjea tazas de autor y sets exclusivos de edición limitada en nuestras sucursales.
+        </p>
+
+        <!-- BANNER PANORÁMICO OFICIAL -->
+        <div class="max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#dcb041]/40 shadow-[0_20px_50px_rgba(0,0,0,0.6)] mb-8 bg-[#FAF5EE]">
+          <img
+            src="/img/banner-momentos-taboada.webp"
+            alt="Momentos Taboada - Cada compra te acerca a tu momento"
+            width="1024"
+            height="156"
+            class="w-full h-auto object-cover"
+            loading="eager"
+          />
+        </div>
+
+        <!-- ALERTA DESTACADA: CARTILLA FÍSICA OBLIGATORIA -->
+        <div class="max-w-3xl mx-auto rounded-2xl bg-gradient-to-r from-[#4A1521]/90 via-[#351018]/95 to-[#4A1521]/90 border-2 border-[#dcb041]/60 p-4 sm:p-6 shadow-[0_10px_35px_rgba(74,21,33,0.5)]">
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center sm:text-left">
+            <div class="w-12 h-12 rounded-full bg-[#dcb041] text-[#2A1612] flex items-center justify-center flex-shrink-0 shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.003 0H9.497m5.003 0a4.5 4.5 0 00-5.003 0M12 3v3m-3-1.5l1.5 1.5M15 4.5l-1.5 1.5" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-serif text-base sm:text-lg md:text-xl font-bold text-[#f6d98d] leading-snug">
+                «Solicita tu cartilla física en nuestras sucursales participantes»
+              </p>
+              <p class="text-xs sm:text-sm text-[#FAF5F0]/85 mt-1 font-sans leading-relaxed">
+                Esta campaña funciona 100% mediante cartilla física y sellos presenciales al momento de tu compra. No requiere registros virtuales ni saldo digital.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         INSTRUCCIONES: CÓMO PARTICIPAR PASO A PASO
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="py-12 sm:py-20 bg-[#FAF5F0] text-[#2A1612] relative overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="w-6 h-[2px] bg-[#4A1521]"></span>
+            <span class="text-xs uppercase tracking-widest text-[#4A1521] font-extrabold font-sans">Mecánica de Participación</span>
+            <span class="w-6 h-[2px] bg-[#4A1521]"></span>
+          </div>
+          <h2 class="font-serif text-2xl sm:text-4xl font-extrabold text-[#2A1612] tracking-tight">
+            ¿Cómo coleccionar tus sellos y canjear premios?
+          </h2>
+          <p class="text-xs sm:text-sm text-[#5D4037] mt-3">
+            Cuatro sencillos pasos presenciales en cualquiera de nuestras sucursales autorizadas.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- PASO 1 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-[#dcb041]/25 shadow-md flex flex-col items-center text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <span class="absolute -top-3.5 left-6 px-3 py-0.5 rounded-full bg-[#4A1521] text-[#FAF5F0] text-[10px] font-black tracking-widest uppercase">
+              Paso 1
+            </span>
+            <div class="w-16 h-16 rounded-full bg-[#FAF5EE] border-2 border-[#dcb041] flex items-center justify-center text-[#4A1521] my-3 group-hover:scale-110 transition-transform">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-[#2A1612] mb-2">Pide tu cartilla física</h3>
+            <p class="text-xs text-[#5D4037] leading-relaxed">
+              Solicita tu cartilla impresa de forma gratuita en caja al realizar cualquier compra en nuestras sucursales participantes.
+            </p>
+          </div>
+
+          <!-- PASO 2 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-[#dcb041]/25 shadow-md flex flex-col items-center text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <span class="absolute -top-3.5 left-6 px-3 py-0.5 rounded-full bg-[#4A1521] text-[#FAF5F0] text-[10px] font-black tracking-widest uppercase">
+              Paso 2
+            </span>
+            <div class="w-16 h-16 rounded-full bg-[#FAF5EE] border-2 border-[#dcb041] flex items-center justify-center text-[#4A1521] my-3 group-hover:scale-110 transition-transform">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-[#2A1612] mb-2">Acumula sellos</h3>
+            <p class="text-xs text-[#5D4037] leading-relaxed">
+              Por cada compra de chocolates Taboada en tienda física, nuestro equipo estampará un sello oficial en los casilleros de tu cartilla.
+            </p>
+          </div>
+
+          <!-- PASO 3 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-[#dcb041]/25 shadow-md flex flex-col items-center text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <span class="absolute -top-3.5 left-6 px-3 py-0.5 rounded-full bg-[#4A1521] text-[#FAF5F0] text-[10px] font-black tracking-widest uppercase">
+              Paso 3
+            </span>
+            <div class="w-16 h-16 rounded-full bg-[#FAF5EE] border-2 border-[#dcb041] flex items-center justify-center text-[#4A1521] my-3 group-hover:scale-110 transition-transform">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21"/></svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-[#2A1612] mb-2">Elige tu premio</h3>
+            <p class="text-xs text-[#5D4037] leading-relaxed">
+              Revisa la cantidad de sellos requeridos para la taza o set que deseas, junto con el aporte correspondiente fijado en la campaña.
+            </p>
+          </div>
+
+          <!-- PASO 4 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-[#dcb041]/25 shadow-md flex flex-col items-center text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <span class="absolute -top-3.5 left-6 px-3 py-0.5 rounded-full bg-[#4A1521] text-[#FAF5F0] text-[10px] font-black tracking-widest uppercase">
+              Paso 4
+            </span>
+            <div class="w-16 h-16 rounded-full bg-[#FAF5EE] border-2 border-[#dcb041] flex items-center justify-center text-[#4A1521] my-3 group-hover:scale-110 transition-transform">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-[#2A1612] mb-2">Canjea en caja</h3>
+            <p class="text-xs text-[#5D4037] leading-relaxed">
+              Presenta tu cartilla completada en caja, realiza el aporte correspondiente y llévate tu premio de inmediato al instante.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CATÁLOGO DE LOS 4 PREMIOS OFICIALES
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="py-14 sm:py-24 bg-[#200F0C] relative">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="w-6 h-[2px] bg-[#dcb041]"></span>
+            <span class="text-xs uppercase tracking-widest text-[#dcb041] font-extrabold font-sans">Colección Exclusiva</span>
+            <span class="w-6 h-[2px] bg-[#dcb041]"></span>
+          </div>
+          <h2 class="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#FAF5F0] tracking-tight">
+            Descubre los 4 premios de la campaña
+          </h2>
+          <p class="text-xs sm:text-sm text-[#FAF5F0]/75 mt-3 max-w-lg mx-auto">
+            Piezas de diseño único conmemorativas de Chocolates Taboada para acompañar tus mejores momentos con chocolate.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          {premios.map((p, idx) => (
+            <div class={`relative rounded-3xl bg-gradient-to-br from-[#2D1612] via-[#24110E] to-[#1A0B09] border ${p.destacado ? 'border-[#dcb041]/60 shadow-[0_15px_40px_rgba(220,176,65,0.2)]' : 'border-[#dcb041]/25 shadow-lg'} p-6 sm:p-8 flex flex-col justify-between overflow-hidden group hover:border-[#dcb041] transition-all duration-300`}>
+              
+              <!-- Badge destacado o categoría -->
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-3 py-1 rounded-full bg-[#FAF5EE]/10 text-[#dcb041] text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-[#dcb041]/20">
+                  {p.categoria}
+                </span>
+                <span class="text-[11px] font-mono text-[#FAF5F0]/60 font-semibold">
+                  Premio 0{idx + 1}
+                </span>
+              </div>
+
+              <!-- Imagen del Premio -->
+              <div class="w-full h-52 sm:h-64 rounded-2xl bg-gradient-to-b from-[#FAF5EE]/5 to-black/30 border border-[#FAF5EE]/10 flex items-center justify-center p-4 mb-6 relative overflow-hidden group-hover:bg-[#FAF5EE]/10 transition-colors">
+                <img
+                  src={p.imagen}
+                  alt={p.nombre}
+                  width="180"
+                  height="180"
+                  class="h-40 sm:h-52 w-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] transform group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Información -->
+              <div>
+                <h3 class="font-serif text-xl sm:text-2xl font-bold text-[#FAF5F0] mb-2 leading-tight group-hover:text-[#f6d98d] transition-colors">
+                  {p.nombre}
+                </h3>
+                <p class="text-xs sm:text-sm text-[#FAF5F0]/75 leading-relaxed mb-4">
+                  {p.descripcion}
+                </p>
+
+                <!-- Características -->
+                <ul class="grid grid-cols-2 gap-2 text-[11px] text-[#FAF5F0]/70 mb-6 border-t border-[#FAF5F0]/10 pt-4">
+                  {p.caracteristicas.map(c => (
+                    <li class="flex items-center gap-1.5">
+                      <span class="text-[#dcb041]">✦</span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- Requisitos de Canje: Sellos + Aporte -->
+              <div class="rounded-2xl bg-[#140705] border border-[#dcb041]/30 p-4 flex items-center justify-between gap-3 mt-auto">
+                <div class="flex flex-col">
+                  <span class="text-[10px] uppercase tracking-wider text-[#dcb041] font-bold">Sellos requeridos</span>
+                  <span class="font-serif text-lg sm:text-xl font-bold text-[#FAF5F0]">{p.sellos}</span>
+                </div>
+                <div class="w-px h-8 bg-[#dcb041]/25"></div>
+                <div class="flex flex-col text-right">
+                  <span class="text-[10px] uppercase tracking-wider text-[#dcb041] font-bold">+ Aporte correspondiente</span>
+                  <span class="font-serif text-lg sm:text-xl font-bold text-[#f6d98d]">{p.aporte}</span>
+                </div>
+              </div>
+
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SUCURSALES PARTICIPANTES
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="py-14 sm:py-20 bg-[#FAF5F0] text-[#2A1612] relative overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="w-6 h-[2px] bg-[#4A1521]"></span>
+            <span class="text-xs uppercase tracking-widest text-[#4A1521] font-extrabold font-sans">Puntos de Canje</span>
+            <span class="w-6 h-[2px] bg-[#4A1521]"></span>
+          </div>
+          <h2 class="font-serif text-2xl sm:text-4xl font-extrabold text-[#2A1612] tracking-tight">
+            Sucursales participantes
+          </h2>
+          <p class="text-xs sm:text-sm text-[#5D4037] mt-3">
+            Encuentra tu cartilla física y canjea tus premios en nuestras sucursales oficiales de Cochabamba y La Paz.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {sucursales.map(s => (
+            <div class="bg-white rounded-2xl p-6 sm:p-7 border border-[#dcb041]/30 shadow-md flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-2.5 py-0.5 rounded-full bg-[#FAF5EE] text-[#4A1521] font-black text-[10px] uppercase tracking-wider border border-[#4A1521]/20">
+                    {s.ciudad}
+                  </span>
+                  <span class="text-xs text-[#25D366] font-bold flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-[#25D366] animate-ping"></span>
+                    Abierto
+                  </span>
+                </div>
+
+                <h3 class="font-serif text-xl font-bold text-[#2A1612] mb-3">{s.nombre}</h3>
+
+                <div class="space-y-3 text-xs text-[#5D4037] mb-6">
+                  <div class="flex items-start gap-2.5">
+                    <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                    <span>{s.direccion}</span>
+                  </div>
+                  <div class="flex items-start gap-2.5">
+                    <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>{s.horario}</span>
+                  </div>
+                  <div class="flex items-start gap-2.5">
+                    <svg class="w-4 h-4 text-[#dcb041] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                    <span>Telf: {s.telefono}</span>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={s.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-[#2A1612] hover:bg-[#4A1521] text-[#FAF5F0] font-bold text-xs transition-colors"
+              >
+                <span>Ver ubicación en Google Maps</span>
+                <svg class="w-3.5 h-3.5 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              </a>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PREGUNTAS FRECUENTES & CONDICIONES CLARAS
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="py-14 sm:py-20 bg-[#1E0D0A] text-[#FAF5F0] border-t border-[#dcb041]/20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-center text-[#dcb041] mb-10">
+          Preguntas Frecuentes sobre la Campaña
+        </h2>
+
+        <div class="space-y-4">
+          <div class="rounded-2xl bg-[#2A1612] border border-[#dcb041]/20 p-5">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-[#FAF5F0] mb-2">
+              ¿Puedo canjear mis premios por la página web o en línea?
+            </h3>
+            <p class="text-xs sm:text-sm text-[#FAF5F0]/75 leading-relaxed">
+              No. La campaña «Momentos Taboada» es 100% presencial. La cartilla es física y los sellos deben colocarse y validarse directamente en caja en nuestras sucursales participantes. No existen contadores digitales ni botones de canje virtual.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-[#2A1612] border border-[#dcb041]/20 p-5">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-[#FAF5F0] mb-2">
+              ¿Los sellos son acumulables entre diferentes sucursales?
+            </h3>
+            <p class="text-xs sm:text-sm text-[#FAF5F0]/75 leading-relaxed">
+              Sí. Puedes presentar tu misma cartilla física oficial en cualquiera de nuestras sucursales habilitadas en Cochabamba o La Paz para seguir sumando sellos o realizar tu canje.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-[#2A1612] border border-[#dcb041]/20 p-5">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-[#FAF5F0] mb-2">
+              ¿Hasta cuándo está vigente la campaña y los premios?
+            </h3>
+            <p class="text-xs sm:text-sm text-[#FAF5F0]/75 leading-relaxed">
+              La campaña estará vigente durante toda la temporada o hasta agotar el stock de los premios en cada sucursal participante. ¡Te recomendamos completar tu cartilla con anticipación!
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA WhatsApp de consulta -->
+        <div class="mt-10 text-center">
+          <p class="text-xs sm:text-sm text-[#FAF5F0]/70 mb-4">¿Tienes dudas adicionales sobre tu cartilla o sucursal más cercana?</p>
+          <a
+            href="https://wa.me/59162679408?text=Hola,%20deseo%20consultar%20sobre%20la%20campa%C3%B1a%20Momentos%20Taboada"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#dcb041] to-[#f4c856] text-[#2A1612] font-black text-xs sm:text-sm shadow-lg hover:scale-105 transition-all"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>Consultar por WhatsApp</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</AppLayout>

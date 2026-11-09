@@ -415,6 +415,69 @@ import MobileCTA from "../components/MobileCTA.astro";
     })();
   </script>
 
+  <!-- ═══════════════════════════════════════════════════════════
+       SECCIÓN DESTACADA: CAMPAÑA "MOMENTOS TABOADA"
+       Elegante en tonos crema, vino y dorado con enlace a /momentos-taboada
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="relative py-6 sm:py-10 bg-gradient-to-b from-[#2A1612] via-[#241310] to-[#FAF5F0] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <!-- DESKTOP / TABLET: Banner Gráfico Panorámico Oficial con Enlace Interactivo -->
+      <a
+        href="/momentos-taboada"
+        class="hidden sm:block group relative rounded-3xl overflow-hidden border border-[#dcb041]/35 shadow-[0_15px_40px_rgba(0,0,0,0.45)] hover:shadow-[0_20px_50px_rgba(220,176,65,0.25)] transition-all duration-500 hover:scale-[1.01]"
+        title="Conoce la campaña Momentos Taboada"
+      >
+        <img
+          src="/img/banner-momentos-taboada.webp"
+          alt="Campaña Momentos Taboada - Cada compra te acerca a tu momento"
+          width="1024"
+          height="156"
+          class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-[1.02]"
+          loading="lazy"
+        />
+        <!-- Halo interactivo sutil al pasar cursor -->
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-[#dcb041]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      </a>
+
+      <!-- MÓVIL: Tarjeta Editorial Adaptada (Textos Grandes y Legibles en Crema, Vino y Dorado) -->
+      <div class="sm:hidden relative rounded-2xl bg-gradient-to-br from-[#FAF5EE] via-[#F4E9D8] to-[#FAF5EE] border border-[#dcb041]/40 shadow-[0_10px_30px_rgba(0,0,0,0.35)] p-5 text-center overflow-hidden">
+        <!-- Detalle decorativo dorado -->
+        <div class="absolute -top-10 -right-10 w-28 h-28 bg-[#dcb041]/20 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#4A1521]/10 border border-[#4A1521]/20 text-[#4A1521] text-[10px] font-black uppercase tracking-widest mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041]"></span>
+          Campaña Momentos Taboada
+        </div>
+
+        <h3 class="font-serif text-xl font-bold text-[#2A1612] leading-tight mb-2">
+          «Cada compra te acerca a tu momento Taboada»
+        </h3>
+
+        <p class="text-xs text-[#5D4037] leading-relaxed mb-4 max-w-xs mx-auto">
+          Colecciona sellos físicos en sucursales autorizadas y canjea tazas exclusivas y sets de edición limitada.
+        </p>
+
+        <!-- Preview de los 4 premios -->
+        <div class="flex items-center justify-center gap-2 mb-4 bg-white/60 py-2.5 px-3 rounded-xl border border-[#dcb041]/20 shadow-inner">
+          <img src="/img/premio-taza-negra.webp" alt="Taza Negra" class="h-11 w-auto object-contain drop-shadow-sm" />
+          <img src="/img/premio-taza-blanca-corcho.webp" alt="Taza Blanca Bambú" class="h-11 w-auto object-contain drop-shadow-sm" />
+          <img src="/img/premio-duo-tazas-vino.webp" alt="Dúo Tazas Tinto" class="h-11 w-auto object-contain drop-shadow-sm" />
+          <img src="/img/premio-set-batidor.webp" alt="Set con Batidor" class="h-11 w-auto object-contain drop-shadow-sm" />
+        </div>
+
+        <a
+          href="/momentos-taboada"
+          class="inline-flex items-center justify-center gap-2 w-full py-3 px-5 rounded-full bg-[#4A1521] hover:bg-[#381019] text-[#FAF5F0] font-black text-xs tracking-wider uppercase shadow-md transition-all active:scale-95"
+        >
+          <span>Descubre tus premios</span>
+          <svg class="w-3.5 h-3.5 text-[#dcb041]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
   <section
     class="relative py-10 sm:py-20 md:py-24 bg-[#FAF5F0] overflow-hidden border-y border-[#f0e6d8]"
   >
