@@ -744,7 +744,7 @@ import MobileCTA from "../components/MobileCTA.astro";
   <!-- SECCIÃ“N PROMOCIONES ESPECIALES (CON FONDO3.PNG Y CAPA OSCURA MÁS INTENSA DE SÃšPER LUJO) -->
   <section
     id="elegancia"
-    class="relative py-16 sm:py-20 md:py-24 overflow-hidden bg-[#24110d] text-[#FAF5F0]"
+    class="relative py-16 sm:py-24 md:py-32 overflow-hidden bg-[#24110d] text-[#FAF5F0]"
   >
     <!-- Fondo limpio con textura de chocolate y hojas ilustradas en las esquinas -->
     <div
@@ -759,29 +759,29 @@ import MobileCTA from "../components/MobileCTA.astro";
     >
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-      <!-- HEADER CON LÍNEAS LATERALES Y TIPOGRAFÍA EDITORIAL -->
-      <div class="text-center mb-8 sm:mb-12">
-        <div class="flex items-center justify-center gap-3 sm:gap-4 mb-2.5 sm:mb-3">
-          <span class="w-10 sm:w-20 md:w-28 h-[1px] bg-[#dcb041]/50"></span>
-          <span class="text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.25em] text-[#dcb041] uppercase font-sans">
+    <div class="max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <!-- HEADER CON LÍNEAS LATERALES Y TIPOGRAFÍA EDITORIAL GRANDE -->
+      <div class="text-center mb-10 sm:mb-14 md:mb-16">
+        <div class="flex items-center justify-center gap-3 sm:gap-5 mb-3 sm:mb-4">
+          <span class="w-12 sm:w-24 md:w-36 h-[1px] bg-[#dcb041]/50"></span>
+          <span class="text-xs sm:text-sm md:text-base font-semibold tracking-[0.28em] text-[#dcb041] uppercase font-sans">
             Selección Taboada
           </span>
-          <span class="w-10 sm:w-20 md:w-28 h-[1px] bg-[#dcb041]/50"></span>
+          <span class="w-12 sm:w-24 md:w-36 h-[1px] bg-[#dcb041]/50"></span>
         </div>
 
         <h2
-          class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-serif text-[#FAF5F0] font-normal tracking-tight"
+          class="text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-serif text-[#FAF5F0] font-normal tracking-tight"
         >
           Destacados de la temporada
         </h2>
       </div>
 
-      <!-- GRID DE 2 TARJETAS PREMIUM EN 2 COLUMNAS -->
-      <div id="destacados-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      <!-- GRID DE 2 TARJETAS PREMIUM DE GRAN TAMAÑO LADO A LADO -->
+      <div id="destacados-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 max-w-7xl 2xl:max-w-[1400px] mx-auto">
         <!-- CARD 1: Chocolate con amaranto -->
         <div
-          class="product-card group relative rounded-2xl sm:rounded-3xl border border-[#dcb041]/35 hover:border-[#dcb041]/60 bg-[#230f13]/65 hover:bg-[#230f13]/85 backdrop-blur-md p-4 sm:p-6 flex flex-row items-center gap-3 sm:gap-5 shadow-[0_15px_35px_rgba(0,0,0,0.45)] transition-all duration-500 hover:-translate-y-1 overflow-hidden cursor-pointer"
+          class="product-card group relative rounded-[28px] lg:rounded-[32px] border border-[#dcb041]/40 hover:border-[#dcb041]/75 bg-[#210e12]/85 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.55)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.7)] transition-all duration-500 hover:-translate-y-1.5 overflow-hidden flex flex-col sm:flex-row items-stretch cursor-pointer min-h-[340px] md:min-h-[380px] lg:min-h-[410px]"
           data-id="tableta-amaranto"
           data-name="TABLETA DE CHOCOLATE CON AMARANTO"
           data-size="100g"
@@ -790,40 +790,40 @@ import MobileCTA from "../components/MobileCTA.astro";
           data-price-cochabamba="BS. 29.5"
           data-price-lapaz="BS. 29.5"
         >
-          <!-- IMAGEN ESCENA DE PRODUCTO -->
-          <div class="w-[45%] sm:w-[48%] flex-shrink-0 flex items-center justify-center relative">
+          <!-- IMAGEN ESCENA DE PRODUCTO (LLENA TODO EL ALTO Y ANCHO IZQUIERDO DE PUNTA A PUNTA) -->
+          <div class="w-full sm:w-[50%] lg:w-[52%] relative flex-shrink-0 min-h-[260px] sm:min-h-full overflow-hidden">
             <img
               src="/img/destacado-amaranto.webp"
               alt="Chocolate con amaranto"
-              width="259"
-              height="348"
+              width="520"
+              height="696"
               loading="lazy"
               decoding="async"
-              class="object-contain w-full h-auto max-h-48 sm:max-h-60 md:max-h-64 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           </div>
 
-          <!-- SEPARADOR VERTICAL SUTIL -->
-          <div class="w-[1px] bg-[#dcb041]/35 self-stretch my-2 sm:my-3"></div>
+          <!-- SEPARADOR VERTICAL SUTIL DORADO -->
+          <div class="hidden sm:block w-[1px] bg-[#dcb041]/45 self-stretch my-6 lg:my-8 flex-shrink-0"></div>
 
           <!-- CONTENIDO Y ACCIÓN -->
-          <div class="flex-1 min-w-0 flex flex-col justify-center text-left pl-1 sm:pl-2">
-            <h3 class="text-xl sm:text-2xl md:text-[1.75rem] font-serif font-normal text-white leading-tight mb-1 sm:mb-2">
+          <div class="flex-1 p-6 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-center text-left">
+            <h3 class="text-2xl sm:text-3xl md:text-[2rem] lg:text-[2.35rem] font-serif font-normal text-white leading-[1.12] tracking-tight mb-2">
               Chocolate<br /><span class="font-normal">con amaranto</span>
             </h3>
 
-            <p class="text-[11px] sm:text-xs text-[#FAF5F0]/75 font-sans tracking-wide mb-2 sm:mb-3">
+            <p class="text-xs sm:text-sm lg:text-base text-[#FAF5F0]/70 font-sans tracking-wide mb-3 sm:mb-4 lg:mb-5">
               Tableta · 100 g
             </p>
 
-            <p class="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#FAF5F0] mb-3 sm:mb-5">
+            <p class="text-2xl sm:text-3xl lg:text-[2.5rem] font-serif font-bold text-[#FAF5F0] mb-5 sm:mb-6 lg:mb-8">
               Bs. 29,50
             </p>
 
             <div>
               <button
                 type="button"
-                class="add-to-cart-btn inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#e7b85d] via-[#dfad4b] to-[#d39c38] hover:from-[#f3ca74] hover:to-[#e7b85d] text-[#2A1612] text-[11px] sm:text-xs font-extrabold shadow-[0_4px_14px_rgba(220,176,65,0.35)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+                class="add-to-cart-btn inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#e7b85d] via-[#dfad4b] to-[#d39c38] hover:from-[#f3ca74] hover:to-[#e7b85d] text-[#2A1612] text-xs sm:text-sm lg:text-base font-extrabold shadow-[0_0_22px_rgba(220,176,65,0.45)] hover:shadow-[0_0_30px_rgba(220,176,65,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer w-full sm:w-auto"
                 data-id="tableta-amaranto"
                 data-name="TABLETA DE CHOCOLATE CON AMARANTO"
                 data-size="100g"
@@ -832,7 +832,7 @@ import MobileCTA from "../components/MobileCTA.astro";
                 data-price-cochabamba="BS. 29.5"
                 data-price-lapaz="BS. 29.5"
               >
-                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2A1612]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 lg:w-5 lg:h-5 text-[#2A1612]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
                 <span>Añadir al carrito</span>
@@ -843,7 +843,7 @@ import MobileCTA from "../components/MobileCTA.astro";
 
         <!-- CARD 2: Chocolate con quinua -->
         <div
-          class="product-card group relative rounded-2xl sm:rounded-3xl border border-[#dcb041]/35 hover:border-[#dcb041]/60 bg-[#230f13]/65 hover:bg-[#230f13]/85 backdrop-blur-md p-4 sm:p-6 flex flex-row items-center gap-3 sm:gap-5 shadow-[0_15px_35px_rgba(0,0,0,0.45)] transition-all duration-500 hover:-translate-y-1 overflow-hidden cursor-pointer"
+          class="product-card group relative rounded-[28px] lg:rounded-[32px] border border-[#dcb041]/40 hover:border-[#dcb041]/75 bg-[#210e12]/85 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.55)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.7)] transition-all duration-500 hover:-translate-y-1.5 overflow-hidden flex flex-col sm:flex-row items-stretch cursor-pointer min-h-[340px] md:min-h-[380px] lg:min-h-[410px]"
           data-id="tableta-quinua"
           data-name="TABLETA DE CHOCOLATE CON QUINUA"
           data-size="100g"
@@ -852,40 +852,40 @@ import MobileCTA from "../components/MobileCTA.astro";
           data-price-cochabamba="BS. 29.5"
           data-price-lapaz="BS. 29.5"
         >
-          <!-- IMAGEN ESCENA DE PRODUCTO -->
-          <div class="w-[45%] sm:w-[48%] flex-shrink-0 flex items-center justify-center relative">
+          <!-- IMAGEN ESCENA DE PRODUCTO (LLENA TODO EL ALTO Y ANCHO IZQUIERDO DE PUNTA A PUNTA) -->
+          <div class="w-full sm:w-[50%] lg:w-[52%] relative flex-shrink-0 min-h-[260px] sm:min-h-full overflow-hidden">
             <img
               src="/img/destacado-quinua.webp"
               alt="Chocolate con quinua"
-              width="257"
-              height="348"
+              width="514"
+              height="696"
               loading="lazy"
               decoding="async"
-              class="object-contain w-full h-auto max-h-48 sm:max-h-60 md:max-h-64 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)] group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           </div>
 
-          <!-- SEPARADOR VERTICAL SUTIL -->
-          <div class="w-[1px] bg-[#dcb041]/35 self-stretch my-2 sm:my-3"></div>
+          <!-- SEPARADOR VERTICAL SUTIL DORADO -->
+          <div class="hidden sm:block w-[1px] bg-[#dcb041]/45 self-stretch my-6 lg:my-8 flex-shrink-0"></div>
 
           <!-- CONTENIDO Y ACCIÓN -->
-          <div class="flex-1 min-w-0 flex flex-col justify-center text-left pl-1 sm:pl-2">
-            <h3 class="text-xl sm:text-2xl md:text-[1.75rem] font-serif font-normal text-white leading-tight mb-1 sm:mb-2">
+          <div class="flex-1 p-6 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-center text-left">
+            <h3 class="text-2xl sm:text-3xl md:text-[2rem] lg:text-[2.35rem] font-serif font-normal text-white leading-[1.12] tracking-tight mb-2">
               Chocolate<br /><span class="font-normal">con quinua</span>
             </h3>
 
-            <p class="text-[11px] sm:text-xs text-[#FAF5F0]/75 font-sans tracking-wide mb-2 sm:mb-3">
+            <p class="text-xs sm:text-sm lg:text-base text-[#FAF5F0]/70 font-sans tracking-wide mb-3 sm:mb-4 lg:mb-5">
               Tableta · 100 g
             </p>
 
-            <p class="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#FAF5F0] mb-3 sm:mb-5">
+            <p class="text-2xl sm:text-3xl lg:text-[2.5rem] font-serif font-bold text-[#FAF5F0] mb-5 sm:mb-6 lg:mb-8">
               Bs. 29,50
             </p>
 
             <div>
               <button
                 type="button"
-                class="add-to-cart-btn inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#e7b85d] via-[#dfad4b] to-[#d39c38] hover:from-[#f3ca74] hover:to-[#e7b85d] text-[#2A1612] text-[11px] sm:text-xs font-extrabold shadow-[0_4px_14px_rgba(220,176,65,0.35)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+                class="add-to-cart-btn inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#e7b85d] via-[#dfad4b] to-[#d39c38] hover:from-[#f3ca74] hover:to-[#e7b85d] text-[#2A1612] text-xs sm:text-sm lg:text-base font-extrabold shadow-[0_0_22px_rgba(220,176,65,0.45)] hover:shadow-[0_0_30px_rgba(220,176,65,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer w-full sm:w-auto"
                 data-id="tableta-quinua"
                 data-name="TABLETA DE CHOCOLATE CON QUINUA"
                 data-size="100g"
@@ -894,7 +894,7 @@ import MobileCTA from "../components/MobileCTA.astro";
                 data-price-cochabamba="BS. 29.5"
                 data-price-lapaz="BS. 29.5"
               >
-                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2A1612]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 lg:w-5 lg:h-5 text-[#2A1612]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
                 <span>Añadir al carrito</span>
@@ -905,16 +905,16 @@ import MobileCTA from "../components/MobileCTA.astro";
       </div>
 
       <!-- ENLACE EDITORIAL AL CATÁLOGO COMPLETO -->
-      <div class="flex items-center justify-center gap-3 sm:gap-4 mt-10 sm:mt-14">
-        <span class="w-10 sm:w-20 md:w-28 h-[1px] bg-[#dcb041]/40"></span>
+      <div class="flex items-center justify-center gap-3 sm:gap-5 mt-12 sm:mt-16 md:mt-20">
+        <span class="w-12 sm:w-24 md:w-36 h-[1px] bg-[#dcb041]/40"></span>
         <a
           href="/Catalogo#cajas-especiales"
-          class="text-xs sm:text-sm md:text-base text-[#FAF5F0] hover:text-[#dcb041] font-serif transition-colors inline-flex items-center gap-2 group tracking-wide cursor-pointer"
+          class="text-sm sm:text-base md:text-lg text-[#FAF5F0] hover:text-[#dcb041] font-serif transition-colors inline-flex items-center gap-2.5 group tracking-wide cursor-pointer"
         >
           <span class="group-hover:underline underline-offset-4">Ver todos los chocolates</span>
-          <span class="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+          <span class="group-hover:translate-x-2 transition-transform duration-300">&rarr;</span>
         </a>
-        <span class="w-10 sm:w-20 md:w-28 h-[1px] bg-[#dcb041]/40"></span>
+        <span class="w-12 sm:w-24 md:w-36 h-[1px] bg-[#dcb041]/40"></span>
       </div>
     </div>
   </section>
