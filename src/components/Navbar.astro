@@ -3,8 +3,14 @@
 import RegisterModal from './RegisterModal.astro';
 import CartDrawer from './CartDrawer.astro';
 
+interface Props {
+  isDarkSolid?: boolean;
+}
+
+const { isDarkSolid = false } = Astro.props;
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.replace(/\/$/, "") || "/";
+const isSolidBrown = isDarkSolid || currentPath.includes('momentos-taboada') || currentPath.includes('momento');
 ---
 
 <style is:global>
@@ -18,7 +24,12 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
 
 <nav
   id="main-navbar"
-  class="fixed top-0 left-0 w-full z-[999] transition-[background-color,box-shadow,backdrop-filter] duration-500 bg-transparent border-b border-transparent hover:bg-white/10"
+  data-solid-brown={isSolidBrown ? "true" : "false"}
+  class={`fixed top-0 left-0 w-full z-[999] transition-[background-color,box-shadow,backdrop-filter] duration-500 ${
+    isSolidBrown
+      ? 'bg-[#2A1612] md:bg-[#2A1612]/95 backdrop-blur-[14px] border-b border-[#dcb041]/25 shadow-lg'
+      : 'bg-transparent border-b border-transparent hover:bg-white/10'
+  }`}
 >
   <div class="max-w-7xl mx-auto flex items-center justify-between h-[60px] sm:h-[75px] md:h-[95px] px-5 md:px-8 relative">
     
@@ -657,7 +668,14 @@ const currentPath = pathname.replace(/\/$/, "") || "/";
     if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', handleLogout);
 
     // Manejo de scroll para navbar
+    const isSolidBrown = navbar?.getAttribute('data-solid-brown') === 'true' || window.location.pathname.includes('momentos-taboada') || window.location.pathname.includes('momento');
+
     const handleScroll = () => {
+      if (isSolidBrown) {
+        navbar?.classList.add('bg-[#2A1612]', 'md:bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-[#dcb041]/25', 'shadow-lg');
+        navbar?.classList.remove('bg-transparent', 'border-transparent', 'hover:bg-white/10');
+        return;
+      }
       if (window.scrollY > 40) {
         navbar?.classList.add('bg-[#2A1612]/95', 'backdrop-blur-[14px]', 'border-b', 'border-white/10', 'shadow-lg');
         navbar?.classList.remove('bg-transparent', 'border-transparent', 'hover:bg-white/10');
