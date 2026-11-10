@@ -425,40 +425,40 @@ import MobileCTA from "../components/MobileCTA.astro";
       <!-- BANNER CARD INTERACTIVO CON FONDO PANORÁMICO OFICIAL -->
       <a
         href="/momentos-taboada"
-        class="group relative block w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#dcb041]/45 shadow-[0_20px_55px_rgba(0,0,0,0.55)] hover:border-[#dcb041] hover:shadow-[0_25px_65px_rgba(220,176,65,0.35)] transition-all duration-500 hover:scale-[1.008]"
+        class="group relative block w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.55)] hover:shadow-[0_25px_65px_rgba(220,176,65,0.35)] transition-all duration-500 hover:scale-[1.008]"
         title="Conoce la campaña Momentos Taboada"
       >
         <!-- Contenedor con la imagen oficial de fondo -->
         <div
-          class="relative w-full aspect-[20/10] sm:aspect-[24/9] md:aspect-[3/1] min-h-[310px] sm:min-h-[340px] md:min-h-[380px] lg:min-h-[410px] bg-cover bg-[center_right] sm:bg-center flex items-center"
+          class="relative w-full aspect-[19/10] sm:aspect-[26/9] md:aspect-[4/1] min-h-[290px] sm:min-h-[310px] md:min-h-[330px] lg:min-h-[350px] bg-cover bg-[center_right] sm:bg-center flex items-center"
           style="background-image: url('/img/banner-momentos-taboada-bg.webp');"
         >
           <!-- Gradiente suave en móvil para asegurar lectura cristalina del texto -->
           <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-[#FAF5EE]/95 via-[#FAF5EE]/88 via-55% to-transparent pointer-events-none"></div>
 
-          <!-- CONTENIDO SUPERPUESTO (Lado Izquierdo) -->
-          <div class="relative z-10 w-full sm:w-[50%] md:w-[47%] lg:w-[43%] p-5 sm:p-7 md:p-9 lg:pl-12 flex flex-col items-start justify-center text-left">
+          <!-- CONTENIDO SUPERPUESTO (Lado Izquierdo dentro del marco dorado) -->
+          <div class="relative z-10 w-full sm:w-[48%] md:w-[40%] lg:w-[37%] p-5 sm:p-6 md:p-8 lg:pl-12 flex flex-col items-start justify-center text-left">
             
             <!-- Insignia Oficial Limpia y Legible -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#4A1521]/10 border border-[#4A1521]/20 text-[#4A1521] text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3 backdrop-blur-xs">
+            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#4A1521]/10 border border-[#4A1521]/20 text-[#4A1521] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest mb-2 sm:mb-2.5 backdrop-blur-xs">
               <span class="w-1.5 h-1.5 rounded-full bg-[#dcb041]"></span>
               <span>Campaña Momentos Taboada</span>
             </div>
 
             <!-- Título Principal -->
-            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl lg:text-[2.1rem] xl:text-[2.35rem] font-black text-[#380E17] leading-[1.14] tracking-tight mb-2 sm:mb-3 drop-shadow-sm">
+            <h3 class="font-serif text-lg sm:text-xl md:text-2xl lg:text-[1.85rem] xl:text-[2.05rem] font-black text-[#380E17] leading-[1.12] tracking-tight mb-2 sm:mb-2.5 drop-shadow-sm">
               Cada compra te acerca <br class="hidden sm:inline" />a tu momento.
             </h3>
 
             <!-- Subtítulo Explicativo -->
-            <p class="text-xs sm:text-sm md:text-base text-[#4A1521]/90 font-medium leading-relaxed mb-4 sm:mb-6 max-w-sm">
+            <p class="text-xs sm:text-xs md:text-sm text-[#4A1521]/90 font-medium leading-relaxed mb-3.5 sm:mb-5 max-w-xs">
               Colecciona sellos físicos en sucursales y canjea premios especiales de edición limitada.
             </p>
 
             <!-- Botón Conoce la campaña en Vino y Dorado -->
-            <div class="inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#4A1521] via-[#5D1425] to-[#4A1521] text-[#FAF5F0] font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_8px_25px_rgba(74,21,33,0.45)] group-hover:shadow-[0_10px_30px_rgba(74,21,33,0.65)] border border-[#dcb041]/50 group-hover:border-[#dcb041] transition-all transform group-hover:scale-105 active:scale-95">
+            <div class="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#4A1521] via-[#5D1425] to-[#4A1521] text-[#FAF5F0] font-black text-xs tracking-wider uppercase shadow-[0_6px_20px_rgba(74,21,33,0.45)] group-hover:shadow-[0_8px_25px_rgba(74,21,33,0.65)] border border-[#dcb041]/50 group-hover:border-[#dcb041] transition-all transform group-hover:scale-105 active:scale-95">
               <span>Conoce la campaña</span>
-              <svg class="w-4 h-4 text-[#dcb041] transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-[#dcb041] transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
             </div>
