@@ -112,15 +112,36 @@ const sucursales = [
         </p>
 
         <!-- BANNER PANORÁMICO OFICIAL -->
-        <div class="max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#dcb041]/40 shadow-[0_20px_50px_rgba(0,0,0,0.6)] mb-8 bg-[#FAF5EE]">
-          <img
-            src="/img/banner-momentos-taboada.webp"
-            alt="Momentos Taboada - Cada compra te acerca a tu momento"
-            width="1024"
-            height="156"
-            class="w-full h-auto object-cover"
-            loading="eager"
-          />
+        <div class="max-w-5xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#dcb041]/45 shadow-[0_20px_55px_rgba(0,0,0,0.6)] mb-8 bg-[#FAF5EE]">
+          <div
+            class="relative w-full aspect-[20/10] sm:aspect-[24/9] md:aspect-[3/1] min-h-[290px] sm:min-h-[330px] md:min-h-[360px] bg-cover bg-[center_right] sm:bg-center flex items-center"
+            style="background-image: url('/img/banner-momentos-taboada-bg.webp');"
+          >
+            <!-- Gradiente móvil para legibilidad -->
+            <div class="sm:hidden absolute inset-0 bg-gradient-to-r from-[#FAF5EE]/95 via-[#FAF5EE]/88 via-55% to-transparent pointer-events-none"></div>
+
+            <!-- Contenido Izquierdo Superpuesto -->
+            <div class="relative z-10 w-full sm:w-[50%] md:w-[47%] lg:w-[43%] p-5 sm:p-7 md:p-9 lg:pl-10 flex flex-col items-start justify-center text-left">
+              <div class="mb-2 sm:mb-3">
+                <img
+                  src="/img/logo-momentos-taboada-transparent.webp"
+                  alt="Momentos Taboada"
+                  width="235"
+                  height="132"
+                  class="h-10 sm:h-12 md:h-15 w-auto object-contain drop-shadow-sm"
+                  loading="eager"
+                />
+              </div>
+
+              <h3 class="font-serif text-xl sm:text-2xl md:text-3xl font-black text-[#380E17] leading-[1.15] tracking-tight mb-2 drop-shadow-sm">
+                Cada compra te acerca <br class="hidden sm:inline" />a tu momento.
+              </h3>
+
+              <p class="text-xs sm:text-sm text-[#4A1521]/90 font-medium leading-relaxed max-w-sm">
+                Colecciona sellos físicos en sucursales y canjea premios especiales de edición limitada.
+              </p>
+            </div>
+          </div>
         </div>
 
         <!-- ALERTA DESTACADA: CARTILLA FÍSICA OBLIGATORIA -->
