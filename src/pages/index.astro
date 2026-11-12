@@ -41,7 +41,7 @@ import MobileCTA from "../components/MobileCTA.astro";
       class="hidden lg:block absolute inset-0 bg-no-repeat
            bg-cover bg-center scale-[1.02] transition-all duration-700"
       data-bg-cochabamba="/img/navidadcbba.webp"
-      data-bg-lapaz="/img/agostolp.webp"
+      data-bg-lapaz="/img/navidadlp.webp"
       style="background-image:url('/img/navidadcbba.webp')"
     >
     </div>
@@ -1321,7 +1321,7 @@ import MobileCTA from "../components/MobileCTA.astro";
           heroBgCover.getAttribute("data-bg-cochabamba") ||
           "/img/navidadcbba.webp";
         const bgLpz =
-          heroBgCover.getAttribute("data-bg-lapaz") || "/img/agostolp.webp";
+          heroBgCover.getAttribute("data-bg-lapaz") || "/img/navidadlp.webp";
 
         // Transición ultra suave de opacidad (fade-out / fade-in) y transform con curva cubic-bezier premium
         heroBgCover.style.transition =
@@ -1340,7 +1340,7 @@ import MobileCTA from "../components/MobileCTA.astro";
 
       const mobileHeroImg = document.getElementById("mobile-hero-img") as HTMLImageElement;
       if (mobileHeroImg) {
-        mobileHeroImg.src = (city === "la-paz" || city === "lapaz") ? "/img/agostolp.webp" : "/img/navidadcbba.webp";
+        mobileHeroImg.src = (city === "la-paz" || city === "lapaz") ? "/img/navidadlp.webp" : "/img/navidadcbba.webp";
       }
 
       // Actualizar el degradado de fondo de Colecciones
