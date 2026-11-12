@@ -39,10 +39,10 @@ import MobileCTA from "../components/MobileCTA.astro";
     <div
       id="hero-bg-cover"
       class="hidden lg:block absolute inset-0 bg-no-repeat
-           bg-cover bg-[center_18%] scale-105 transition-all duration-700"
-      data-bg-cochabamba="/img/agostocbba.webp"
+           bg-cover bg-center scale-[1.02] transition-all duration-700"
+      data-bg-cochabamba="/img/navidadcbba.webp"
       data-bg-lapaz="/img/agostolp.webp"
-      style="background-image:url('/img/agostocbba.webp')"
+      style="background-image:url('/img/navidadcbba.webp')"
     >
     </div>
 
@@ -246,7 +246,7 @@ import MobileCTA from "../components/MobileCTA.astro";
           
           <img
             id="mobile-hero-img"
-            src="/img/agostocbba.webp"
+            src="/img/navidadcbba.webp"
             alt="Chocolates Taboada"
             class="w-full h-full object-cover object-[75%_center] scale-105"
             loading="eager"
@@ -1334,7 +1334,7 @@ import MobileCTA from "../components/MobileCTA.astro";
       if (heroBgCover) {
         const bgCbba =
           heroBgCover.getAttribute("data-bg-cochabamba") ||
-          "/img/agostocbba.webp";
+          "/img/navidadcbba.webp";
         const bgLpz =
           heroBgCover.getAttribute("data-bg-lapaz") || "/img/agostolp.webp";
 
@@ -1355,7 +1355,7 @@ import MobileCTA from "../components/MobileCTA.astro";
 
       const mobileHeroImg = document.getElementById("mobile-hero-img") as HTMLImageElement;
       if (mobileHeroImg) {
-        mobileHeroImg.src = (city === "la-paz" || city === "lapaz") ? "/img/agostolp.webp" : "/img/agostocbba.webp";
+        mobileHeroImg.src = (city === "la-paz" || city === "lapaz") ? "/img/agostolp.webp" : "/img/navidadcbba.webp";
       }
 
       // Actualizar el degradado de fondo de Colecciones
