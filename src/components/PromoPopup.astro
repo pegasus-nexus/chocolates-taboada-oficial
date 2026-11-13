@@ -1,41 +1,60 @@
 ---
-// Componente de Pop-Up Promocional "Celebra Bolivia a tu manera" (6 de Agosto)
+// Componente de Pop-Up Promocional "Momentos Taboada" (Navidad 2026)
+// Responsivo: muestra imagen horizontal en PC/Tablet y diseño vertical en móviles.
 ---
 
 <div
   id="promo-popup-overlay"
   style="display: none;"
-  class="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] opacity-0 pointer-events-none transition-all duration-500 items-center justify-center p-4 sm:p-6"
+  class="fixed inset-0 bg-black/85 backdrop-blur-md z-[9999] opacity-0 pointer-events-none transition-all duration-500 items-center justify-center p-3 sm:p-6"
 >
   <div
     id="promo-popup-card"
-    class="relative w-full max-w-2xl bg-[#1d0c10] border border-[#dcb041]/50 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden scale-95 transition-all duration-500 text-center flex flex-col items-center"
+    class="relative w-full max-w-[92vw] sm:max-w-3xl md:max-w-4xl lg:max-w-5xl overflow-hidden scale-95 transition-all duration-500 text-center flex flex-col items-center rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.95)]"
   >
     <!-- Botón de Cerrar (X) -->
     <button
       id="promo-popup-close-btn"
       type="button"
-      class="absolute top-3 right-3 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-[#dcb041] hover:text-white border border-[#dcb041]/40 flex items-center justify-center transition-all duration-300 shadow-lg cursor-pointer hover:scale-110"
+      class="absolute top-2 right-2 sm:top-4 sm:right-4 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/75 hover:bg-black text-[#dcb041] hover:text-white border border-[#dcb041]/50 flex items-center justify-center transition-all duration-300 shadow-xl cursor-pointer hover:scale-110 active:scale-95"
       aria-label="Cerrar ventana emergente"
     >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
 
-    <!-- Imagen de la Edición Especial Bolivia -->
-    <div class="relative w-full overflow-hidden bg-[#180a0e]">
+    <!-- Enlace interactivo que lleva a la campaña Momentos Taboada -->
+    <a
+      href="/momentos-taboada"
+      id="promo-popup-link"
+      class="block w-full overflow-hidden rounded-3xl cursor-pointer group"
+      title="Conoce la campaña Momentos Taboada"
+    >
+      <!-- VERSIÓN MÓVIL (< sm): Formato vertical -->
       <img
-        id="promo-popup-img"
-        data-src="/img/popup_bolivia_edicion_especial.webp"
-        alt="Celebra Bolivia a tu manera - 6 de Agosto Edición Especial Chocolates Taboada"
-        width="662"
-        height="441"
-        class="w-full h-auto object-cover max-h-[85vh] rounded-3xl"
-        loading="lazy"
+        id="promo-popup-img-mobile"
+        src="/img/popup-momentos-mobile.webp"
+        alt="¡Colecciona sellos y canjea premios! Momentos Taboada"
+        width="1200"
+        height="1235"
+        class="sm:hidden w-full h-auto max-h-[85vh] object-contain rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]"
+        loading="eager"
         decoding="async"
       />
-    </div>
+
+      <!-- VERSIÓN ESCRITORIO (>= sm): Formato panorámico apaisado -->
+      <img
+        id="promo-popup-img-pc"
+        src="/img/popup-momentos-pc.webp"
+        alt="¡Colecciona sellos y canjea premios! Momentos Taboada"
+        width="1600"
+        height="836"
+        class="hidden sm:block w-full h-auto max-h-[85vh] object-contain rounded-3xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
   </div>
 </div>
 
@@ -48,10 +67,6 @@
     if (!overlay || !card) return;
 
     function openPopup() {
-      const img = document.getElementById('promo-popup-img');
-      if (img && img.dataset.src && !img.src) {
-        img.src = img.dataset.src;
-      }
       overlay.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => {
@@ -68,23 +83,23 @@
       card.classList.remove('scale-100');
       card.classList.add('scale-95');
       document.body.style.overflow = '';
-      sessionStorage.setItem('taboada_promo_seen_v1', 'true');
+      sessionStorage.setItem('taboada_momentos_popup_seen_v1', 'true');
       setTimeout(() => {
         overlay.style.display = 'none';
       }, 400);
     }
 
     // Exponer globalmente
-    window.openPromoPopup = openPopup;
-    window.closePromoPopup = closePopup;
+    (window as any).openPromoPopup = openPopup;
+    (window as any).closePromoPopup = closePopup;
 
-    // Mostrar automáticamente tras 3.2 segundos solo si no ha sido cerrado en esta sesión
+    // Mostrar automáticamente tras 2 segundos solo si no ha sido cerrado en esta sesión
     setTimeout(() => {
-      const hasSeen = sessionStorage.getItem('taboada_promo_seen_v1');
+      const hasSeen = sessionStorage.getItem('taboada_momentos_popup_seen_v1');
       if (!hasSeen) {
         openPopup();
       }
-    }, 3200);
+    }, 2000);
 
     if (closeBtn) closeBtn.addEventListener('click', closePopup);
 
